@@ -32,7 +32,7 @@ format-check:
 	@echo "format-check passed"
 
 deploy:
-	git checkout master
+	git checkout main
 	freeze
 	-git branch -D gh-pages
 	-git branch -D $(TEMP_DEPLOY_BRANCH)
@@ -43,5 +43,6 @@ deploy:
 	git push --force "https://${GH_TOKEN}@${GH_REF}.git" gh-pages
 	# git push --force origin gh-pages
 	git checkout @{-1}
+	-git branch -D $(TEMP_DEPLOY_BRANCH)
 	@echo "Deployed to gh-pages 🚀"
 
