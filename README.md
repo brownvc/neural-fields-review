@@ -33,7 +33,8 @@ When you are ready to deploy run `make freeze` to get a static version of the si
 
 ### Deploying to Github
 
-- Define two command-line variables `GH_TOKEN` and `GH_REF`. `GH_TOKEN` is your Github personal access token, and will look like `username:token`. `GH_REF` is the location of this repo, e.g., ```export GH_REF=github.com/brownvc/neural-fields-review```.
+- Define two command-line variables `GH_TOKEN` and `GH_REF`. `GH_TOKEN` is your Github personal access token, and will look like `username:token`. `GH_REF` is the location of this repo, e.g., ```$> export GH_REF=github.com/brownvc/neural-fields-review```.
+- *DO NOT* add `GH_TOKEN` to the Makefile&mdash;this is your personal access token and should be kept private. Hence, declare a temporary command line variable using `export`.
 - Execute `make deploy`. 
 - That's it. The page is now (live here)[https://brownvc.github.io/neural-fields-review/].
 
