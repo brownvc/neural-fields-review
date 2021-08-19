@@ -1,0 +1,39 @@
+name: MiniConf
+tagline: MINICONF <br> CONFERENCE <br> MANAGEMENT
+date: May 2020
+citation_date: May 2020
+proceedings_title: Proceedings of the First MiniCon Conference
+analytics: UA-
+logo:
+  image: static/images/MiniConf.png
+  width: 180px
+  height: auto
+# uncomment the following line to show the site title next to the logo image
+# site_title: MiniConf
+page_title:
+  prefix: 'MiniConf 2020'
+  separator: ': '
+background_image: static/images/main.jpg
+organization: MiniConf Organization Committee
+
+# Remove or change to your chat server.
+chat_server: miniconf.sloppy.zone
+default_presentation_id: 38922815
+default_poster_pdf: /static/images/GLTR_poster.pdf
+
+
+# Configuration for auth
+#Test user
+#user: miniconf@miniconf.com
+#pass: mIniconf1_
+
+use_auth0:
+auth0_client_id : JIdr6wi0z27LyLgwkJF0fpk700aj7MNH
+auth0_domain : miniconf.auth0.com
+
+calendar:
+  colors: #  Colors for the different event hashtags:
+    ---: '#bed972'
+    qa: '#4FCAEB'
+    talk: '#ccc'
+  sunday_saturday: false  #  Include Sunday and Saturday
