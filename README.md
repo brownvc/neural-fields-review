@@ -19,7 +19,7 @@ When the paper comes out, please cite:
 ## Adding a paper&mdash;How To
 
 - Fork the repo.
-- Add your paper to the *datastore* in <a href="https://github.com/brownvc/neural-fields-review/tree/main/sitedata">`sitedata/`</a>, within the papers.csv file. Make a new row, and create a *unique* ID. Include all information where possible.
+- Add your paper to the *datastore* in <a href="https://github.com/brownvc/neural-fields-review/tree/main/sitedata">`sitedata/`</a>, within the `papers.csv` file. Make a new row, and create a *unique* ID. Include all information where possible.
 - Create a pull request.
 
 ## Website Team&mdash;Get Started on Development
