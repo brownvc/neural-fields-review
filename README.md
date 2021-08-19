@@ -1,37 +1,28 @@
-## MiniConf
+## Neural Fields in Visual Computing&mdash;Complementary Webpage
 
-<a href="https://mini-conf.github.io/index.html">MiniConf</a> is a virtual conference in a box. It manages the papers, schedules, and speakers for an academic conference run virtually. It can be easily integrated with interactive tools such as video, chat, and QA.
+This is based on the extremely useful <a href="https://mini-conf.github.io/index.html">MiniConf</a> project for a virtual conference in a box from [Hendrik Strobelt](http://twitter.com/hen_str) and [Sasha Rush](http://twitter.com/srush_nlp)&mdash;thank you!
 
-<img src="https://raw.githubusercontent.com/Mini-Conf/Mini-Conf/master/miniconf.gif">
 
-MiniConf was originally built to host <a href="https://iclr.cc/virtual_2020">ICLR 2020</a> a virtual conference with 6000 participants and have been used to host a wide variety of major conferences.
+### Citation
+When the paper comes out, please cite:
+```bibtex
+@misc{xxx,
+    title={xxx},
+    author={xxx},
+    year={xxx},
+    eprint={xxx},
+    archivePrefix={xxx},
+    primaryClass={xxx}
+}
+```
 
-* AAAI 2021 
-* [ACMC 2020 (Australian Computer Music Conference)](https://acmc2020.com/index.html)
-* [ACM-CHIL 2020 (Conference on Health, Inference, and Learning)](https://www.chilconference.org/)
-* [ACL 2020 (Association of Computational Linguistics)](https://virtual.acl2020.org/index.html)
-* [AIStats 2020](https://aistats2020.net/)
-* [AKBC 2020 (Automated Knowledge Base Construction)](https://akbc.apps.allenai.org/index.html)
-* [EMNLP 2020 (Empirical Methods in NLP)](https://virtual.2020.emnlp.org/index.html)
-* [ICLR 2020 (International Conference on Learning Representations)](https://iclr.cc/virtual_2020)
-* [ICML 2020 (International Conference on Machine Learning)](https://icml.cc/virtual/2020/index.html)
-* [IEEE VIS 2020 (IEEE conference on Visualization and Visual Analytics)](https://virtual.ieeevis.org/)
-* [NeurIPS 2020 (Neural Information Processing Systems Conference)](https://neurips.cc/virtual/2020/public/)
-* [SIGIR 2020 (Information Retrieval)](https://sigir-schedule.baai.ac.cn/papers)
-* [Data Science Capstone Exhibition, University of Pretoria](https://up-mitc-ds.github.io/808exhibition2020/index.html)
+## Adding a paper&mdash;How To
 
-It is designed to be:
+- Fork the repo.
+- Add your paper to the *datastore* in <a href="https://github.com/brownvc/neural-fields-review/tree/main/sitedata">`sitedata/`</a>, within the papers.csv file. Make a new row, and create a *unique* ID. Include all information where possible.
+- Create a pull request.
 
-* Run based on static files hosted by any server. 
-* Modifiable without a database using CSV files.
-* Easy to extend to fit any backend or additional frontend tools. 
-
-## Links
-Demo system: <a href='http://www.mini-conf.org'> http://www.mini-conf.org</a>
-
-Source Code: <a href='https://github.com/Mini-Conf/Mini-Conf'> https://github.com/Mini-Conf/Mini-Conf</a>
-
-## Get Started
+## Website Team&mdash;Get Started on Development
 
 <pre>
 > pip install -r requirements.txt
@@ -40,32 +31,37 @@ Source Code: <a href='https://github.com/Mini-Conf/Mini-Conf'> https://github.co
 
 When you are ready to deploy run `make freeze` to get a static version of the site in the `build` folder. 
 
+### Deploying to Github
+
+- Define two command-line variables `GH_TOKEN` and `GH_REF`. `GH_TOKEN` is your Github personal access token, and will look like `username:token`. `GH_REF` is the location of this repo, e.g., ```export GH_REF=github.com/brownvc/neural-fields-review```.
+- Execute `make deploy`. 
+- That's it. The page is now (live here)[https://brownvc.github.io/neural-fields-review/].
 
 ### Tour
 
-The <a href="https://github.com/Mini-Conf/Mini-Conf">MiniConf</a> repo:
+The <a href="https://github.com/brownvc/neural-fields-review">repo</a> contains:
 
-1) *Datastore* <a href="https://github.com/Mini-Conf/Mini-Conf/tree/master/sitedata">`sitedata/`</a>
+1) *Datastore* <a href="https://github.com/brownvc/neural-fields-review/tree/main/sitedata">`sitedata/`</a>
 
 Collection of CSV files representing the papers, speakers, workshops, and other important information for the conference.
 
-2) *Routing* <a href="https://github.com/Mini-Conf/Mini-Conf/tree/master/main.py">`main.py`</a>
+2) *Routing* <a href="https://github.com/brownvc/neural-fields-review/tree/main/main.py">`main.py`</a>
 
 One file flask-server handles simple data preprocessing and site navigation. 
 
-3) *Templates* <a href="https://github.com/Mini-Conf/Mini-Conf/tree/master/templates">`templates/`</a>
+3) *Templates* <a href="https://github.com/brownvc/neural-fields-review/tree/main/templates">`templates/`</a>
 
 Contains all the pages for the site. See `base.html` for the master page and `components.html` for core components.
 
-4) *Frontend* <a href="https://github.com/Mini-Conf/Mini-Conf/tree/master/static">`static/`</a>
+4) *Frontend* <a href="https://github.com/brownvc/neural-fields-review/tree/main/static">`static/`</a>
 
 Contains frontend components like the default css, images, and javascript libs.
 
-5) *Scripts* <a href="https://github.com/Mini-Conf/Mini-Conf/tree/master/scripts">`scripts/`</a>
+5) *Scripts* <a href="https://github.com/brownvc/neural-fields-review/tree/main/scripts">`scripts/`</a>
 
 Contains additional preprocessing to add visualizations, recommendations, schedules to the conference. 
 
-6) For importing calendars as schedule see [scripts/README_Schedule.md](https://github.com/Mini-Conf/Mini-Conf/blob/master/scripts/README_Schedule.md)
+6) For importing calendars as schedule see [scripts/README_Schedule.md](https://github.com/brownvc/neural-fields-review/tree/main/scripts/README_Schedule.md)
 
 ### Extensions
 
@@ -82,21 +78,6 @@ MiniConf is designed to be a completely static solution. However it is designed 
 
 ### Acknowledgements
 
-MiniConf was built by [Hendrik Strobelt](http://twitter.com/hen_str) and [Sasha Rush](http://twitter.com/srush_nlp).
-
-Thanks to Darren Nelson for the original design sketches. Shakir Mohamed, Martha White, Kyunghyun Cho, Lee Campbell, and Adam White for planning and feedback. Hao Fang, Junaid Rahim, Jake Tae, Yasser Souri, Soumya Chatterjee, and Ankshita Gupta for contributions. 
-
-### Citation
-Feel free to cite MiniConf:
-```bibtex
-@misc{RushStrobelt2020,
-    title={MiniConf -- A Virtual Conference Framework},
-    author={Alexander M. Rush and Hendrik Strobelt},
-    year={2020},
-    eprint={2007.12238},
-    archivePrefix={arXiv},
-    primaryClass={cs.HC}
-}
-```
+More things here.
 
 
