@@ -1,9 +1,9 @@
-name: MiniConf
-tagline: MINICONF <br> CONFERENCE <br> MANAGEMENT
-date: May 2020
-citation_date: May 2020
-proceedings_title: Proceedings of the First MiniCon Conference
-analytics: UA-
+name: Neural Fields in Visual Computing
+tagline: Neural Fields <br> in <br> Visual Computing
+date: Sept 2021
+citation_date: Sept 2021
+proceedings_title: Proceedings of the xxx
+analytics: G-138S1D0VX9
 logo:
   image: static/images/MiniConf.png
   width: 180px
@@ -11,10 +11,10 @@ logo:
 # uncomment the following line to show the site title next to the logo image
 # site_title: MiniConf
 page_title:
-  prefix: 'MiniConf 2020'
+  prefix: 'NeuralFields'
   separator: ': '
 background_image: static/images/main.jpg
-organization: MiniConf Organization Committee
+organization: The Authors
 
 # Remove or change to your chat server.
 chat_server: miniconf.sloppy.zone
