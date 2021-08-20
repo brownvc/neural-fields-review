@@ -3,3 +3,11 @@ frozen-flask
 Flask-Markdown
 tqdm
 PyYAML
+
+# For Yiheng's scripts
+arxiv2bib
+feedparser
+openpyxl
+xlsxwriter
+unidecode
+
