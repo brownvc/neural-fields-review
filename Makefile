@@ -33,7 +33,7 @@ format-check:
 
 deploy:
 	git checkout main
-	freeze
+	python3 main.py sitedata/ --build
 	-git branch -D gh-pages
 	-git branch -D $(TEMP_DEPLOY_BRANCH)
 	git checkout -b $(TEMP_DEPLOY_BRANCH)
