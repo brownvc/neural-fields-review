@@ -1,6 +1,8 @@
 import unidecode
 import csv
 import feedparser, urllib
+from util import *
+
 
 names = {
     "Michael ZollhÃ¶fer": "Michael Zollhöfer",
@@ -25,31 +27,34 @@ names = {
 for k in names:
     print(unidecode.unidecode(names[k]))
 
-csv_name = "Review Paper Import Portal Responses - Form Responses 1.csv"
-# For bibtex: whether to use a more descriptive nickname (e.g. sitzmann2020siren)
-replace_name = True
+input_fname = "Review Paper Import Portal Responses"
+ext = ".xlsx"   # ".csv"
+input_fname += ext
+rows_in = read_spreadsheet(input_fname, ext)
+input_fname.replace(".csv", " - Form Responses 1.csv")
 
-rows = []
-with open(csv_name, newline='', encoding="utf-8") as csvfile:
-    reader = csv.reader(csvfile, delimiter=',', quotechar='"')
-    cnt = 0
-    print(reader)
-    for row in reader:
-        print(row)
-        # If paper is on arxiv
-        if ("https://arxiv.org/pdf/" in row[4]):
-            # Get data from arxiv api
-            id = row[4][22:32]
-            url = 'http://export.arxiv.org/api/query?id_list={}&start=0&max_results=1'.format(id)
-            data = urllib.request.urlopen(url)
-            d = feedparser.parse(data.read().decode('utf-8'))
-            print("?")
-            print(d['entries'][0].keys())
-            print(d['entries'][0]['author_detail'])
-            print(d['entries'][0]['published'])
-            print(d['entries'][0]['published_parsed'])
-            print(d['entries'][0]['title_detail'])
-            print(d['entries'][0]['summary'])
-            print(d['entries'][0]['summary_detail'])
-            exit(12)
-            
+rows_in = read_spreadsheet(input_fname, ext)
+
+cnt = 0
+for row in rows_in:
+    # If paper is on arxiv
+    if ("https://arxiv.org/pdf/" in row[4]):
+        # Get data from arxiv api
+        id = row[4][22:32]
+        url = 'http://export.arxiv.org/api/query?id_list={}&start=0&max_results=1'.format(id)
+        data = urllib.request.urlopen(url)
+        d = feedparser.parse(data.read().decode('utf-8'))
+        # print(d['entries'][0].keys())
+        # print(d['entries'][0]['author_detail'])
+        print(d['entries'][0]['published'])
+        # print(d['entries'][0]['published_parsed'])
+        # print(d['entries'][0]['title_detail'])
+        # print(d['entries'][0]['summary'])
+        # print(d['entries'][0]['summary_detail'])
+        if 'arxiv_comment' in d['entries'][0].keys():
+            print(d['entries'][0]['arxiv_comment'])
+        # print(d['entries'][0]['links'])
+        # print(d['entries'][0]['tags'])
+        # if cnt > 10:
+        #     exit(12)
+        cnt += 1

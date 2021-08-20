@@ -1,6 +1,7 @@
 import csv, xlsxwriter, openpyxl
 import feedparser, urllib, urllib.request
 from arxiv2bib import arxiv2bib
+from util import *
 
 input_fname = "Review Paper Import Portal Responses"
 input_ext = ".xlsx"
@@ -46,12 +47,7 @@ for row in rows_in:
     if ("https://arxiv.org/pdf/" in row[4]) and (row[27] == ""):
         # Get data from arxiv api
         if d is None:
-            id = row[4][22:32]
-            url = 'http://export.arxiv.org/api/query?id_list={}&start=0&max_results=1'.format(id)
-            data = urllib.request.urlopen(url)
-            d = feedparser.parse(data.read().decode('utf-8'))
-
-        # Authors
+           d = get_arxiv(row)
         auth_str = []
         for a in d['entries'][0]['authors']:
             auth_str.append(a['name'])
@@ -59,21 +55,39 @@ for row in rows_in:
         row[27] = ", ".join(auth_str)
     if ("https://arxiv.org/pdf/" in row[4]) and (row[29] == ""):
         if d is None:
-            id = row[4][22:32]
-            url = 'http://export.arxiv.org/api/query?id_list={}&start=0&max_results=1'.format(id)
-            data = urllib.request.urlopen(url)
-            d = feedparser.parse(data.read().decode('utf-8'))
-        # Abstract
+           d = get_arxiv(row)        # Abstract
         row[29] = d['entries'][0]['summary'].replace(" \n", " ").replace("\n ", " ").replace("\n", " ")
         print(cnt, row[29][:20], "...")
+
+    # Conference/Journal
+    if ("https://arxiv.org/pdf/" in row[4]) and (row[23] == ""):
+        if d is None:
+           d = get_arxiv(row)
+        if 'arxiv_comment' in d['entries'][0].keys():
+            comment = d['entries'][0]['arxiv_comment']
+
+            year = ""
+            year_range = [str("%02d" % d) for d in range(30)] + [str("20%02d" % d) for d in range(30)]
+            pub_year = d['entries'][0]['published'][:4]
+            for y in year_range:
+                if (y in comment):
+                    y = "20" + y if (len(y) == 2) else y
+                    if (abs(int(y) - int(pub_year)) < 2):
+                        year = y
+                        break
+            conf_range = ["CVPR", "SIGGRAPH", "ECCV", "3DV", "NeurIPS", "ICCV", "IROS", "EGSR", "EuroVis", "IJCAI"]
+            conf_range += [c.lower() for c in conf_range]
+            for c in conf_range:
+                if c in comment:
+                    conf = c
+                    break
+            row[23] = conf + " " + year
+            print(cnt, row[23])
+
     # Bibtex
     if ("https://arxiv.org/pdf/" in row[4]) and (row[11] == ""):
         if d is None:
-            id = row[4][22:32]
-            url = 'http://export.arxiv.org/api/query?id_list={}&start=0&max_results=1'.format(id)
-            data = urllib.request.urlopen(url)
-            d = feedparser.parse(data.read().decode('utf-8'))
-
+           d = get_arxiv(row)
         result = arxiv2bib([id])[0]
         bibtex_str = result.bibtex()
 
