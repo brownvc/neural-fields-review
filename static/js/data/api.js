@@ -67,7 +67,7 @@ class API {
    * @return {string}
    */
   static thumbnailPath(paper) {
-    return `https://brownvc.github.io/neural-fields-review/images/small/${paper.UID}.jpg`;
+    return `https://brownvc.github.io/neural-fields-review/static/images/small/${paper.UID}.jpg`;
   }
 
   /**
