@@ -21,12 +21,12 @@ for row in rows_in:
         continue
 
     rows_out.append([
-        row[29],       # UID
-        unidecode.unidecode(row[1]),             # Title
+        row[29],                                                # UID
+        unidecode.unidecode(row[1]),                            # Title
         "|".join(unidecode.unidecode(row[27]).split(", ")),     # Authors
-        unidecode.unidecode(row[30]),            # Abstract
-        "",                 # Keywords
-        "",                 # Sessions
+        unidecode.unidecode(row[30]),                           # Abstract
+        "|".join(row[12].split(", ") + row[13].split(", ")),    # Keywords
+        "",                                                     # Sessions
     ])
     cnt += 1
 
