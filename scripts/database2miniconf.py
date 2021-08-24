@@ -13,7 +13,7 @@ input_fname.replace(".csv", " - Form Responses 1.csv")
 
 rows_in = read_spreadsheet(input_fname, ext)
 
-rows_out = [["UID","title","authors","abstract","keywords","sessions"]]
+rows_out = [["UID", "title", "authors", "abstract", "keywords", "sessions", "PDF", "Code"]]
 cnt = 0
 for row in rows_in:
     if cnt == 0:
@@ -27,6 +27,8 @@ for row in rows_in:
         unidecode.unidecode(row[30]),                           # Abstract
         "|".join(row[12].split(", ") + row[13].split(", ")),    # Keywords
         "",                                                     # Sessions
+        row[4],                                                 # PDF
+        row[6],                                                 # Code
     ])
     cnt += 1
 
