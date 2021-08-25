@@ -2,6 +2,7 @@ import csv, xlsxwriter, openpyxl
 import feedparser, urllib, urllib.request
 from arxiv2bib import arxiv2bib
 from util import *
+import unidecode
 
 replace_name = True
 capitalize_bibtex_keys = True
@@ -108,10 +109,10 @@ for row in rows_in:
             bibtex_str = bibtex_str[:start] + name + bibtex_str[end:]
 
         if capitalize_bibtex_keys:
-            bibtex_str = capitalize_keys(bibtex_str)
+            bibtex_str = format_bibtex_str(bibtex_str)
 
         if len(bibtex_str) > 10:
-            row[11] = bibtex_str
+            row[11] = unidecode.unidecode(bibtex_str)
             print(cnt, "success", name)
         else:
             print(cnt, "ERROR: bibtex too short", bibtex_str)
