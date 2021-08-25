@@ -3,6 +3,9 @@ import feedparser, urllib, urllib.request
 from arxiv2bib import arxiv2bib
 from util import *
 
+replace_name = True
+capitalize_bibtex_keys = True
+
 input_fname = "Review Paper Import Portal Responses"
 input_ext = ".xlsx"
 input_fname += input_ext
@@ -47,7 +50,7 @@ for row in rows_in:
     if ("https://arxiv.org/pdf/" in row[4]) and (row[27] == ""):
         # Get data from arxiv api
         if d is None:
-           d = get_arxiv(row)
+           d, id = get_arxiv(row)
         auth_str = []
         for a in d['entries'][0]['authors']:
             auth_str.append(a['name'])
@@ -55,14 +58,14 @@ for row in rows_in:
         row[27] = ", ".join(auth_str)
     if ("https://arxiv.org/pdf/" in row[4]) and (row[29] == ""):
         if d is None:
-           d = get_arxiv(row)        # Abstract
+           d, id = get_arxiv(row)        # Abstract
         row[29] = d['entries'][0]['summary'].replace(" \n", " ").replace("\n ", " ").replace("\n", " ")
         print(cnt, row[29][:20], "...")
 
     # Conference/Journal
     if ("https://arxiv.org/pdf/" in row[4]) and (row[23] == ""):
         if d is None:
-           d = get_arxiv(row)
+           d, id = get_arxiv(row)
         if 'arxiv_comment' in d['entries'][0].keys():
             comment = d['entries'][0]['arxiv_comment']
 
@@ -77,21 +80,23 @@ for row in rows_in:
                         break
             conf_range = ["CVPR", "SIGGRAPH", "ECCV", "3DV", "NeurIPS", "ICCV", "IROS", "EGSR", "EuroVis", "IJCAI"]
             conf_range += [c.lower() for c in conf_range]
+            conf = ""
             for c in conf_range:
                 if c in comment:
                     conf = c
                     break
-            row[23] = conf + " " + year
-            print(cnt, row[23])
+            if conf != "":
+                row[23] = conf + " " + year
+                print(cnt, row[23])
 
     # Bibtex
-    if ("https://arxiv.org/pdf/" in row[4]) and (row[11] == ""):
+    if ("https://arxiv.org/pdf/" in row[4]):# and (row[11] == ""):
+        # Get bibtex string
         if d is None:
-           d = get_arxiv(row)
+           d, id = get_arxiv(row)
         result = arxiv2bib([id])[0]
         bibtex_str = result.bibtex()
 
-        replace_name = True
         if replace_name:
             start, end = bibtex_str.find("{") + 1, bibtex_str.find(",")
             if (row[2] != ""):
@@ -102,8 +107,11 @@ for row in rows_in:
             name = lastname + result.year + keyword
             bibtex_str = bibtex_str[:start] + name + bibtex_str[end:]
 
+        if capitalize_bibtex_keys:
+            bibtex_str = capitalize_keys(bibtex_str)
+
         if len(bibtex_str) > 10:
-            row[11] = bibtex_str.replace("\r\n", "\n")
+            row[11] = bibtex_str
             print(cnt, "success", name)
         else:
             print(cnt, "ERROR: bibtex too short", bibtex_str)
