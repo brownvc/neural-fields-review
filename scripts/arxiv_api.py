@@ -91,7 +91,7 @@ for row in rows_in:
                 print(cnt, row[23])
 
     # Bibtex
-    if ("https://arxiv.org/pdf/" in row[4]):# and (row[11] == ""):
+    if ("https://arxiv.org/pdf/" in row[4]) and (row[11] == ""):
         # Get bibtex string
         if d is None:
            d, id = get_arxiv(row)

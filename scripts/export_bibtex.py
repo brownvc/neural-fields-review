@@ -1,10 +1,12 @@
 import csv
+import util
 
 
 def export_from_spreadsheet(input_fname, input_ext, output_fname="references.bib"):
     bibtex = []
-    reader = read_spreadsheet(input_fname, input_ext):
+    reader = util.read_spreadsheet(input_fname, input_ext)
 
+    cnt = 0
     for row in reader:
         if cnt == 0:
             cnt += 1
@@ -15,10 +17,34 @@ def export_from_spreadsheet(input_fname, input_ext, output_fname="references.bib
         f.writelines(bibtex)
 
 
+def format_dotbib_file(fname):
+    with open(fname, 'r') as file:
+        data = file.read()
+
+    # Add new line between two citations
+    data = data.replace("\n\n\n@", "\n@").replace("\n\n@", "\n@").replace("\n@", "\n\n@")
+    data = data[data.find("@"):]
+    data = data.split("\n\n@")
+    print("% bibtex citations.".format(len(data)))
+
+    formatted = []
+    for d in data:
+        formatted.append(util.format_bibtex_str(d))
+
+    formatted = "\n\n@".join(formatted)
+
+    with open(fname, "w") as file:
+        file.write(formatted)
+
+
 if __name__ == "__main__":
     # input_fname = "Review Paper Import Portal Responses - Form Responses 1"
     # input_ext = ".csv"
     input_fname = "Review Paper Import Portal Responses"
+    input_fname = "output_responses"
     input_ext = ".xlsx"
 
     export_from_spreadsheet(input_fname, input_ext)
+
+    # dotbib_fname = "more_ref.bib"
+    # format_dotbib_file(dotbib_fname)

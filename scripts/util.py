@@ -59,12 +59,14 @@ def write_spreadsheet(rows, fname, ext):
         workbook.close()
 
 
-def format_bibtex_str(texstr, cap_keys="ALL", space=True, indent="    "):
+def format_bibtex_str(texstr, cap_keys="ALL", space=True, indent="    ", remove_newline_in_value=True):
     """
     Args:
         cap_keys: {"ALL", "Initial", "lower"}
     """
-    print(texstr)
+    indents = {"\t", " ", "  ", "    ", "          ", "\r"}
+
+    # print(texstr)
     ind = 0
     cnt = 0
     while ind < len(texstr):
@@ -109,9 +111,16 @@ def format_bibtex_str(texstr, cap_keys="ALL", space=True, indent="    "):
             cnt += 1
             if cnt > 20:
                 raise ValueError("Yiheng wrote a bug... check for infinite while loop here")
+        ket = right
+        if remove_newline_in_value:
+            braket = texstr[bra:ket]
+            for i in indents:
+                braket = braket.replace("\n"+i, "")
+            braket = braket.replace("\n", "")
+            texstr = texstr[:bra] + braket + texstr[ket:]
 
     if indent is not None:
-        for i in {"\t", " ", "  ", "    ", "\r"}:
+        for i in indents:
             texstr = texstr.replace("\n"+i+i, "\n")
             texstr = texstr.replace("\n"+i, "\n")
 
