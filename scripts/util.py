@@ -25,10 +25,12 @@ def get_scholarly_result(title):
         except:
             print("Generating proxy attempt {}...".format(cnt))
             # Generate proxy to avoid Google banning bots
-            pg = ProxyGenerator()
-            pg.FreeProxies()
-            scholarly.use_proxy(pg)
-            cnt += 1
+            try:
+                pg = ProxyGenerator()
+                pg.FreeProxies()
+                scholarly.use_proxy(pg)
+                cnt += 1
+            except: pass
             search_result = None
     return search_result
 

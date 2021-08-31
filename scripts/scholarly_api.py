@@ -79,7 +79,6 @@ for row in tqdm(rows_in):
     # Venue
     if row[23] == "":
         search_result = get_scholarly_result(row[1]) if (search_result is None) else search_result
-        venue = get_venue(search_result['bib']['venue'], search_result['bib']['pub_year'])
         try:
             if not (("..." in search_result['bib']['venue']) or ("…" in search_result['bib']['venue'])):
                 print(search_result['bib']['venue'])
@@ -97,10 +96,8 @@ for row in tqdm(rows_in):
                 row[30] = abstract
         except Exception as e:
             print(e)
-
+    cnt += 1
     rows_out.append(row)
-    print(row)
-    break
 
 write_spreadsheet(rows_out, output_fname, output_ext)
 
