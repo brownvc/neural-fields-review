@@ -95,23 +95,4 @@ for row in rows_in:
     rows_out.append(row)
     cnt += 1
 
-if (output_ext == ".csv"):
-    with open(csv_name, "w", newline='', encoding="utf-8") as csvfile:
-        writer = csv.writer(csvfile)
-        writer.writerows(rows_out)
-elif (output_ext == ".xlsx"):
-    # Create a workbook and add a worksheet.
-    workbook = xlsxwriter.Workbook(output_fname)
-    worksheet = workbook.add_worksheet()
-    # Start from the first cell. Rows and columns are zero indexed.
-    row = 0
-    col = 0
-
-    # Iterate over the data and write it out row by row.
-    for r in rows_out:
-        for c in r:
-            worksheet.write(row, col, c)
-            col += 1
-        row += 1
-        col = 0
-    workbook.close()
+util.write_spreadsheet(rows_out, output_fname, output_ext)

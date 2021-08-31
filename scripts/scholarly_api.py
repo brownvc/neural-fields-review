@@ -35,38 +35,72 @@ for row in rows_in:
         continue
 
     search_result = None
-    while search_result is None:
+    # Bibtex
+    if (row[11] == ""):
+        search_result = get_scholarly_result(row[1]) if (search_reuslt=None) else search_result
         try:
-            search_result = next(scholarly.search_pubs(row[1]))
-            search_result = scholarly.fill(search_result)
+            bibtex_str = format_bibtex_str(scholarly.bibtex(search_result), cap_keys=capitalize_bibtex_keys)
+            row[11] = bibtex_str
         except:
-            # Generate proxy to avoid Google banning bots
-            print("Generating proxy...")
-            pg = ProxyGenerator()
-            pg.FreeProxies()
-            scholarly.use_proxy(pg)
-            print("Proxy generated.")
+            pass
 
-    bibtex_str, citations, authors, venue = "", "", "", ""
-    try:
-        bibtex_str = format_bibtex_str(scholarly.bibtex(search_result), cap_keys=capitalize_bibtex_keys)
-    except:
-        pass
-    try:
-        citations = search_result['num_citations']
-    except:
-        pass
-    try:
-        if bibtex_str != "":
-            authors = ", ".join(get_authors_from_bibtex(bibtex_str))
-    except:
-        pass
-    try:
-        if not (("..." in search_result['bib']['venue']) or ("…" in search_result['bib']['venue'])):
-            venue = search_result['bib']['venue']
-    except:
-        pass
-    print(bibtex_str, citations, authors, venue)
+    # Bibtex name (same code as arxiv_api.py)
+    if (row[28] == ""):
+        if (row[11] != ""):
+            row[11] = row[11].replace("\r\n", "\n")
+            start, end = row[11].find("{") + 1, row[11].find(",")
+            name = row[11][start:end]
+            row[28] = name.lower()
+            print(cnt, name)
+
+
+    # Citations count
+    if (row[31] == ""):
+        search_result = get_scholarly_result(row[1]) if (search_reuslt=None) else search_result
+        try:
+            citations = search_result['num_citations']
+            row[31] = citations
+        except:
+            pass
+
+    # Authors
+    if row[27] == "":
+        search_result = get_scholarly_result(row[1]) if (search_reuslt=None) else search_result
+        try:
+            if (row[11] != ""):
+                authors = ", ".join(get_authors_from_bibtex(bibtex_str))
+                row[27] = authors
+        except:
+            pass
+
+    # Venue
+    if row[23] == "":
+        search_result = get_scholarly_result(row[1]) if (search_reuslt=None) else search_result
+        try:
+            if not (("..." in search_result['bib']['venue']) or ("…" in search_result['bib']['venue'])):
+                venue = get_venue(search_result['bib']['venue'])
+                row[23] = venue
+        except:
+            pass
+
+    # Abstract
+    if row[30] == "":
+        search_result = get_scholarly_result(row[1]) if (search_reuslt=None) else search_result
+        try:
+            abstract = search_result['bib']['abstract']
+            if len(abstract) > 20:
+                row[30] = abstract
+        except:
+            pass
+
+    rows_out.append(row)
+
+util.write_spreadsheet(rows_out, output_fname, output_ext)
+
+
+"""
+Testing/exploration code...
+"""
 
     # print(search_result['num_citations'])
     # 366
@@ -96,4 +130,3 @@ for row in rows_in:
     # Generates a list of bibtex for all papers that cites this paper
     # cited_by = [citation['bib'] for citation in scholarly.citedby(search_result)]
     # cited_by = [citation['bib']['title'] for citation in scholarly.citedby(search_result)]
-    exit(12)

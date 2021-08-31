@@ -10,6 +10,19 @@ def get_arxiv(row):
     return d, id
 
 
+def get_scholarly_result(title):
+    search_result = None
+    while search_result is None:
+        try:
+            search_result = next(scholarly.search_pubs(title))
+            search_result = scholarly.fill(search_result)
+        except:
+            # Generate proxy to avoid Google banning bots
+            pg = ProxyGenerator()
+            pg.FreeProxies()
+            scholarly.use_proxy(pg)
+    return search_result
+
 def read_spreadsheet(input_fname, input_ext):
     rows_in = []
     if (input_ext == ".xlsx"):
@@ -127,6 +140,12 @@ def format_bibtex_str(texstr, cap_keys="ALL", space=True, indent="    ", remove_
         texstr = texstr.replace("\n", "\n"+indent)
         if texstr[-(2+len(indent)):] == "\n"+indent+"}":
             texstr = texstr[:-(2+len(indent))] + "\n}"
+
+    # Format tailend
+    rev_str = texstr[::-1]
+    last = rev_str.find("}")
+    second_last = rev_str[last+1:].find("}") + last + 1
+    texstr = rev_str[second_last:][::-1]+"\n}"
     return texstr
 
 def get_authors_from_bibtex(bibtex_str, last_name_first=False):

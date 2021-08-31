@@ -33,7 +33,7 @@ output_ext = ".xlsx"
 
 reader = util.read_spreadsheet(input_fname, input_ext)
 
-pdf_links_all, wrong_pdf, missing_author, missing_nickname, missing_bibtex, incorrect_spelling, missing_abstract = [], [], [], [], [], [], []
+pdf_links_all, wrong_pdf, missing_author, missing_nickname, missing_bibtex, missing_bibtex_name, incorrect_spelling, missing_abstract, missing_UID = [], [], [], [], [], [], [], [], []
 rows = []
 cnt = 0
 prev_pdf = ""
@@ -91,8 +91,18 @@ for row in reader:
                 # print(word)
                 break
 
+    # UID
+    if len(row[28]) < 20:
+        missing_bibtex_name.append(cnt+1)
+
+    # UID
     if len(row[29]) < 20:
+        missing_UID.append(cnt+1)
+
+    # Abstract
+    if len(row[30]) < 20:
         missing_abstract.append(cnt+1)
+
 
     rows.append(row)
 
@@ -111,5 +121,11 @@ print("# Check for missing bibtex")
 print(missing_bibtex)
 print("# Check for miss-spelling")
 print(incorrect_spelling)
+print("# Check for missing bibtex name")
+print(missing_bibtex_name)
+print("# Check for missing abstract")
+print(missing_abstract)
+print("# Check for missing UID")
+print(missing_UID)
 
 
