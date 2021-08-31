@@ -3,14 +3,16 @@ Use package scholarly (https://scholarly.readthedocs.io/en/stable/)
 to get the following information:
 - Authors
 - Bibtex citation
-- Conference
+- Citedby (count)
+Stuff it's not good at:
+- Abstract (often truncated)
+- Venue (often truncated)
 This is especially useful if the paper is not on ArXiv.
 """
-from scholarly import scholarly
-from scholarly import ProxyGenerator
 import csv, xlsxwriter, openpyxl
 from util import *
 import unidecode
+from tqdm import tqdm
 
 capitalize_bibtex_keys = "ALL"
 
@@ -28,7 +30,7 @@ rows_out = []
 
 # Iterate on each row
 cnt = 0
-for row in rows_in:
+for row in tqdm(rows_in):
     if (cnt == 0):
         rows_out.append(row)
         cnt += 1
@@ -37,12 +39,12 @@ for row in rows_in:
     search_result = None
     # Bibtex
     if (row[11] == ""):
-        search_result = get_scholarly_result(row[1]) if (search_reuslt=None) else search_result
+        search_result = get_scholarly_result(row[1]) if (search_result is None) else search_result
         try:
             bibtex_str = format_bibtex_str(scholarly.bibtex(search_result), cap_keys=capitalize_bibtex_keys)
             row[11] = bibtex_str
-        except:
-            pass
+        except Exception as e:
+            print(e)
 
     # Bibtex name (same code as arxiv_api.py)
     if (row[28] == ""):
@@ -56,46 +58,51 @@ for row in rows_in:
 
     # Citations count
     if (row[31] == ""):
-        search_result = get_scholarly_result(row[1]) if (search_reuslt=None) else search_result
+        search_result = get_scholarly_result(row[1]) if (search_result is None) else search_result
         try:
             citations = search_result['num_citations']
             row[31] = citations
-        except:
-            pass
+            print(cnt, "citations count: ", row[31])
+        except Exception as e:
+            print(e)
 
     # Authors
     if row[27] == "":
-        search_result = get_scholarly_result(row[1]) if (search_reuslt=None) else search_result
+        search_result = get_scholarly_result(row[1]) if (search_result is None) else search_result
         try:
             if (row[11] != ""):
                 authors = ", ".join(get_authors_from_bibtex(bibtex_str))
                 row[27] = authors
-        except:
-            pass
+        except Exception as e:
+            print(e)
 
     # Venue
     if row[23] == "":
-        search_result = get_scholarly_result(row[1]) if (search_reuslt=None) else search_result
+        search_result = get_scholarly_result(row[1]) if (search_result is None) else search_result
+        venue = get_venue(search_result['bib']['venue'], search_result['bib']['pub_year'])
         try:
             if not (("..." in search_result['bib']['venue']) or ("…" in search_result['bib']['venue'])):
-                venue = get_venue(search_result['bib']['venue'])
+                print(search_result['bib']['venue'])
+                venue = get_venue(search_result['bib']['venue'], search_result['bib']['pub_year'])
                 row[23] = venue
-        except:
-            pass
+        except Exception as e:
+            print(e)
 
     # Abstract
     if row[30] == "":
-        search_result = get_scholarly_result(row[1]) if (search_reuslt=None) else search_result
+        search_result = get_scholarly_result(row[1]) if (search_result is None) else search_result
         try:
             abstract = search_result['bib']['abstract']
             if len(abstract) > 20:
                 row[30] = abstract
-        except:
-            pass
+        except Exception as e:
+            print(e)
 
     rows_out.append(row)
+    print(row)
+    break
 
-util.write_spreadsheet(rows_out, output_fname, output_ext)
+write_spreadsheet(rows_out, output_fname, output_ext)
 
 
 """

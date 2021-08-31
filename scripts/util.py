@@ -1,5 +1,10 @@
 import openpyxl, csv
+
 import urllib, feedparser
+
+from scholarly import scholarly
+from scholarly import ProxyGenerator
+
 import xlsxwriter
 
 def get_arxiv(row):
@@ -12,15 +17,19 @@ def get_arxiv(row):
 
 def get_scholarly_result(title):
     search_result = None
+    cnt = 1
     while search_result is None:
         try:
             search_result = next(scholarly.search_pubs(title))
-            search_result = scholarly.fill(search_result)
+            # search_result = scholarly.fill(search_result)
         except:
+            print("Generating proxy attempt {}...".format(cnt))
             # Generate proxy to avoid Google banning bots
             pg = ProxyGenerator()
             pg.FreeProxies()
             scholarly.use_proxy(pg)
+            cnt += 1
+            search_result = None
     return search_result
 
 def read_spreadsheet(input_fname, input_ext):
@@ -152,9 +161,7 @@ def get_authors_from_bibtex(bibtex_str, last_name_first=False):
     author = {"author = {": 10, "author={": 8, "AUTHOR = {": 10, "AUTHOR={": 8}
     for a in author:
         ind = bibtex_str.find(a)
-        print("there")
         if ind >= 0:
-            print("here")
             start_ind = ind + author[a]
             end_ind = start_ind + bibtex_str[start_ind:].find("}")
             authors_str = bibtex_str[start_ind:end_ind]
@@ -163,11 +170,10 @@ def get_authors_from_bibtex(bibtex_str, last_name_first=False):
                 authors_list = [" ".join(a.split(", ")[::-1]) for a in authors_list]
             return authors_list
 
-def get_venue(comment):
+def get_venue(comment, pub_year):
     conf, year, venue = "", "", ""
 
     year_range = [str("%02d" % d) for d in range(30)] + [str("20%02d" % d) for d in range(30)]
-    pub_year = d['entries'][0]['published'][:4]
     for y in year_range:
         if (y in comment):
             y = "20" + y if (len(y) == 2) else y

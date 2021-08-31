@@ -50,9 +50,7 @@ for row in rows_in:
         if d is None:
            d, id = get_arxiv(row)
         if 'arxiv_comment' in d['entries'][0].keys():
-            comment = d['entries'][0]['arxiv_comment']
-
-            row[23] = get_venue(comment)
+            row[23] = get_venue(d['entries'][0]['arxiv_comment'], d['entries'][0]['pub_year'])
             print(cnt, row[23])
 
     # Bibtex
