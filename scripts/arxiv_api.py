@@ -5,7 +5,7 @@ from util import *
 import unidecode
 
 replace_name = True
-capitalize_bibtex_keys = True
+capitalize_bibtex_keys = "ALL"
 
 input_fname = "Review Paper Import Portal Responses"
 input_ext = ".xlsx"
@@ -18,26 +18,8 @@ input_fname.replace(".csv", " - Form Responses 1.csv")
 output_fname.replace(".csv", " - Form Responses 1.csv")
 
 # Load spreadsheet
-rows_in, rows_out = [], []
-if (input_ext == ".xlsx"):
-    workbook = openpyxl.load_workbook(input_fname)
-    sheet = workbook.active
-    for row in sheet.iter_rows():
-        row_in = []
-        allNone = True
-        for cell in row:
-            if cell.value is None:
-                row_in.append("")
-            else:
-                allNone = False
-                row_in.append(cell.value)
-        if allNone: continue
-        rows_in.append(row_in)
-elif (input_ext == ".csv"):
-    with open(input_fname, newline='', encoding="utf-8") as csvfile:
-        reader = csv.reader(csvfile, delimiter=',', quotechar='"')
-        for row in reader:
-            rows_in.append(row)
+rows_in = read_spreadsheet(input_fname, input_ext)
+rows_out = []
 
 # Iterate on each row
 cnt = 0
@@ -63,32 +45,15 @@ for row in rows_in:
         row[29] = d['entries'][0]['summary'].replace(" \n", " ").replace("\n ", " ").replace("\n", " ")
         print(cnt, row[29][:20], "...")
 
-    # Conference/Journal
+    # Venue
     if ("https://arxiv.org/pdf/" in row[4]) and (row[23] == ""):
         if d is None:
            d, id = get_arxiv(row)
         if 'arxiv_comment' in d['entries'][0].keys():
             comment = d['entries'][0]['arxiv_comment']
 
-            year = ""
-            year_range = [str("%02d" % d) for d in range(30)] + [str("20%02d" % d) for d in range(30)]
-            pub_year = d['entries'][0]['published'][:4]
-            for y in year_range:
-                if (y in comment):
-                    y = "20" + y if (len(y) == 2) else y
-                    if (abs(int(y) - int(pub_year)) < 2):
-                        year = y
-                        break
-            conf_range = ["CVPR", "SIGGRAPH", "ECCV", "3DV", "NeurIPS", "ICCV", "IROS", "EGSR", "EuroVis", "IJCAI"]
-            conf_range += [c.lower() for c in conf_range]
-            conf = ""
-            for c in conf_range:
-                if c in comment:
-                    conf = c
-                    break
-            if conf != "":
-                row[23] = conf + " " + year
-                print(cnt, row[23])
+            row[23] = get_venue(comment)
+            print(cnt, row[23])
 
     # Bibtex
     if ("https://arxiv.org/pdf/" in row[4]) and (row[11] == ""):
@@ -108,8 +73,7 @@ for row in rows_in:
             name = lastname + result.year + keyword
             bibtex_str = bibtex_str[:start] + name + bibtex_str[end:]
 
-        if capitalize_bibtex_keys:
-            bibtex_str = format_bibtex_str(bibtex_str)
+        bibtex_str = format_bibtex_str(bibtex_str, cap_keys=capitalize_bibtex_keys)
 
         if len(bibtex_str) > 10:
             row[11] = unidecode.unidecode(bibtex_str)

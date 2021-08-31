@@ -109,7 +109,7 @@ def format_bibtex_str(texstr, cap_keys="ALL", space=True, indent="    ", remove_
                 right_cnt += 1
                 ind = right + 1
             cnt += 1
-            if cnt > 20:
+            if cnt > 100:
                 raise ValueError("Yiheng wrote a bug... check for infinite while loop here")
         ket = right
         if remove_newline_in_value:
@@ -128,3 +128,41 @@ def format_bibtex_str(texstr, cap_keys="ALL", space=True, indent="    ", remove_
         if texstr[-(2+len(indent)):] == "\n"+indent+"}":
             texstr = texstr[:-(2+len(indent))] + "\n}"
     return texstr
+
+def get_authors_from_bibtex(bibtex_str, last_name_first=False):
+    author = {"author = {": 10, "author={": 8, "AUTHOR = {": 10, "AUTHOR={": 8}
+    for a in author:
+        ind = bibtex_str.find(a)
+        print("there")
+        if ind >= 0:
+            print("here")
+            start_ind = ind + author[a]
+            end_ind = start_ind + bibtex_str[start_ind:].find("}")
+            authors_str = bibtex_str[start_ind:end_ind]
+            authors_list = authors_str.split(" and ")
+            if (not last_name_first) and (", " in authors_str):
+                authors_list = [" ".join(a.split(", ")[::-1]) for a in authors_list]
+            return authors_list
+
+def get_venue(comment):
+    conf, year, venue = "", "", ""
+
+    year_range = [str("%02d" % d) for d in range(30)] + [str("20%02d" % d) for d in range(30)]
+    pub_year = d['entries'][0]['published'][:4]
+    for y in year_range:
+        if (y in comment):
+            y = "20" + y if (len(y) == 2) else y
+            if (abs(int(y) - int(pub_year)) < 2):
+                year = y
+                break
+
+    conf_range = ["CVPR", "SIGGRAPH", "ECCV", "3DV", "NeurIPS", "ICCV", "IROS", "EGSR", "EuroVis", "IJCAI"]
+    conf_range += [c.lower() for c in conf_range]
+    for c in conf_range:
+        if c in comment:
+            conf = c
+            break
+
+    if conf != "":
+        venue = conf + " " + year
+    return venue
