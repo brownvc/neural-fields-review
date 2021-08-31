@@ -10,4 +10,4 @@ feedparser
 openpyxl
 xlsxwriter
 unidecode
-
+scholarly

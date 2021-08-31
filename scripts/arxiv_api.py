@@ -3,17 +3,15 @@ import feedparser, urllib, urllib.request
 from arxiv2bib import arxiv2bib
 from util import *
 import unidecode
+from tqdm import tqdm
 
 replace_name = True
 capitalize_bibtex_keys = "ALL"
 
 input_fname = "Review Paper Import Portal Responses"
 input_ext = ".xlsx"
-input_fname += input_ext
 output_fname = "output_responses"
 output_ext = ".xlsx"
-output_fname += output_ext
-
 input_fname.replace(".csv", " - Form Responses 1.csv")
 output_fname.replace(".csv", " - Form Responses 1.csv")
 
@@ -23,7 +21,7 @@ rows_out = []
 
 # Iterate on each row
 cnt = 0
-for row in rows_in:
+for row in tqdm(rows_in):
     if (cnt == 0):
         rows_out.append(row)
         cnt += 1
@@ -50,7 +48,7 @@ for row in rows_in:
         if d is None:
            d, id = get_arxiv(row)
         if 'arxiv_comment' in d['entries'][0].keys():
-            row[23] = get_venue(d['entries'][0]['arxiv_comment'], d['entries'][0]['pub_year'])
+            row[23] = get_venue(d['entries'][0]['arxiv_comment'], d['entries'][0]['published'][:4])
             print(cnt, row[23])
 
     # Bibtex
@@ -85,12 +83,10 @@ for row in rows_in:
             row[11] = row[11].replace("\r\n", "\n")
             start, end = row[11].find("{") + 1, row[11].find(",")
             name = row[11][start:end]
-        else:
-            name = ""
-        row[28] = name.lower()
-        print(cnt, name)
+            row[28] = name.lower()
+            print(cnt, name)
 
     rows_out.append(row)
     cnt += 1
 
-util.write_spreadsheet(rows_out, output_fname, output_ext)
+write_spreadsheet(rows_out, output_fname, output_ext)
