@@ -8,7 +8,12 @@ from scholarly import ProxyGenerator
 import xlsxwriter
 
 def get_arxiv(row):
-    id = row[4][22:32]
+    if "https://arxiv.org/pdf/" in row[4]:
+        id = row[4][22:32]
+    elif "https://arxiv.org/ftp/arxiv/papers/" in row[4]:
+        id = row[4][40:50]
+    else:
+        raise ValueError("Invalid arxiv link")
     url = 'http://export.arxiv.org/api/query?id_list={}&start=0&max_results=1'.format(id)
     data = urllib.request.urlopen(url)
     d = feedparser.parse(data.read().decode('utf-8'))
@@ -158,6 +163,14 @@ def format_bibtex_str(texstr, cap_keys="ALL", space=True, indent="    ", remove_
     second_last = rev_str[last+1:].find("}") + last + 1
     texstr = rev_str[second_last:][::-1]+"\n}"
     return texstr
+
+
+def bibtex_name_from_bibtex(bibtex):
+    bibtex = bibtex.replace("\r\n", "\n")
+    start, end = bibtex.find("{") + 1, bibtex.find(",")
+    name = bibtex[start:end].lower()
+    return name
+
 
 def get_authors_from_bibtex(bibtex_str, last_name_first=False):
     author = {"author = {": 10, "author={": 8, "AUTHOR = {": 10, "AUTHOR={": 8}

@@ -27,32 +27,45 @@ for row in tqdm(rows_in):
         cnt += 1
         continue
     d = None
-    # If paper is on arxiv and authors is empty
-    if ("https://arxiv.org/pdf/" in row[4]) and (row[27] == ""):
+
+    # Date
+    if ("https://arxiv.org/" in row[4]) and (row[3] == ""):
+        if d is None:
+           d, id = get_arxiv(row)
+        year = d['entries'][0]['published'][:4]
+        month = d['entries'][0]['published'][5:7]
+        day = d['entries'][0]['published'][8:10]
+        row[3] = month + '/' + day + '/' + year
+        print(cnt+1, row[3])
+
+    # Authors
+    if ("https://arxiv.org/" in row[4]) and (row[27] == ""):
         # Get data from arxiv api
         if d is None:
            d, id = get_arxiv(row)
         auth_str = []
         for a in d['entries'][0]['authors']:
             auth_str.append(a['name'])
-        print(cnt, 'authors', ", ".join(auth_str))
+        print(cnt+1, 'authors', ", ".join(auth_str))
         row[27] = ", ".join(auth_str)
-    if ("https://arxiv.org/pdf/" in row[4]) and (row[29] == ""):
+
+    # Abstract
+    if ("https://arxiv.org/" in row[4]) and (row[30] == ""):
         if d is None:
            d, id = get_arxiv(row)        # Abstract
-        row[29] = d['entries'][0]['summary'].replace(" \n", " ").replace("\n ", " ").replace("\n", " ")
-        print(cnt, row[29][:20], "...")
+        row[30] = d['entries'][0]['summary'].replace(" \n", " ").replace("\n ", " ").replace("\n", " ")
+        print(cnt+1, row[30][:20], "...")
 
     # Venue
-    if ("https://arxiv.org/pdf/" in row[4]) and (row[23] == ""):
+    if ("https://arxiv.org/" in row[4]) and (row[23] == ""):
         if d is None:
            d, id = get_arxiv(row)
         if 'arxiv_comment' in d['entries'][0].keys():
             row[23] = get_venue(d['entries'][0]['arxiv_comment'], d['entries'][0]['published'][:4])
-            print(cnt, row[23])
+            print(cnt+1, row[23])
 
     # Bibtex
-    if ("https://arxiv.org/pdf/" in row[4]) and (row[11] == ""):
+    if ("https://arxiv.org/" in row[4]) and (row[11] == ""):
         # Get bibtex string
         if d is None:
            d, id = get_arxiv(row)
@@ -73,18 +86,15 @@ for row in tqdm(rows_in):
 
         if len(bibtex_str) > 10:
             row[11] = unidecode.unidecode(bibtex_str)
-            print(cnt, "success", name)
+            print(cnt+1, "success", name)
         else:
-            print(cnt, "ERROR: bibtex too short", bibtex_str)
+            print(cnt+1, "ERROR: bibtex too short", bibtex_str)
 
     # Export bibtex name
     if row[28] == "":
         if (row[11] != ""):
-            row[11] = row[11].replace("\r\n", "\n")
-            start, end = row[11].find("{") + 1, row[11].find(",")
-            name = row[11][start:end]
-            row[28] = name.lower()
-            print(cnt, name)
+            row[28] = bibtex_name_from_bibtex(row[11])
+            print(cnt+1, row[28])
 
     rows_out.append(row)
     cnt += 1

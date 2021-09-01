@@ -25,16 +25,13 @@ input_fname.replace(".csv", " - Form Responses 1.csv")
 output_fname.replace(".csv", " - Form Responses 1.csv")
 
 # Load spreadsheet
-rows_in = read_spreadsheet(input_fname, input_ext)
-rows_out = []
+rows = read_spreadsheet(input_fname, input_ext)
 
 # Iterate on each row
 cnt = 0
-for row in tqdm(rows_in):
-    if (cnt == 0):
-        rows_out.append(row)
-        cnt += 1
-        continue
+start_row = 135           # This is for skipping already processed entries
+for r in tqdm(range(start_row, len(rows))):
+    row = rows[r]
 
     search_result = None
     # Bibtex
@@ -49,11 +46,8 @@ for row in tqdm(rows_in):
     # Bibtex name (same code as arxiv_api.py)
     if (row[28] == ""):
         if (row[11] != ""):
-            row[11] = row[11].replace("\r\n", "\n")
-            start, end = row[11].find("{") + 1, row[11].find(",")
-            name = row[11][start:end]
-            row[28] = name.lower()
-            print(cnt, name)
+            row[28] = bibtex_name_from_bibtex(row[11])
+            print(cnt, row[28])
 
 
     # Citations count
@@ -83,7 +77,9 @@ for row in tqdm(rows_in):
             if not (("..." in search_result['bib']['venue']) or ("…" in search_result['bib']['venue'])):
                 print(search_result['bib']['venue'])
                 venue = get_venue(search_result['bib']['venue'], search_result['bib']['pub_year'])
-                row[23] = venue
+            if venue == "":
+                venue = get_venue(bibtex_name_from_bibtex(scholarly.bibtex(search_result)), search_result['bib']['pub_year'])
+            row[23] = venue
         except Exception as e:
             print(e)
 
@@ -97,9 +93,8 @@ for row in tqdm(rows_in):
         except Exception as e:
             print(e)
     cnt += 1
-    rows_out.append(row)
-
-write_spreadsheet(rows_out, output_fname, output_ext)
+    rows[r] = row
+    write_spreadsheet(rows, output_fname, output_ext)
 
 
 """
@@ -114,10 +109,10 @@ Testing/exploration code...
     # 'author': ['B Mildenhall', 'PP Srinivasan', 'M Tancik'], 'pub_year': '2020', 'venue': 'European conference on …',
     # 'abstract': 'We present a method that achieves state-of-the-art results for synthesizing novel views of complex scenes by optimizing an underlying continuous volumetric scene function using a sparse set of input views. Our algorithm represents a scene using a fully-connected (non-convolutional) deep network, whose input is a single continuous 5D coordinate (spatial location (x, y, z) and viewing direction (θ, ϕ)) and whose output is the volume density and view-dependent emitted radiance at that spatial location. We synthesize views by querying'}
 
-    # print(scholarly.bibtex(search_result))
+    # print(search_result['bib'].keys())
     # dict_keys(['title', 'author', 'pub_year', 'venue', 'abstract', 'pages', 'booktitle', 'ENTRYTYPE', 'ID'])
 
-    # print(search_result['bib'].keys())
+    # print(scholarly.bibtex(search_result))
     # @inproceedings{peng20043d,
     #  abstract = {3D object reconstruction is frequent used in various fields such as product design, engineering, medical and artistic applications. Numerous reconstruction techniques and software were introduced and developed. However, the purpose of this paper is to fully integrate an adaptive artificial neural network (ANN) based method in reconstructing and representing 3D objects. This study explores the ability of neural networks in learning through experience when reconstructing an object by estimating it's z-coordinate. Neural},
     #  author = {Peng, Lim Wen and Shamsuddin, Siti Mariyam},
