@@ -40,6 +40,7 @@ for r in tqdm(range(start_row, len(rows))):
         try:
             bibtex_str = format_bibtex_str(scholarly.bibtex(search_result), cap_keys=capitalize_bibtex_keys)
             row[11] = bibtex_str
+            print(cnt, row[11][:20])
         except Exception as e:
             print(e)
 
@@ -67,6 +68,7 @@ for r in tqdm(range(start_row, len(rows))):
             if (row[11] != ""):
                 authors = ", ".join(get_authors_from_bibtex(bibtex_str))
                 row[27] = authors
+                print(cnt, row[27])
         except Exception as e:
             print(e)
 
@@ -80,6 +82,8 @@ for r in tqdm(range(start_row, len(rows))):
             if venue == "":
                 venue = get_venue(bibtex_name_from_bibtex(scholarly.bibtex(search_result)), search_result['bib']['pub_year'])
             row[23] = venue
+            if venue != "":
+                print(cnt, row[23])
         except Exception as e:
             print(e)
 
@@ -90,6 +94,7 @@ for r in tqdm(range(start_row, len(rows))):
             abstract = search_result['bib']['abstract']
             if len(abstract) > 20:
                 row[30] = abstract
+            print(cnt, row[30][:20])
         except Exception as e:
             print(e)
     cnt += 1
