@@ -43,7 +43,6 @@ const updateCards = (papers) => {
         API.markSet(API.storeIDs.bookmarked, iid, new_value).then();
       };
 
-
       const all_mounted_cards = d3
         .select(".cards")
         .selectAll(".myCard", (paper) => paper.UID)
@@ -77,7 +76,7 @@ const updateCards = (papers) => {
         d3.select(this).classed("selected", new_value);
       });
 
-
+      // lazyloader() from js/modules/lazyLoad.js
       lazyLoader();
 
 
@@ -96,15 +95,15 @@ function shuffleArray(array) {
 }
 
 const render = () => {
+  console.log("rendering")
+  // filtering papers here
   const f_test = [];
-
-  updateSession();
 
   Object.keys(filters).forEach((k) => {
     filters[k] ? f_test.push([k, filters[k]]) : null;
   });
+  console.log(filters, f_test)
 
-  // console.log(f_test, filters, "--- f_test, filters");
   if (f_test.length === 0) updateCards(allPapers);
   else {
     const fList = allPapers.filter((d) => {
@@ -115,8 +114,6 @@ const render = () => {
           pass_test &=
             d.title.toLowerCase().indexOf(f_test[i][1].toLowerCase()) >
             -1;
-        } else if (f_test[i][0] === "session") {
-          pass_test &= d["sessions"].indexOf(f_test[i][1]) > -1;
         } else {
           pass_test &= d[f_test[i][0]].indexOf(f_test[i][1]) > -1;
         }
@@ -136,17 +133,7 @@ const updateFilterSelectionBtn = (value) => {
   });
 };
 
-const updateSession = () => {
-  const urlSession = getUrlParameter("session");
-  if (urlSession) {
-    filters.session = urlSession;
-    d3.select("#session_name").text(urlSession);
-    d3.select(".session_notice").classed("d-none", null);
-    return true;
-  }
-  filters.session = null;
-  return false;
-};
+
 
 /**
  * START here and load JSON.
@@ -170,7 +157,7 @@ const start = () => {
       updateCards(allPapers);
 
       const urlSearch = getUrlParameter("search");
-      if (urlSearch !== "" || updateSession()) {
+      if (urlSearch !== "") {
         filters[urlFilter] = urlSearch;
         $(".typeahead_all").val(urlSearch);
         render();

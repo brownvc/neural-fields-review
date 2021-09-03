@@ -63,6 +63,8 @@
 
     <title>{{config.page_title.prefix}}{% if page_title
       %}{{config.page_title.separator}}{{page_title}}{% endif %}</title>
+
+    <!-- head block ends here-->
     {% endblock %}
   </head>
 
@@ -103,7 +105,10 @@
 
     {% block body %}
     <!-- User Overrides -->
-    {% block top %} {% endblock %}
+
+    {% block top %}
+    <!-- top block ends here-->
+    {% endblock %}
 
     <div class="container">
       <!-- Tabs -->
@@ -115,9 +120,12 @@
         {% block content %} {% endblock %}
       </div>
     </div>
-    {% endblock %}
-    {% block footer %}
 
+    <!-- body block ends here-->
+    {% endblock %}
+
+
+    {% block footer %}
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id={{config.analytics}}"></script>
     <script>
@@ -157,6 +165,7 @@
       });
     </script>
     <!--    <script src="static/js/modules/lazyLoad.js"></script>-->
+    <!-- footer block ends here -->
     {% endblock %}
   </body>
 
