@@ -28,7 +28,7 @@ def main(site_data_path):
         elif typ == "yml":
             site_data[name] = yaml.load(open(f).read(), Loader=yaml.SafeLoader)
 
-    for typ in ["papers", "speakers", "workshops"]:
+    for typ in ["papers"]:
         by_uid[typ] = {}
         for p in site_data[typ]:
             by_uid[typ][p["UID"]] = p
@@ -151,24 +151,6 @@ def poster(poster):
     return render_template("poster.html", **data)
 
 
-@app.route("/speaker_<speaker>.html")
-def speaker(speaker):
-    uid = speaker
-    v = by_uid["speakers"][uid]
-    data = _data()
-    data["speaker"] = v
-    return render_template("speaker.html", **data)
-
-
-@app.route("/workshop_<workshop>.html")
-def workshop(workshop):
-    uid = workshop
-    v = by_uid["workshops"][uid]
-    data = _data()
-    data["workshop"] = format_workshop(v)
-    return render_template("workshop.html", **data)
-
-
 # FRONT END SERVING
 
 @app.route("/papers.json")
@@ -197,10 +179,6 @@ def serve(path):
 def generator():
     for paper in site_data["papers"]:
         yield "poster", {"poster": str(paper["UID"])}
-    for speaker in site_data["speakers"]:
-        yield "speaker", {"speaker": str(speaker["UID"])}
-    for workshop in site_data["workshops"]:
-        yield "workshop", {"workshop": str(workshop["UID"])}
 
     for key in site_data:
         yield "serve", {"path": key}

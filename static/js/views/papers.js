@@ -142,7 +142,8 @@ const start = () => {
       allPapers = papers
       calcAllKeys(papers, allKeys);
       // setTypeAhead(urlFilter, allKeys, filters, render);
-      initTypeAhead([...allKeys.titles, allKeys.nicknames],".titleAndNicknameTypeahead","titleAndNickname",render)
+
+      initTypeAhead([...allKeys.titles, ...allKeys.nicknames],".titleAndNicknameTypeahead","titleAndNickname",render)
       updateCards(papers);
 
       const urlSearch = getUrlParameter("search");
