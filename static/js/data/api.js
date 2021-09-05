@@ -17,6 +17,7 @@ class API {
 
   static getPapers() {
     if (API.paperCache == null) {
+      console.log("appppp.json",$.get("papers.json"))
       API.paperCache = $.get("papers.json");
     }
     return API.paperCache;

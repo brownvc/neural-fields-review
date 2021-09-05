@@ -33,24 +33,14 @@
 {% block content %}
 <div class="row p-3"></div>
 
-<!-- Session, always hidden as there is no session -->
-<!-- <div class="row d-none session_notice">
-  <div class="alert alert-warning alert-dismissible fade show col-12" role="alert">
-    Showing papers for
-    <span id="session_name" style="font-weight: bold;"></span>.
-    <button type="button" class="close remove_session" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-</div> -->
 
 <!-- Buttons -->
-<div class="row">
+<!-- <div class="row">
   <div class="col-12 col-sm-12 col-md-6 col-lg-4">
     <div class="input-group mb-3">
-      <input type="text" class="form-control typeahead_all" placeholder="Search" />
+      <input type="text" class="form-control titleAndNicknameTypeahead" placeholder="Search" />
       <div class="input-group-append">
-        <button class="btn btn-outline-secondary typeahead_all_clear" type="button">
+        <button class="btn btn-outline-secondary titleAndNicknameTypeahead_clear" type="button">
           &times;
         </button>
       </div>
@@ -91,7 +81,55 @@
       </div>
     </div>
   </div>
+</div> -->
+
+<!-- title / nickname search input -->
+<div class="row">
+  <div class="input-group col-11">
+    <input type="text" class="form-control titleAndNicknameTypeahead" placeholder="Search by title / nickname">
+    <button type="button" class="btn bg-transparent titleAndNicknameTypeahead_clear"
+      style="margin-left: -40px; z-index: 100;">
+      &times;
+    </button>
+  </div>
+  <div class="col-1">
+    <button class="btn btn-outline-secondary" id="add_new_filter_button" style="border-radius: 25px;"
+      data-tippy-content="Add a filter">
+      <div class="fas">&#xf067;</div>
+    </button>
+  </div>
 </div>
+
+<!-- Dynamic filters -->
+<div id="dynamicFiltersSection">
+</div>
+
+<div class="row" style="padding-top: 10px;">
+  <div class="col-6">
+    <label><input type="checkbox" name="checkbox" value="value">
+      Only show papers with code
+    </label>
+  </div>
+  <div class="col-6">
+    <div class="float-right">
+      <div class="btn-group btn-group-toggle render_option" data-toggle="buttons">
+        <label class="btn btn-outline-secondary active">
+          <input type="radio" name="options" value="mini" autocomplete="off" />
+          mini
+        </label>
+        <label class="btn btn-outline-secondary active">
+          <input type="radio" name="options" value="compact" autocomplete="off" checked />
+          compact
+        </label>
+        <label class="btn btn-outline-secondary">
+          <input type="radio" name="options" value="detail" autocomplete="off" />
+          detail
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <!-- Cards -->
 <div class="cards row"></div>

@@ -2,8 +2,9 @@ let allPapers = [];
 const allKeys = {
   authors: [],
   keywords: [],
-  sessions: [],
   titles: [],
+  nicknames: [],
+  dates: []
 };
 const filters = {
   authors: null,
@@ -23,6 +24,7 @@ const MODE = {
 let render_mode = MODE.compact;
 
 const updateCards = (papers) => {
+  console.log("updating, papers:",papers)
   Promise.all([
     API.markGetAll(API.storeIDs.visited),
     API.markGetAll(API.storeIDs.bookmarked)
@@ -79,20 +81,10 @@ const updateCards = (papers) => {
       // lazyloader() from js/modules/lazyLoad.js
       lazyLoader();
 
-
     }
   )
 }
 
-/* Randomize array in-place using Durstenfeld shuffle algorithm */
-function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    const temp = array[i];
-    array[i] = array[j];
-    array[j] = temp;
-  }
-}
 
 const render = () => {
   console.log("rendering")
@@ -102,36 +94,37 @@ const render = () => {
   Object.keys(filters).forEach((k) => {
     filters[k] ? f_test.push([k, filters[k]]) : null;
   });
-  console.log(filters, f_test)
+  console.log("filters:", filters, "f_test:", f_test)
 
   if (f_test.length === 0) updateCards(allPapers);
   else {
-    const fList = allPapers.filter((d) => {
-      let i = 0;
-      let pass_test = true;
-      while (i < f_test.length && pass_test) {
-        if (f_test[i][0] === "titles") {
-          pass_test &=
-            d.title.toLowerCase().indexOf(f_test[i][1].toLowerCase()) >
-            -1;
-        } else {
-          pass_test &= d[f_test[i][0]].indexOf(f_test[i][1]) > -1;
-        }
-        i++;
-      }
-      return pass_test;
-    });
-    // console.log(fList, "--- fList");
+    const fList = allPapers.filter(
+      // (d) => {
+      // let i = 0;
+      // let pass_test = true;
+      // while (i < f_test.length && pass_test) {
+      //   if (f_test[i][0] === "titles") {
+      //     pass_test &=
+      //       d.title.toLowerCase().indexOf(f_test[i][1].toLowerCase()) >
+      //       -1;
+      //   } else {
+      //     pass_test &= d[f_test[i][0]].indexOf(f_test[i][1]) > -1;
+      //   }
+      //   i++;
+      // }
+      // return pass_test;
+      //}
+    );
     updateCards(fList);
   }
 };
 
-const updateFilterSelectionBtn = (value) => {
-  d3.selectAll(".filter_option label").classed("active", function () {
-    const v = d3.select(this).select("input").property("value");
-    return v === value;
-  });
-};
+// const updateFilterSelectionBtn = (value) => {
+//   d3.selectAll(".filter_option label").classed("active", function () {
+//     const v = d3.select(this).select("input").property("value");
+//     return v === value;
+//   });
+// };
 
 
 
@@ -141,30 +134,160 @@ const updateFilterSelectionBtn = (value) => {
 const start = () => {
   const urlFilter = getUrlParameter("filter") || "keywords";
   setQueryStringParameter("filter", urlFilter);
-  updateFilterSelectionBtn(urlFilter);
+  //updateFilterSelectionBtn(urlFilter);
 
   Promise.all([API.getPapers(), API.getConfig()])
     .then(([papers, config]) => {
-      console.log(papers, "--- papers");
-
-      // persistor = new Persistor("miniconf-" + config.name);
-
-      shuffleArray(papers);
-
-      allPapers = papers;
-      calcAllKeys(allPapers, allKeys);
-      setTypeAhead(urlFilter, allKeys, filters, render);
-      updateCards(allPapers);
+      console.log(papers, "!!!--- papers");
+      allPapers = papers
+      calcAllKeys(papers, allKeys);
+      // setTypeAhead(urlFilter, allKeys, filters, render);
+      initTypeAhead([...allKeys.titles, allKeys.nicknames],".titleAndNicknameTypeahead","titleAndNickname",render)
+      updateCards(papers);
 
       const urlSearch = getUrlParameter("search");
       if (urlSearch !== "") {
         filters[urlFilter] = urlSearch;
-        $(".typeahead_all").val(urlSearch);
+        $(".titleAndNicknameTypeahead").val(urlSearch);
         render();
       }
     })
     .catch((e) => console.error(e));
 };
+
+/**
+ * List of filters' data
+ * Entries are in format:
+ * {
+ *  filterID: number
+ *  filterType: "author" / "date" / "keyword";
+ *  filterValue: string
+ * }
+ */
+var filters_ = []
+var nextFilterID = 0
+
+/**
+ * Function for adding a new filter
+ */
+function addNewFilter() {
+  const filterID = nextFilterID;
+  nextFilterID += 1;
+
+  filters_.push(
+    {
+      filterID: filterID,
+      filterType: "Author",
+      filterValue: ""
+    }
+  )
+
+  d3.select("#dynamicFiltersSection")
+    .append("div")
+    .attr("id",`filter_${filterID}`)
+    .attr("class", "row")
+    .style("padding-top", "5px")
+  
+  d3.select(`#filter_${filterID}`)
+    .html(
+      `
+    <div class="filterTypeSelector col-1">
+    ${generateFilterTypeSelector(filterID)}
+    </div>
+    <div class="input-group col-10">
+    ${generateFilterInputHTML("Author", filterID)}
+    </div>
+    <div class="col-1">
+    ${generateRemoveFilterButton(filterID)}
+    </div>`)
+  
+  tippy(".removeFilterButton")
+
+  // updateCards([allPapers[0], allPapers[1]]);
+
+  initTypeAhead([...allKeys.authors],".authorsTypeahead","authors",render)
+}
+
+function removeFilterByID(filterID) {
+  console.log("removing filter ", filterID)
+  d3.select(`#filter_${filterID}`).remove()
+  filters_ = filters_.filter(filter => filter.filterID !== filterID)
+}
+
+function changeFilterType(filterID, newFilterTypeIndex) {
+  const filterTypes = ["Author", "Keyword", "Date"]
+  const newFilterType = filterTypes[newFilterTypeIndex]
+  d3.select(`#filter_${filterID}`)
+    .select(`.input-group`)
+    .html(generateFilterInputHTML(newFilterType))
+  $('input[name="daterange"]').daterangepicker();
+
+  if (newFilterType === "Author") {
+    initTypeAhead([...allKeys.authors],".authorsTypeahead","authors",render)
+  }
+  else if (newFilterType === "Keyword") {
+    initTypeAhead([...allKeys.keywords],".keywordTypeahead","keyword",render)
+  }
+  else {
+    initTypeAhead([],".dateTypeahead","date",render)
+  }
+  
+  
+  filterIndex = filters_.findIndex((filter) => filter.filterID === filterID)
+  filters_[filterIndex].filterType = filterTypes[newFilterTypeIndex]
+  
+}
+
+const generateFilterTypeSelector = (filterID) => {
+  return `
+      <select style="border: 1px solid #ced4da; border-radius: .25rem; height: calc(1.5em + .75rem + 2px);" onChange="changeFilterType(${filterID}, this.selectedIndex)">
+        <option value="Author">Author</option>
+        <option value="Keyword">Keyword</option>
+        <option value="Date">Date</option>
+      </select>
+    `
+}
+
+const generateFilterInputHTML = (filterType) => {
+  if (filterType === "Author") {
+    return `
+        <input type="text" class="form-control authorsTypeahead" placeholder="Filter by author">
+        <button class="btn bg-transparent authorsTypeahead_clear" style="margin-left: -40px; z-index: 100;">
+          &times;
+        </button>
+    `
+  }
+  else if (filterType === "Keyword") {
+    return `
+      <input type="text" class="form-control keywordTypeahead" placeholder="Filter by keyword">
+      <button class="btn bg-transparent keywordTypeahead_clear" style="margin-left: -40px; z-index: 100;">
+        &times;
+      </button>
+    `
+  }
+  else if (filterType === "Date") {
+    return `
+      <input type="text" class="form-control dateTypeahead" name="daterange" value="" placeholder="Select a date range">
+      <button class="btn bg-transparent" style="margin-left: -40px; z-index: 100;">
+        &times;
+      </button>
+    `
+  }
+}
+
+const generateRemoveFilterButton = (filterID) => {
+  return `
+  <button class="btn btn-outline-secondary removeFilterButton" onClick="removeFilterByID(${filterID})" style="border-radius: 25px;"
+          data-tippy-content="Remove this filter">
+          <div class="fas">&#xf068;</div>
+  </button>
+  `
+}
+
+/**
+ * Call addNewFilter when clicking on "+" button
+ */
+d3.select("#add_new_filter_button").on("click", addNewFilter)
 
 /**
  * VIEW EVENTS (card events are in updateCards() )
@@ -176,7 +299,7 @@ d3.selectAll(".filter_option input").on("click", function () {
   const filter_mode = me.property("value");
   setQueryStringParameter("filter", filter_mode);
   setQueryStringParameter("search", "");
-  updateFilterSelectionBtn(filter_mode);
+  // updateFilterSelectionBtn(filter_mode);
 
   setTypeAhead(filter_mode, allKeys, filters, render);
   render();
@@ -194,11 +317,6 @@ d3.selectAll(".render_option input").on("click", function () {
   render();
 });
 
-d3.select(".reshuffle").on("click", () => {
-  shuffleArray(allPapers);
-
-  render();
-});
 
 /**
  * CARDS

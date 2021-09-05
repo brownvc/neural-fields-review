@@ -1,8 +1,7 @@
 .tt-query,
 .tt-hint {
-  width: 396px;
-  height: 30px;
-  padding: 8px 12px;
+  width: 100%;
+  height: 38px;
   font-size: 24px;
   line-height: 30px;
   border: 2px solid #ccc;
@@ -20,7 +19,6 @@
 
 .tt-menu {
   width: 422px;
-  margin-top: 12px;
   padding: 8px 0;
   background-color: #fff;
   border: 1px solid #ccc;
@@ -53,4 +51,4 @@
   cursor: pointer;
 }
 
-/*.twitter-typeahead, .tt-hint, .tt-input, .tt-menu { width: 90%; }*/
+.twitter-typeahead, .tt-hint, .tt-input, .tt-menu { width: 100%; }

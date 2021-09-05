@@ -96,34 +96,45 @@ def paper_vis():
 
 
 def extract_list_field(v, key):
+    # print("extracting", "key:", key)
     value = v.get(key, "")
-    if isinstance(value, list):
-        return value
+    # if isinstance(value, list):
+    #     return value
+    # else:
+    #     return value.split("|")
+    if len(value) > 0:
+        result = value.split(",")
+        for i in range(len(result)):
+            result[i] = result[i].strip()
     else:
-        return value.split("|")
+        result = []
+    return result
 
 
 def format_paper(v):
-    list_keys = ["authors", "keywords", "sessions"]
+    # print("paper:\n")
+    # print(v)
+    # print("\n")
+    list_keys = ["Authors", "Task", "Techniques"]
     list_fields = {}
     for key in list_keys:
         list_fields[key] = extract_list_field(v, key)
 
     return {
         "UID": v["UID"],
-        "title": v["title"],
-        "forum": v["UID"],
-        "authors": list_fields["authors"],
-        "keywords": list_fields["keywords"],
-        "abstract": v["abstract"],
-        "TLDR": v["abstract"],
+        "title": v["Title"],
+        "nickname": v["Nickname"],
+        "authors": list_fields["Authors"],
+        "keywords": list_fields["Task"] + list_fields["Techniques"],
+        "date": v["Date"],
+        "abstract": v["Abstract"],
+        "TLDR": v["Abstract"],
         "recs": [],
-        "sessions": list_fields["sessions"],
         # links to external content per poster
         "pdf_url": v.get("pdf_url", ""),  # render poster from this PDF
         # "code_link": "https://github.com/Mini-Conf/Mini-Conf",  # link to code
         # "link": "https://arxiv.org/abs/2007.12238",  # link to paper
-        "code_link": v["Code"],  # link to paper
+        "code_link": v["Code Release"],  # link to paper
         "link": v["PDF"],  # link to paper
     }
 

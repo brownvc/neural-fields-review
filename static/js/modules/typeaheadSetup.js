@@ -1,4 +1,5 @@
 const initTypeAhead = (list, css_sel, name, callback) => {
+  console.log("initing typeahead, list:", list)
   const bh = new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.whitespace,
     queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -27,20 +28,19 @@ const initTypeAhead = (list, css_sel, name, callback) => {
   $(css_sel)
     .typeahead(
       {
-        hint: true,
+        hint: false,
         highlight: true /* Enable substring highlighting */,
         minLength: 0 /* Specify minimum characters required for showing suggestions */,
         limit: 20,
       },
       { name, source: bhDefaults }
     )
-    .on("keydown", function (e) {
-      if (e.which === 13) {
-        // e.preventDefault();
-        callback(e, e.target.value);
-        $(css_sel).typeahead("close");
-      }
-    })
+    // .on("keydown", function (e) {
+    //   if (e.which === 13) {
+    //     callback(e, e.target.value);
+    //     $(css_sel).typeahead("close");
+    //   }
+    // })
     .on("typeahead:selected", function (evt, item) {
       callback(evt, item);
     });
@@ -52,10 +52,12 @@ const initTypeAhead = (list, css_sel, name, callback) => {
 };
 
 const setTypeAhead = (subset, allKeys, filters, render) => {
+  console.log("setting type ahead:")
+  console.log("subset:",subset,"allkeys:",allKeys,"filters:",filters,"render:",render)
   // eslint-disable-next-line no-return-assign
   Object.keys(filters).forEach((k) => (filters[k] = null));
 
-  initTypeAhead(allKeys[subset], ".typeahead_all", subset, (e, it) => {
+  initTypeAhead(allKeys[subset], ".titleAndNicknameTypeahead", subset, (e, it) => {
     setQueryStringParameter("search", it);
     filters[subset] = it.length > 0 ? it : null;
     render();
