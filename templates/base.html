@@ -41,11 +41,11 @@
     <!--    Internal Libs -->
     <script src="static/js/data/api.js"></script>
 
-    {% if config.use_auth0 %}
+    <!-- {% if config.use_auth0 %}
     <script>
       var auth0_domain = "{{config.auth0_domain}}";
       var auth0_client_id = "{{config.auth0_client_id}}";
-    </script>
+    </script> -->
 
     {% endif %}
 
@@ -136,9 +136,9 @@
     <script>
       window.dataLayer = window.dataLayer || [];
 
-      function gtag() {
-        dataLayer.push(arguments);
-      }
+      // function gtag() {
+      //   dataLayer.push(arguments);
+      // }
 
       gtag("js", new Date());
       gtag("config", "{{config.analytics}}");

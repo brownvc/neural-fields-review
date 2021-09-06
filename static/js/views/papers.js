@@ -6,12 +6,6 @@ const allKeys = {
   nicknames: [],
   dates: []
 };
-const filters = {
-  authors: null,
-  keywords: null,
-  session: null,
-  title: null,
-};
 
 // names for render modes
 const MODE = {
@@ -20,11 +14,27 @@ const MODE = {
   detail: "detail"
 }
 
+/**
+ * List of filters' data
+ * Entries are in format:
+ * {
+ *  filterID: number
+ *  filterType: "titleAndNickname" / "author" / "date" / "keyword";
+ *  filterValue: string
+ * }
+ */
+var filters_ = [
+  {
+    filterID: 0,
+    filterType: "titleAndNickname",
+    filterValue: ""
+  }
+];
+var nextFilterID = 1;
 
 let render_mode = MODE.compact;
 
 const updateCards = (papers) => {
-  console.log("updating, papers:",papers)
   Promise.all([
     API.markGetAll(API.storeIDs.visited),
     API.markGetAll(API.storeIDs.bookmarked)
@@ -60,7 +70,7 @@ const updateCards = (papers) => {
           .filter((dd) => dd.UID === iid)
           .select(".checkbox-paper")
           .classed("selected", function () {
-            const new_value = true; //! d3.select(this).classed('not-selected');
+            const new_value = true;
             visitedCard(iid, new_value);
             return new_value;
           });
@@ -143,30 +153,34 @@ const start = () => {
       calcAllKeys(papers, allKeys);
       // setTypeAhead(urlFilter, allKeys, filters, render);
 
-      initTypeAhead([...allKeys.titles, ...allKeys.nicknames],".titleAndNicknameTypeahead","titleAndNickname",render)
+      initTypeAhead([...allKeys.titles, ...allKeys.nicknames],".titleAndNicknameTypeahead","titleAndNickname",setTitleAndNicknameFilter)
       updateCards(papers);
 
-      const urlSearch = getUrlParameter("search");
-      if (urlSearch !== "") {
-        filters[urlFilter] = urlSearch;
-        $(".titleAndNicknameTypeahead").val(urlSearch);
-        render();
-      }
+      // const urlSearch = getUrlParameter("search");
+      // if (urlSearch !== "") {
+      //   filters[urlFilter] = urlSearch;
+      //   $(".titleAndNicknameTypeahead").val(urlSearch);
+      //   render();
+      // }
     })
     .catch((e) => console.error(e));
 };
 
-/**
- * List of filters' data
- * Entries are in format:
- * {
- *  filterID: number
- *  filterType: "author" / "date" / "keyword";
- *  filterValue: string
- * }
- */
-var filters_ = []
-var nextFilterID = 0
+const setTitleAndNicknameFilter = () => {
+  console.log("setting title and nickname filter");
+  const titleAndNicknameFilterValue = document.getElementById("titleAndNicknameInput").value;
+  filters_[0].filterValue = titleAndNicknameFilterValue;
+  triggerFiltering()
+}
+
+const setFilterByID = (filterID) => {
+  console.log("setting filter by id:", filterID);
+  const filterValue = document.getElementById(`filterInput_${filterID}`).value;
+  console.log("filter value:", filterValue);
+  filterIndex = filters_.findIndex((filter) => filter.filterID === filterID);
+  filters_[filterIndex].filterValue = filterValue;
+  triggerFiltering()
+}
 
 /**
  * Function for adding a new filter
@@ -178,7 +192,7 @@ function addNewFilter() {
   filters_.push(
     {
       filterID: filterID,
-      filterType: "Author",
+      filterType: "author",
       filterValue: ""
     }
   )
@@ -196,7 +210,7 @@ function addNewFilter() {
     ${generateFilterTypeSelector(filterID)}
     </div>
     <div class="input-group col-10">
-    ${generateFilterInputHTML("Author", filterID)}
+    ${generateFilterInputHTML("author", filterID)}
     </div>
     <div class="col-1">
     ${generateRemoveFilterButton(filterID)}
@@ -204,9 +218,7 @@ function addNewFilter() {
   
   tippy(".removeFilterButton")
 
-  // updateCards([allPapers[0], allPapers[1]]);
-
-  initTypeAhead([...allKeys.authors],".authorsTypeahead","authors",render)
+  initTypeAhead([...allKeys.authors],".authorsTypeahead","authors",() => {setFilterByID(filterID)})
 }
 
 function removeFilterByID(filterID) {
@@ -216,23 +228,43 @@ function removeFilterByID(filterID) {
 }
 
 function changeFilterType(filterID, newFilterTypeIndex) {
-  const filterTypes = ["Author", "Keyword", "Date"]
+  const filterTypes = ["author", "keyword", "date"]
   const newFilterType = filterTypes[newFilterTypeIndex]
   d3.select(`#filter_${filterID}`)
     .select(`.input-group`)
-    .html(generateFilterInputHTML(newFilterType))
-  $('input[name="daterange"]').daterangepicker();
+    .html(generateFilterInputHTML(newFilterType, filterID))
+  // $('input[name="daterange"]').daterangepicker({
+  //     autoUpdateInput: true,
+  //     locale: {
+  //         cancelLabel: 'Clear'
+  //     }
+  // });
 
-  if (newFilterType === "Author") {
-    initTypeAhead([...allKeys.authors],".authorsTypeahead","authors",render)
+
+  if (newFilterType === "author") {
+    initTypeAhead([...allKeys.authors], ".authorsTypeahead", "authors", () => { setFilterByID(filterID) })
   }
-  else if (newFilterType === "Keyword") {
-    initTypeAhead([...allKeys.keywords],".keywordTypeahead","keyword",render)
+  else if (newFilterType === "keyword") {
+    initTypeAhead([...allKeys.keywords], ".keywordTypeahead", "keyword", () => { setFilterByID(filterID) })
   }
   else {
-    initTypeAhead([],".dateTypeahead","date",render)
+    $('input[name="daterange"]').daterangepicker({
+      autoUpdateInput: false,
+      locale: {
+          cancelLabel: 'Clear'
+      }
+    });
+
+    $('input[name="daterange"]').on('apply.daterangepicker', function(ev, picker) {
+      $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+      setFilterByID(filterID);
+    });
+
+    $('input[name="daterange"]').on('cancel.daterangepicker', function(ev, picker) {
+        $(this).val('');
+    });
+    initTypeAhead([], ".dateTypeahead", "date", () => { setFilterByID(filterID) });
   }
-  
   
   filterIndex = filters_.findIndex((filter) => filter.filterID === filterID)
   filters_[filterIndex].filterType = filterTypes[newFilterTypeIndex]
@@ -249,27 +281,27 @@ const generateFilterTypeSelector = (filterID) => {
     `
 }
 
-const generateFilterInputHTML = (filterType) => {
-  if (filterType === "Author") {
+const generateFilterInputHTML = (filterType, filterID) => {
+  if (filterType === "author") {
     return `
-        <input type="text" class="form-control authorsTypeahead" placeholder="Filter by author">
+        <input type="text" id="filterInput_${filterID}" class="form-control authorsTypeahead" placeholder="Filter by author" onchange="setFilterByID(${filterID})">
         <button class="btn bg-transparent authorsTypeahead_clear" style="margin-left: -40px; z-index: 100;">
           &times;
         </button>
     `
   }
-  else if (filterType === "Keyword") {
+  else if (filterType === "keyword") {
     return `
-      <input type="text" class="form-control keywordTypeahead" placeholder="Filter by keyword">
+      <input type="text" id="filterInput_${filterID}" class="form-control keywordTypeahead" placeholder="Filter by keyword" onchange="setFilterByID(${filterID})">
       <button class="btn bg-transparent keywordTypeahead_clear" style="margin-left: -40px; z-index: 100;">
         &times;
       </button>
     `
   }
-  else if (filterType === "Date") {
+  else if (filterType === "date") {
     return `
-      <input type="text" class="form-control dateTypeahead" name="daterange" value="" placeholder="Select a date range">
-      <button class="btn bg-transparent" style="margin-left: -40px; z-index: 100;">
+      <input type="text" id="filterInput_${filterID}" class="form-control dateTypeahead" name="daterange" value="" placeholder="Select a date range" onchange="setFilterByID(${filterID})">
+      <button class="btn bg-transparent dateTypeahead_clear"  style="margin-left: -40px; z-index: 100;">
         &times;
       </button>
     `
@@ -286,6 +318,86 @@ const generateRemoveFilterButton = (filterID) => {
 }
 
 /**
+ * Functions for trigger filtering on papers
+ */
+const triggerFiltering = () => {
+  console.log("start filtering, filters are: ", filters_);
+  const onlyShowPapersWithCode = document.getElementById("onlyShowPapersWithCodeCheckbox").checked;
+  console.log("only code:", onlyShowPapersWithCode);
+  console.log("all papers: ", allPapers);
+  //updateCards([allPapers[0], allPapers[1]]);
+  let filteredPapers = allPapers
+  if (onlyShowPapersWithCode) {
+    filteredPapers = allPapers.filter((paper) => paper.code_link !== "");
+  }
+
+  // filter by title / nickname
+  const titleAndNicknameFilterValue = filters_[0].filterValue
+  if (titleAndNicknameFilterValue !== "") {
+    filteredPapers = filteredPapers.filter((paper) =>
+      paper.title.toLowerCase().includes(titleAndNicknameFilterValue.toLowerCase()) || paper.nickname.toLowerCase().includes(titleAndNicknameFilterValue.toLowerCase()))
+  }
+
+  // filter by author, keyword, date
+  const authorFilters = [];
+  const keywordFilters = [];
+  const dateFilters = [];
+  filters_.forEach((filter) => {
+    if (filter.filterType === "author" && filter.filterValue !== "") {
+      authorFilters.push(filter.filterValue);
+    }
+    else if (filter.filterType === "keyword" && filter.filterValue !== "") {
+      keywordFilters.push(filter.filterValue)
+    }
+    else if (filter.filterType === "date" && filter.filterValue !== "") {
+      dateFilters.push(filter.filterValue)
+    }
+  })
+  console.log("AuthorFilters:",authorFilters,"keyworfilters:",keywordFilters,"Datefilters:",dateFilters)
+  
+  for (authorFilter of authorFilters) {
+    filteredPapers = filteredPapers.filter((paper) => {
+      let hasThisAuthor = false;
+      for (author of paper.authors) {
+        if (author.toLowerCase().includes(authorFilter.toLowerCase())) {
+          hasThisAuthor = true;
+          break;
+        }
+      }
+      return hasThisAuthor
+    })
+  }
+
+  for (keywordFilter of keywordFilters) {
+    filteredPapers = filteredPapers.filter((paper) => {
+      let hasThisKeyword = false;
+      for (keywordOfPaper of paper.keywords) {
+        if (keywordOfPaper.toLowerCase().includes(keywordFilter.toLowerCase())) {
+          hasThisKeyword = true;
+          break;
+        }
+      }
+      return hasThisKeyword
+    })
+  }
+
+  for (dateRange of dateFilters) {
+    let startDate = dateRange.split(" - ")[0];
+    startDate = moment(startDate, "MM/DD/YYYY");
+    let endDate = dateRange.split(" - ")[1];
+    endDate = moment(endDate, "MM/DD/YYYY")
+    console.log(startDate, endDate)
+    filteredPapers = filteredPapers.filter((paper) => {
+      const paperDate = moment(paper.date, "MM/DD/YYYY");
+      return paperDate.isBetween(startDate, endDate) || paperDate.isSame(startDate) || paperDate.isSame(endDate);
+    })
+  }
+
+  console.log("filtered papers: ", filteredPapers);
+  updateCards(filteredPapers);
+}
+
+/**
  * Call addNewFilter when clicking on "+" button
  */
 d3.select("#add_new_filter_button").on("click", addNewFilter)
@@ -294,29 +406,29 @@ d3.select("#add_new_filter_button").on("click", addNewFilter)
  * VIEW EVENTS (card events are in updateCards() )
  * * */
 
-d3.selectAll(".filter_option input").on("click", function () {
-  const me = d3.select(this);
+// d3.selectAll(".filter_option input").on("click", function () {
+//   const me = d3.select(this);
 
-  const filter_mode = me.property("value");
-  setQueryStringParameter("filter", filter_mode);
-  setQueryStringParameter("search", "");
-  // updateFilterSelectionBtn(filter_mode);
+//   const filter_mode = me.property("value");
+//   setQueryStringParameter("filter", filter_mode);
+//   setQueryStringParameter("search", "");
+//   // updateFilterSelectionBtn(filter_mode);
 
-  setTypeAhead(filter_mode, allKeys, filters, render);
-  render();
-});
+//   setTypeAhead(filter_mode, allKeys, filters, render);
+//   render();
+// });
 
-d3.selectAll(".remove_session").on("click", () => {
-  setQueryStringParameter("session", "");
-  render();
-});
+// d3.selectAll(".remove_session").on("click", () => {
+//   setQueryStringParameter("session", "");
+//   render();
+// });
 
-d3.selectAll(".render_option input").on("click", function () {
-  const me = d3.select(this);
-  render_mode = me.property("value");
+// d3.selectAll(".render_option input").on("click", function () {
+//   const me = d3.select(this);
+//   render_mode = me.property("value");
 
-  render();
-});
+//   render();
+// });
 
 
 /**
@@ -410,6 +522,12 @@ const card_html = (paper) =>
   } </h5></a>
                 <h6 class="card-subtitle text-muted" align="center">
                         ${paper.authors.join(", ")}
+                </h6>
+                <h6 class="card-subtitle text-muted" align="center" style="padding-top: 6px">
+                        ${paper.date}
+                </h6>
+                <h6 class="card-subtitle text-muted" align="center" style="padding-top: 6px">
+                        ${paper.keywords.join(", ")}
                 </h6>
                 ${card_image(paper, render_mode !== MODE.mini)}
                 

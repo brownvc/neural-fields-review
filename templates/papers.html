@@ -86,7 +86,8 @@
 <!-- title / nickname search input -->
 <div class="row">
   <div class="input-group col-11">
-    <input type="text" class="form-control titleAndNicknameTypeahead" placeholder="Search by title / nickname">
+    <input type="text" id="titleAndNicknameInput" class="form-control titleAndNicknameTypeahead"
+      placeholder="Search by title / nickname" onchange="setTitleAndNicknameFilter()">
     <button type="button" class="btn bg-transparent titleAndNicknameTypeahead_clear"
       style="margin-left: -40px; z-index: 100;">
       &times;
@@ -106,7 +107,7 @@
 
 <div class="row" style="padding-top: 10px;">
   <div class="col-6">
-    <label><input type="checkbox" name="checkbox" value="value">
+    <label><input type="checkbox" name="checkbox" id="onlyShowPapersWithCodeCheckbox" onclick="triggerFiltering()">
       Only show papers with code
     </label>
   </div>
