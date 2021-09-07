@@ -28,7 +28,7 @@ def main(site_data_path):
         elif typ == "yml":
             site_data[name] = yaml.load(open(f).read(), Loader=yaml.SafeLoader)
 
-    for typ in ["papers", "speakers", "workshops"]:
+    for typ in ["papers"]:
         by_uid[typ] = {}
         for p in site_data[typ]:
             by_uid[typ][p["UID"]] = p
@@ -95,71 +95,47 @@ def paper_vis():
     return render_template("papers_vis.html", **data)
 
 
-@app.route("/calendar.html")
-def schedule():
-    data = _data()
-    data["day"] = {
-        "speakers": site_data["speakers"],
-        "highlighted": [
-            format_paper(by_uid["papers"][h["UID"]]) for h in site_data["highlighted"]
-        ],
-    }
-    return render_template("schedule.html", **data)
-
-
-@app.route("/workshops.html")
-def workshops():
-    data = _data()
-    data["workshops"] = [
-        format_workshop(workshop) for workshop in site_data["workshops"]
-    ]
-    return render_template("workshops.html", **data)
-
-
 def extract_list_field(v, key):
+    # print("extracting", "key:", key)
     value = v.get(key, "")
-    if isinstance(value, list):
-        return value
+    # if isinstance(value, list):
+    #     return value
+    # else:
+    #     return value.split("|")
+    if len(value) > 0:
+        result = value.split(",")
+        for i in range(len(result)):
+            result[i] = result[i].strip()
     else:
-        return value.split("|")
+        result = []
+    return result
 
 
 def format_paper(v):
-    list_keys = ["authors", "keywords", "sessions"]
+    # print("paper:\n")
+    # print(v)
+    # print("\n")
+    list_keys = ["Authors", "Task", "Techniques"]
     list_fields = {}
     for key in list_keys:
         list_fields[key] = extract_list_field(v, key)
 
     return {
         "UID": v["UID"],
-        "title": v["title"],
-        "forum": v["UID"],
-        "authors": list_fields["authors"],
-        "keywords": list_fields["keywords"],
-        "abstract": v["abstract"],
-        "TLDR": v["abstract"],
+        "title": v["Title"],
+        "nickname": v["Nickname"],
+        "authors": list_fields["Authors"],
+        "keywords": list_fields["Task"] + list_fields["Techniques"],
+        "date": v["Date"],
+        "abstract": v["Abstract"],
+        "TLDR": v["Abstract"],
         "recs": [],
-        "sessions": list_fields["sessions"],
         # links to external content per poster
         "pdf_url": v.get("pdf_url", ""),  # render poster from this PDF
         # "code_link": "https://github.com/Mini-Conf/Mini-Conf",  # link to code
         # "link": "https://arxiv.org/abs/2007.12238",  # link to paper
-        "code_link": v["Code"],  # link to paper
+        "code_link": v["Code Release"],  # link to paper
         "link": v["PDF"],  # link to paper
-    }
-
-
-def format_workshop(v):
-    list_keys = ["authors"]
-    list_fields = {}
-    for key in list_keys:
-        list_fields[key] = extract_list_field(v, key)
-
-    return {
-        "id": v["UID"],
-        "title": v["title"],
-        "organizers": list_fields["authors"],
-        "abstract": v["abstract"],
     }
 
 
@@ -175,32 +151,7 @@ def poster(poster):
     return render_template("poster.html", **data)
 
 
-@app.route("/speaker_<speaker>.html")
-def speaker(speaker):
-    uid = speaker
-    v = by_uid["speakers"][uid]
-    data = _data()
-    data["speaker"] = v
-    return render_template("speaker.html", **data)
-
-
-@app.route("/workshop_<workshop>.html")
-def workshop(workshop):
-    uid = workshop
-    v = by_uid["workshops"][uid]
-    data = _data()
-    data["workshop"] = format_workshop(v)
-    return render_template("workshop.html", **data)
-
-
-@app.route("/chat.html")
-def chat():
-    data = _data()
-    return render_template("chat.html", **data)
-
-
 # FRONT END SERVING
-
 
 @app.route("/papers.json")
 def paper_json():
@@ -228,17 +179,14 @@ def serve(path):
 def generator():
     for paper in site_data["papers"]:
         yield "poster", {"poster": str(paper["UID"])}
-    for speaker in site_data["speakers"]:
-        yield "speaker", {"speaker": str(speaker["UID"])}
-    for workshop in site_data["workshops"]:
-        yield "workshop", {"workshop": str(workshop["UID"])}
 
     for key in site_data:
         yield "serve", {"path": key}
 
 
 def parse_arguments():
-    parser = argparse.ArgumentParser(description="MiniConf Portal Command Line")
+    parser = argparse.ArgumentParser(
+        description="MiniConf Portal Command Line")
 
     parser.add_argument(
         "--build",
@@ -255,7 +203,8 @@ def parse_arguments():
         help="Convert the site to static assets",
     )
 
-    parser.add_argument("path", help="Pass the JSON data path and run the server")
+    parser.add_argument(
+        "path", help="Pass the JSON data path and run the server")
 
     args = parser.parse_args()
     return args

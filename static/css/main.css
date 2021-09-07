@@ -39,6 +39,10 @@ body {
   background-color: white;
 }
 
+.applyBtn {
+  background-color: #007bff;
+}
+
 #main-nav {
   padding-top: 10px;
   padding-bottom: 10px;
