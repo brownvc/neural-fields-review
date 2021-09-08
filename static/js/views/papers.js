@@ -336,7 +336,7 @@ const triggerFiltering = () => {
 
 const card_image = (paper, show) => {
   if (show)
-    return ` <center><img class="lazy-load-img cards_img" data-src="${API.thumbnailPath(paper)}" width="100%" style="padding-bottom: 10px"/></center>`;
+    return ` <center><img class="lazy-load-img cards_img" data-src="${API.thumbnailPath(paper)}" style="width: 100%; padding-bottom: 10px"/></center>`;
   return "";
 };
 
