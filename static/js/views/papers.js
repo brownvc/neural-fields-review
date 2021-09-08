@@ -106,6 +106,7 @@ const start = () => {
   Promise.all([API.getPapers(), API.getConfig()])
     .then(([papers, config]) => {
       allPapers = papers
+      console.log("allPapers:",allPapers)
       calcAllKeys(papers, allKeys);
       initTypeAhead([...allKeys.titles, ...allKeys.nicknames],".titleAndNicknameTypeahead","titleAndNickname",setTitleAndNicknameFilter)
       updateCards(papers);
@@ -335,7 +336,7 @@ const triggerFiltering = () => {
 
 const card_image = (paper, show) => {
   if (show)
-    return ` <center><img class="lazy-load-img cards_img" data-src="${API.thumbnailPath(paper)}" width="80%"/></center>`;
+    return ` <center><img class="lazy-load-img cards_img" data-src="${API.thumbnailPath(paper)}" width="100%" style="padding-bottom: 10px"/></center>`;
   return "";
 };
 

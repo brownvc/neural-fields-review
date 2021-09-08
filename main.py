@@ -9,6 +9,7 @@ import yaml
 from flask import Flask, jsonify, redirect, render_template, send_from_directory
 from flask_frozen import Freezer
 from flaskext.markdown import Markdown
+from os.path import exists
 
 site_data = {}
 by_uid = {}
@@ -19,14 +20,16 @@ def main(site_data_path):
     extra_files = ["README.md"]
     # Load all for your sitedata one time.
     for f in glob.glob(site_data_path + "/*"):
-        extra_files.append(f)
-        name, typ = f.split("/")[-1].split(".")
-        if typ == "json":
-            site_data[name] = json.load(open(f))
-        elif typ in {"csv", "tsv"}:
-            site_data[name] = list(csv.DictReader(open(f)))
-        elif typ == "yml":
-            site_data[name] = yaml.load(open(f).read(), Loader=yaml.SafeLoader)
+        if f != "sitedata/thumbnails":
+            extra_files.append(f)
+            name, typ = f.split("/")[-1].split(".")
+            if typ == "json":
+                site_data[name] = json.load(open(f))
+            elif typ in {"csv", "tsv"}:
+                site_data[name] = list(csv.DictReader(open(f)))
+            elif typ == "yml":
+                site_data[name] = yaml.load(
+                    open(f).read(), Loader=yaml.SafeLoader)
 
     for typ in ["papers"]:
         by_uid[typ] = {}
@@ -159,6 +162,15 @@ def paper_json():
     for v in site_data["papers"]:
         json.append(format_paper(v))
     return jsonify(json)
+
+
+@app.route("/thumbnail/<UID>")
+def serve_thumbnail(UID):
+    print(f'UID_{UID}.png')
+    if exists(f'{site_data_path}/thumbnails/UID_{UID}.png'):
+        return send_from_directory(f'{site_data_path}/thumbnails', f'UID_{UID}.png')
+    else:
+        return send_from_directory(f'{site_data_path}/thumbnails', 'no_thumbnail_available.png')
 
 
 @app.route("/static/<path:path>")
