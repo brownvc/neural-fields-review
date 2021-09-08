@@ -145,13 +145,22 @@ def format_paper(v):
 # ITEM PAGES
 
 
-@app.route("/poster_<poster>.html")
-def poster(poster):
-    uid = poster
-    v = by_uid["papers"][uid]
-    data = _data()
-    data["paper"] = format_paper(v)
-    return render_template("poster.html", **data)
+# @app.route("/poster_<poster>.html")
+# def poster(poster):
+#     uid = poster
+#     v = by_uid["papers"][uid]
+#     data = _data()
+#     data["paper"] = format_paper(v)
+#     return render_template("poster.html", **data)
+
+
+@app.route("/thumbnail_<thumbnail>.png")
+def thumbnail(thumbnail):
+    uid = thumbnail
+    if exists(f'{site_data_path}/thumbnails/UID_{uid}.png'):
+        return send_from_directory(f'{site_data_path}/thumbnails', f'UID_{uid}.png')
+    else:
+        return send_from_directory(f'{site_data_path}/thumbnails', 'no_thumbnail_available.png')
 
 
 # FRONT END SERVING
@@ -164,18 +173,18 @@ def paper_json():
     return jsonify(json)
 
 
-@app.route("/thumbnail/<UID>")
-def serve_thumbnail(UID):
-    print(f'UID_{UID}.png')
-    if exists(f'{site_data_path}/thumbnails/UID_{UID}.png'):
-        return send_from_directory(f'{site_data_path}/thumbnails', f'UID_{UID}.png')
-    else:
-        return send_from_directory(f'{site_data_path}/thumbnails', 'no_thumbnail_available.png')
+# @app.route("/thumbnail_<UID>")
+# def serve_thumbnail(UID):
+#     print(f'UID_{UID}.png')
+#     if exists(f'{site_data_path}/thumbnails/UID_{UID}.png'):
+#         return send_from_directory(f'{site_data_path}/thumbnails', f'UID_{UID}.png')
+#     else:
+#         return send_from_directory(f'{site_data_path}/thumbnails', 'no_thumbnail_available.png')
 
 
-@app.route("/static/<path:path>")
-def send_static(path):
-    return send_from_directory("static", path)
+# @app.route("/static/<path:path>")
+# def send_static(path):
+#     return send_from_directory("static", path)
 
 
 @app.route("/serve_<path>.json")
@@ -190,7 +199,7 @@ def serve(path):
 @freezer.register_generator
 def generator():
     for paper in site_data["papers"]:
-        yield "poster", {"poster": str(paper["UID"])}
+        yield "thumbnail", {"thumbnail": str(paper["UID"])}
 
     for key in site_data:
         yield "serve", {"path": key}

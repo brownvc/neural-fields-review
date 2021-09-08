@@ -69,7 +69,7 @@ class API {
 	 * @return {string}
 	 */
 	static thumbnailPath(paper) {
-		return `/thumbnail/${paper.UID}`;
+		return `thumbnail_${paper.UID}.png`;
 	}
 
 	/**
