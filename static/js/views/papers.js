@@ -369,7 +369,7 @@ const card_html = (paper) =>
         <div class="pp-card pp-mode-${renderMode} ">
             <div class="pp-card-header" style="">
             <div class="checkbox-paper fas ${paper.read ? "selected" : ""}" 
-            style="display: block;position: absolute; bottom:${renderMode === MODE.detail ? 375 : 35}px;left: 35px;">&#xf00c;</div>
+            style="display: block;position: absolute; top:2px; left: 25px;">&#xf00c;</div>
             <div class="checkbox-bookmark fas  ${paper.bookmarked ? "selected" : ""}" 
             style="display: block;position: absolute; top:-5px;right: 25px;">&#xf02e;</div>
 <!--                ✓-->
