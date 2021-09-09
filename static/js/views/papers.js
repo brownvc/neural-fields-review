@@ -336,13 +336,9 @@ const triggerFiltering = () => {
 
 const card_image = (paper, show) => {
   if (show)
-    return ` <center><img class="lazy-load-img cards_img" data-src="${API.thumbnailPath(paper)}" style="width: 100%; padding-bottom: 10px"/></center>`;
+    return ` <center><img class="lazy-load-img cards_img" data-src="${API.thumbnailPath(paper)}" style="max-width:250px; padding-bottom:10px"/></center>`;
   return "";
 };
-
-        // <p class="card-text"><span class="font-weight-bold">Keywords:</span>
-        //     ${paper.keywords.map(keyword).join(", ")}
-        // </p>
 
 const card_detail = (paper, show) => {
   if (show)
@@ -355,6 +351,16 @@ const card_detail = (paper, show) => {
 `;
   return "";
 };
+
+const card_keywords = (keywords) => {
+  if (keywords.length)
+    return `
+    <h6 class="card-keywords text-muted">
+                        Keywords: ${keywords.join(", ")}
+    </h6>
+    `;
+  return ""
+}
 
 
 // language=HTML
@@ -369,20 +375,21 @@ const card_html = (paper) =>
 <!--                ✓-->
                 <a href="${API.posterLink(paper)}"
                 target="_blank"
-                   class="text-muted">
+                >
                    <h5 class="card-title" align="center"> ${
     paper.title
   } </h5></a>
+                
                 <h6 class="card-subtitle text-muted" align="center">
                         ${paper.authors.join(", ")}
                 </h6>
-                <h6 class="card-subtitle text-muted" align="center" style="padding-top: 6px">
-                        ${paper.date}
-                </h6>
-                <h6 class="card-subtitle text-muted" align="center" style="padding-top: 6px">
-                        ${paper.keywords.join(", ")}
-                </h6>
                 ${card_image(paper, renderMode !== MODE.mini)}
+                ${card_keywords(paper.keywords)}
+                <h6 class="card-date text-muted">
+                        Date: ${paper.date}
+                </h6>
+                
             </div>
                 ${card_detail(paper, renderMode === MODE.detail)}
+                
         </div>`;

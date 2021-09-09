@@ -5,22 +5,20 @@ citation_date: Sept 2021
 proceedings_title: Proceedings of the xxx
 analytics: G-138S1D0VX9
 logo:
-  image: static/images/MiniConf.png
-  width: 180px
-  height: auto
+    image: static/images/MiniConf.png
+    width: auto
+    height: 50px
 # uncomment the following line to show the site title next to the logo image
 # site_title: MiniConf
 page_title:
-  prefix: 'NeuralFields'
-  separator: ': '
+    prefix: "NeuralFields"
+    separator: ": "
 background_image: static/images/main.jpg
 organization: The Authors
-
 # Remove or change to your chat server.
 # chat_server: miniconf.sloppy.zone
 # default_presentation_id: 38922815
 # default_poster_pdf: /static/images/GLTR_poster.pdf
-
 
 # Configuration for auth
 #Test user
