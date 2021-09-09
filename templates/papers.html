@@ -57,12 +57,23 @@
 </div>
 
 <div class="row" style="padding-top: 10px;">
-  <div class="col-6">
+  <div class="col-4">
     <label><input type="checkbox" name="checkbox" id="onlyShowPapersWithCodeCheckbox" onclick="triggerFiltering()">
       Only show papers with code
     </label>
   </div>
-  <div class="col-6">
+  <div class="col-4">
+    <label style="width: 100%;">
+      Sort By
+      <select id="sortBySelector" style="width: 50%; border: 1px solid #ced4da; border-radius: .25rem;"
+        onChange="triggerFiltering()">
+        <option value=""></option>
+        <option value="Title">Title</option>
+        <option value="Date">Date</option>
+      </select>
+    </label>
+  </div>
+  <div class="col-4">
     <div class="float-right">
       <div class="btn-group btn-group-toggle render_option" data-toggle="buttons">
         <label class="btn btn-outline-secondary active" onclick="changeRenderMode('mini')">

@@ -326,6 +326,17 @@ const triggerFiltering = () => {
       return paperDate.isBetween(startDate, endDate) || paperDate.isSame(startDate) || paperDate.isSame(endDate);
     })
   }
+
+  // sorting
+  const sortBy = document.getElementById("sortBySelector").value;
+  if (sortBy != "") {
+    if (sortBy == "Title") {
+      filteredPapers = filteredPapers.sort((a, b) => a.title > b.title ? 1 : -1)
+    }
+    else if (sortBy == "Date") {
+      filteredPapers = filteredPapers.sort((a, b) => moment(a.date, "MM/DD/YYYY").isBefore(moment(b.date, "MM/DD/YYYY")) ? 1 : -1)
+    }
+  }
   updateCards(filteredPapers);
 }
 
