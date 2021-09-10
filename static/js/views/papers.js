@@ -99,17 +99,43 @@ const changeRenderMode = (newRenderMode) => {
   updateCards(allPapers);
 }
 
+const getFilterFromURL = () => {
+  const URL = window.location.search;
+  const params = new URLSearchParams(URL);
+  if (params.has("author")) {
+    const filterValue = params.get("author");
+    const newFilterID = addNewFilter("author", filterValue);
+    filters.push({
+      filterID: newFilterID,
+      filterType: "author",
+      filterValue: filterValue
+    })
+    return true;
+  }
+  else if (params.has("keyword")) {
+    const filterValue = params.get("keyword");
+    const newFilterID = addNewFilter("keyword", filterValue);
+    filters.push({
+      filterID: newFilterID,
+      filterType: "author",
+      filterValue: filterValue
+    })
+    return true;
+  }
+}
+
 /**
  * START here and load JSON.
  */
 const start = () => {
-  Promise.all([API.getPapers(), API.getConfig()])
-    .then(([papers, config]) => {
+  Promise.all([API.getPapers()])
+    .then(([papers]) => {
       allPapers = papers
-      console.log("allPapers:",allPapers)
-      calcAllKeys(papers, allKeys);
+      calcAllKeys(allPapers, allKeys);
       initTypeAhead([...allKeys.titles, ...allKeys.nicknames],".titleAndNicknameTypeahead","titleAndNickname",setTitleAndNicknameFilter)
-      updateCards(papers);
+      const urlHasFilterParams = getFilterFromURL();
+      updateCards(allPapers);
+      if(urlHasFilterParams) triggerFiltering();
     })
     .catch((e) => console.error(e));
 };
@@ -130,7 +156,7 @@ const setFilterByID = (filterID) => {
 /**
  * Function for adding a new filter
  */
-function addNewFilter() {
+function addNewFilter(filterType, filterValue) {
   const filterID = nextFilterID;
   nextFilterID += 1;
 
@@ -152,10 +178,10 @@ function addNewFilter() {
     .html(
       `
     <div class="filterTypeSelector col-1">
-    ${generateFilterTypeSelector(filterID)}
+    ${generateFilterTypeSelector(filterID, filterType)}
     </div>
     <div class="input-group col-10">
-    ${generateFilterInputHTML("author", filterID)}
+    ${generateFilterInputHTML(filterID, filterType, filterValue)}
     </div>
     <div class="col-1">
     ${generateRemoveFilterButton(filterID)}
@@ -164,6 +190,8 @@ function addNewFilter() {
   tippy(".removeFilterButton")
 
   initTypeAhead([...allKeys.authors],".authorsTypeahead","authors",() => {setFilterByID(filterID)})
+  
+  return filterID;
 }
 
 function removeFilterByID(filterID) {
@@ -177,7 +205,7 @@ function changeFilterType(filterID, newFilterTypeIndex) {
   const newFilterType = filterTypes[newFilterTypeIndex]
   d3.select(`#filter_${filterID}`)
     .select(`.input-group`)
-    .html(generateFilterInputHTML(newFilterType, filterID))
+    .html(generateFilterInputHTML(filterID, newFilterType, ""))
 
   if (newFilterType === "author") {
     initTypeAhead([...allKeys.authors], ".authorsTypeahead", "authors", () => { setFilterByID(filterID) })
@@ -211,20 +239,20 @@ function changeFilterType(filterID, newFilterTypeIndex) {
   filters[filterIndex].filterType = filterTypes[newFilterTypeIndex]
 }
 
-const generateFilterTypeSelector = (filterID) => {
+const generateFilterTypeSelector = (filterID, selectedType) => {
   return `
       <select style="border: 1px solid #ced4da; border-radius: .25rem; height: calc(1.5em + .75rem + 2px);" onChange="changeFilterType(${filterID}, this.selectedIndex)">
-        <option value="Author">Author</option>
-        <option value="Keyword">Keyword</option>
-        <option value="Date">Date</option>
+        <option value="author" ${selectedType == "author" ? "selected" : ""}>Author</option>
+        <option value="keyword" ${selectedType == "keyword" ? "selected" : ""}>Keyword</option>
+        <option value="date">Date</option>
       </select>
     `
 }
 
-const generateFilterInputHTML = (filterType, filterID) => {
+const generateFilterInputHTML = (filterID, filterType, filterValue) => {
   if (filterType === "author") {
     return `
-        <input type="text" id="filterInput_${filterID}" class="form-control authorsTypeahead" placeholder="Filter by author" onchange="setFilterByID(${filterID})">
+        <input type="text" id="filterInput_${filterID}" class="form-control authorsTypeahead" placeholder="Filter by author" onchange="setFilterByID(${filterID})" value="${filterValue}">
         <button class="btn bg-transparent authorsTypeahead_clear" style="margin-left: -40px; z-index: 100;">
           &times;
         </button>
@@ -232,7 +260,7 @@ const generateFilterInputHTML = (filterType, filterID) => {
   }
   else if (filterType === "keyword") {
     return `
-      <input type="text" id="filterInput_${filterID}" class="form-control keywordTypeahead" placeholder="Filter by keyword" onchange="setFilterByID(${filterID})">
+      <input type="text" id="filterInput_${filterID}" class="form-control keywordTypeahead" placeholder="Filter by keyword" onchange="setFilterByID(${filterID})" value="${filterValue}">
       <button class="btn bg-transparent keywordTypeahead_clear" style="margin-left: -40px; z-index: 100;">
         &times;
       </button>
@@ -289,7 +317,6 @@ const triggerFiltering = () => {
       dateFilters.push(filter.filterValue)
     }
   })
-
   for (authorFilter of authorFilters) {
     filteredPapers = filteredPapers.filter((paper) => {
       let hasThisAuthor = false;
@@ -333,8 +360,11 @@ const triggerFiltering = () => {
     if (sortBy == "Title") {
       filteredPapers = filteredPapers.sort((a, b) => a.title > b.title ? 1 : -1)
     }
-    else if (sortBy == "Date") {
+    else if (sortBy == "DateLatestToOldest") {
       filteredPapers = filteredPapers.sort((a, b) => moment(a.date, "MM/DD/YYYY").isBefore(moment(b.date, "MM/DD/YYYY")) ? 1 : -1)
+    }
+    else if (sortBy == "DateOldestToLatest") {
+      filteredPapers = filteredPapers.sort((a, b) => moment(a.date, "MM/DD/YYYY").isBefore(moment(b.date, "MM/DD/YYYY")) ? -1 : 1)
     }
   }
   updateCards(filteredPapers);
@@ -384,7 +414,7 @@ const card_html = (paper) =>
             <div class="checkbox-bookmark fas  ${paper.bookmarked ? "selected" : ""}" 
             style="display: block;position: absolute; top:-5px;right: 25px;">&#xf02e;</div>
 <!--                ✓-->
-                <a href="${API.posterLink(paper)}"
+                <a href="${API.paperLink(paper)}"
                 target="_blank"
                 >
                    <h5 class="card-title" align="center"> ${

@@ -73,22 +73,12 @@ class API {
 	}
 
 	/**
-	 * Link to poster detail derived from paper object
+	 * Link to paper detail
 	 * @param paper
 	 * @return {string}
 	 */
-	static posterLink(paper) {
-		return `poster_${paper.UID}.html`;
-	}
-
-	/**
-	 * link to the poster ICAL file for poster and repetition i
-	 * @param paper
-	 * @param i
-	 * @return {string}
-	 */
-	static posterICS(paper, i) {
-		return `webcal://iclr.github.io/iclr-images/calendars/poster_${paper.UID}.${i}.ics`;
+	static paperLink(paper) {
+		return `paper_${paper.UID}.html`;
 	}
 }
 

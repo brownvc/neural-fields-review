@@ -99,12 +99,7 @@ def paper_vis():
 
 
 def extract_list_field(v, key):
-    # print("extracting", "key:", key)
     value = v.get(key, "")
-    # if isinstance(value, list):
-    #     return value
-    # else:
-    #     return value.split("|")
     if len(value) > 0:
         result = value.split(",")
         for i in range(len(result)):
@@ -115,9 +110,6 @@ def extract_list_field(v, key):
 
 
 def format_paper(v):
-    # print("paper:\n")
-    # print(v)
-    # print("\n")
     list_keys = ["Authors", "Task", "Techniques"]
     list_fields = {}
     for key in list_keys:
@@ -133,10 +125,7 @@ def format_paper(v):
         "abstract": v["Abstract"],
         "TLDR": v["Abstract"],
         "recs": [],
-        # links to external content per poster
         "pdf_url": v.get("pdf_url", ""),  # render poster from this PDF
-        # "code_link": "https://github.com/Mini-Conf/Mini-Conf",  # link to code
-        # "link": "https://arxiv.org/abs/2007.12238",  # link to paper
         "code_link": v["Code Release"],  # link to paper
         "link": v["PDF"],  # link to paper
     }
@@ -152,6 +141,14 @@ def format_paper(v):
 #     data = _data()
 #     data["paper"] = format_paper(v)
 #     return render_template("poster.html", **data)
+
+@app.route("/paper_<paper>.html")
+def paper(paper):
+    uid = paper
+    v = by_uid["papers"][uid]
+    data = _data()
+    data["paper"] = format_paper(v)
+    return render_template("paper_detail.html", **data)
 
 
 @app.route("/thumbnail_<thumbnail>.png")

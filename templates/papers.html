@@ -46,7 +46,7 @@
   </div>
   <div class="col-1">
     <button class="btn btn-outline-secondary" id="add_new_filter_button" style="border-radius: 25px;"
-      onclick="addNewFilter()" data-tippy-content="Add a filter">
+      onclick="addNewFilter('author','')" data-tippy-content="Add a filter">
       <div class="fas">&#xf067;</div>
     </button>
   </div>
@@ -65,11 +65,12 @@
   <div class="col-4">
     <label style="width: 100%;">
       Sort By
-      <select id="sortBySelector" style="width: 50%; border: 1px solid #ced4da; border-radius: .25rem;"
+      <select id="sortBySelector" style="width: 70%; border: 1px solid #ced4da; border-radius: .25rem;"
         onChange="triggerFiltering()">
         <option value=""></option>
         <option value="Title">Title</option>
-        <option value="Date">Date</option>
+        <option value="DateLatestToOldest">Date - Latest to Oldest</option>
+        <option value="DateOldestToLatest">Date - Oldest to Latest</option>
       </select>
     </label>
   </div>
