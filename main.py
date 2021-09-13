@@ -134,7 +134,8 @@ def format_paper(v):
         "code_link": v["Code Release"],
         "talk_link": embed_url(v["Talk/Video"]) if "embed" not in v["Talk/Video"] else v["Talk/Video"],
         "project_link": v["Project Webpage"],
-        "citation": v["Citation"]
+        "citation": v["Citation"],
+        "venue": v.get("Venue", "")
     }
 
 

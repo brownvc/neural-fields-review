@@ -37,14 +37,21 @@
                 class="text-muted filterByAuthorLink">{{author}}</a>{{ "," if not loop.last }}
             {% endfor %}
         </h3>
-        <p class="card-text text-center">
-            <span class="">Keywords:</span>
+        <p class="text-center" style="margin-bottom: 0px;">
+            <span>Keywords:</span>
             {% for keyword in paper.keywords %}
             <a href="papers.html?keyword={{keyword}}" target="_blank"
                 data-tippy-content="See all papers with keyword '{{keyword}}'"
                 class="text-secondary text-decoration-none filterByKeywordLink">{{keyword}}</a>{{ "," if not loop.last }}
             {% endfor %}
         </p>
+        {% if paper.venue != "" %}
+        <p class="text-center" style="margin-bottom: 0px;">
+            <span>Venue: </span>
+            <span class="text-secondary text-decoration-none">{{paper.venue}}</span>
+        </p>
+        {% endif %}
+
         <div class="text-center p-3">
             <a class="card-link" target="_blank" href="{{paper.pdf_url}}">
                 Paper
