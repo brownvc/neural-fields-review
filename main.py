@@ -4,6 +4,7 @@ import csv
 import glob
 import json
 import os
+import re
 
 import yaml
 from flask import Flask, jsonify, redirect, render_template, send_from_directory
@@ -13,6 +14,12 @@ from os.path import exists
 
 site_data = {}
 by_uid = {}
+
+
+def embed_url(video_url):
+    regex = r"(?:https:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)"
+
+    return re.sub(regex, r"https://www.youtube.com/embed/\1", video_url)
 
 
 def main(site_data_path):
@@ -123,11 +130,11 @@ def format_paper(v):
         "keywords": list_fields["Task"] + list_fields["Techniques"],
         "date": v["Date"],
         "abstract": v["Abstract"],
-        "TLDR": v["Abstract"],
-        "recs": [],
-        "pdf_url": v.get("pdf_url", ""),  # render poster from this PDF
-        "code_link": v["Code Release"],  # link to paper
-        "link": v["PDF"],  # link to paper
+        "pdf_url": v.get("PDF", ""),
+        "code_link": v["Code Release"],
+        "talk_link": embed_url(v["Talk/Video"]) if "embed" not in v["Talk/Video"] else v["Talk/Video"],
+        "project_link": v["Project Webpage"],
+        "citation": v["Citation"]
     }
 
 

@@ -104,24 +104,21 @@ const getFilterFromURL = () => {
   const params = new URLSearchParams(URL);
   if (params.has("author")) {
     const filterValue = params.get("author");
-    const newFilterID = addNewFilter("author", filterValue);
-    filters.push({
-      filterID: newFilterID,
-      filterType: "author",
-      filterValue: filterValue
-    })
+    addNewFilter("author", filterValue);
     return true;
   }
   else if (params.has("keyword")) {
     const filterValue = params.get("keyword");
-    const newFilterID = addNewFilter("keyword", filterValue);
-    filters.push({
-      filterID: newFilterID,
-      filterType: "author",
-      filterValue: filterValue
-    })
+    addNewFilter("keyword", filterValue);
     return true;
   }
+}
+
+const makeYouTubeURMEmbeddable = (url) => {
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+  const match = url.match(regExp);
+  const id = match && match[2].length === 11 ? match[2] : null;
+  return `https://www.youtube.com/embed/${id}`;
 }
 
 /**
@@ -131,6 +128,13 @@ const start = () => {
   Promise.all([API.getPapers()])
     .then(([papers]) => {
       allPapers = papers
+      
+      for (let i = 0; i < allPapers.length; ++i) {
+        if (allPapers[i].talk_link.includes("youtube")) {
+          allPapers[i].talk_link = makeYouTubeURMEmbeddable(allPapers[i].talk_link)
+        }
+      }
+      console.log("all papers: ", allPapers)
       calcAllKeys(allPapers, allKeys);
       initTypeAhead([...allKeys.titles, ...allKeys.nicknames],".titleAndNicknameTypeahead","titleAndNickname",setTitleAndNicknameFilter)
       const urlHasFilterParams = getFilterFromURL();
@@ -163,8 +167,8 @@ function addNewFilter(filterType, filterValue) {
   filters.push(
     {
       filterID: filterID,
-      filterType: "author",
-      filterValue: ""
+      filterType: filterType,
+      filterValue: filterValue
     }
   )
 
@@ -386,7 +390,7 @@ const card_detail = (paper, show) => {
     return ` 
      <div class="pp-card-header" style="overflow-y: auto;">
      <div style="width:100%; ">
-        <p class="card-text"> ${paper.TLDR}</p>
+        <p class="card-text"> ${paper.abstract}</p>
         </div>
     </div>
 `;

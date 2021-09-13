@@ -13,25 +13,19 @@ workshopgroup
 <ul class="nav nav-pills justify-content-center">
   {% for tab in tab_group %}
   <li class="nav-item">
-    <a
-      class="nav-link {{tab[2]}} text-muted "
-      data-toggle="tab"
-      href="#tab-{{tab[0]}}"
-      role="tab"
-      aria-controls="nav-home"
-      aria-selected="true"
-      >{{tab[1]}}
+    <a class="nav-link {{tab[2]}} text-muted " data-toggle="tab" href="#tab-{{tab[0]}}" role="tab"
+      aria-controls="nav-home" aria-selected="true">{{tab[1]}}
     </a>
   </li>
   {% endfor %}
 </ul>
 {%- endmacro %}
 
-{% macro section(name) -%}
+{% macro section(name, url) -%}
 <div class="border-top my-3"></div>
-<div class="row p-4" id="faq">
-  <div class="col-12 bd-content">
-    <h2 class="text-center">{{name}}</h2>
+<div class="row p-4">
+  <div class="col-12" style="text-align: center;">
+    <a style="font-size: 25px; color: #2294e0;" target="_blank" href="{{url}}">{{name}}</a>
   </div>
 </div>
 {%- endmacro %}
@@ -64,7 +58,7 @@ workshopgroup
             </div>
             <div class="m-3 text-muted">
               <span class="card-title h3">
-                {{speaker.speaker}}  /  {{speaker.institution}}
+                {{speaker.speaker}} / {{speaker.institution}}
               </span>
             </div>
             <div class="m-3">
@@ -94,9 +88,7 @@ workshopgroup
         <div>
           <h6 class="card-subtitle text-muted m-1" align="center">
             {{org.aff}}{% if org.tw %} /
-            <a class="text-muted" href="http://twitter.com/{{org.tw}}"
-              >@{{org.tw}}</a
-            >{% endif %}
+            <a class="text-muted" href="http://twitter.com/{{org.tw}}">@{{org.tw}}</a>{% endif %}
           </h6>
         </div>
         <center>
@@ -119,23 +111,13 @@ workshopgroup
   <div class="col-12" id="accordionExample">
     <div class="card m-2">
       <div class="card-header">
-        <a
-          class=""
-          href="#"
-          data-toggle="collapse"
-          data-target="#collapse{{rowloop}}-{{loop.index}}"
-          aria-expanded="true"
-          aria-controls="collapse{{rowloop}}-{{loop.index}}"
-        >
+        <a class="" href="#" data-toggle="collapse" data-target="#collapse{{rowloop}}-{{loop.index}}"
+          aria-expanded="true" aria-controls="collapse{{rowloop}}-{{loop.index}}">
           {{qa.Question}}
         </a>
       </div>
-      <div
-        id="collapse{{rowloop}}-{{loop.index}}"
-        class="collapse"
-        aria-labelledby="headingOne"
-        data-parent="#accordionExample"
-      >
+      <div id="collapse{{rowloop}}-{{loop.index}}" class="collapse" aria-labelledby="headingOne"
+        data-parent="#accordionExample">
         <div class="card-body">
           {{qa.Answer}}
         </div>
@@ -149,11 +131,7 @@ workshopgroup
 
 {% macro highlightgroup(papers, id) -%}
 <div class="row my-auto mx-auto">
-  <div
-    id="carouselExample{{id}}"
-    class="carousel slide d-none d-md-block"
-    data-interval="false"
-  >
+  <div id="carouselExample{{id}}" class="carousel slide d-none d-md-block" data-interval="false">
     <div class="carousel-inner cards" role="listbox">
       {% for openreview in papers %}
       {% if loop.index % 3 == 1 %}
@@ -173,11 +151,9 @@ workshopgroup
                 {% endfor %}
               </h6>
               <center>
-                <img
-                  class="cards_img lazy-load-img"
+                <img class="cards_img lazy-load-img"
                   data-src="https://brownvc.github.io/neural-fields-review/static/images/{{openreview.UID}}.png"
-                  width="80%"
-                />
+                  width="80%" />
               </center>
             </div>
           </div>
@@ -187,21 +163,11 @@ workshopgroup
       {% endif %}
       {% endfor %}
     </div>
-    <a
-      class="carousel-control-prev"
-      href="#carouselExample{{id}}"
-      role="button"
-      data-slide="prev"
-    >
+    <a class="carousel-control-prev" href="#carouselExample{{id}}" role="button" data-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="sr-only">Previous</span>
     </a>
-    <a
-      class="carousel-control-next"
-      href="#carouselExample{{id}}"
-      role="button"
-      data-slide="next"
-    >
+    <a class="carousel-control-next" href="#carouselExample{{id}}" role="button" data-slide="next">
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="sr-only">Next</span>
     </a>
@@ -214,10 +180,7 @@ workshopgroup
   {% for workshop in workshops %}
   <div class="col-md-6 col-sm-12 p-3" style="box-sizing: border-box;">
     <div class="card" style="display: block; overflow: hidden; width: 100%;">
-      <div
-        class="card-header text-center"
-        style="min-height: 200px; width: 100%;"
-      >
+      <div class="card-header text-center" style="min-height: 200px; width: 100%;">
         <a class="text-muted" href="workshop_{{workshop.id}}.html">
           <h3 class="card-title main-title">
             {{workshop.title}}
