@@ -16,12 +16,6 @@ site_data = {}
 by_uid = {}
 
 
-def embed_url(video_url):
-    regex = r"(?:https:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)"
-
-    return re.sub(regex, r"https://www.youtube.com/embed/\1", video_url)
-
-
 def main(site_data_path):
     global site_data, extra_files
     extra_files = ["README.md"]
@@ -116,11 +110,28 @@ def extract_list_field(v, key):
     return result
 
 
+def embed_url(video_url):
+    regex = r"(?:https:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)"
+    return re.sub(regex, r"https://www.youtube.com/embed/\1", video_url)
+
+
 def format_paper(v):
     list_keys = ["Authors", "Task", "Techniques"]
     list_fields = {}
     for key in list_keys:
         list_fields[key] = extract_list_field(v, key)
+
+    talk_URLs = v["Talk/Video"].split(',')
+
+    talk_URL = ""
+    for URL in talk_URLs:
+        if "youtube" in URL:
+            if "embed" in URL:
+                talk_URL = URL
+            else:
+                talk_URL = embed_url(URL)
+        else:
+            talk_URL = URL
 
     return {
         "UID": v["UID"],
@@ -132,7 +143,7 @@ def format_paper(v):
         "abstract": v["Abstract"],
         "pdf_url": v.get("PDF", ""),
         "code_link": v["Code Release"],
-        "talk_link": embed_url(v["Talk/Video"]) if "embed" not in v["Talk/Video"] else v["Talk/Video"],
+        "talk_link": talk_URL,
         "project_link": v["Project Webpage"],
         "citation": v["Citation"],
         "venue": v.get("Venue", "")
