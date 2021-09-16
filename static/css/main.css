@@ -306,15 +306,16 @@ body .carousel-control-prev {
 	color: #bed972;
 }
 
-/*@supports (-webkit-text-stroke: 1px gray) {*/
-/*  .checkbox-paper {*/
-/*    opacity: 0.2;*/
-/*    -webkit-text-stroke: 1px gray;*/
-/*    -webkit-text-fill-color: white;*/
-/*  }*/
+.vis-tooltip {
+	background-color: white !important;
+}
 
-/*  .checkbox-paper.selected {*/
-/*    opacity: 1;*/
-/*    -webkit-text-fill-color: #bed972;*/
-/*  }*/
-/*}*/
+.vis-item.paper-item {
+	color: white;
+	background-color: #bed972;
+	border-color: #bed972;
+}
+
+.vis-item.paper-item a {
+	color: black;
+}

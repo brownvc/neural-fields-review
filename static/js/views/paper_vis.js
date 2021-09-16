@@ -25,6 +25,28 @@ var filters = [
 ];
 var nextFilterID = 1;
 
+var paperItems = [];
+
+var paperDataset = new vis.DataSet(paperItems);
+
+const container = document.getElementById("visualization");
+
+const options = {
+  // timeAxis: {
+  //   scale: "day",
+  //   step: 1,
+  // },
+  // clickToUse: true,
+  start: "2020-06-01",
+  min: "1950-1-1",
+  align: "left",
+  tooltip: {
+    followMouse: true,
+  },
+ 
+};
+
+var timeline;
 
 /**
  * START here and load JSON.
@@ -35,7 +57,19 @@ const start = () => {
       allPapers = papers
       console.log("all papers: ", allPapers)
       calcAllKeys(allPapers, allKeys);
-      initTypeAhead([...allKeys.titles, ...allKeys.nicknames],".titleAndNicknameTypeahead","titleAndNickname",setTitleAndNicknameFilter)
+      initTypeAhead([...allKeys.titles, ...allKeys.nicknames], ".titleAndNicknameTypeahead", "titleAndNickname", setTitleAndNicknameFilter);
+
+      paperItems = allPapers.map((paper, index) => {
+        return {
+          id: index,
+          content: generatePaperItem(paper),
+          start: moment(paper.date, "MM/DD/YYYY"),
+          className: "paper-item"
+        }
+      }
+      );
+      paperDataset = new vis.DataSet(paperItems);
+      timeline = new vis.Timeline(container, paperDataset, options);
     })
     .catch((e) => console.error(e));
 };
@@ -254,3 +288,33 @@ const triggerFiltering = () => {
   }
 }
 
+const item7 =
+  '<a href="https://visjs.org" target="_blank">3D Object Reconstruction and Representation Using Neural Networks</a>';
+
+const generatePaperItem = (paper) =>
+  `
+  <a href="https://visjs.org" target="_blank">${paper.title}</a>
+  `
+// create data and a Timeline
+
+// let paperItems = [
+//   { id: 7, content: item7, start: "2013-04-21", className: "paper-item" },
+//   {
+//     id: 9,
+//     content: item7,
+//     start: "2013-01-21",
+//     title: "<h1>title</h1>",
+//     className: "paper-item",
+//   },
+// ];
+
+
+
+function check() {
+  console.log(items);
+  items = new vis.DataSet([
+    { id: 7, content: item7, start: "2013-04-21", className: "paper-item" },
+  ]);
+  timeline.destroy();
+  timeline = new vis.Timeline(container, items, options);
+}
