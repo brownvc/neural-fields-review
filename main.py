@@ -4,11 +4,13 @@ import csv
 import glob
 import json
 import os
+import re
 
 import yaml
 from flask import Flask, jsonify, redirect, render_template, send_from_directory
 from flask_frozen import Freezer
 from flaskext.markdown import Markdown
+from os.path import exists
 
 site_data = {}
 by_uid = {}
@@ -19,14 +21,16 @@ def main(site_data_path):
     extra_files = ["README.md"]
     # Load all for your sitedata one time.
     for f in glob.glob(site_data_path + "/*"):
-        extra_files.append(f)
-        name, typ = f.split("/")[-1].split(".")
-        if typ == "json":
-            site_data[name] = json.load(open(f))
-        elif typ in {"csv", "tsv"}:
-            site_data[name] = list(csv.DictReader(open(f)))
-        elif typ == "yml":
-            site_data[name] = yaml.load(open(f).read(), Loader=yaml.SafeLoader)
+        if f != "sitedata/thumbnails":
+            extra_files.append(f)
+            name, typ = f.split("/")[-1].split(".")
+            if typ == "json":
+                site_data[name] = json.load(open(f))
+            elif typ in {"csv", "tsv"}:
+                site_data[name] = list(csv.DictReader(open(f)))
+            elif typ == "yml":
+                site_data[name] = yaml.load(
+                    open(f).read(), Loader=yaml.SafeLoader)
 
     for typ in ["papers"]:
         by_uid[typ] = {}
@@ -96,12 +100,7 @@ def paper_vis():
 
 
 def extract_list_field(v, key):
-    # print("extracting", "key:", key)
     value = v.get(key, "")
-    # if isinstance(value, list):
-    #     return value
-    # else:
-    #     return value.split("|")
     if len(value) > 0:
         result = value.split(",")
         for i in range(len(result)):
@@ -111,14 +110,28 @@ def extract_list_field(v, key):
     return result
 
 
+def embed_url(video_url):
+    regex = r"(?:https:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)"
+    return re.sub(regex, r"https://www.youtube.com/embed/\1", video_url)
+
+
 def format_paper(v):
-    # print("paper:\n")
-    # print(v)
-    # print("\n")
     list_keys = ["Authors", "Task", "Techniques"]
     list_fields = {}
     for key in list_keys:
         list_fields[key] = extract_list_field(v, key)
+
+    talk_URLs = v["Talk/Video"].split(',')
+
+    talk_URL = ""
+    for URL in talk_URLs:
+        if "youtube" in URL:
+            if "embed" in URL:
+                talk_URL = URL
+            else:
+                talk_URL = embed_url(URL)
+        else:
+            talk_URL = URL
 
     return {
         "UID": v["UID"],
@@ -128,27 +141,42 @@ def format_paper(v):
         "keywords": list_fields["Task"] + list_fields["Techniques"],
         "date": v["Date"],
         "abstract": v["Abstract"],
-        "TLDR": v["Abstract"],
-        "recs": [],
-        # links to external content per poster
-        "pdf_url": v.get("pdf_url", ""),  # render poster from this PDF
-        # "code_link": "https://github.com/Mini-Conf/Mini-Conf",  # link to code
-        # "link": "https://arxiv.org/abs/2007.12238",  # link to paper
-        "code_link": v["Code Release"],  # link to paper
-        "link": v["PDF"],  # link to paper
+        "pdf_url": v.get("PDF", ""),
+        "code_link": v["Code Release"],
+        "talk_link": talk_URL,
+        "project_link": v["Project Webpage"],
+        "citation": v["Citation"],
+        "venue": v.get("Venue", "")
     }
 
 
 # ITEM PAGES
 
 
-@app.route("/poster_<poster>.html")
-def poster(poster):
-    uid = poster
+# @app.route("/poster_<poster>.html")
+# def poster(poster):
+#     uid = poster
+#     v = by_uid["papers"][uid]
+#     data = _data()
+#     data["paper"] = format_paper(v)
+#     return render_template("poster.html", **data)
+
+@app.route("/paper_<paper>.html")
+def paper(paper):
+    uid = paper
     v = by_uid["papers"][uid]
     data = _data()
     data["paper"] = format_paper(v)
-    return render_template("poster.html", **data)
+    return render_template("paper_detail.html", **data)
+
+
+@app.route("/thumbnail_<thumbnail>.png")
+def thumbnail(thumbnail):
+    uid = thumbnail
+    if exists(f'{site_data_path}/thumbnails/UID_{uid}.png'):
+        return send_from_directory(f'{site_data_path}/thumbnails', f'UID_{uid}.png')
+    else:
+        return send_from_directory(f'{site_data_path}/thumbnails', 'no_thumbnail_available.png')
 
 
 # FRONT END SERVING
@@ -161,9 +189,18 @@ def paper_json():
     return jsonify(json)
 
 
-@app.route("/static/<path:path>")
-def send_static(path):
-    return send_from_directory("static", path)
+# @app.route("/thumbnail_<UID>")
+# def serve_thumbnail(UID):
+#     print(f'UID_{UID}.png')
+#     if exists(f'{site_data_path}/thumbnails/UID_{UID}.png'):
+#         return send_from_directory(f'{site_data_path}/thumbnails', f'UID_{UID}.png')
+#     else:
+#         return send_from_directory(f'{site_data_path}/thumbnails', 'no_thumbnail_available.png')
+
+
+# @app.route("/static/<path:path>")
+# def send_static(path):
+#     return send_from_directory("static", path)
 
 
 @app.route("/serve_<path>.json")
@@ -178,7 +215,8 @@ def serve(path):
 @freezer.register_generator
 def generator():
     for paper in site_data["papers"]:
-        yield "poster", {"poster": str(paper["UID"])}
+        yield "thumbnail", {"thumbnail": str(paper["UID"])}
+        yield "paper", {"paper": str(paper["UID"])}
 
     for key in site_data:
         yield "serve", {"path": key}

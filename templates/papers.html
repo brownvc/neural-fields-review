@@ -19,7 +19,7 @@
 {% block tabs %}
 <ul class="nav nav-pills justify-content-center">
   <li class="nav-item active">
-    <a class="nav-link text-muted active" data-toggle="tab" href="#tab-browse" role="tab" aria-controls="nav-home"
+    <a class="nav-link text-muted active" data-toggle="tab" role="tab" aria-controls="nav-home"
       aria-selected="true">Browse
     </a>
   </li>
@@ -34,55 +34,6 @@
 <div class="row p-3"></div>
 
 
-<!-- Buttons -->
-<!-- <div class="row">
-  <div class="col-12 col-sm-12 col-md-6 col-lg-4">
-    <div class="input-group mb-3">
-      <input type="text" class="form-control titleAndNicknameTypeahead" placeholder="Search" />
-      <div class="input-group-append">
-        <button class="btn btn-outline-secondary titleAndNicknameTypeahead_clear" type="button">
-          &times;
-        </button>
-      </div>
-    </div>
-  </div>
-  <div class="col-12 col-sm-6 col-md-6 col-lg-4 text-center" style="margin-bottom: 10px;">
-    <div class="btn-group btn-group-toggle filter_option">
-      <label class="btn btn-outline-secondary" data-tippy-content="Search for papers titles">
-        <input type="radio" name="options" value="titles" autocomplete="off" checked />
-        title
-      </label>
-      <label class="btn btn-outline-secondary" data-tippy-content="Search for papers with specific keywords">
-        <input type="radio" name="options" value="keywords" autocomplete="off" />
-        keyword
-      </label>
-      <label class="btn btn-outline-secondary active" data-tippy-content="Search for papers from specific authors">
-        <input type="radio" name="options" value="authors" autocomplete="off" />
-        author
-      </label>
-    </div>
-  </div>
-  <div class="col-12 col-lg-4">
-    <button class="btn btn-outline-secondary reshuffle">shuffle</button>
-    <div class="float-right">
-      <div class="btn-group btn-group-toggle render_option" data-toggle="buttons">
-        <label class="btn btn-outline-secondary active">
-          <input type="radio" name="options" value="mini" autocomplete="off" />
-          mini
-        </label>
-        <label class="btn btn-outline-secondary active">
-          <input type="radio" name="options" value="compact" autocomplete="off" checked />
-          compact
-        </label>
-        <label class="btn btn-outline-secondary">
-          <input type="radio" name="options" value="detail" autocomplete="off" />
-          detail
-        </label>
-      </div>
-    </div>
-  </div>
-</div> -->
-
 <!-- title / nickname search input -->
 <div class="row">
   <div class="input-group col-11">
@@ -95,7 +46,7 @@
   </div>
   <div class="col-1">
     <button class="btn btn-outline-secondary" id="add_new_filter_button" style="border-radius: 25px;"
-      data-tippy-content="Add a filter">
+      onclick="addNewFilter('author','')" data-tippy-content="Add a filter">
       <div class="fas">&#xf067;</div>
     </button>
   </div>
@@ -106,24 +57,37 @@
 </div>
 
 <div class="row" style="padding-top: 10px;">
-  <div class="col-6">
+  <div class="col-4">
     <label><input type="checkbox" name="checkbox" id="onlyShowPapersWithCodeCheckbox" onclick="triggerFiltering()">
       Only show papers with code
     </label>
   </div>
-  <div class="col-6">
+  <div class="col-4">
+    <label style="width: 100%;">
+      Sort By
+      <select id="sortBySelector" style="width: 70%; border: 1px solid #ced4da; border-radius: .25rem;"
+        onChange="triggerFiltering()">
+        <option value=""></option>
+        <option value="Title">Title</option>
+        <option value="DateLatestToOldest">Date - Latest to Oldest</option>
+        <option value="DateOldestToLatest">Date - Oldest to Latest</option>
+      </select>
+    </label>
+  </div>
+  <div class="col-4">
     <div class="float-right">
       <div class="btn-group btn-group-toggle render_option" data-toggle="buttons">
-        <label class="btn btn-outline-secondary active">
+        <label class="btn btn-outline-secondary active" onclick="changeRenderMode('mini')">
           <input type="radio" name="options" value="mini" autocomplete="off" />
           mini
         </label>
         <label class="btn btn-outline-secondary active">
-          <input type="radio" name="options" value="compact" autocomplete="off" checked />
+          <input type="radio" name="options" value="compact" autocomplete="off" onclick="changeRenderMode('compact')"
+            checked />
           compact
         </label>
         <label class="btn btn-outline-secondary">
-          <input type="radio" name="options" value="detail" autocomplete="off" />
+          <input type="radio" name="options" value="detail" autocomplete="off" onclick="changeRenderMode('detail')" />
           detail
         </label>
       </div>
