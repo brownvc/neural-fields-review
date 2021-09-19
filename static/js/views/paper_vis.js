@@ -314,7 +314,7 @@ const triggerFiltering = () => {
 const generatePaperItem = (paper) => {
   console.log(API.paperLink(paper));
   return `
-  <a href="/paper_${paper.UID}.html" target="_blank">${paper.title}</a>
+  <a href="paper_${paper.UID}.html" target="_blank">${paper.title}</a>
   `
 }
 
