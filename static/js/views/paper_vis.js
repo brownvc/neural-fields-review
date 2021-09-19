@@ -31,13 +31,8 @@ var paperDataset = new vis.DataSet(paperItems);
 
 const container = document.getElementById("visualization");
 
-const options = {
-  // timeAxis: {
-  //   scale: "day",
-  //   step: 1,
-  // },
-  // clickToUse: true,
-  start: "2020-06-01",
+const timelineOptions = {
+  //start: "2020-06-01",
   min: "1950-1-1",
   align: "left",
   tooltip: {
@@ -59,20 +54,26 @@ const start = () => {
       calcAllKeys(allPapers, allKeys);
       initTypeAhead([...allKeys.titles, ...allKeys.nicknames], ".titleAndNicknameTypeahead", "titleAndNickname", setTitleAndNicknameFilter);
 
-      paperItems = allPapers.map((paper, index) => {
-        return {
-          id: index,
-          content: generatePaperItem(paper),
-          start: moment(paper.date, "MM/DD/YYYY"),
-          className: "paper-item"
-        }
-      }
-      );
-      paperDataset = new vis.DataSet(paperItems);
-      timeline = new vis.Timeline(container, paperDataset, options);
+      renderTimeline(allPapers);
     })
     .catch((e) => console.error(e));
 };
+
+const renderTimeline = (papers) => {
+  console.log("rendering: ", papers);
+  if (timeline) timeline.destroy();
+    const paperItems = papers.map((paper, index) => {
+    return {
+      id: index,
+      content: generatePaperItem(paper),
+      start: moment(paper.date, "MM/DD/YYYY"),
+      className: "paper-item"
+    }
+    }
+    );
+    paperDataset = new vis.DataSet(paperItems);
+    timeline = new vis.Timeline(container, paperDataset, timelineOptions);
+}
 
 const setTitleAndNicknameFilter = () => {
   const titleAndNicknameFilterValue = document.getElementById("titleAndNicknameInput").value;
@@ -286,6 +287,8 @@ const triggerFiltering = () => {
       return paperDate.isBetween(startDate, endDate) || paperDate.isSame(startDate) || paperDate.isSame(endDate);
     })
   }
+
+  renderTimeline(filteredPapers);
 }
 
 const item7 =
@@ -316,5 +319,5 @@ function check() {
     { id: 7, content: item7, start: "2013-04-21", className: "paper-item" },
   ]);
   timeline.destroy();
-  timeline = new vis.Timeline(container, items, options);
+  timeline = new vis.Timeline(container, items, timelineOptions);
 }
