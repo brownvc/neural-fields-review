@@ -78,6 +78,7 @@ const start = () => {
 };
 
 const generatePaperItem = (paper, config) => {
+  console.log(config.repo_name);
   return `
   <a href="/${config.repo_name}/paper_${paper.UID}.html" target="_blank">${paper.title}</a>
   `
