@@ -310,6 +310,20 @@ body .carousel-control-prev {
 	background-color: white !important;
 }
 
+.vis-tooltip h5 {
+	text-align: center;
+	color: #2294e0;
+}
+
+.vis-tooltip h6 {
+	text-align: center;
+}
+
+.vis-tooltip p {
+	text-align: center;
+	margin-bottom: 0;
+}
+
 .vis-item.paper-item {
 	color: white;
 	background-color: #bed972;
@@ -318,4 +332,8 @@ body .carousel-control-prev {
 
 .vis-item.paper-item a {
 	color: black;
+}
+
+.vis-rolling-mode-btn {
+	visibility: hidden !important;
 }

@@ -32,13 +32,28 @@ var paperDataset = new vis.DataSet(paperItems);
 const container = document.getElementById("visualization");
 
 const timelineOptions = {
-  //start: "2020-06-01",
+  minHeight: "300px",
   min: "1950-1-1",
+  max: "2070-1-1",
   align: "left",
   tooltip: {
     followMouse: true,
   },
- 
+  orientation: {
+    axis: "both",
+    overflowMethod: "none",
+    delay: 200
+  },
+  margin: {
+    item: {
+      vertical: 3
+    }
+  },
+  // rollingMode: {
+  //   follow: true
+  // },
+  zoomFriction: 10,
+  zoomMin: 86400000 * 5
 };
 
 var timeline;
@@ -67,12 +82,17 @@ const renderTimeline = (papers) => {
       id: index,
       content: generatePaperItem(paper),
       start: moment(paper.date, "MM/DD/YYYY"),
-      className: "paper-item"
+      className: "paper-item",
+      title: generatePaperInfoBox(paper)
     }
     }
     );
-    paperDataset = new vis.DataSet(paperItems);
-    timeline = new vis.Timeline(container, paperDataset, timelineOptions);
+  paperDataset = new vis.DataSet(paperItems);
+  timeline = new vis.Timeline(container, paperDataset, timelineOptions);
+  if (paperItems.length > 0) {
+    timeline.focus(paperItems[paperItems.length - 1].id, { duration: 1, easingFunction: "linear" });
+    timeline.zoomOut(0);
+  }
 }
 
 const setTitleAndNicknameFilter = () => {
@@ -291,13 +311,21 @@ const triggerFiltering = () => {
   renderTimeline(filteredPapers);
 }
 
-const item7 =
-  '<a href="https://visjs.org" target="_blank">3D Object Reconstruction and Representation Using Neural Networks</a>';
+const generatePaperItem = (paper) => {
+  console.log(API.paperLink(paper));
+  return `
+  <a href="/paper_${paper.UID}.html" target="_blank">${paper.title}</a>
+  `
+}
 
-const generatePaperItem = (paper) =>
+const generatePaperInfoBox = (paper) => {
+  return `
+  <h5>${paper.title}</h5>
+  <h6>${paper.date}</h6>
+  <p>${paper.authors.join(", ")}</p>
+  <p>${paper.keywords.join(", ")}</p>
   `
-  <a href="https://visjs.org" target="_blank">${paper.title}</a>
-  `
+} 
 // create data and a Timeline
 
 // let paperItems = [
