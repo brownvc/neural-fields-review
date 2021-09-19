@@ -22,6 +22,11 @@ body {
 	background-color: rgba(236, 241, 246, 1);
 }
 
+.container {
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+}
+
 .container a:hover {
 	text-decoration: none;
 }
