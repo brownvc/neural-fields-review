@@ -324,6 +324,10 @@ body .carousel-control-prev {
 	text-align: center;
 }
 
+.vis-tooltip span {
+	font-weight: bolder;
+}
+
 .vis-tooltip p {
 	text-align: center;
 	margin-bottom: 0;

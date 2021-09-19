@@ -78,18 +78,53 @@ const start = () => {
 };
 
 const generatePaperItem = (paper, config) => {
-  console.log(config);
   return `
   <a href="/${config.repo_name}/paper_${paper.UID}.html" target="_blank">${paper.title}</a>
   `
 }
 
+const prettifyTitle = (title) => {
+  let prettyTitle = "<h5>";
+  const words = title.split(" ")
+  for (let i = 0; i < words.length; ++i){
+    prettyTitle += words[i] + " ";
+    if (i % 5 == 0 && i != 0) prettyTitle += '</h5><h5>';
+  }
+  prettyTitle += '</h5>';
+  console.log(prettyTitle)
+  return prettyTitle;
+}
+
+const prettifyAuthors = (authors) => {
+  let prettyAuthors = "<p>";
+  for (let i = 0; i < authors.length; ++i){
+    prettyAuthors += authors[i];
+    if (i != authors.length - 1) prettyAuthors += ", ";
+    if (i % 4 == 0 && i != 0) prettyAuthors += '</p><p>';
+  }
+  prettyAuthors += '</p>';
+  console.log(prettyAuthors)
+  return prettyAuthors;
+}
+
+const prettifyKeywords = (keywords) => {
+  let prettyKeywords = "<p><span>Keywords: </span>";
+  for (let i = 0; i < keywords.length; ++i){
+    prettyKeywords += keywords[i];
+    if (i != keywords.length - 1) prettyKeywords += ", ";
+    if (i % 2 == 0 && i != 0) prettyKeywords += '</p><p>';
+  }
+  prettyKeywords += '</p>';
+  console.log(prettyKeywords)
+  return prettyKeywords;
+}
+
 const generatePaperInfoBox = (paper) => {
   return `
-  <h5>${paper.title}</h5>
+  ${prettifyTitle(paper.title)}
+  ${prettifyAuthors(paper.authors)}
   <h6>${paper.date}</h6>
-  <p>${paper.authors.join(", ")}</p>
-  <p>${paper.keywords.join(", ")}</p>
+  ${prettifyKeywords(paper.keywords)}
   `
 }
 
