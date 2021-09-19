@@ -29,7 +29,9 @@ var paperItems = [];
 
 var paperDataset = new vis.DataSet(paperItems);
 
-const container = document.getElementById("visualization");
+const container = document.getElementById("timelineVisualization");
+
+
 
 const timelineOptions = {
   minHeight: "300px",
@@ -38,11 +40,12 @@ const timelineOptions = {
   align: "left",
   tooltip: {
     followMouse: true,
+     delay: 200
   },
   orientation: {
     axis: "both",
-    overflowMethod: "none",
-    delay: 200
+    
+   
   },
   margin: {
     item: {
@@ -74,25 +77,48 @@ const start = () => {
     .catch((e) => console.error(e));
 };
 
+const generatePaperItem = (paper, config) => {
+  return `
+  <a href="/${config.repo_name}/paper_${paper.UID}.html" target="_blank">${paper.title}</a>
+  `
+}
+
+const generatePaperInfoBox = (paper) => {
+  return `
+  <h5>${paper.title}</h5>
+  <h6>${paper.date}</h6>
+  <p>${paper.authors.join(", ")}</p>
+  <p>${paper.keywords.join(", ")}</p>
+  `
+}
+
 const renderTimeline = (papers) => {
   console.log("rendering: ", papers);
+  //const config = await API.getConfig();
   if (timeline) timeline.destroy();
-    const paperItems = papers.map((paper, index) => {
+  Promise.all([API.getConfig()])
+    .then(
+      ([config]) => {
+        const paperItems = papers.map((paper, index) => {
     return {
       id: index,
-      content: generatePaperItem(paper),
+      content: generatePaperItem(paper, config),
       start: moment(paper.date, "MM/DD/YYYY"),
       className: "paper-item",
       title: generatePaperInfoBox(paper)
     }
     }
-    );
-  paperDataset = new vis.DataSet(paperItems);
+        );
+        paperDataset = new vis.DataSet(paperItems);
   timeline = new vis.Timeline(container, paperDataset, timelineOptions);
   if (paperItems.length > 0) {
     timeline.focus(paperItems[paperItems.length - 1].id, { duration: 1, easingFunction: "linear" });
     timeline.zoomOut(0);
   }
+    }
+  )
+    
+  
 }
 
 const setTitleAndNicknameFilter = () => {
@@ -311,41 +337,3 @@ const triggerFiltering = () => {
   renderTimeline(filteredPapers);
 }
 
-const generatePaperItem = (paper) => {
-  console.log(API.paperLink(paper));
-  return `
-  <a href="/neural-fields-review/paper_${paper.UID}.html" target="_blank">${paper.title}</a>
-  `
-}
-
-const generatePaperInfoBox = (paper) => {
-  return `
-  <h5>${paper.title}</h5>
-  <h6>${paper.date}</h6>
-  <p>${paper.authors.join(", ")}</p>
-  <p>${paper.keywords.join(", ")}</p>
-  `
-} 
-// create data and a Timeline
-
-// let paperItems = [
-//   { id: 7, content: item7, start: "2013-04-21", className: "paper-item" },
-//   {
-//     id: 9,
-//     content: item7,
-//     start: "2013-01-21",
-//     title: "<h1>title</h1>",
-//     className: "paper-item",
-//   },
-// ];
-
-
-
-function check() {
-  console.log(items);
-  items = new vis.DataSet([
-    { id: 7, content: item7, start: "2013-04-21", className: "paper-item" },
-  ]);
-  timeline.destroy();
-  timeline = new vis.Timeline(container, items, timelineOptions);
-}
