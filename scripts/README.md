@@ -1,11 +1,17 @@
-## Usage
-Download the google form as .xlsx file
+## Usage (For Yiheng)
+Step 1: Download the google form as .xlsx file
 
+Step 2: Run scripts
+```
 python arxiv_api.py
+mv output_responses.xlsx Review Paper Import Portal Responses.xlsx
 python scholarly_api.py
 python spreadsheet_check_error.py
+mv checked.xlsx Review Paper Import Portal Responses.xlsx
+python export_bibtex.py
+```
 
-Update the following columns
+Step 4: Update the following columns when copying to google sheets
 - Date
 - Citation
 - Venue
@@ -14,9 +20,12 @@ Update the following columns
 - Abstract (Maybe no)
 - Citation Count
 
-Check miss-spelling
-- Authors
-- Bibtex Name
+Step 5: generate sitedata/paper.csv
+- `python database2miniconf.py`
+
+Step 6: make deploy
+
+Step 7: Update `references.bib` in Overleaf
 
 ## Original miniconf README.md
 This directory contains extensions to help support the mini-conf library.

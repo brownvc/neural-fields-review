@@ -29,7 +29,7 @@ rows = read_spreadsheet(input_fname, input_ext)
 
 # Iterate on each row
 cnt = 0
-start_row = 135           # This is for skipping already processed entries
+start_row = 165           # This is for skipping already processed entries
 for r in tqdm(range(start_row, len(rows))):
     row = rows[r]
 
@@ -40,6 +40,7 @@ for r in tqdm(range(start_row, len(rows))):
         try:
             bibtex_str = format_bibtex_str(scholarly.bibtex(search_result), cap_keys=capitalize_bibtex_keys)
             row[11] = bibtex_str
+            print(cnt, row[11][:20])
         except Exception as e:
             print(e)
 
@@ -49,39 +50,41 @@ for r in tqdm(range(start_row, len(rows))):
             row[28] = bibtex_name_from_bibtex(row[11])
             print(cnt, row[28])
 
-
-    # Citations count
-    if (row[31] == ""):
-        search_result = get_scholarly_result(row[1]) if (search_result is None) else search_result
-        try:
-            citations = search_result['num_citations']
-            row[31] = citations
-            print(cnt, "citations count: ", row[31])
-        except Exception as e:
-            print(e)
+    # # Citations count
+    # if (row[31] == ""):
+    #     search_result = get_scholarly_result(row[1]) if (search_result is None) else search_result
+    #     try:
+    #         citations = search_result['num_citations']
+    #         row[31] = citations
+    #         print(cnt, "citations count: ", row[31])
+    #     except Exception as e:
+    #         print(e)
+    #
+    # # Venue
+    # if row[23] == "":
+    #     search_result = get_scholarly_result(row[1]) if (search_result is None) else search_result
+    #     try:
+    #         if not (("..." in search_result['bib']['venue']) or ("…" in search_result['bib']['venue'])):
+    #             venue = get_venue(search_result['bib']['venue'], search_result['bib']['pub_year'])
+    #         if venue == "":
+    #             venue = get_venue(bibtex_name_from_bibtex(scholarly.bibtex(search_result)), search_result['bib']['pub_year'])
+    #         row[23] = venue
+    #         if venue != "":
+    #             print(cnt, "Venue: ", row[23])
+    #     except Exception as e:
+    #         print(e)
 
     # Authors
     if row[27] == "":
-        search_result = get_scholarly_result(row[1]) if (search_result is None) else search_result
         try:
             if (row[11] != ""):
-                authors = ", ".join(get_authors_from_bibtex(bibtex_str))
+                authors = ", ".join(get_authors_from_bibtex(row[11]))
                 row[27] = authors
+                print(cnt, "Authors:", row[27])
         except Exception as e:
             print(e)
 
-    # Venue
-    if row[23] == "":
-        search_result = get_scholarly_result(row[1]) if (search_result is None) else search_result
-        try:
-            if not (("..." in search_result['bib']['venue']) or ("…" in search_result['bib']['venue'])):
-                print(search_result['bib']['venue'])
-                venue = get_venue(search_result['bib']['venue'], search_result['bib']['pub_year'])
-            if venue == "":
-                venue = get_venue(bibtex_name_from_bibtex(scholarly.bibtex(search_result)), search_result['bib']['pub_year'])
-            row[23] = venue
-        except Exception as e:
-            print(e)
+
 
     # Abstract
     if row[30] == "":
@@ -90,6 +93,7 @@ for r in tqdm(range(start_row, len(rows))):
             abstract = search_result['bib']['abstract']
             if len(abstract) > 20:
                 row[30] = abstract
+            print(cnt, row[30][:20])
         except Exception as e:
             print(e)
     cnt += 1

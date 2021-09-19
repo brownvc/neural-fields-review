@@ -29,13 +29,13 @@ names = {
     "mÃƒÂ¼ller": "müller",
     "SoÅˆa MokrÃ¡": "Soňa Mokrá"
 }
-non_ascii = ["PapierMâché"]
+non_ascii = ["PapierMâché", "Höfer", "Alenyà"]
 for k in names:
     non_ascii += names[k].split(" ")
 
 known_nonunicode_rows = [5, 11, 29, 33, 35, 50, 54, 63, 64, 73, 77, 79, 97, 100, 103, 113, 114, 128, 141, 155]
-# input_fname = "output_responses"
-input_fname = "Review Paper Import Portal Responses"
+input_fname = "output_responses"
+# input_fname = "Review Paper Import Portal Responses"
 input_ext = ".xlsx"
 output_fname = input_fname
 output_fname = "checked"
@@ -49,6 +49,9 @@ rows = []
 cnt = 0
 prev_pdf = ""
 for row in reader:
+    if cnt == 0:
+        cnt += 1
+        continue
     # Check for duplicate pdf link
     if prev_pdf == row[4]:
         # print("Wrong pdf link (same as row above) at row {}".format(cnt+1))

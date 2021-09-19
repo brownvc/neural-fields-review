@@ -7,7 +7,6 @@ import unidecode
 
 input_fname = "Review Paper Import Portal Responses"
 ext = ".xlsx"   # ".csv"
-input_fname += ext
 rows_in = read_spreadsheet(input_fname, ext)
 input_fname.replace(".csv", " - Form Responses 1.csv")
 
