@@ -67,8 +67,10 @@ var timeline;
 const start = () => {
   Promise.all([API.getPapers()])
     .then(([papers]) => {
-      allPapers = papers
-      console.log("all papers: ", allPapers)
+      allPapers = papers;
+      console.log("all papers: ", allPapers);
+      d3.select("#displaying-number-of-papers-message")
+        .html(`<p>Displaying ${allPapers.length} papers:</p>`);
       calcAllKeys(allPapers, allKeys);
       initTypeAhead([...allKeys.titles, ...allKeys.nicknames], ".titleAndNicknameTypeahead", "titleAndNickname", setTitleAndNicknameFilter);
 
@@ -369,7 +371,9 @@ const triggerFiltering = () => {
       return paperDate.isBetween(startDate, endDate) || paperDate.isSame(startDate) || paperDate.isSame(endDate);
     })
   }
-
+  d3.select("#displaying-number-of-papers-message")
+        .html(`<p>Displaying ${filteredPapers.length} papers:</p>`);
   renderTimeline(filteredPapers);
+  
 }
 

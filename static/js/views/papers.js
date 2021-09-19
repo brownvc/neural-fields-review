@@ -120,9 +120,10 @@ const getFilterFromURL = () => {
 const start = () => {
   Promise.all([API.getPapers()])
     .then(([papers]) => {
-      allPapers = papers
-    
-      console.log("all papers: ", allPapers)
+      allPapers = papers;
+      console.log("all papers: ", allPapers);
+      d3.select("#displaying-number-of-papers-message")
+      .html(`<p>Displaying ${allPapers.length} papers:</p>`)
       calcAllKeys(allPapers, allKeys);
       initTypeAhead([...allKeys.titles, ...allKeys.nicknames],".titleAndNicknameTypeahead","titleAndNickname",setTitleAndNicknameFilter)
       const urlHasFilterParams = getFilterFromURL();
@@ -360,6 +361,9 @@ const triggerFiltering = () => {
     }
   }
   updateCards(filteredPapers);
+  console.log(d3.select("#displaying-number-of-papers-message"))
+  d3.select("#displaying-number-of-papers-message")
+  .html(`<p>Displaying ${filteredPapers.length} papers:</p>`)
 }
 
 /**
