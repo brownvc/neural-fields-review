@@ -73,16 +73,37 @@ const start = () => {
         .html(`<p>Displaying ${allPapers.length} papers:</p>`);
       calcAllKeys(allPapers, allKeys);
       initTypeAhead([...allKeys.titles, ...allKeys.nicknames], ".titleAndNicknameTypeahead", "titleAndNickname", setTitleAndNicknameFilter);
-
+      addNewFilter("author", "");
+      addNewFilter("keyword", "");
+      addNewFilter("date", "");
       renderTimeline(allPapers);
     })
     .catch((e) => console.error(e));
 };
 
 const generatePaperItem = (paper, config) => {
-  return `
-  <a href="/${config.repo_name}/paper_${paper.UID}.html" target="_blank">${paper.nickname ? paper.nickname : paper.title}</a>
-  `
+  if (paper.nickname) {
+    return `
+    <a href="/${config.repo_name}/paper_${paper.UID}.html" target="_blank">${paper.nickname}</a>
+    `
+  }
+  else {
+    const titleWords = paper.title.split(" ");
+    if (titleWords.length >= 5) {
+      const halfLen = Math.floor(titleWords.length / 2);
+      const firstHalf = titleWords.slice(0, halfLen).join(' ');
+      const secondHalf = titleWords.slice(halfLen, titleWords.length).join(' ');
+      return `
+      <a href="/${config.repo_name}/paper_${paper.UID}.html" target="_blank">${firstHalf}</a><br>
+      <a href="/${config.repo_name}/paper_${paper.UID}.html" target="_blank">${secondHalf}</a>
+      `
+    }
+    else {
+      return `
+      <a href="/${config.repo_name}/paper_${paper.UID}.html" target="_blank">${paper.title}</a>
+      `
+    }
+  }
 }
 
 const prettifyTitle = (title) => {
@@ -93,7 +114,6 @@ const prettifyTitle = (title) => {
     if (i % 5 == 0 && i != 0) prettyTitle += '</h5><h5>';
   }
   prettyTitle += '</h5>';
-  console.log(prettyTitle)
   return prettyTitle;
 }
 
@@ -105,7 +125,6 @@ const prettifyAuthors = (authors) => {
     if (i % 4 == 0 && i != 0) prettyAuthors += '</p><p>';
   }
   prettyAuthors += '</p>';
-  console.log(prettyAuthors)
   return prettyAuthors;
 }
 
@@ -117,7 +136,6 @@ const prettifyKeywords = (keywords) => {
     if (i % 2 == 0 && i != 0) prettyKeywords += '</p><p>';
   }
   prettyKeywords += '</p>';
-  console.log(prettyKeywords)
   return prettyKeywords;
 }
 
@@ -155,8 +173,6 @@ const renderTimeline = (papers) => {
   }
     }
   )
-    
-  
 }
 
 const setTitleAndNicknameFilter = () => {
@@ -186,7 +202,6 @@ function addNewFilter(filterType, filterValue) {
       filterValue: filterValue
     }
   )
-
   d3.select("#dynamicFiltersSection")
     .append("div")
     .attr("id",`filter_${filterID}`)
@@ -208,7 +223,35 @@ function addNewFilter(filterType, filterValue) {
   
   tippy(".removeFilterButton")
 
-  initTypeAhead([...allKeys.authors],".authorsTypeahead","authors",() => {setFilterByID(filterID)})
+  if (filterType == "author") {
+    initTypeAhead([...allKeys.authors],".authorsTypeahead","authors",() => {setFilterByID(filterID)})
+  }
+  else if (filterType == "keyword") {
+    initTypeAhead([...allKeys.keywords], ".keywordTypeahead", "keyword", () => { setFilterByID(filterID) })
+  }
+  else {
+    $('input[name="daterange"]').daterangepicker({
+      autoUpdateInput: false,
+      showDropdowns: true,
+      minYear: 1900,
+      maxYear: 2030,
+      locale: {
+        cancelLabel: 'Clear',
+      }
+    });
+
+    $('input[name="daterange"]').on('apply.daterangepicker', function(ev, picker) {
+      $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+      setFilterByID(filterID);
+    });
+
+    $('input[name="daterange"]').on('cancel.daterangepicker', function(ev, picker) {
+        $(this).val('');
+    });
+
+    initTypeAhead([], ".dateTypeahead", "date", () => { setFilterByID(filterID) });
+  }
+  
   
   return filterID;
 }
@@ -263,7 +306,7 @@ const generateFilterTypeSelector = (filterID, selectedType) => {
       <select style="border: 1px solid #ced4da; border-radius: .25rem; height: calc(1.5em + .75rem + 2px);" onChange="changeFilterType(${filterID}, this.selectedIndex)">
         <option value="author" ${selectedType == "author" ? "selected" : ""}>Author</option>
         <option value="keyword" ${selectedType == "keyword" ? "selected" : ""}>Keyword</option>
-        <option value="date">Date</option>
+        <option value="date" ${selectedType == "date" ? "selected" : ""}>Date</option>
       </select>
     `
 }

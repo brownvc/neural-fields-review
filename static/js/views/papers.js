@@ -126,6 +126,9 @@ const start = () => {
       .html(`<p>Displaying ${allPapers.length} papers:</p>`)
       calcAllKeys(allPapers, allKeys);
       initTypeAhead([...allKeys.titles, ...allKeys.nicknames],".titleAndNicknameTypeahead","titleAndNickname",setTitleAndNicknameFilter)
+      addNewFilter("author", "");
+      addNewFilter("keyword", "");
+      addNewFilter("date", "");
       const urlHasFilterParams = getFilterFromURL();
       updateCards(allPapers);
       if(urlHasFilterParams) triggerFiltering();
@@ -160,7 +163,6 @@ function addNewFilter(filterType, filterValue) {
       filterValue: filterValue
     }
   )
-
   d3.select("#dynamicFiltersSection")
     .append("div")
     .attr("id",`filter_${filterID}`)
@@ -182,7 +184,35 @@ function addNewFilter(filterType, filterValue) {
   
   tippy(".removeFilterButton")
 
-  initTypeAhead([...allKeys.authors],".authorsTypeahead","authors",() => {setFilterByID(filterID)})
+  if (filterType == "author") {
+    initTypeAhead([...allKeys.authors],".authorsTypeahead","authors",() => {setFilterByID(filterID)})
+  }
+  else if (filterType == "keyword") {
+    initTypeAhead([...allKeys.keywords], ".keywordTypeahead", "keyword", () => { setFilterByID(filterID) })
+  }
+  else {
+    $('input[name="daterange"]').daterangepicker({
+      autoUpdateInput: false,
+      showDropdowns: true,
+      minYear: 1900,
+      maxYear: 2030,
+      locale: {
+        cancelLabel: 'Clear',
+      }
+    });
+
+    $('input[name="daterange"]').on('apply.daterangepicker', function(ev, picker) {
+      $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+      setFilterByID(filterID);
+    });
+
+    $('input[name="daterange"]').on('cancel.daterangepicker', function(ev, picker) {
+        $(this).val('');
+    });
+
+    initTypeAhead([], ".dateTypeahead", "date", () => { setFilterByID(filterID) });
+  }
+  
   
   return filterID;
 }
@@ -237,7 +267,7 @@ const generateFilterTypeSelector = (filterID, selectedType) => {
       <select style="border: 1px solid #ced4da; border-radius: .25rem; height: calc(1.5em + .75rem + 2px);" onChange="changeFilterType(${filterID}, this.selectedIndex)">
         <option value="author" ${selectedType == "author" ? "selected" : ""}>Author</option>
         <option value="keyword" ${selectedType == "keyword" ? "selected" : ""}>Keyword</option>
-        <option value="date">Date</option>
+        <option value="date" ${selectedType == "date" ? "selected" : ""}>Date</option>
       </select>
     `
 }
@@ -420,13 +450,15 @@ const card_html = (paper) =>
                 <h6 class="card-subtitle text-muted" align="center">
                         ${paper.authors.join(", ")}
                 </h6>
-                ${card_image(paper, renderMode !== MODE.mini)}
-                ${card_keywords(paper.keywords)}
                 <h6 class="card-date text-muted">
                         Date: ${paper.date}
                 </h6>
+                ${card_keywords(paper.keywords)}
+                
                 
             </div>
                 ${card_detail(paper, renderMode === MODE.detail)}
                 
         </div>`;
+
+        // ${card_image(paper, renderMode !== MODE.mini)}

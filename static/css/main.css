@@ -148,6 +148,8 @@ h3.card-subtitle.text-muted {
 }
 
 .card-date.text-muted {
+	padding-top: 5px;
+	text-align: center;
 	font-size: 14px;
 }
 
