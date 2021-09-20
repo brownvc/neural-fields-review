@@ -81,7 +81,7 @@ const start = () => {
 
 const generatePaperItem = (paper, config) => {
   return `
-  <a href="/${config.repo_name}/paper_${paper.UID}.html" target="_blank">${paper.title}</a>
+  <a href="/${config.repo_name}/paper_${paper.UID}.html" target="_blank">${paper.nickname ? paper.nickname : paper.title}</a>
   `
 }
 
