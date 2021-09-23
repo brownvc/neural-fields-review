@@ -48,11 +48,11 @@
   >
     <div id="day">
       <!-- Speakers -->
-      {{ components.section("Speakers") }}
+      {{ components.sectionTitlePlain("Speakers") }}
       <div class="speakers">
         {{ components.speakergroup(day.speakers) }}
       </div>
-      {{ components.section("Highlighted Papers") }}
+      {{ components.sectionTitlePlain("Highlighted Papers") }}
       <div class="papers">
         {{ components.highlightgroup(day.highlighted, 1) }}
       </div>

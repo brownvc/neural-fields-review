@@ -1,4 +1,4 @@
-# This script works, but google doesn't like robot... So we cannot use this script without proxy
+# This script works, but google doesn't like robot... So it cannot work well without proxy
 from scholarly import scholarly
 import csv
 import json

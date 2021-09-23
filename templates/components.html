@@ -21,11 +21,20 @@ workshopgroup
 </ul>
 {%- endmacro %}
 
-{% macro section(name, url) -%}
+{% macro sectionTitleLink(name, url) -%}
 <div class="border-top my-3"></div>
 <div class="row p-4">
   <div class="col-12" style="text-align: center;">
     <a style="font-size: 25px; color: #2294e0;" target="_blank" href="{{url}}">{{name}}</a>
+  </div>
+</div>
+{%- endmacro %}
+
+{% macro sectionTitlePlain(name) -%}
+<div class="border-top my-3"></div>
+<div class="row p-4">
+  <div class="col-12" style="text-align: center;">
+    <span style="font-size: 25px; color: #2294e0;">{{name}}</span>
   </div>
 </div>
 {%- endmacro %}

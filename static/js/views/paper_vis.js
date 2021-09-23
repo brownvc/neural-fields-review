@@ -56,7 +56,7 @@ const timelineOptions = {
   //   follow: true
   // },
   zoomFriction: 10,
-  zoomMin: 86400000 * 5
+  zoomMin: 86400000 * 30
 };
 
 var timeline;
