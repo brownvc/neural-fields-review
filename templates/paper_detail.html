@@ -70,6 +70,7 @@
             {% endif %}
         </div>
     </div>
+    <span id="invisible-paper-id" style="display: none;">{{paper.UID}}</span>
 </div>
 <div id="details" class="pp-card m-3">
     <div class="card-body">
@@ -115,114 +116,18 @@
 
 <!-- Citation Graph -->
 {{ components.sectionTitlePlain("Citation Graph") }}
-<div id="mynetwork" style="width: 100%;
+<div id="citationGraph" style="width: 100%;
   height: 600px;
   border: 1px solid lightgray;"></div>
-<script>
-    const nodes = new vis.DataSet([
-      { id: 1, label: "This paper" },
-      { id: 2, label: "Paper 2" },
-      { id: 3, label: "Paper 3" },
-      { id: 4, label: "Paper 4" },
-      { id: 5, label: "Paper 5" },
-      { id: 6, label: "Paper 6" },
-      { id: 7, label: "Paper 7" },
-      { id: 8, label: "Paper 8" },
-    ]);
-
-    // create an array with edges
-    const edges = new vis.DataSet([
-      {
-        from: 8,
-        to: 1,
-        arrows: "to",
-        label: "cited by",
-        font: { align: "middle" },
-        color: "green",
-      },
-      {
-        from: 3,
-        to: 1,
-        arrows: "to",
-        label: "cited by",
-        font: { align: "middle" },
-        color: "green",
-      },
-      {
-        from: 1,
-        to: 2,
-        arrows: "to",
-        label: "cited by",
-        font: { align: "middle" },
-        color: "orange",
-      },
-      {
-        from: 6,
-        to: 1,
-        arrows: "to",
-        label: "cited by",
-        font: { align: "middle" },
-        color: "green",
-      },
-      {
-        from: 4,
-        to: 1,
-        arrows: "to",
-        label: "cited by",
-        font: { align: "middle" },
-        color: "green",
-      },
-      {
-        from: 1,
-        to: 5,
-        arrows: "to",
-        label: "cited by",
-        font: { align: "middle" },
-        color: "orange",
-      },
-      {
-        from: 1,
-        to: 7,
-        arrows: "to",
-        label: "cited by",
-        font: { align: "middle" },
-        color: "orange",
-      },
-    ]);
-
-    // create a network
-    const container = document.getElementById("mynetwork");
-    const data = {
-      nodes,
-      edges,
-    };
-    const options = {
-      nodes: {
-        shape: "dot",
-        size: 22,
-      },
-    };
-    const network = new vis.Network(container, data, options);
-</script>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.0/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/tippy.js@6/dist/tippy-bundle.umd.min.js"></script>
+<script src="static/js/views/paper_detail.js"></script>
 <script>
     tippy(".filterByAuthorLink");
     tippy(".filterByKeywordLink");
+    const paperID = document.getElementById("invisible-paper-id").innerHTML;
+    drawCitationGraph(paperID);
 </script>
-
-<!-- <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.3.200/build/pdf.min.js"></script>
-<script src="static/js/modules/pdfRender.js"></script>
-<script>
-  $(document).ready(() => {
-    // render first page of PDF to div
-    // PDF name can be bound to variable -- e.g. paper.content.poster_link
-    const pdfFile =
-      " {{ paper.poster_pdf | default(config.default_poster_pdf) }}";
-    initPDFViewer(pdfFile, "#pdf_view");
-  });
-</script> -->
-
 
 {% endblock %}

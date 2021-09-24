@@ -12,16 +12,20 @@ class API {
 		return API.configCache;
 	}
 
-	static getCalendar() {
-		return $.get("serve_main_calendar.json");
-	}
+
 
 	static getPapers() {
 		if (API.paperCache == null) {
-			console.log("appppp.json", $.get("papers.json"));
 			API.paperCache = $.get("papers.json");
 		}
 		return API.paperCache;
+	}
+
+	static getCitationGraphData() {
+		if (API.citationGraphDataCache == null) {
+			API.citationGraphDataCache = $.get("serve_citation_graph.json");
+		}
+		return API.citationGraphDataCache;
 	}
 
 	static getPapersAndProjection() {
@@ -84,6 +88,7 @@ class API {
 
 API.configCache = null;
 API.paperCache = null;
+API.citationGraphDataCache = null;
 API._storeCaches = {};
 API.storeIDs = {
 	visited: "visited",
