@@ -1,0 +1,94 @@
+{% set active_page = "Papers" %}
+{% set page_title = "Papers" %}
+
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+<!-- resources used in papers page -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.0/dist/umd/popper.min.js"></script>
+
+<!-- tippy.js is used for creating tooltips-->
+<script src="https://cdn.jsdelivr.net/npm/tippy.js@6/dist/tippy-bundle.umd.min.js"></script>
+
+<script src="static/js/modules/icons.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
+
+{% endblock %}
+
+{% block tabs %}
+<ul class="nav nav-pills justify-content-center">
+    <li class="nav-item">
+        <a class="nav-link text-muted" href="papers.html">Browse</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-muted" href="paper_vis_timeline.html">Timeline</a>
+    </li>
+    <li class="nav-item active">
+        <a class="nav-link text-muted active">Citation Graph</a>
+    </li>
+</ul>
+
+{% endblock %}
+
+{% block content %}
+<div class="row p-3"></div>
+
+
+<!-- title / nickname search input -->
+<div class="row">
+    <div class="input-group col-11">
+        <input type="text" id="titleAndNicknameInput" class="form-control titleAndNicknameTypeahead"
+            placeholder="Search by title / nickname" onchange="setTitleAndNicknameFilter()">
+        <button type="button" class="btn bg-transparent titleAndNicknameTypeahead_clear"
+            style="margin-left: -40px; z-index: 100;">
+            &times;
+        </button>
+    </div>
+    <div class="col-1">
+        <button class="btn btn-outline-secondary" id="add_new_filter_button" style="border-radius: 25px;"
+            onclick="addNewFilter('author','')" data-tippy-content="Add a filter">
+            <div class="fas">&#xf067;</div>
+        </button>
+    </div>
+</div>
+
+<!-- Dynamic filters -->
+<div id="dynamicFiltersSection">
+</div>
+
+<div class="row " style="padding-top: 10px;">
+    <div class="col-6">
+        <label><input type="checkbox" name="checkbox" id="onlyShowPapersWithCodeCheckbox" onclick="triggerFiltering()">
+            Only show papers with code
+        </label>
+    </div>
+</div>
+</div>
+
+<p id="displaying-number-of-papers-message"></p>
+
+<div id="citationGraph" style="width: 100%;
+  height: 600px;
+  border: 1px solid lightgray;" ondblclick="openPaperLink()"></div>
+
+<!-- urlParams.js parses filter keyword from url -->
+<script src="static/js/modules/urlParams.js"></script>
+<!-- typeaheadSetup.js enables autocompleting -->
+<script src="static/js/modules/typeaheadSetup.js"></script>
+<!-- lazyload.js loads images lazily-->
+<script src="static/js/modules/lazyLoad.js"></script>
+<!-- persistor.js stores a dictionary in browser's local storage -->
+<script src="static/js/data/persistor.js"></script>
+<script src="static/js/data/wrangle.js"></script>
+<script type="text/javascript" src="static/js/vis/vis-network.min.js"></script>
+<script src="static/js/views/paper_vis_citation_graph.js"></script>
+<script>
+    $(document).ready(function () {
+        tippy("[data-tippy-content]", { trigger: "mouseenter focus" });
+        start();
+    });
+</script>
+
+{% endblock %}

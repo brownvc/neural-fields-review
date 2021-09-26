@@ -93,10 +93,16 @@ def papers():
     return render_template("papers.html", **data)
 
 
-@app.route("/paper_vis.html")
-def paper_vis():
+@app.route("/paper_vis_timeline.html")
+def paper_vis_timeline():
     data = _data()
-    return render_template("papers_vis.html", **data)
+    return render_template("papers_vis_timeline.html", **data)
+
+
+@app.route("/paper_vis_citation_graph.html")
+def paper_vis_citation_graph():
+    data = _data()
+    return render_template("papers_vis_citation_graph.html", **data)
 
 
 def extract_list_field(v, key):

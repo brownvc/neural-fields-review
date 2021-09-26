@@ -62,11 +62,11 @@ const generateNodes = (papers, isCurrentPaper) => {
   });
 };
 
-const generateEdges = (thisPaperID, papers, isInEdge) => {
-  return papers.map((paper) => {
+const generateEdges = (thisPaperID, otherPaperIDs, isInEdge) => {
+  return otherPaperIDs.map((paperID) => {
     if (isInEdge) {
       return {
-        from: paper.UID,
+        from: paperID,
         to: thisPaperID,
         arrows: {
           to: {
@@ -82,7 +82,7 @@ const generateEdges = (thisPaperID, papers, isInEdge) => {
 
     return {
       from: thisPaperID,
-      to: paper.UID,
+      to: paperID,
       arrows: {
         to: {
           enabled: true,
@@ -115,8 +115,8 @@ const drawCitationGraph = (paperID) => {
         ...generateNodes(papersCitingThisPaper, false),
       ]);
       const edges = new vis.DataSet([
-        ...generateEdges(paperID, papersCitedByThisPaper, false),
-        ...generateEdges(paperID, papersCitingThisPaper, true),
+        ...generateEdges(paperID, Array.from(paperIDsCitedByThisPaper), false),
+        ...generateEdges(paperID, Array.from(paperIDsCitingThisPaper), true),
       ]);
       const container = document.getElementById("citationGraph");
       const data = {
