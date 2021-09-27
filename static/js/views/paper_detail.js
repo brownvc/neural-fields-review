@@ -109,10 +109,12 @@ const drawCitationGraph = (paperID) => {
         paperIDsCitingThisPaper.has(paper.UID)
       );
       console.log(thisPaper, papersCitedByThisPaper, papersCitingThisPaper);
+      const nodes_ = new Set([...papersCitedByThisPaper, ...papersCitingThisPaper]);
       const nodes = new vis.DataSet([
         ...generateNodes(thisPaper, true),
-        ...generateNodes(papersCitedByThisPaper, false),
-        ...generateNodes(papersCitingThisPaper, false),
+        // ...generateNodes(papersCitedByThisPaper, false),
+        // ...generateNodes(papersCitingThisPaper, false),
+        ...generateNodes(Array.from(nodes_), false)
       ]);
       const edges = new vis.DataSet([
         ...generateEdges(paperID, Array.from(paperIDsCitedByThisPaper), false),

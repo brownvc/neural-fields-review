@@ -79,7 +79,6 @@
     {% set navigation_bar = [
     ('index.html', 'Home'),
     ('papers.html', 'Papers'),
-    ('help.html', 'Help'),
     ] -%}
 
     <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light mr-auto" id="main-nav">
@@ -131,18 +130,7 @@
 
 
     {% block footer %}
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{config.analytics}}"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
 
-      // function gtag() {
-      //   dataLayer.push(arguments);
-      // }
-
-      // gtag("js", new Date());
-      // gtag("config", "{{config.analytics}}");
-    </script>
 
     <!-- Footer -->
     <footer class="footer bg-light p-4">

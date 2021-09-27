@@ -39,6 +39,9 @@
                 class="text-muted filterByAuthorLink">{{author}}</a>{{ "," if not loop.last }}
             {% endfor %}
         </h3>
+        <h3 class="card-subtitle mb-2 text-muted text-center">
+            {{paper.date}}
+        </h3>
         <p class="text-center" style="margin-bottom: 0px;">
             <span>Keywords:</span>
             {% for keyword in paper.keywords %}
