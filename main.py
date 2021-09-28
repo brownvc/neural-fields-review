@@ -21,7 +21,8 @@ def main(site_data_path):
     extra_files = ["README.md"]
     # Load all for your sitedata one time.
     for f in glob.glob(site_data_path + "/*"):
-        if f != "sitedata/thumbnails":
+        
+        if f != "sitedata/thumbnails" and f != "sitedata/index":
             extra_files.append(f)
             name, typ = f.split("/")[-1].split(".")
             if typ == "json":
@@ -31,7 +32,7 @@ def main(site_data_path):
             elif typ == "yml":
                 site_data[name] = yaml.load(
                     open(f).read(), Loader=yaml.SafeLoader)
-
+    
     for typ in ["papers"]:
         by_uid[typ] = {}
         for p in site_data[typ]:
@@ -176,6 +177,11 @@ def thumbnail(thumbnail):
         return send_from_directory(f'{site_data_path}/thumbnails', f'UID_{uid}.png')
     else:
         return send_from_directory(f'{site_data_path}/thumbnails', 'no_thumbnail_available.png')
+
+
+# @app.route("/index_<imageName>.png")
+# def index_image(imageName):
+#     return send_from_directory(f'{site_data_path}/index', f'{imageName}.png')
 
 
 # FRONT END SERVING

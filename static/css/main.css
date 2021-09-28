@@ -325,3 +325,12 @@ body .carousel-control-prev {
 	visibility: hidden !important;
 }
 
+.homepage-title-1 {
+	font-size: 35px;
+	font-weight: bolder;
+}
+
+.homepage-title-2 {
+	font-size: 25px;
+	font-weight: bold;
+}
