@@ -29,21 +29,34 @@ var paperItems = [];
 
 var paperDataset = new vis.DataSet(paperItems);
 
-const container = document.getElementById("visualization");
+const container = document.getElementById("timelineVisualization");
 
-const options = {
-  // timeAxis: {
-  //   scale: "day",
-  //   step: 1,
-  // },
-  // clickToUse: true,
-  start: "2020-06-01",
+
+
+const timelineOptions = {
+  minHeight: "300px",
   min: "1950-1-1",
+  max: "2070-1-1",
   align: "left",
   tooltip: {
     followMouse: true,
+     delay: 200
   },
- 
+  orientation: {
+    axis: "both",
+    
+   
+  },
+  margin: {
+    item: {
+      vertical: 3
+    }
+  },
+  // rollingMode: {
+  //   follow: true
+  // },
+  zoomFriction: 10,
+  zoomMin: 86400000 * 30
 };
 
 var timeline;
@@ -54,25 +67,113 @@ var timeline;
 const start = () => {
   Promise.all([API.getPapers()])
     .then(([papers]) => {
-      allPapers = papers
-      console.log("all papers: ", allPapers)
+      allPapers = papers;
+      console.log("all papers: ", allPapers);
+      d3.select("#displaying-number-of-papers-message")
+        .html(`<p>Displaying ${allPapers.length} papers:</p>`);
       calcAllKeys(allPapers, allKeys);
       initTypeAhead([...allKeys.titles, ...allKeys.nicknames], ".titleAndNicknameTypeahead", "titleAndNickname", setTitleAndNicknameFilter);
-
-      paperItems = allPapers.map((paper, index) => {
-        return {
-          id: index,
-          content: generatePaperItem(paper),
-          start: moment(paper.date, "MM/DD/YYYY"),
-          className: "paper-item"
-        }
-      }
-      );
-      paperDataset = new vis.DataSet(paperItems);
-      timeline = new vis.Timeline(container, paperDataset, options);
+      addNewFilter("author", "");
+      addNewFilter("keyword", "");
+      addNewFilter("date", "");
+      renderTimeline(allPapers);
     })
     .catch((e) => console.error(e));
 };
+
+const generatePaperItem = (paper, config) => {
+  if (paper.nickname) {
+    return `
+    <a href="/${config.repo_name}/paper_${paper.UID}.html" target="_blank">${paper.nickname}</a>
+    `
+  }
+  else {
+    const titleWords = paper.title.split(" ");
+    if (titleWords.length >= 5) {
+      const halfLen = Math.floor(titleWords.length / 2);
+      const firstHalf = titleWords.slice(0, halfLen).join(' ');
+      const secondHalf = titleWords.slice(halfLen, titleWords.length).join(' ');
+      return `
+      <a href="/${config.repo_name}/paper_${paper.UID}.html" target="_blank">${firstHalf}</a><br>
+      <a href="/${config.repo_name}/paper_${paper.UID}.html" target="_blank">${secondHalf}</a>
+      `
+    }
+    else {
+      return `
+      <a href="/${config.repo_name}/paper_${paper.UID}.html" target="_blank">${paper.title}</a>
+      `
+    }
+  }
+}
+
+const prettifyTitle = (title) => {
+  let prettyTitle = "<h5>";
+  const words = title.split(" ")
+  for (let i = 0; i < words.length; ++i){
+    prettyTitle += words[i] + " ";
+    if (i % 5 == 0 && i != 0) prettyTitle += '</h5><h5>';
+  }
+  prettyTitle += '</h5>';
+  return prettyTitle;
+}
+
+const prettifyAuthors = (authors) => {
+  let prettyAuthors = "<p>";
+  for (let i = 0; i < authors.length; ++i){
+    prettyAuthors += authors[i];
+    if (i != authors.length - 1) prettyAuthors += ", ";
+    if (i % 4 == 0 && i != 0) prettyAuthors += '</p><p>';
+  }
+  prettyAuthors += '</p>';
+  return prettyAuthors;
+}
+
+const prettifyKeywords = (keywords) => {
+  let prettyKeywords = "<p><span>Keywords: </span>";
+  for (let i = 0; i < keywords.length; ++i){
+    prettyKeywords += keywords[i];
+    if (i != keywords.length - 1) prettyKeywords += ", ";
+    if (i % 2 == 0 && i != 0) prettyKeywords += '</p><p>';
+  }
+  prettyKeywords += '</p>';
+  return prettyKeywords;
+}
+
+const generatePaperInfoBox = (paper) => {
+  return `
+  ${prettifyTitle(paper.title)}
+  ${prettifyAuthors(paper.authors)}
+  <h6>${paper.date}</h6>
+  ${prettifyKeywords(paper.keywords)}
+  `
+}
+
+const renderTimeline = (papers) => {
+  console.log("rendering: ", papers);
+  //const config = await API.getConfig();
+  if (timeline) timeline.destroy();
+  Promise.all([API.getConfig()])
+    .then(
+      ([config]) => {
+        const paperItems = papers.map((paper, index) => {
+    return {
+      id: index,
+      content: generatePaperItem(paper, config),
+      start: moment(paper.date, "MM/DD/YYYY"),
+      className: "paper-item",
+      title: generatePaperInfoBox(paper)
+    }
+    }
+        );
+        paperDataset = new vis.DataSet(paperItems);
+  timeline = new vis.Timeline(container, paperDataset, timelineOptions);
+  if (paperItems.length > 0) {
+    timeline.focus(paperItems[paperItems.length - 1].id, { duration: 1, easingFunction: "linear" });
+    timeline.zoomOut(0);
+  }
+    }
+  )
+}
 
 const setTitleAndNicknameFilter = () => {
   const titleAndNicknameFilterValue = document.getElementById("titleAndNicknameInput").value;
@@ -101,7 +202,6 @@ function addNewFilter(filterType, filterValue) {
       filterValue: filterValue
     }
   )
-
   d3.select("#dynamicFiltersSection")
     .append("div")
     .attr("id",`filter_${filterID}`)
@@ -123,7 +223,35 @@ function addNewFilter(filterType, filterValue) {
   
   tippy(".removeFilterButton")
 
-  initTypeAhead([...allKeys.authors],".authorsTypeahead","authors",() => {setFilterByID(filterID)})
+  if (filterType == "author") {
+    initTypeAhead([...allKeys.authors],".authorsTypeahead","authors",() => {setFilterByID(filterID)})
+  }
+  else if (filterType == "keyword") {
+    initTypeAhead([...allKeys.keywords], ".keywordTypeahead", "keyword", () => { setFilterByID(filterID) })
+  }
+  else {
+    $('input[name="daterange"]').daterangepicker({
+      autoUpdateInput: false,
+      showDropdowns: true,
+      minYear: 1900,
+      maxYear: 2030,
+      locale: {
+        cancelLabel: 'Clear',
+      }
+    });
+
+    $('input[name="daterange"]').on('apply.daterangepicker', function(ev, picker) {
+      $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+      setFilterByID(filterID);
+    });
+
+    $('input[name="daterange"]').on('cancel.daterangepicker', function(ev, picker) {
+        $(this).val('');
+    });
+
+    initTypeAhead([], ".dateTypeahead", "date", () => { setFilterByID(filterID) });
+  }
+  
   
   return filterID;
 }
@@ -178,7 +306,7 @@ const generateFilterTypeSelector = (filterID, selectedType) => {
       <select style="border: 1px solid #ced4da; border-radius: .25rem; height: calc(1.5em + .75rem + 2px);" onChange="changeFilterType(${filterID}, this.selectedIndex)">
         <option value="author" ${selectedType == "author" ? "selected" : ""}>Author</option>
         <option value="keyword" ${selectedType == "keyword" ? "selected" : ""}>Keyword</option>
-        <option value="date">Date</option>
+        <option value="date" ${selectedType == "date" ? "selected" : ""}>Date</option>
       </select>
     `
 }
@@ -286,35 +414,9 @@ const triggerFiltering = () => {
       return paperDate.isBetween(startDate, endDate) || paperDate.isSame(startDate) || paperDate.isSame(endDate);
     })
   }
+  d3.select("#displaying-number-of-papers-message")
+        .html(`<p>Displaying ${filteredPapers.length} papers:</p>`);
+  renderTimeline(filteredPapers);
+  
 }
 
-const item7 =
-  '<a href="https://visjs.org" target="_blank">3D Object Reconstruction and Representation Using Neural Networks</a>';
-
-const generatePaperItem = (paper) =>
-  `
-  <a href="https://visjs.org" target="_blank">${paper.title}</a>
-  `
-// create data and a Timeline
-
-// let paperItems = [
-//   { id: 7, content: item7, start: "2013-04-21", className: "paper-item" },
-//   {
-//     id: 9,
-//     content: item7,
-//     start: "2013-01-21",
-//     title: "<h1>title</h1>",
-//     className: "paper-item",
-//   },
-// ];
-
-
-
-function check() {
-  console.log(items);
-  items = new vis.DataSet([
-    { id: 7, content: item7, start: "2013-04-21", className: "paper-item" },
-  ]);
-  timeline.destroy();
-  timeline = new vis.Timeline(container, items, options);
-}

@@ -1,3 +1,5 @@
+let citationGraph = null;
+
 let allPapers = [];
 const allKeys = {
   authors: [],
@@ -7,24 +9,6 @@ const allKeys = {
   dates: []
 };
 
-// names for render modes
-const MODE = {
-  mini: "mini",
-  compact: "compact",
-  detail: "detail"
-}
-
-let renderMode = MODE.compact;
-
-/**
- * List of filters' data
- * Entries are in format:
- * {
- *  filterID: number
- *  filterType: "titleAndNickname" / "author" / "date" / "keyword";
- *  filterValue: string
- * }
- */
 var filters = [
   {
     filterID: 0,
@@ -34,104 +18,19 @@ var filters = [
 ];
 var nextFilterID = 1;
 
-const updateCards = (papers) => {
-  Promise.all([
-    API.markGetAll(API.storeIDs.visited),
-    API.markGetAll(API.storeIDs.bookmarked)
-  ]).then(
-    ([visitedPapers, bookmarks]) => {
-
-      papers.forEach((paper) => {
-        paper.UID = paper.UID;
-        paper.read = visitedPapers[paper.UID] || false;
-        paper.bookmarked = bookmarks[paper.UID] || false;
-      });
-
-      const visitedCard = (iid, new_value) => {
-        API.markSet(API.storeIDs.visited, iid, new_value).then();
-      };
-
-      const bookmarkedCard = (iid, new_value) => {
-        API.markSet(API.storeIDs.bookmarked, iid, new_value).then();
-      };
-
-      const all_mounted_cards = d3
-        .select(".cards")
-        .selectAll(".myCard", (paper) => paper.UID)
-        .data(papers, (d) => d.number)
-        .join("div")
-        .attr("class", "myCard col-xs-6 col-md-4")
-        .html(card_html);
-
-      all_mounted_cards.select(".card-title").on("click", function (d) {
-        const iid = d.UID;
-        // to avoid hierarchy issues, search for card again
-        all_mounted_cards
-          .filter((dd) => dd.UID === iid)
-          .select(".checkbox-paper")
-          .classed("selected", function () {
-            const new_value = true;
-            visitedCard(iid, new_value);
-            return new_value;
-          });
-      });
-
-      all_mounted_cards.select(".checkbox-paper").on("click", function (d) {
-        const new_value = !d3.select(this).classed("selected");
-        visitedCard(d.UID, new_value);
-        d3.select(this).classed("selected", new_value);
-      });
-
-      all_mounted_cards.select(".checkbox-bookmark").on("click", function (d) {
-        const new_value = !d3.select(this).classed("selected");
-        bookmarkedCard(d.UID, new_value);
-        d3.select(this).classed("selected", new_value);
-      });
-
-      // lazyloader() from js/modules/lazyLoad.js
-      lazyLoader();
-    }
-  )
-}
-
-const changeRenderMode = (newRenderMode) => {
-  renderMode = newRenderMode;
-  updateCards(allPapers);
-}
-
-const getFilterFromURL = () => {
-  const URL = window.location.search;
-  const params = new URLSearchParams(URL);
-  if (params.has("author")) {
-    const filterValue = params.get("author");
-    addNewFilter("author", filterValue);
-    return true;
-  }
-  else if (params.has("keyword")) {
-    const filterValue = params.get("keyword");
-    addNewFilter("keyword", filterValue);
-    return true;
-  }
-}
-
-/**
- * START here and load JSON.
- */
 const start = () => {
   Promise.all([API.getPapers()])
     .then(([papers]) => {
       allPapers = papers;
       console.log("all papers: ", allPapers);
       d3.select("#displaying-number-of-papers-message")
-      .html(`<p>Displaying ${allPapers.length} papers:</p>`)
+        .html(`<p>Displaying ${allPapers.length} papers:</p>`);
       calcAllKeys(allPapers, allKeys);
-      initTypeAhead([...allKeys.titles, ...allKeys.nicknames],".titleAndNicknameTypeahead","titleAndNickname",setTitleAndNicknameFilter)
+      initTypeAhead([...allKeys.titles, ...allKeys.nicknames], ".titleAndNicknameTypeahead", "titleAndNickname", setTitleAndNicknameFilter);
       addNewFilter("author", "");
       addNewFilter("keyword", "");
-      addNewFilter("date", "");
-      const urlHasFilterParams = getFilterFromURL();
-      updateCards(allPapers);
-      if(urlHasFilterParams) triggerFiltering();
+        addNewFilter("date", "");
+        drawCitationGraph(allPapers);
     })
     .catch((e) => console.error(e));
 };
@@ -313,8 +212,7 @@ const generateRemoveFilterButton = (filterID) => {
  */
 const triggerFiltering = () => {
   const onlyShowPapersWithCode = document.getElementById("onlyShowPapersWithCodeCheckbox").checked;
-  //updateCards([allPapers[0], allPapers[1]]);
-  let filteredPapers = allPapers
+  let filteredPapers = allPapers;
   if (onlyShowPapersWithCode) {
     filteredPapers = allPapers.filter((paper) => paper.code_link !== "");
   }
@@ -376,89 +274,151 @@ const triggerFiltering = () => {
       return paperDate.isBetween(startDate, endDate) || paperDate.isSame(startDate) || paperDate.isSame(endDate);
     })
   }
-
-  // sorting
-  const sortBy = document.getElementById("sortBySelector").value;
-  if (sortBy != "") {
-    if (sortBy == "Title") {
-      filteredPapers = filteredPapers.sort((a, b) => a.title > b.title ? 1 : -1)
-    }
-    else if (sortBy == "DateLatestToOldest") {
-      filteredPapers = filteredPapers.sort((a, b) => moment(a.date, "MM/DD/YYYY").isBefore(moment(b.date, "MM/DD/YYYY")) ? 1 : -1)
-    }
-    else if (sortBy == "DateOldestToLatest") {
-      filteredPapers = filteredPapers.sort((a, b) => moment(a.date, "MM/DD/YYYY").isBefore(moment(b.date, "MM/DD/YYYY")) ? -1 : 1)
-    }
-  }
-  updateCards(filteredPapers);
-  console.log(d3.select("#displaying-number-of-papers-message"))
   d3.select("#displaying-number-of-papers-message")
-  .html(`<p>Displaying ${filteredPapers.length} papers:</p>`)
+        .html(`<p>Displaying ${filteredPapers.length} papers:</p>`);
+    drawCitationGraph(filteredPapers);
 }
 
-/**
- * CARDS
- */
-
-
-const card_image = (paper, show) => {
-  if (show)
-    return ` <center><img class="lazy-load-img cards_img" data-src="${API.thumbnailPath(paper)}" style="max-width:250px; padding-bottom:10px"/></center>`;
-  return "";
-};
-
-const card_detail = (paper, show) => {
-  if (show)
-    return ` 
-     <div class="pp-card-header" style="overflow-y: auto;">
-     <div style="width:100%; ">
-        <p class="card-text"> ${paper.abstract}</p>
-        </div>
-    </div>
-`;
-  return "";
-};
-
-const card_keywords = (keywords) => {
-  if (keywords.length)
-    return `
-    <h6 class="card-keywords text-muted">
-                        Keywords: ${keywords.join(", ")}
-    </h6>
-    `;
-  return ""
+function getHtmlInfoBox(html) {
+  const container = document.createElement("div");
+  container.innerHTML = html;
+  return container;
 }
 
+const prettifyTitle = (title) => {
+  let prettyTitle = "<h5>";
+  const words = title.split(" ");
+  for (let i = 0; i < words.length; ++i) {
+    prettyTitle += `${words[i]} `;
+    if (i % 5 === 0 && i !== 0) prettyTitle += "</h5><h5>";
+  }
+  prettyTitle += "</h5>";
+  return prettyTitle;
+};
 
-// language=HTML
-const card_html = (paper) =>
-  `
-        <div class="pp-card pp-mode-${renderMode} ">
-            <div class="pp-card-header" style="">
-            <div class="checkbox-paper fas ${paper.read ? "selected" : ""}" 
-            style="display: block;position: absolute; top:2px; left: 25px;">&#xf00c;</div>
-            <div class="checkbox-bookmark fas  ${paper.bookmarked ? "selected" : ""}" 
-            style="display: block;position: absolute; top:-5px;right: 25px;">&#xf02e;</div>
-<!--                ✓-->
-                <a href="${API.paperLink(paper)}"
-                target="_blank"
-                >
-                   <h5 class="card-title" align="center"> ${
-    paper.title
-  } </h5></a>
-                
-                <h6 class="card-subtitle text-muted" align="center">
-                        ${paper.authors.join(", ")}
-                </h6>
-                <h6 class="card-date text-muted">
-                        Date: ${paper.date}
-                </h6>
-                ${card_keywords(paper.keywords)}
-                
-                
-            </div>
-                ${card_detail(paper, renderMode === MODE.detail)}
-                
-        </div>`;
+const prettifyAuthors = (authors) => {
+  let prettyAuthors = "<p>";
+  for (let i = 0; i < authors.length; ++i) {
+    prettyAuthors += authors[i];
+    if (i != authors.length - 1) prettyAuthors += ", ";
+    if (i % 4 == 0 && i != 0) prettyAuthors += "</p><p>";
+  }
+  prettyAuthors += "</p>";
+  return prettyAuthors;
+};
 
-        // ${card_image(paper, renderMode !== MODE.mini)}
+const prettifyKeywords = (keywords) => {
+  let prettyKeywords = "<p><span>Keywords: </span>";
+  for (let i = 0; i < keywords.length; ++i) {
+    prettyKeywords += keywords[i];
+    if (i != keywords.length - 1) prettyKeywords += ", ";
+    if (i % 2 == 0 && i != 0) prettyKeywords += "</p><p>";
+  }
+  prettyKeywords += "</p>";
+  return prettyKeywords;
+};
+
+const generatePaperInfoBox = (paper) => {
+  return `
+  ${prettifyTitle(paper.title)}
+  ${prettifyAuthors(paper.authors)}
+  <h6>${paper.date}</h6>
+  ${prettifyKeywords(paper.keywords)}
+  `;
+};
+
+const generateNodes = (papers, isCurrentPaper) => {
+  return papers.map((paper) => {
+    return {
+      id: paper.UID,
+      label:
+        paper.nickname !== ""
+          ? paper.nickname
+          : `${paper.title.substring(0, 6)}...`,
+      color: isCurrentPaper ? "#ff7f7f" : "#9fc2f7",
+      title: getHtmlInfoBox(generatePaperInfoBox(paper)),
+    };
+  });
+};
+
+const generateEdges = (thisPaperID, otherPaperIDs, isInEdge) => {
+  return otherPaperIDs.map((paperID) => {
+    if (isInEdge) {
+      return {
+        from: paperID,
+        to: thisPaperID,
+        arrows: {
+          to: {
+            enabled: true,
+            scaleFactor: 0.4,
+          },
+        },
+        font: { align: "middle" },
+          color: "green",
+        physics: false,
+      };
+    }
+
+    return {
+      from: thisPaperID,
+      to: paperID,
+      arrows: {
+        to: {
+          enabled: true,
+          scaleFactor: 0.4,
+        },
+      },
+      font: { align: "middle" },
+        color: "orange",
+      physics: false,
+    };
+  });
+};
+
+const drawCitationGraph = (papers) => {
+  Promise.all([API.getCitationGraphData()])
+      .then(([citationGraphData]) => {
+        let nodes = [];
+        let outEdges = [];
+          for (paper of papers) {
+            const thisID = paper.UID;
+            nodes = [...generateNodes(papers, false)];
+            outEdges = [...outEdges, ...generateEdges(thisID, citationGraphData[thisID].out_edge, false)];
+          }
+         
+        var nodesDataSet = new vis.DataSet(nodes);
+
+        // create an array with edges
+        var edgesDataSet = new vis.DataSet(outEdges);
+
+        // create a network
+        var container = document.getElementById("citationGraph");
+        var data = {
+        nodes: nodesDataSet,
+        edges: edgesDataSet,
+        };
+          
+        const options = {
+        nodes: {
+          shape: "dot",
+          size: 22,
+              },
+              layout: {
+                  improvedLayout: false,
+              }
+        };
+
+        citationGraph = new vis.Network(container, data, options);
+        
+    })
+    .catch((e) => console.error(e));
+};
+
+const openPaperLink = () => {
+  const selectedNodes = citationGraph.getSelectedNodes();
+  for (let nodeId of selectedNodes) {
+    console.log(nodeId);
+    const url = `paper_${nodeId}.html`;
+    window.open(url, '_blank').focus();
+  }
+}

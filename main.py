@@ -21,7 +21,8 @@ def main(site_data_path):
     extra_files = ["README.md"]
     # Load all for your sitedata one time.
     for f in glob.glob(site_data_path + "/*"):
-        if f != "sitedata/thumbnails":
+        
+        if f != "sitedata/thumbnails" and f != "sitedata/index":
             extra_files.append(f)
             name, typ = f.split("/")[-1].split(".")
             if typ == "json":
@@ -31,7 +32,7 @@ def main(site_data_path):
             elif typ == "yml":
                 site_data[name] = yaml.load(
                     open(f).read(), Loader=yaml.SafeLoader)
-
+    
     for typ in ["papers"]:
         by_uid[typ] = {}
         for p in site_data[typ]:
@@ -79,13 +80,6 @@ def home():
     return render_template("index.html", **data)
 
 
-@app.route("/help.html")
-def about():
-    data = _data()
-    data["FAQ"] = site_data["faq"]["FAQ"]
-    return render_template("help.html", **data)
-
-
 @app.route("/papers.html")
 def papers():
     data = _data()
@@ -93,10 +87,16 @@ def papers():
     return render_template("papers.html", **data)
 
 
-@app.route("/paper_vis.html")
-def paper_vis():
+@app.route("/paper_vis_timeline.html")
+def paper_vis_timeline():
     data = _data()
-    return render_template("papers_vis.html", **data)
+    return render_template("papers_vis_timeline.html", **data)
+
+
+@app.route("/paper_vis_citation_graph.html")
+def paper_vis_citation_graph():
+    data = _data()
+    return render_template("papers_vis_citation_graph.html", **data)
 
 
 def extract_list_field(v, key):
@@ -177,6 +177,11 @@ def thumbnail(thumbnail):
         return send_from_directory(f'{site_data_path}/thumbnails', f'UID_{uid}.png')
     else:
         return send_from_directory(f'{site_data_path}/thumbnails', 'no_thumbnail_available.png')
+
+
+# @app.route("/index_<imageName>.png")
+# def index_image(imageName):
+#     return send_from_directory(f'{site_data_path}/index', f'{imageName}.png')
 
 
 # FRONT END SERVING

@@ -20,6 +20,8 @@
 {% endfor %}
 <meta name="citation_pdf_url" content="{{paper.pdf_url|default('') }}" />
 
+<script type="text/javascript" src="static/js/vis/vis-network.min.js"></script>
+
 {% endblock %}
 
 {% block content %}
@@ -36,6 +38,9 @@
                 data-tippy-content="See all papers authored by {{author}}"
                 class="text-muted filterByAuthorLink">{{author}}</a>{{ "," if not loop.last }}
             {% endfor %}
+        </h3>
+        <h3 class="card-subtitle mb-2 text-muted text-center">
+            {{paper.date}}
         </h3>
         <p class="text-center" style="margin-bottom: 0px;">
             <span>Keywords:</span>
@@ -68,6 +73,7 @@
             {% endif %}
         </div>
     </div>
+    <span id="invisible-paper-id" style="display: none;">{{paper.UID}}</span>
 </div>
 <div id="details" class="pp-card m-3">
     <div class="card-body">
@@ -93,7 +99,7 @@
 
 <!-- Youtube Video -->
 {% if "youtube" in paper.talk_link %}
-{{ components.section("Video", paper.talk_link) }}
+{{ components.sectionTitleLink("Video", paper.talk_link) }}
 <div class="col-md-12 col-xs-12 p-2">
     <iframe style="width: 100%; height: 60vh;" src="{{paper.talk_link}}">
     </iframe>
@@ -103,7 +109,7 @@
 
 <!-- Project Webpage -->
 {% if paper.project_link != "" %}
-{{ components.section("Project Webpage", paper.project_link) }}
+{{ components.sectionTitleLink("Project Webpage", paper.project_link) }}
 <div class="col-md-12 col-xs-12 p-2">
     <iframe style="width: 100%; height: 60vh;" src="{{paper.project_link}}">
     </iframe>
@@ -111,25 +117,20 @@
 
 {% endif %}
 
+<!-- Citation Graph -->
+{{ components.sectionTitleCitationGraph("Citation Graph") }}
+<div id="citationGraph" style="width: 100%;
+  height: 600px;
+  border: 1px solid lightgray;" ondblclick="openPaperLink()"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.0/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/tippy.js@6/dist/tippy-bundle.umd.min.js"></script>
+<script src="static/js/views/paper_detail.js"></script>
 <script>
     tippy(".filterByAuthorLink");
     tippy(".filterByKeywordLink");
+    const paperID = document.getElementById("invisible-paper-id").innerHTML;
+    drawCitationGraph(paperID);
 </script>
-
-<!-- <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.3.200/build/pdf.min.js"></script>
-<script src="static/js/modules/pdfRender.js"></script>
-<script>
-  $(document).ready(() => {
-    // render first page of PDF to div
-    // PDF name can be bound to variable -- e.g. paper.content.poster_link
-    const pdfFile =
-      " {{ paper.poster_pdf | default(config.default_poster_pdf) }}";
-    initPDFViewer(pdfFile, "#pdf_view");
-  });
-</script> -->
-
 
 {% endblock %}

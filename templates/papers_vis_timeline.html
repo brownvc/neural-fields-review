@@ -25,7 +25,10 @@
     <a class="nav-link text-muted" href="papers.html">Browse</a>
   </li>
   <li class="nav-item active">
-    <a class="nav-link text-muted active">Visualization</a>
+    <a class="nav-link text-muted active">Timeline</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link text-muted" href="paper_vis_citation_graph.html">Citation Graph</a>
   </li>
 </ul>
 
@@ -59,20 +62,16 @@
 
 <div class="row " style="padding-top: 10px;">
   <div class="col-6">
-    <label><input type="checkbox" name="checkbox" id="onlyShowPapersWithCodeCheckbox" onclick="console.log('clicked');">
+    <label><input type="checkbox" name="checkbox" id="onlyShowPapersWithCodeCheckbox" onclick="triggerFiltering()">
       Only show papers with code
     </label>
   </div>
 </div>
 </div>
 
-<div class="row justify-content-center">
-  <button class="btn btn-outline-success" style="position: relative; top: -20px;" onclick="check()">
-    Generate Timeline
-  </button>
-</div>
+<p id="displaying-number-of-papers-message"></p>
 
-<div id="visualization"></div>
+<div id="timelineVisualization"></div>
 
 
 <!-- urlParams.js parses filter keyword from url -->
@@ -84,7 +83,7 @@
 <!-- persistor.js stores a dictionary in browser's local storage -->
 <script src="static/js/data/persistor.js"></script>
 <script src="static/js/data/wrangle.js"></script>
-<script src="static/js/views/paper_vis.js"></script>
+<script src="static/js/views/paper_vis_timeline.js"></script>
 <script>
   $(document).ready(function () {
     tippy("[data-tippy-content]", { trigger: "mouseenter focus" });

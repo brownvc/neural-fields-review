@@ -22,6 +22,11 @@ body {
 	background-color: rgba(236, 241, 246, 1);
 }
 
+.container {
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+}
+
 .container a:hover {
 	text-decoration: none;
 }
@@ -143,6 +148,8 @@ h3.card-subtitle.text-muted {
 }
 
 .card-date.text-muted {
+	padding-top: 5px;
+	text-align: center;
 	font-size: 14px;
 }
 
@@ -188,30 +195,6 @@ h3.card-subtitle.text-muted {
 .carousel-inner .carousel-item-prev {
 	display: flex;
 }
-
-/* .carousel-inner .carousel-item-right.active, */
-
-/* .carousel-inner .carousel-item-next { */
-
-/*   transform: translateX(25%); */
-
-/* } */
-
-/* .carousel-inner .carousel-item-left.active, */
-
-/* .carousel-inner .carousel-item-prev { */
-
-/*   transform: translateX(-25%); */
-
-/* } */
-
-/* .carousel-inner .carousel-item-right, */
-
-/* .carousel-inner .carousel-item-left{ */
-
-/*   transform: translateX(0); */
-
-/* } */
 
 .carousel-control-prev-icon {
 	filter: invert(1);
@@ -310,6 +293,24 @@ body .carousel-control-prev {
 	background-color: white !important;
 }
 
+.vis-tooltip h5 {
+	text-align: center;
+	color: #2294e0;
+}
+
+.vis-tooltip h6 {
+	text-align: center;
+}
+
+.vis-tooltip span {
+	font-weight: bolder;
+}
+
+.vis-tooltip p {
+	text-align: center;
+	margin-bottom: 0;
+}
+
 .vis-item.paper-item {
 	color: white;
 	background-color: #bed972;
@@ -318,4 +319,18 @@ body .carousel-control-prev {
 
 .vis-item.paper-item a {
 	color: black;
+}
+
+.vis-rolling-mode-btn {
+	visibility: hidden !important;
+}
+
+.homepage-title-1 {
+	font-size: 35px;
+	font-weight: bolder;
+}
+
+.homepage-title-2 {
+	font-size: 25px;
+	font-weight: bold;
 }
