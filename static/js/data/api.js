@@ -13,7 +13,6 @@ class API {
 	}
 
 
-
 	static getPapers() {
 		if (API.paperCache == null) {
 			API.paperCache = $.get("papers.json");

@@ -196,30 +196,6 @@ h3.card-subtitle.text-muted {
 	display: flex;
 }
 
-/* .carousel-inner .carousel-item-right.active, */
-
-/* .carousel-inner .carousel-item-next { */
-
-/*   transform: translateX(25%); */
-
-/* } */
-
-/* .carousel-inner .carousel-item-left.active, */
-
-/* .carousel-inner .carousel-item-prev { */
-
-/*   transform: translateX(-25%); */
-
-/* } */
-
-/* .carousel-inner .carousel-item-right, */
-
-/* .carousel-inner .carousel-item-left{ */
-
-/*   transform: translateX(0); */
-
-/* } */
-
 .carousel-control-prev-icon {
 	filter: invert(1);
 	transform: translateX(-200%);
@@ -348,3 +324,4 @@ body .carousel-control-prev {
 .vis-rolling-mode-btn {
 	visibility: hidden !important;
 }
+
