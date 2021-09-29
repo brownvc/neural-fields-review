@@ -334,3 +334,17 @@ body .carousel-control-prev {
 	font-size: 25px;
 	font-weight: bold;
 }
+
+.homepage-text {
+	font-size: 23px;
+}
+
+.homepage-image {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50vw;
+	border: 3px solid #555;
+	border-radius: 3rem;
+	margin-bottom: 20px;
+}
