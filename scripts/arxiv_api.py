@@ -79,7 +79,7 @@ for row in tqdm(rows_in):
             if (row[2] != ""):
                 keyword = row[2].lower().replace("-","")
             else:
-                keyword = result.title.split(" ")[0].lower().replace("-","")
+                keyword = result.title.split(" ")[0].lower().replace("-","").replace(" ","")
             lastname = result.authors[0].split(" ")[-1].lower()
             name = lastname + result.year + keyword
             bibtex_str = bibtex_str[:start] + name + bibtex_str[end:]

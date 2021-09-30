@@ -26,6 +26,7 @@ output_fname.replace(".csv", " - Form Responses 1.csv")
 
 # Load spreadsheet
 rows = read_spreadsheet(input_fname, input_ext)
+replace_name = True
 
 # Iterate on each row
 cnt = 0
@@ -39,6 +40,17 @@ for r in tqdm(range(start_row, len(rows))):
         search_result = get_scholarly_result(row[1]) if (search_result is None) else search_result
         try:
             bibtex_str = format_bibtex_str(scholarly.bibtex(search_result), cap_keys=capitalize_bibtex_keys)
+
+            if replace_name:
+                start, end = bibtex_str.find("{") + 1, bibtex_str.find(",")
+                if (row[2] != ""):
+                    keyword = row[2].lower().replace("-","")
+                else:
+                    keyword = result.title.split(" ")[0].lower().replace("-","").replace(" ","")
+                lastname = result.authors[0].split(" ")[-1].lower()
+                name = lastname + result.year + keyword
+                bibtex_str = bibtex_str[:start] + name + bibtex_str[end:]
+
             row[11] = bibtex_str
             print(cnt, row[11][:20])
         except Exception as e:
