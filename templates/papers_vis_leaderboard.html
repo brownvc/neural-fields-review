@@ -1,0 +1,44 @@
+{% set active_page = "Papers" %}
+{% set page_title = "Papers" %}
+
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+
+
+<script src='static/js/plotly/plotly-2.4.2.min.js'></script>
+<link rel="stylesheet" href="static/css/leaderboard.css">
+
+{% endblock %}
+
+{% block tabs %}
+<ul class="nav nav-pills justify-content-center">
+    <li class="nav-item">
+        <a class="nav-link text-muted" href="papers.html">Browse</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-muted" href="paper_vis_timeline.html">Timeline</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-muted" href="paper_vis_citation_graph.html">Citation Graph</a>
+    </li>
+    <li class="nav-item active">
+        <a class="nav-link text-muted active">Leaderboard</a>
+    </li>
+</ul>
+{% endblock %}
+
+{% block content %}
+<body>
+    {{ components.sectionTitlePlain("Tasks Leaderboard") }}
+    <div id='task-leaderboard'></div>
+    {{ components.sectionTitlePlain("Techniques Leaderboard") }}
+    <div id='technique-leaderboard'></div>
+</body>
+
+<script src="static/js/views/paper_vis_leaderboard.js"></script>
+<script>
+    start();
+</script>
+{% endblock %}

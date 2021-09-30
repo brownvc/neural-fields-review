@@ -404,11 +404,44 @@ const drawCitationGraph = (papers) => {
           size: 22,
               },
               layout: {
-                  improvedLayout: false,
-              }
+                  improvedLayout: true,
+          },
+        physics: {
+          forceAtlas2Based: {
+            gravitationalConstant: -26,
+            centralGravity: 0.005,
+            springLength: 230,
+            springConstant: 0.18,
+          },
+          maxVelocity: 146,
+          solver: "forceAtlas2Based",
+          timestep: 0.35,
+          stabilization: { iterations: 150 },
+          },
         };
 
         citationGraph = new vis.Network(container, data, options);
+
+        citationGraph.on("stabilizationProgress", function (params) {
+            var maxWidth = 496;
+            var minWidth = 20;
+            var widthFactor = params.iterations / params.total;
+            var width = Math.max(minWidth, maxWidth * widthFactor);
+
+            document.getElementById("bar").style.width = width + "px";
+            document.getElementById("text").innerText =
+            Math.round(widthFactor * 100) + "%";
+        });
+        
+        citationGraph.once("stabilizationIterationsDone", function () {
+                document.getElementById("text").innerText = "100%";
+                document.getElementById("bar").style.width = "496px";
+                document.getElementById("loadingBar").style.opacity = 0;
+                // really clean the dom element
+                setTimeout(function () {
+                  document.getElementById("loadingBar").style.display = "none";
+                }, 500);
+        });
         
     })
     .catch((e) => console.error(e));

@@ -75,7 +75,7 @@ body {
 }
 
 .pp-mode-mini .pp-card-header {
-	height: 175px;
+	height: 145px;
 	border: 1px solid #eee;
 }
 
@@ -326,11 +326,25 @@ body .carousel-control-prev {
 }
 
 .homepage-title-1 {
-	font-size: 35px;
+	font-size: 30px;
 	font-weight: bolder;
 }
 
 .homepage-title-2 {
 	font-size: 25px;
 	font-weight: bold;
+}
+
+.homepage-text {
+	font-size: 23px;
+}
+
+.homepage-image {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50vw;
+	border: 3px solid #555;
+	border-radius: 3rem;
+	margin-bottom: 20px;
 }

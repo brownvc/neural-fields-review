@@ -35,6 +35,7 @@ const container = document.getElementById("timelineVisualization");
 
 const timelineOptions = {
   minHeight: "300px",
+  maxHeight: "750px",
   min: "1950-1-1",
   max: "2070-1-1",
   align: "left",
@@ -44,8 +45,6 @@ const timelineOptions = {
   },
   orientation: {
     axis: "both",
-    
-   
   },
   margin: {
     item: {
@@ -55,6 +54,7 @@ const timelineOptions = {
   // rollingMode: {
   //   follow: true
   // },
+  showCurrentTime: false,
   zoomFriction: 10,
   zoomMin: 86400000 * 30
 };
@@ -166,11 +166,11 @@ const renderTimeline = (papers) => {
     }
         );
         paperDataset = new vis.DataSet(paperItems);
-  timeline = new vis.Timeline(container, paperDataset, timelineOptions);
-  if (paperItems.length > 0) {
-    timeline.focus(paperItems[paperItems.length - 1].id, { duration: 1, easingFunction: "linear" });
-    timeline.zoomOut(0);
-  }
+    timeline = new vis.Timeline(container, paperDataset, timelineOptions);
+    if (paperItems.length > 0) {
+      timeline.focus(paperItems[paperItems.length - 1].id, { duration: 1, easingFunction: "linear" });
+      timeline.zoomOut(0);
+    }
     }
   )
 }

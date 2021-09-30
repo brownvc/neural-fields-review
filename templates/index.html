@@ -30,9 +30,21 @@
 {% block content %}
 
 <!-- {{ readme | markdown }} -->
+<h1>Neural Fields in Visual Computing—Complementary Webpage</h1>
 <p class="homepage-title-1">Features</p>
-<p class="homepage-title-2">Browsing through papers</p>
-<img src="static/images/browse.png">
+<p class="homepage-title-2">Filtering</p>
+<p class="homepage-text">Users can filter out disired papers by applying one or multiple filters on papers' titles,
+  authors, keywords, or publication dates.</p>
+<img src="static/images/browse.gif" class="homepage-image">
 <p class="homepage-title-2">Building a timeline</p>
-<p class="homepage-title-2">Checking out citations</p>
+<p class="homepage-text">A scrollable and zoomable timeline can be built given a set of papers. Users can use this
+  feature to
+  check the trajectory of how a certerin technique has evolved over time.
+</p>
+<img src="static/images/timeline.gif" class="homepage-image">
+<p class="homepage-title-2">Citation graph</p>
+<p class="homepage-text">Citation graph offers an intuitive way to check citation relations given a single paper or a
+  set of papers.
+</p>
+<img src="static/images/citation.gif" class="homepage-image">
 {% endblock %}
