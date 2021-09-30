@@ -453,7 +453,7 @@ const card_html = (paper) =>
                 <h6 class="card-date text-muted">
                         Date: ${paper.date}
                 </h6>
-                ${card_keywords(paper.keywords)}
+                ${renderMode === MODE.mini ? "" : card_keywords(paper.keywords)}
                 
                 
             </div>

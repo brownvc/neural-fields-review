@@ -99,14 +99,40 @@ def paper_vis_citation_graph():
     return render_template("papers_vis_citation_graph.html", **data)
 
 
+@app.route("/paper_vis_leaderboard.html")
+def paper_vis_leaderboard():
+    data = _data()
+    return render_template("papers_vis_leaderboard.html", **data)
+
+
 def extract_list_field(v, key):
     value = v.get(key, "")
-    if len(value) > 0:
-        result = value.split(",")
-        for i in range(len(result)):
-            result[i] = result[i].strip()
-    else:
+    if key == "Task" or key == "Techniques":
         result = []
+        seenOpenParentheses = False
+        tmpStr = ""
+        for char in value:
+            if char == "(":
+                seenOpenParentheses = True
+                tmpStr += "("
+            elif char == "," and seenOpenParentheses == False:
+                result.append(tmpStr.strip())
+                tmpStr = ""
+            elif char == ")":
+                seenOpenParentheses = False
+                tmpStr += ")"
+            else:
+                tmpStr += char
+        if tmpStr:
+            result.append(tmpStr.strip())
+        return result
+    else:
+        if len(value) > 0:
+            result = value.split(",")
+            for i in range(len(result)):
+                result[i] = result[i].strip()
+        else:
+            result = []
     return result
 
 
@@ -138,6 +164,8 @@ def format_paper(v):
         "title": v["Title"],
         "nickname": v["Nickname"],
         "authors": list_fields["Authors"],
+        "Tasks": list_fields["Task"],
+        "Techniques": list_fields["Techniques"],
         "keywords": list_fields["Task"] + list_fields["Techniques"],
         "date": v["Date"],
         "abstract": v["Abstract"],
