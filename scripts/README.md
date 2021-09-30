@@ -3,11 +3,14 @@ Step 1: Download the google form as .xlsx file
 
 Step 2: Run scripts
 ```
+rm *Zone.Identifier
 python arxiv_api.py
-mv output_responses.xlsx Review Paper Import Portal Responses.xlsx
+mv output_responses.xlsx "Review Paper Import Portal Responses.xlsx"
+rm *Zone.Identifier
 python scholarly_api.py
 python spreadsheet_check_error.py
-mv checked.xlsx Review Paper Import Portal Responses.xlsx
+mv checked.xlsx "Review Paper Import Portal Responses.xlsx"
+rm *Zone.Identifier
 python export_bibtex.py
 ```
 

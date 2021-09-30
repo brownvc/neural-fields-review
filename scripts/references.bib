@@ -40,6 +40,18 @@
   FILE = {1802.05384v3.pdf}
  }
 
+@article{raissi2019physics,
+  ABSTRACT = {We introduce physics-informed neural networks-neural networks that are trained to solve supervised learning tasks while respecting any given laws of physics described by general nonlinear partial differential equations. In this work, we present our developments in the context of solving two main classes of problems: data-driven solution and data-driven discovery of partial differential equations. Depending on the nature and arrangement of the available data, we devise two distinct types of algorithms, namely continuous time and},
+  AUTHOR = {Raissi, Maziar and Perdikaris, Paris and Karniadakis, George E},
+  JOURNAL = {Journal of Computational Physics},
+  PAGES = {686--707},
+  PUB_YEAR = {2019},
+  PUBLISHER = {Elsevier},
+  TITLE = {Physics-informed neural networks: A deep learning framework for solving forward and inverse problems involving nonlinear partial differential equations},
+  VENUE = {Journal of Computational Physics},
+  VOLUME = {378}
+ }
+
 @article{williams2018deep,
   AUTHOR = {Francis Williams and Teseo Schneider and Claudio Silva and Denis Zorin and Joan Bruna and Daniele Panozzo},
   TITLE = {Deep Geometric Prior for Surface Reconstruction},
@@ -221,6 +233,19 @@
   FILE = {1911.13225v2.pdf}
  }
 
+@article{deng2019nasa,
+  AUTHOR = {Boyang Deng and JP Lewis and Timothy Jeruzalski and Gerard Pons-Moll and Geoffrey Hinton and Mohammad Norouzi and Andrea Tagliasacchi},
+  TITLE = {NASA: Neural Articulated Shape Approximation},
+  EPRINT = {1912.03207v4},
+  ARCHIVEPREFIX = {arXiv},
+  PRIMARYCLASS = {cs.CV},
+  ABSTRACT = {Efficient representation of articulated objects such as human bodies is animportant problem in computer vision and graphics. To efficiently simulatedeformation, existing approaches represent 3D objects using polygonal meshesand deform them using skinning techniques. This paper introduces neuralarticulated shape approximation (NASA), an alternative framework that enablesefficient representation of articulated deformable objects using neuralindicator functions that are conditioned on pose. Occupancy testing using NASAis straightforward, circumventing the complexity of meshes and the issue ofwater-tightness. We demonstrate the effectiveness of NASA for 3D trackingapplications, and discuss other potential extensions.},
+  YEAR = {2019},
+  MONTH = {Dec},
+  URL = {http://arxiv.org/abs/1912.03207v4},
+  FILE = {1912.03207v4.pdf}
+ }
+
 @article{genova2019ldif,
   AUTHOR = {Kyle Genova and Forrester Cole and Avneesh Sud and Aaron Sarna and Thomas Funkhouser},
   TITLE = {Local Deep Implicit Functions for 3D Shape},
@@ -327,6 +352,19 @@
   FILE = {2003.10983v3.pdf}
  }
 
+@article{smith2020eikonet,
+  AUTHOR = {Jonathan D. Smith and Kamyar Azizzadenesheli and Zachary E. Ross},
+  TITLE = {EikoNet: Solving the Eikonal equation with Deep Neural Networks},
+  EPRINT = {2004.00361v3},
+  ARCHIVEPREFIX = {arXiv},
+  PRIMARYCLASS = {physics.comp-ph},
+  ABSTRACT = {The recent deep learning revolution has created an enormous opportunity foraccelerating compute capabilities in the context of physics-based simulations.Here, we propose EikoNet, a deep learning approach to solving the Eikonalequation, which characterizes the first-arrival-time field in heterogeneous 3Dvelocity structures. Our grid-free approach allows for rapid determination ofthe travel time between any two points within a continuous 3D domain. Thesetravel time solutions are allowed to violate the differential equation - whichcasts the problem as one of optimization - with the goal of finding networkparameters that minimize the degree to which the equation is violated. In doingso, the method exploits the differentiability of neural networks to calculatethe spatial gradients analytically, meaning the network can be trained on itsown without ever needing solutions from a finite difference algorithm. EikoNetis rigorously tested on several velocity models and sampling methods todemonstrate robustness and versatility. Training and inference are highlyparallelized, making the approach well-suited for GPUs. EikoNet has low memoryoverhead, and further avoids the need for travel-time lookup tables. Thedeveloped approach has important applications to earthquake hypocenterinversion, ray multi-pathing, and tomographic modeling, as well as to otherfields beyond seismology where ray tracing is essential.},
+  YEAR = {2020},
+  MONTH = {Mar},
+  URL = {http://arxiv.org/abs/2004.00361v3},
+  FILE = {2004.00361v3.pdf}
+ }
+
 @article{kohli2020semantic,
   AUTHOR = {Amit Kohli and Vincent Sitzmann and Gordon Wetzstein},
   TITLE = {Semantic Implicit Neural Scene Representations With Semi-SupervisedTraining},
@@ -368,6 +406,32 @@
   FILE = {2004.02869v1.pdf}
  }
 
+@article{li2020pifusion,
+  AUTHOR = {Zhe Li and Tao Yu and Chuanyu Pan and Zerong Zheng and Yebin Liu},
+  TITLE = {Robust 3D Self-portraits in Seconds},
+  EPRINT = {2004.02460v1},
+  ARCHIVEPREFIX = {arXiv},
+  PRIMARYCLASS = {cs.CV},
+  ABSTRACT = {In this paper, we propose an efficient method for robust 3D self-portraitsusing a single RGBD camera. Benefiting from the proposed PIFusion andlightweight bundle adjustment algorithm, our method can generate detailed 3Dself-portraits in seconds and shows the ability to handle subjects wearingextremely loose clothes. To achieve highly efficient and robust reconstruction,we propose PIFusion, which combines learning-based 3D recovery with volumetricnon-rigid fusion to generate accurate sparse partial scans of the subject.Moreover, a non-rigid volumetric deformation method is proposed to continuouslyrefine the learned shape prior. Finally, a lightweight bundle adjustmentalgorithm is proposed to guarantee that all the partial scans can not only"loop" with each other but also remain consistent with the selected live keyobservations. The results and experiments show that the proposed methodachieves more robust and efficient 3D self-portraits compared withstate-of-the-art methods.},
+  YEAR = {2020},
+  MONTH = {Apr},
+  URL = {http://arxiv.org/abs/2004.02460v1},
+  FILE = {2004.02460v1.pdf}
+ }
+
+@article{huang2020arch,
+  AUTHOR = {Zeng Huang and Yuanlu Xu and Christoph Lassner and Hao Li and Tony Tung},
+  TITLE = {ARCH: Animatable Reconstruction of Clothed Humans},
+  EPRINT = {2004.04572v2},
+  ARCHIVEPREFIX = {arXiv},
+  PRIMARYCLASS = {cs.GR},
+  ABSTRACT = {In this paper, we propose ARCH (Animatable Reconstruction of Clothed Humans),a novel end-to-end framework for accurate reconstruction of animation-ready 3Dclothed humans from a monocular image. Existing approaches to digitize 3Dhumans struggle to handle pose variations and recover details. Also, they donot produce models that are animation ready. In contrast, ARCH is a learnedpose-aware model that produces detailed 3D rigged full-body human avatars froma single unconstrained RGB image. A Semantic Space and a Semantic DeformationField are created using a parametric 3D body estimator. They allow thetransformation of 2D/3D clothed humans into a canonical space, reducingambiguities in geometry caused by pose variations and occlusions in trainingdata. Detailed surface geometry and appearance are learned using an implicitfunction representation with spatial local features. Furthermore, we proposeadditional per-pixel supervision on the 3D reconstruction using opacity-awaredifferentiable rendering. Our experiments indicate that ARCH increases thefidelity of the reconstructed humans. We obtain more than 50% lowerreconstruction errors for standard metrics compared to state-of-the-art methodson public datasets. We also show numerous qualitative examples of animated,high-quality reconstructed avatars unseen in the literature so far.},
+  YEAR = {2020},
+  MONTH = {Apr},
+  URL = {http://arxiv.org/abs/2004.04572v2},
+  FILE = {2004.04572v2.pdf}
+ }
+
 @article{jiang2020meshfreeflownet,
   AUTHOR = {Chiyu Max Jiang and Soheil Esmaeilzadeh and Kamyar Azizzadenesheli and Karthik Kashinath and Mustafa Mustafa and Hamdi A. Tchelepi and Philip Marcus and Prabhat and Anima Anandkumar},
   TITLE = {MeshfreeFlowNet: A Physics-Constrained Deep Continuous Space-TimeSuper-Resolution Framework},
@@ -379,6 +443,19 @@
   MONTH = {May},
   URL = {http://arxiv.org/abs/2005.01463v2},
   FILE = {2005.01463v2.pdf}
+ }
+
+@article{he2020geopifu,
+  AUTHOR = {Tong He and John Collomosse and Hailin Jin and Stefano Soatto},
+  TITLE = {Geo-PIFu: Geometry and Pixel Aligned Implicit Functions for Single-viewHuman Reconstruction},
+  EPRINT = {2006.08072v2},
+  ARCHIVEPREFIX = {arXiv},
+  PRIMARYCLASS = {cs.CV},
+  ABSTRACT = {We propose Geo-PIFu, a method to recover a 3D mesh from a monocular colorimage of a clothed person. Our method is based on a deep implicitfunction-based representation to learn latent voxel features using astructure-aware 3D U-Net, to constrain the model in two ways: first, to resolvefeature ambiguities in query point encoding, second, to serve as a coarse humanshape proxy to regularize the high-resolution mesh and encourage global shaperegularity. We show that, by both encoding query points and constraining globalshape using latent voxel features, the reconstruction we obtain for clothedhuman meshes exhibits less shape distortion and improved surface detailscompared to competing methods. We evaluate Geo-PIFu on a recent human meshpublic dataset that is $10 \times$ larger than the private commercial datasetused in PIFu and previous derivative work. On average, we exceed the state ofthe art by $42.7\%$ reduction in Chamfer and Point-to-Surface Distances, and$19.4\%$ reduction in normal estimation errors.},
+  YEAR = {2020},
+  MONTH = {Jun},
+  URL = {http://arxiv.org/abs/2006.08072v2},
+  FILE = {2006.08072v2.pdf}
  }
 
 @article{sitzmann2020siren,
@@ -473,6 +550,19 @@
   FILE = {2007.11571v2.pdf}
  }
 
+@article{bhatnagar2020ipnet,
+  AUTHOR = {Bharat Lal Bhatnagar and Cristian Sminchisescu and Christian Theobalt and Gerard Pons-Moll},
+  TITLE = {Combining Implicit Function Learning and Parametric Models for 3D HumanReconstruction},
+  EPRINT = {2007.11432v1},
+  ARCHIVEPREFIX = {arXiv},
+  PRIMARYCLASS = {cs.CV},
+  ABSTRACT = {Implicit functions represented as deep learning approximations are powerfulfor reconstructing 3D surfaces. However, they can only produce static surfacesthat are not controllable, which provides limited ability to modify theresulting model by editing its pose or shape parameters. Nevertheless, suchfeatures are essential in building flexible models for both computer graphicsand computer vision. In this work, we present methodology that combinesdetail-rich implicit functions and parametric representations in order toreconstruct 3D models of people that remain controllable and accurate even inthe presence of clothing. Given sparse 3D point clouds sampled on the surfaceof a dressed person, we use an Implicit Part Network (IP-Net)to jointly predictthe outer 3D surface of the dressed person, the and inner body surface, and thesemantic correspondences to a parametric body model. We subsequently usecorrespondences to fit the body model to our inner surface and then non-rigidlydeform it (under a parametric body + displacement model) to the outer surfacein order to capture garment, face and hair detail. In quantitative andqualitative experiments with both full body data and hand scans we show thatthe proposed methodology generalizes, and is effective even given incompletepoint clouds collected from single-view depth images. Our models and code canbe downloaded from http://virtualhumans.mpi-inf.mpg.de/ipnet.},
+  YEAR = {2020},
+  MONTH = {Jul},
+  URL = {http://arxiv.org/abs/2007.11432v1},
+  FILE = {2007.11432v1.pdf}
+ }
+
 @article{xu2020ladybird,
   AUTHOR = {Yifan Xu and Tianqi Fan and Yi Yuan and Gurprit Singh},
   TITLE = {Ladybird: Quasi-Monte Carlo Sampling for Deep Implicit Field Based 3DReconstruction with Symmetry},
@@ -484,6 +574,19 @@
   MONTH = {Jul},
   URL = {http://arxiv.org/abs/2007.13393v1},
   FILE = {2007.13393v1.pdf}
+ }
+
+@article{li2020monoport,
+  AUTHOR = {Ruilong Li and Yuliang Xiu and Shunsuke Saito and Zeng Huang and Kyle Olszewski and Hao Li},
+  TITLE = {Monocular Real-Time Volumetric Performance Capture},
+  EPRINT = {2007.13988v1},
+  ARCHIVEPREFIX = {arXiv},
+  PRIMARYCLASS = {cs.CV},
+  ABSTRACT = {We present the first approach to volumetric performance capture andnovel-view rendering at real-time speed from monocular video, eliminating theneed for expensive multi-view systems or cumbersome pre-acquisition of apersonalized template model. Our system reconstructs a fully textured 3D humanfrom each frame by leveraging Pixel-Aligned Implicit Function (PIFu). WhilePIFu achieves high-resolution reconstruction in a memory-efficient manner, itscomputationally expensive inference prevents us from deploying such a systemfor real-time applications. To this end, we propose a novel hierarchicalsurface localization algorithm and a direct rendering method without explicitlyextracting surface meshes. By culling unnecessary regions for evaluation in acoarse-to-fine manner, we successfully accelerate the reconstruction by twoorders of magnitude from the baseline without compromising the quality.Furthermore, we introduce an Online Hard Example Mining (OHEM) technique thateffectively suppresses failure modes due to the rare occurrence of challengingexamples. We adaptively update the sampling probability of the training databased on the current reconstruction accuracy, which effectively alleviatesreconstruction artifacts. Our experiments and evaluations demonstrate therobustness of our system to various challenging angles, illuminations, poses,and clothing styles. We also show that our approach compares favorably with thestate-of-the-art monocular performance capture. Our proposed approach removesthe need for multi-view studio settings and enables a consumer-accessiblesolution for volumetric capture.},
+  YEAR = {2020},
+  MONTH = {Jul},
+  URL = {http://arxiv.org/abs/2007.13988v1},
+  FILE = {2007.13988v1.pdf}
  }
 
 @article{hani2020corn,
@@ -538,6 +641,32 @@
   FILE = {2008.03824v2.pdf}
  }
 
+@article{karunratanakul2020grasping field,
+  AUTHOR = {Korrawe Karunratanakul and Jinlong Yang and Yan Zhang and Michael Black and Krikamol Muandet and Siyu Tang},
+  TITLE = {Grasping Field: Learning Implicit Representations for Human Grasps},
+  EPRINT = {2008.04451v3},
+  ARCHIVEPREFIX = {arXiv},
+  PRIMARYCLASS = {cs.CV},
+  ABSTRACT = {Robotic grasping of house-hold objects has made remarkable progress in recentyears. Yet, human grasps are still difficult to synthesize realistically. Thereare several key reasons: (1) the human hand has many degrees of freedom (morethan robotic manipulators); (2) the synthesized hand should conform to thesurface of the object; and (3) it should interact with the object in asemantically and physically plausible manner. To make progress in thisdirection, we draw inspiration from the recent progress on learning-basedimplicit representations for 3D object reconstruction. Specifically, we proposean expressive representation for human grasp modelling that is efficient andeasy to integrate with deep neural networks. Our insight is that every point ina three-dimensional space can be characterized by the signed distances to thesurface of the hand and the object, respectively. Consequently, the hand, theobject, and the contact area can be represented by implicit surfaces in acommon space, in which the proximity between the hand and the object can bemodelled explicitly. We name this 3D to 2D mapping as Grasping Field,parameterize it with a deep neural network, and learn it from data. Wedemonstrate that the proposed grasping field is an effective and expressiverepresentation for human grasp generation. Specifically, our generative modelis able to synthesize high-quality human grasps, given only on a 3D objectpoint cloud. The extensive experiments demonstrate that our generative modelcompares favorably with a strong baseline and approaches the level of naturalhuman grasps. Our method improves the physical plausibility of the hand-objectcontact reconstruction and achieves comparable performance for 3D handreconstruction compared to state-of-the-art methods.},
+  YEAR = {2020},
+  MONTH = {Aug},
+  URL = {http://arxiv.org/abs/2008.04451v3},
+  FILE = {2008.04451v3.pdf}
+ }
+
+@article{lei2020pix2surf,
+  AUTHOR = {Jiahui Lei and Srinath Sridhar and Paul Guerrero and Minhyuk Sung and Niloy Mitra and Leonidas J. Guibas},
+  TITLE = {Pix2Surf: Learning Parametric 3D Surface Models of Objects from Images},
+  EPRINT = {2008.07760v1},
+  ARCHIVEPREFIX = {arXiv},
+  PRIMARYCLASS = {cs.CV},
+  ABSTRACT = {We investigate the problem of learning to generate 3D parametric surfacerepresentations for novel object instances, as seen from one or more views.Previous work on learning shape reconstruction from multiple views usesdiscrete representations such as point clouds or voxels, while continuoussurface generation approaches lack multi-view consistency. We address theseissues by designing neural networks capable of generating high-qualityparametric 3D surfaces which are also consistent between views. Furthermore,the generated 3D surfaces preserve accurate image pixel to 3D surface pointcorrespondences, allowing us to lift texture information to reconstruct shapeswith rich geometry and appearance. Our method is supervised and trained on apublic dataset of shapes from common object categories. Quantitative resultsindicate that our method significantly outperforms previous work, whilequalitative results demonstrate the high quality of our reconstructions.},
+  YEAR = {2020},
+  MONTH = {Aug},
+  URL = {http://arxiv.org/abs/2008.07760v1},
+  FILE = {2008.07760v1.pdf}
+ }
+
 @article{davies2020on,
   AUTHOR = {Thomas Davies and Derek Nowrouzezahrai and Alec Jacobson},
   TITLE = {On the Effectiveness of Weight-Encoded Neural Implicit 3D Shapes},
@@ -564,19 +693,6 @@
   2020},
   URL = {http://arxiv.org/abs/2009.09458v1},
   FILE = {2009.09458v1.pdf}
- }
-
-@article{li2021nemi,
-  AUTHOR = {Jiaxin Li and Zijian Feng and Qi She and Henghui Ding and Changhu Wang and Gim Hee Lee},
-  TITLE = {MINE: Towards Continuous Depth MPI with NeRF for Novel View Synthesis},
-  EPRINT = {2103.14910v3},
-  ARCHIVEPREFIX = {arXiv},
-  PRIMARYCLASS = {cs.CV},
-  ABSTRACT = {In this paper, we propose MINE to perform novel view synthesis and depthestimation via dense 3D reconstruction from a single image. Our approach is acontinuous depth generalization of the Multiplane Images (MPI) by introducingthe NEural radiance fields (NeRF). Given a single image as input, MINE predictsa 4-channel image (RGB and volume density) at arbitrary depth values to jointlyreconstruct the camera frustum and fill in occluded contents. The reconstructedand inpainted frustum can then be easily rendered into novel RGB or depth viewsusing differentiable rendering. Extensive experiments on RealEstate10K, KITTIand Flowers Light Fields show that our MINE outperforms state-of-the-art by alarge margin in novel view synthesis. We also achieve competitive results indepth estimation on iBims-1 and NYU-v2 without annotated depth supervision. Oursource code is available at https://github.com/vincentfung13/MINE},
-  YEAR = {2021},
-  MONTH = {Mar},
-  URL = {http://arxiv.org/abs/2103.14910v3},
-  FILE = {2103.14910v3.pdf}
  }
 
 @article{bemana2020xfields,
@@ -631,6 +747,20 @@
   FILE = {2010.10505v1.pdf}
  }
 
+@article{bhatnagar2020loopreg,
+  AUTHOR = {Bharat Lal Bhatnagar and Cristian Sminchisescu and Christian Theobalt and Gerard Pons-Moll},
+  TITLE = {LoopReg: Self-supervised Learning of Implicit Surface Correspondences,Pose and Shape for 3D Human Mesh Registration},
+  EPRINT = {2010.12447v1},
+  ARCHIVEPREFIX = {arXiv},
+  PRIMARYCLASS = {cs.CV},
+  ABSTRACT = {We address the problem of fitting 3D human models to 3D scans of dressedhumans. Classical methods optimize both the data-to-model correspondences andthe human model parameters (pose and shape), but are reliable only wheninitialized close to the solution. Some methods initialize the optimizationbased on fully supervised correspondence predictors, which is notdifferentiable end-to-end, and can only process a single scan at a time. Ourmain contribution is LoopReg, an end-to-end learning framework to register acorpus of scans to a common 3D human model. The key idea is to create aself-supervised loop. A backward map, parameterized by a Neural Network,predicts the correspondence from every scan point to the surface of the humanmodel. A forward map, parameterized by a human model, transforms thecorresponding points back to the scan based on the model parameters (pose andshape), thus closing the loop. Formulating this closed loop is notstraightforward because it is not trivial to force the output of the NN to beon the surface of the human model - outside this surface the human model is noteven defined. To this end, we propose two key innovations. First, we define thecanonical surface implicitly as the zero level set of a distance field in R3,which in contrast to morecommon UV parameterizations, does not require cuttingthe surface, does not have discontinuities, and does not induce distortion.Second, we diffuse the human model to the 3D domain R3. This allows to map theNN predictions forward,even when they slightly deviate from the zero level set.Results demonstrate that we can train LoopRegmainly self-supervised - followinga supervised warm-start, the model becomes increasingly more accurate asadditional unlabelled raw scans are processed. Our code and pre-trained modelscan be downloaded for research.},
+  YEAR = {2020},
+  MONTH = {Oct},
+  NOTE = {NeurIPS 2020},
+  URL = {http://arxiv.org/abs/2010.12447v1},
+  FILE = {2010.12447v1.pdf}
+ }
+
 @article{chibane2020ndf,
   AUTHOR = {Julian Chibane and Aymen Mir and Gerard Pons-Moll},
   TITLE = {Neural Unsigned Distance Fields for Implicit Function Learning},
@@ -643,6 +773,19 @@
   NOTE = {Neural Information Processing Systems (NeurIPS) 2020},
   URL = {http://arxiv.org/abs/2010.13938v1},
   FILE = {2010.13938v1.pdf}
+ }
+
+@article{zheng2020neural,
+  ABSTRACT = {Modern 3D printers are capable of printing large-size light-field displays at high-resolutions. However, optimizing such displays in full 3D volume for a given light-field imagery is still a challenging task. Existing light field displays optimize over relatively small resolutions using},
+  AUTHOR = {Zheng, Quan and Babaei, Vahid and Wetzstein, Gordon and Seidel, Hans-Peter and Zwicker, Matthias and Singh, Gurprit},
+  JOURNAL = {ACM Transactions on Graphics (TOG)},
+  NUMBER = {6},
+  PAGES = {1--12},
+  PUB_YEAR = {2020},
+  PUBLISHER = {ACM New York, NY, USA},
+  TITLE = {Neural light field 3D printing},
+  VENUE = {ACM Transactions on ...},
+  VOLUME = {39}
  }
 
 @article{ost2020neural,
@@ -1061,6 +1204,19 @@
   FILE = {2101.02697v1.pdf}
  }
 
+@article{yang2021s3,
+  AUTHOR = {Ze Yang and Shenlong Wang and Sivabalan Manivasagam and Zeng Huang and Wei-Chiu Ma and Xinchen Yan and Ersin Yumer and Raquel Urtasun},
+  TITLE = {S3: Neural Shape, Skeleton, and Skinning Fields for 3D Human Modeling},
+  EPRINT = {2101.06571v1},
+  ARCHIVEPREFIX = {arXiv},
+  PRIMARYCLASS = {cs.CV},
+  ABSTRACT = {Constructing and animating humans is an important component for buildingvirtual worlds in a wide variety of applications such as virtual reality orrobotics testing in simulation. As there are exponentially many variations ofhumans with different shape, pose and clothing, it is critical to developmethods that can automatically reconstruct and animate humans at scale fromreal world data. Towards this goal, we represent the pedestrian's shape, poseand skinning weights as neural implicit functions that are directly learnedfrom data. This representation enables us to handle a wide variety of differentpedestrian shapes and poses without explicitly fitting a human parametric bodymodel, allowing us to handle a wider range of human geometries and topologies.We demonstrate the effectiveness of our approach on various datasets and showthat our reconstructions outperform existing state-of-the-art methods.Furthermore, our re-animation experiments show that we can generate 3D humananimations at scale from a single RGB image (and/or an optional LiDAR sweep) asinput.},
+  YEAR = {2021},
+  MONTH = {Jan},
+  URL = {http://arxiv.org/abs/2101.06571v1},
+  FILE = {2101.06571v1.pdf}
+ }
+
 @article{takikawa2021neural,
   AUTHOR = {Towaki Takikawa and Joey Litalien and Kangxue Yin and Karsten Kreis and Charles Loop and Derek Nowrouzezahrai and Alec Jacobson and Morgan McGuire and Sanja Fidler},
   TITLE = {Neural Geometric Level of Detail: Real-time Rendering with Implicit 3DShapes},
@@ -1243,6 +1399,19 @@
   MONTH = {Mar},
   URL = {http://arxiv.org/abs/2103.05606v2},
   FILE = {2103.05606v2.pdf}
+ }
+
+@article{corona2021smplicit,
+  AUTHOR = {Enric Corona and Albert Pumarola and Guillem Alenya and Gerard Pons-Moll and Francesc Moreno-Noguer},
+  TITLE = {SMPLicit: Topology-aware Generative Model for Clothed People},
+  EPRINT = {2103.06871v2},
+  ARCHIVEPREFIX = {arXiv},
+  PRIMARYCLASS = {cs.CV},
+  ABSTRACT = {In this paper we introduce SMPLicit, a novel generative model to jointlyrepresent body pose, shape and clothing geometry. In contrast to existinglearning-based approaches that require training specific models for each typeof garment, SMPLicit can represent in a unified manner different garmenttopologies (e.g. from sleeveless tops to hoodies and to open jackets), whilecontrolling other properties like the garment size or tightness/looseness. Weshow our model to be applicable to a large variety of garments includingT-shirts, hoodies, jackets, shorts, pants, skirts, shoes and even hair. Therepresentation flexibility of SMPLicit builds upon an implicit modelconditioned with the SMPL human body parameters and a learnable latent spacewhich is semantically interpretable and aligned with the clothing attributes.The proposed model is fully differentiable, allowing for its use into largerend-to-end trainable systems. In the experimental section, we demonstrateSMPLicit can be readily used for fitting 3D scans and for 3D reconstruction inimages of dressed people. In both cases we are able to go beyond state of theart, by retrieving complex garment geometries, handling situations withmultiple clothing layers and providing a tool for easy outfit editing. Tostimulate further research in this direction, we will make our code and modelpublicly available at http://www.iri.upc.edu/people/ecorona/smplicit/.},
+  YEAR = {2021},
+  MONTH = {Mar},
+  URL = {http://arxiv.org/abs/2103.06871v2},
+  FILE = {2103.06871v2.pdf}
  }
 
 @article{guo2021adnerf,
@@ -1675,6 +1844,19 @@
   FILE = {2104.04523v1.pdf}
  }
 
+@article{hong2021stereopifu,
+  AUTHOR = {Yang Hong and Juyong Zhang and Boyi Jiang and Yudong Guo and Ligang Liu and Hujun Bao},
+  TITLE = {StereoPIFu: Depth Aware Clothed Human Digitization via Stereo Vision},
+  EPRINT = {2104.05289v2},
+  ARCHIVEPREFIX = {arXiv},
+  PRIMARYCLASS = {cs.CV},
+  ABSTRACT = {In this paper, we propose StereoPIFu, which integrates the geometricconstraints of stereo vision with implicit function representation of PIFu, torecover the 3D shape of the clothed human from a pair of low-cost rectifiedimages. First, we introduce the effective voxel-aligned features from a stereovision-based network to enable depth-aware reconstruction. Moreover, the novelrelative z-offset is employed to associate predicted high-fidelity human depthand occupancy inference, which helps restore fine-level surface details.Second, a network structure that fully utilizes the geometry information fromthe stereo images is designed to improve the human body reconstruction quality.Consequently, our StereoPIFu can naturally infer the human body's spatiallocation in camera space and maintain the correct relative position ofdifferent parts of the human body, which enables our method to capture humanperformance. Compared with previous works, our StereoPIFu significantlyimproves the robustness, completeness, and accuracy of the clothed humanreconstruction, which is demonstrated by extensive experimental results.},
+  YEAR = {2021},
+  MONTH = {Apr},
+  URL = {http://arxiv.org/abs/2104.05289v2},
+  FILE = {2104.05289v2.pdf}
+ }
+
 @article{lin2021barf,
   AUTHOR = {Chen-Hsuan Lin and Wei-Chiu Ma and Antonio Torralba and Simon Lucey},
   TITLE = {BARF: Bundle-Adjusting Neural Radiance Fields},
@@ -1701,6 +1883,19 @@
   2021},
   URL = {http://arxiv.org/abs/2104.06935v1},
   FILE = {2104.06935v1.pdf}
+ }
+
+@article{mihajlovic2021leap,
+  AUTHOR = {Marko Mihajlovic and Yan Zhang and Michael J. Black and Siyu Tang},
+  TITLE = {LEAP: Learning Articulated Occupancy of People},
+  EPRINT = {2104.06849v1},
+  ARCHIVEPREFIX = {arXiv},
+  PRIMARYCLASS = {cs.CV},
+  ABSTRACT = {Substantial progress has been made on modeling rigid 3D objects using deepimplicit representations. Yet, extending these methods to learn neural modelsof human shape is still in its infancy. Human bodies are complex and the keychallenge is to learn a representation that generalizes such that it canexpress body shape deformations for unseen subjects in unseen,highly-articulated, poses. To address this challenge, we introduce LEAP(LEarning Articulated occupancy of People), a novel neural occupancyrepresentation of the human body. Given a set of bone transformations (i.e.joint locations and rotations) and a query point in space, LEAP first maps thequery point to a canonical space via learned linear blend skinning (LBS)functions and then efficiently queries the occupancy value via an occupancynetwork that models accurate identity- and pose-dependent deformations in thecanonical space. Experiments show that our canonicalized occupancy estimationwith the learned LBS functions greatly improves the generalization capabilityof the learned occupancy representation across various human shapes and poses,outperforming existing solutions in all settings.},
+  YEAR = {2021},
+  MONTH = {Apr},
+  URL = {http://arxiv.org/abs/2104.06849v1},
+  FILE = {2104.06849v1.pdf}
  }
 
 @article{hao2021gancraft,
@@ -1740,6 +1935,19 @@
   MONTH = {Mar},
   URL = {http://arxiv.org/abs/2103.10380v2},
   FILE = {2103.10380v2.pdf}
+ }
+
+@article{wang2021locally,
+  AUTHOR = {Shaofei Wang and Andreas Geiger and Siyu Tang},
+  TITLE = {Locally Aware Piecewise Transformation Fields for 3D Human MeshRegistration},
+  EPRINT = {2104.08160v1},
+  ARCHIVEPREFIX = {arXiv},
+  PRIMARYCLASS = {cs.CV},
+  ABSTRACT = {Registering point clouds of dressed humans to parametric human models is achallenging task in computer vision. Traditional approaches often rely onheavily engineered pipelines that require accurate manual initialization ofhuman poses and tedious post-processing. More recently, learning-based methodsare proposed in hope to automate this process. We observe that poseinitialization is key to accurate registration but existing methods often failto provide accurate pose initialization. One major obstacle is that, regressingjoint rotations from point clouds or images of humans is still verychallenging. To this end, we propose novel piecewise transformation fields(PTF), a set of functions that learn 3D translation vectors to map any querypoint in posed space to its correspond position in rest-pose space. We combinePTF with multi-class occupancy networks, obtaining a novel learning-basedframework that learns to simultaneously predict shape and per-pointcorrespondences between the posed space and the canonical space for clothedhuman. Our key insight is that the translation vector for each query point canbe effectively estimated using the point-aligned local features; consequently,rigid per bone transformations and joint rotations can be obtained efficientlyvia a least-square fitting given the estimated point correspondences,circumventing the challenging task of directly regressing joint rotations fromneural networks. Furthermore, the proposed PTF facilitate canonicalizedoccupancy estimation, which greatly improves generalization capability andresults in more accurate surface reconstruction with only half of theparameters compared with the state-of-the-art. Both qualitative andquantitative studies show that fitting parametric models with poses initializedby our network results in much better registration quality, especially forextreme poses.},
+  YEAR = {2021},
+  MONTH = {Apr},
+  URL = {http://arxiv.org/abs/2104.08160v1},
+  FILE = {2104.08160v1.pdf}
  }
 
 @article{xie2021fignerf,
@@ -2135,6 +2343,19 @@
   FILE = {2106.05187v2.pdf}
  }
 
+@article{murphy2021implicitpdf,
+  AUTHOR = {Kieran Murphy and Carlos Esteves and Varun Jampani and Srikumar Ramalingam and Ameesh Makadia},
+  TITLE = {Implicit-PDF: Non-Parametric Representation of Probability Distributionson the Rotation Manifold},
+  EPRINT = {2106.05965v1},
+  ARCHIVEPREFIX = {arXiv},
+  PRIMARYCLASS = {cs.CV},
+  ABSTRACT = {Single image pose estimation is a fundamental problem in many vision androbotics tasks, and existing deep learning approaches suffer by not completelymodeling and handling: i) uncertainty about the predictions, and ii) symmetricobjects with multiple (sometimes infinite) correct poses. To this end, weintroduce a method to estimate arbitrary, non-parametric distributions onSO(3). Our key idea is to represent the distributions implicitly, with a neuralnetwork that estimates the probability given the input image and a candidatepose. Grid sampling or gradient ascent can be used to find the most likelypose, but it is also possible to evaluate the probability at any pose, enablingreasoning about symmetries and uncertainty. This is the most general way ofrepresenting distributions on manifolds, and to showcase the rich expressivepower, we introduce a dataset of challenging symmetric and nearly-symmetricobjects. We require no supervision on pose uncertainty -- the model trains onlywith a single pose per example. Nonetheless, our implicit model is highlyexpressive to handle complex distributions over 3D poses, while still obtainingaccurate pose estimation on standard non-ambiguous environments, achievingstate-of-the-art performance on Pascal3D+ and ModelNet10-SO(3) benchmarks.},
+  YEAR = {2021},
+  MONTH = {Jun},
+  URL = {http://arxiv.org/abs/2106.05965v1},
+  FILE = {2106.05965v1.pdf}
+ }
+
 @article{henderson2021unsupervised,
   AUTHOR = {Paul Henderson and Christoph H. Lampert and Bernd Bickel},
   TITLE = {Unsupervised Video Prediction from a Single Frame by Estimating 3DDynamic Scene Structure},
@@ -2360,6 +2581,19 @@
   FILE = {2107.12512v1.pdf}
   }
 
+@article{sun2021nelf,
+  AUTHOR = {Tiancheng Sun and Kai-En Lin and Sai Bi and Zexiang Xu and Ravi Ramamoorthi},
+  TITLE = {NeLF: Neural Light-transport Field for Portrait View Synthesis andRelighting},
+  EPRINT = {2107.12351v1},
+  ARCHIVEPREFIX = {arXiv},
+  PRIMARYCLASS = {cs.CV},
+  ABSTRACT = {Human portraits exhibit various appearances when observed from differentviews under different lighting conditions. We can easily imagine how the facewill look like in another setup, but computer algorithms still fail on thisproblem given limited observations. To this end, we present a system forportrait view synthesis and relighting: given multiple portraits, we use aneural network to predict the light-transport field in 3D space, and from thepredicted Neural Light-transport Field (NeLF) produce a portrait from a newcamera view under a new environmental lighting. Our system is trained on alarge number of synthetic models, and can generalize to different synthetic andreal portraits under various lighting conditions. Our method achievessimultaneous view synthesis and relighting given multi-view portraits as theinput, and achieves state-of-the-art results.},
+  YEAR = {2021},
+  MONTH = {Jul},
+  URL = {http://arxiv.org/abs/2107.12351v1},
+  FILE = {2107.12351v1.pdf}
+ }
+
 @article{nam2021neural,
   AUTHOR = {Seonghyeon Nam and Marcus A. Brubaker and Michael S. Brown},
   TITLE = {Neural Image Representations for Multi-Image Fusion and Layer Separation},
@@ -2433,6 +2667,27 @@
   FILE = {2108.05851v1.pdf}
   }
 
+@article{liunsupervised,
+  ABSTRACT = {Many computer vision problems face difficulties when imaging through turbulent refractive media (eg, air and water) due to the refraction and scattering of light. These effects cause geometric distortion that requires either handcrafted physical priors or supervised learning methods to remove. In this paper, we present a novel unsupervised network to recover the latent distortion-free image. The key idea is to model non-rigid distortions as deformable grids. Our network consists of a grid deformer that estimates the distortion field and an image},
+  AUTHOR = {Li, Nianyi and Thapa, Simron and Whyte, Cameron and Reed, Albert and Jayasuriya, Suren and Ye, Jinwei},
+  PUB_YEAR = {NA},
+  TITLE = {Unsupervised Non-Rigid Image Distortion Removal via Grid Deformation},
+  VENUE = {NA}
+ }
+
+@article{he2021arch++,
+  AUTHOR = {Tong He and Yuanlu Xu and Shunsuke Saito and Stefano Soatto and Tony Tung},
+  TITLE = {ARCH++: Animation-Ready Clothed Human Reconstruction Revisited},
+  EPRINT = {2108.07845v1},
+  ARCHIVEPREFIX = {arXiv},
+  PRIMARYCLASS = {cs.CV},
+  ABSTRACT = {We present ARCH++, an image-based method to reconstruct 3D avatars witharbitrary clothing styles. Our reconstructed avatars are animation-ready andhighly realistic, in both the visible regions from input views and the unseenregions. While prior work shows great promise of reconstructing animatableclothed humans with various topologies, we observe that there exist fundamentallimitations resulting in sub-optimal reconstruction quality. In this paper, werevisit the major steps of image-based avatar reconstruction and address thelimitations with ARCH++. First, we introduce an end-to-end point based geometryencoder to better describe the semantics of the underlying 3D human body, inreplacement of previous hand-crafted features. Second, in order to address theoccupancy ambiguity caused by topological changes of clothed humans in thecanonical pose, we propose a co-supervising framework with cross-spaceconsistency to jointly estimate the occupancy in both the posed and canonicalspaces. Last, we use image-to-image translation networks to further refinedetailed geometry and texture on the reconstructed surface, which improves thefidelity and consistency across arbitrary viewpoints. In the experiments, wedemonstrate improvements over the state of the art on both public benchmarksand user studies in reconstruction quality and realism.},
+  YEAR = {2021},
+  MONTH = {Aug},
+  URL = {http://arxiv.org/abs/2108.07845v1},
+  FILE = {2108.07845v1.pdf}
+ }
+
 @article{tiwari2021neuralgif,
   AUTHOR = {Garvita Tiwari and Nikolaos Sarafianos and Tony Tung and Gerard Pons-Moll},
   TITLE = {Neural-GIF: Neural Generalized Implicit Functions for Animating Peoplein Clothing},
@@ -2501,28 +2756,6 @@
   FILE = {2108.10991v1.pdf}
   }
 
-@article{jeong2021self,
-  ABSTRACT = {In this work, we propose a camera self-calibration algorithm for generic cameras with arbitrary non-linear distortions. We jointly learn the geometry of the scene and the accurate camera parameters without any calibration objects. Our camera model consists of a pinhole model, a fourth order radial distortion, and a generic noise model that can learn arbitrary non-linear camera distortions. While traditional self-calibration algorithms mostly rely on geometric constraints, we additionally incorporate photometric consistency. This requires},
-  AUTHOR = {Jeong, Yoonwoo and Ahn, Seokjun and Choy, Christopher and Anandkumar, Animashree and Cho, Minsu and Park, Jaesik},
-  JOURNAL = {arXiv preprint arXiv:2108.13826},
-  PUB_YEAR = {2021},
-  TITLE = {Self-Calibrating Neural Radiance Fields},
-  VENUE = {arXiv preprint arXiv …}
- }
-
-@article{zheng2020neural,
-  ABSTRACT = {Modern 3D printers are capable of printing large-size light-field displays at high-resolutions. However, optimizing such displays in full 3D volume for a given light-field imagery is still a challenging task. Existing light field displays optimize over relatively small resolutions using},
-  AUTHOR = {Zheng, Quan and Babaei, Vahid and Wetzstein, Gordon and Seidel, Hans-Peter and Zwicker, Matthias and Singh, Gurprit},
-  JOURNAL = {ACM Transactions on Graphics (TOG)},
-  NUMBER = {6},
-  PAGES = {1--12},
-  PUB_YEAR = {2020},
-  PUBLISHER = {ACM New York, NY, USA},
-  TITLE = {Neural light field 3D printing},
-  VENUE = {ACM Transactions on ...},
-  VOLUME = {39}
- }
-
 @article{alldieck2021imghum,
   AUTHOR = {Thiemo Alldieck and Hongyi Xu and Cristian Sminchisescu},
   TITLE = {imGHUM: Implicit Generative Models of 3D Human Shape and ArticulatedPose},
@@ -2536,187 +2769,99 @@
   FILE = {2108.10842v1.pdf}
  }
 
-@article{karunratanakul2020grasping field,
-  AUTHOR = {Korrawe Karunratanakul and Jinlong Yang and Yan Zhang and Michael Black and Krikamol Muandet and Siyu Tang},
-  TITLE = {Grasping Field: Learning Implicit Representations for Human Grasps},
-  EPRINT = {2008.04451v3},
-  ARCHIVEPREFIX = {arXiv},
-  PRIMARYCLASS = {cs.CV},
-  ABSTRACT = {Robotic grasping of house-hold objects has made remarkable progress in recentyears. Yet, human grasps are still difficult to synthesize realistically. Thereare several key reasons: (1) the human hand has many degrees of freedom (morethan robotic manipulators); (2) the synthesized hand should conform to thesurface of the object; and (3) it should interact with the object in asemantically and physically plausible manner. To make progress in thisdirection, we draw inspiration from the recent progress on learning-basedimplicit representations for 3D object reconstruction. Specifically, we proposean expressive representation for human grasp modelling that is efficient andeasy to integrate with deep neural networks. Our insight is that every point ina three-dimensional space can be characterized by the signed distances to thesurface of the hand and the object, respectively. Consequently, the hand, theobject, and the contact area can be represented by implicit surfaces in acommon space, in which the proximity between the hand and the object can bemodelled explicitly. We name this 3D to 2D mapping as Grasping Field,parameterize it with a deep neural network, and learn it from data. Wedemonstrate that the proposed grasping field is an effective and expressiverepresentation for human grasp generation. Specifically, our generative modelis able to synthesize high-quality human grasps, given only on a 3D objectpoint cloud. The extensive experiments demonstrate that our generative modelcompares favorably with a strong baseline and approaches the level of naturalhuman grasps. Our method improves the physical plausibility of the hand-objectcontact reconstruction and achieves comparable performance for 3D handreconstruction compared to state-of-the-art methods.},
-  YEAR = {2020},
-  MONTH = {Aug},
-  URL = {http://arxiv.org/abs/2008.04451v3},
-  FILE = {2008.04451v3.pdf}
+@article{jeong2021self,
+  ABSTRACT = {In this work, we propose a camera self-calibration algorithm for generic cameras with arbitrary non-linear distortions. We jointly learn the geometry of the scene and the accurate camera parameters without any calibration objects. Our camera model consists of a pinhole model, a fourth order radial distortion, and a generic noise model that can learn arbitrary non-linear camera distortions. While traditional self-calibration algorithms mostly rely on geometric constraints, we additionally incorporate photometric consistency. This requires},
+  AUTHOR = {Jeong, Yoonwoo and Ahn, Seokjun and Choy, Christopher and Anandkumar, Animashree and Cho, Minsu and Park, Jaesik},
+  JOURNAL = {arXiv preprint arXiv:2108.13826},
+  PUB_YEAR = {2021},
+  TITLE = {Self-Calibrating Neural Radiance Fields},
+  VENUE = {arXiv preprint arXiv …}
  }
 
-@article{corona2021smplicit,
-  AUTHOR = {Enric Corona and Albert Pumarola and Guillem Alenya and Gerard Pons-Moll and Francesc Moreno-Noguer},
-  TITLE = {SMPLicit: Topology-aware Generative Model for Clothed People},
-  EPRINT = {2103.06871v2},
+@inproceedings{huang2021modified,
+  ABSTRACT = {Recently developed physics-informed neural network (PINN) for solving for the scattered wavefield in the Helmholtz equation showed large potential in seismic modeling because of its flexibility, low memory requirement, and no limitations on the shape of the solution space. However, the predicted solutions were somewhat smooth and the convergence of the training was slow. Thus, we propose a modified PINN using sinusoidal activation functions and positional encoding, aiming to accelerate the convergence and fit better. We transform},
+  AUTHOR = {Huang, Xinquan and Alkhalifah, Tariq and Song, Chao},
+  BOOKTITLE = {First International Meeting for Applied Geoscience \& Energy},
+  ORGANIZATION = {Society of Exploration Geophysicists},
+  PAGES = {2480--2484},
+  PUB_YEAR = {2021},
+  TITLE = {A modified physics-informed neural network with positional encoding},
+  VENUE = {First International Meeting for ...}
+ }
+
+@article{benbarka2021seeing,
+  AUTHOR = {Nuri Benbarka and Timon Hofer and Hamd ul-moqeet Riaz and Andreas Zell},
+  TITLE = {Seeing Implicit Neural Representations as Fourier Series},
+  EPRINT = {2109.00249v1},
   ARCHIVEPREFIX = {arXiv},
   PRIMARYCLASS = {cs.CV},
-  ABSTRACT = {In this paper we introduce SMPLicit, a novel generative model to jointlyrepresent body pose, shape and clothing geometry. In contrast to existinglearning-based approaches that require training specific models for each typeof garment, SMPLicit can represent in a unified manner different garmenttopologies (e.g. from sleeveless tops to hoodies and to open jackets), whilecontrolling other properties like the garment size or tightness/looseness. Weshow our model to be applicable to a large variety of garments includingT-shirts, hoodies, jackets, shorts, pants, skirts, shoes and even hair. Therepresentation flexibility of SMPLicit builds upon an implicit modelconditioned with the SMPL human body parameters and a learnable latent spacewhich is semantically interpretable and aligned with the clothing attributes.The proposed model is fully differentiable, allowing for its use into largerend-to-end trainable systems. In the experimental section, we demonstrateSMPLicit can be readily used for fitting 3D scans and for 3D reconstruction inimages of dressed people. In both cases we are able to go beyond state of theart, by retrieving complex garment geometries, handling situations withmultiple clothing layers and providing a tool for easy outfit editing. Tostimulate further research in this direction, we will make our code and modelpublicly available at http://www.iri.upc.edu/people/ecorona/smplicit/.},
+  ABSTRACT = {Implicit Neural Representations (INR) use multilayer perceptrons to representhigh-frequency functions in low-dimensional problem domains. Recently theserepresentations achieved state-of-the-art results on tasks related to complex3D objects and scenes. A core problem is the representation of highly detailedsignals, which is tackled using networks with periodic activation functions(SIRENs) or applying Fourier mappings to the input. This work analyzes theconnection between the two methods and shows that a Fourier mapped perceptronis structurally like one hidden layer SIREN. Furthermore, we identify therelationship between the previously proposed Fourier mapping and the generald-dimensional Fourier series, leading to an integer lattice mapping. Moreover,we modify a progressive training strategy to work on arbitrary Fourier mappingsand show that it improves the generalization of the interpolation task. Lastly,we compare the different mappings on the image regression and novel viewsynthesis tasks. We confirm the previous finding that the main contributor tothe mapping performance is the size of the embedding and standard deviation ofits elements.},
   YEAR = {2021},
-  MONTH = {Mar},
-  URL = {http://arxiv.org/abs/2103.06871v2},
-  FILE = {2103.06871v2.pdf}
+  MONTH = {Sep},
+  URL = {http://arxiv.org/abs/2109.00249v1},
+  FILE = {2109.00249v1.pdf}
  }
 
-@article{yang2021s3,
-  AUTHOR = {Ze Yang and Shenlong Wang and Sivabalan Manivasagam and Zeng Huang and Wei-Chiu Ma and Xinchen Yan and Ersin Yumer and Raquel Urtasun},
-  TITLE = {S3: Neural Shape, Skeleton, and Skinning Fields for 3D Human Modeling},
-  EPRINT = {2101.06571v1},
+@article{reizenstein2021co3d,
+  AUTHOR = {Jeremy Reizenstein and Roman Shapovalov and Philipp Henzler and Luca Sbordone and Patrick Labatut and David Novotny},
+  TITLE = {Common Objects in 3D: Large-Scale Learning and Evaluation of Real-life3D Category Reconstruction},
+  EPRINT = {2109.00512v1},
   ARCHIVEPREFIX = {arXiv},
   PRIMARYCLASS = {cs.CV},
-  ABSTRACT = {Constructing and animating humans is an important component for buildingvirtual worlds in a wide variety of applications such as virtual reality orrobotics testing in simulation. As there are exponentially many variations ofhumans with different shape, pose and clothing, it is critical to developmethods that can automatically reconstruct and animate humans at scale fromreal world data. Towards this goal, we represent the pedestrian's shape, poseand skinning weights as neural implicit functions that are directly learnedfrom data. This representation enables us to handle a wide variety of differentpedestrian shapes and poses without explicitly fitting a human parametric bodymodel, allowing us to handle a wider range of human geometries and topologies.We demonstrate the effectiveness of our approach on various datasets and showthat our reconstructions outperform existing state-of-the-art methods.Furthermore, our re-animation experiments show that we can generate 3D humananimations at scale from a single RGB image (and/or an optional LiDAR sweep) asinput.},
+  ABSTRACT = {Traditional approaches for learning 3D object categories have beenpredominantly trained and evaluated on synthetic datasets due to theunavailability of real 3D-annotated category-centric data. Our main goal is tofacilitate advances in this field by collecting real-world data in a magnitudesimilar to the existing synthetic counterparts. The principal contribution ofthis work is thus a large-scale dataset, called Common Objects in 3D, with realmulti-view images of object categories annotated with camera poses and groundtruth 3D point clouds. The dataset contains a total of 1.5 million frames fromnearly 19,000 videos capturing objects from 50 MS-COCO categories and, as such,it is significantly larger than alternatives both in terms of the number ofcategories and objects. We exploit this new dataset to conduct one of the firstlarge-scale "in-the-wild" evaluations of several new-view-synthesis andcategory-centric 3D reconstruction methods. Finally, we contribute NerFormer -a novel neural rendering method that leverages the powerful Transformer toreconstruct an object given a small number of its views. The CO3D dataset isavailable at https://github.com/facebookresearch/co3d .},
   YEAR = {2021},
-  MONTH = {Jan},
-  URL = {http://arxiv.org/abs/2101.06571v1},
-  FILE = {2101.06571v1.pdf}
+  MONTH = {Sep},
+  NOTE = {International Conference on Computer Vision, 2021},
+  URL = {http://arxiv.org/abs/2109.00512v1},
+  FILE = {2109.00512v1.pdf}
  }
 
-@article{mihajlovic2021leap,
-  AUTHOR = {Marko Mihajlovic and Yan Zhang and Michael J. Black and Siyu Tang},
-  TITLE = {LEAP: Learning Articulated Occupancy of People},
-  EPRINT = {2104.06849v1},
+@article{wei2021nerfingmvs,
+  AUTHOR = {Yi Wei and Shaohui Liu and Yongming Rao and Wang Zhao and Jiwen Lu and Jie Zhou},
+  TITLE = {NerfingMVS: Guided Optimization of Neural Radiance Fields for IndoorMulti-view Stereo},
+  EPRINT = {2109.01129v2},
   ARCHIVEPREFIX = {arXiv},
   PRIMARYCLASS = {cs.CV},
-  ABSTRACT = {Substantial progress has been made on modeling rigid 3D objects using deepimplicit representations. Yet, extending these methods to learn neural modelsof human shape is still in its infancy. Human bodies are complex and the keychallenge is to learn a representation that generalizes such that it canexpress body shape deformations for unseen subjects in unseen,highly-articulated, poses. To address this challenge, we introduce LEAP(LEarning Articulated occupancy of People), a novel neural occupancyrepresentation of the human body. Given a set of bone transformations (i.e.joint locations and rotations) and a query point in space, LEAP first maps thequery point to a canonical space via learned linear blend skinning (LBS)functions and then efficiently queries the occupancy value via an occupancynetwork that models accurate identity- and pose-dependent deformations in thecanonical space. Experiments show that our canonicalized occupancy estimationwith the learned LBS functions greatly improves the generalization capabilityof the learned occupancy representation across various human shapes and poses,outperforming existing solutions in all settings.},
+  ABSTRACT = {In this work, we present a new multi-view depth estimation method thatutilizes both conventional SfM reconstruction and learning-based priors overthe recently proposed neural radiance fields (NeRF). Unlike existing neuralnetwork based optimization method that relies on estimated correspondences, ourmethod directly optimizes over implicit volumes, eliminating the challengingstep of matching pixels in indoor scenes. The key to our approach is to utilizethe learning-based priors to guide the optimization process of NeRF. Our systemfirstly adapts a monocular depth network over the target scene by finetuning onits sparse SfM reconstruction. Then, we show that the shape-radiance ambiguityof NeRF still exists in indoor environments and propose to address the issue byemploying the adapted depth priors to monitor the sampling process of volumerendering. Finally, a per-pixel confidence map acquired by error computation onthe rendered image can be used to further improve the depth quality.Experiments show that our proposed framework significantly outperformsstate-of-the-art methods on indoor scenes, with surprising findings presentedon the effectiveness of correspondence-based optimization and NeRF-basedoptimization over the adapted depth priors. In addition, we show that theguided optimization scheme does not sacrifice the original synthesis capabilityof neural radiance fields, improving the rendering quality on both seen andnovel views. Code is available at https://github.com/weiyithu/NerfingMVS.},
   YEAR = {2021},
-  MONTH = {Apr},
-  URL = {http://arxiv.org/abs/2104.06849v1},
-  FILE = {2104.06849v1.pdf}
+  MONTH = {Sep},
+  URL = {http://arxiv.org/abs/2109.01129v2},
+  FILE = {2109.01129v2.pdf}
  }
 
-@article{deng2019nasa,
-  AUTHOR = {Boyang Deng and JP Lewis and Timothy Jeruzalski and Gerard Pons-Moll and Geoffrey Hinton and Mohammad Norouzi and Andrea Tagliasacchi},
-  TITLE = {NASA: Neural Articulated Shape Approximation},
-  EPRINT = {1912.03207v4},
-  ARCHIVEPREFIX = {arXiv},
-  PRIMARYCLASS = {cs.CV},
-  ABSTRACT = {Efficient representation of articulated objects such as human bodies is animportant problem in computer vision and graphics. To efficiently simulatedeformation, existing approaches represent 3D objects using polygonal meshesand deform them using skinning techniques. This paper introduces neuralarticulated shape approximation (NASA), an alternative framework that enablesefficient representation of articulated deformable objects using neuralindicator functions that are conditioned on pose. Occupancy testing using NASAis straightforward, circumventing the complexity of meshes and the issue ofwater-tightness. We demonstrate the effectiveness of NASA for 3D trackingapplications, and discuss other potential extensions.},
-  YEAR = {2019},
-  MONTH = {Dec},
-  URL = {http://arxiv.org/abs/1912.03207v4},
-  FILE = {1912.03207v4.pdf}
+@article{zang2021intratomo,
+  ABSTRACT = {We propose IntraTomo, a powerful framework that combines the benefits of learning-based and model-based approaches for solving highly ill-posed inverse problems, in the Computed Tomography (CT) context. IntraTomo is composed of two core modules: a novel sinogram prediction module and a geometry refinement module, which are applied iteratively. In the first module, the unknown density field is represented as a continuous and differentiable function, parameterized by a deep neural network. This network is learned, in},
+  AUTHOR = {Zang, Guangming and Idoughi, Ramzi and Li, Rui and Wonka, Peter and Heidrich, Wolfgang},
+  PUB_YEAR = {2021},
+  PUBLISHER = {IEEE},
+  TITLE = {IntraTomo: Self-supervised Learning-based Tomography via Sinogram Synthesis and Prediction},
+  VENUE = {NA}
  }
 
-@article{wang2021locally,
-  AUTHOR = {Shaofei Wang and Andreas Geiger and Siyu Tang},
-  TITLE = {Locally Aware Piecewise Transformation Fields for 3D Human MeshRegistration},
-  EPRINT = {2104.08160v1},
-  ARCHIVEPREFIX = {arXiv},
-  PRIMARYCLASS = {cs.CV},
-  ABSTRACT = {Registering point clouds of dressed humans to parametric human models is achallenging task in computer vision. Traditional approaches often rely onheavily engineered pipelines that require accurate manual initialization ofhuman poses and tedious post-processing. More recently, learning-based methodsare proposed in hope to automate this process. We observe that poseinitialization is key to accurate registration but existing methods often failto provide accurate pose initialization. One major obstacle is that, regressingjoint rotations from point clouds or images of humans is still verychallenging. To this end, we propose novel piecewise transformation fields(PTF), a set of functions that learn 3D translation vectors to map any querypoint in posed space to its correspond position in rest-pose space. We combinePTF with multi-class occupancy networks, obtaining a novel learning-basedframework that learns to simultaneously predict shape and per-pointcorrespondences between the posed space and the canonical space for clothedhuman. Our key insight is that the translation vector for each query point canbe effectively estimated using the point-aligned local features; consequently,rigid per bone transformations and joint rotations can be obtained efficientlyvia a least-square fitting given the estimated point correspondences,circumventing the challenging task of directly regressing joint rotations fromneural networks. Furthermore, the proposed PTF facilitate canonicalizedoccupancy estimation, which greatly improves generalization capability andresults in more accurate surface reconstruction with only half of theparameters compared with the state-of-the-art. Both qualitative andquantitative studies show that fitting parametric models with poses initializedby our network results in much better registration quality, especially forextreme poses.},
-  YEAR = {2021},
-  MONTH = {Apr},
-  URL = {http://arxiv.org/abs/2104.08160v1},
-  FILE = {2104.08160v1.pdf}
- }
-
-@article{bhatnagar2020ipnet,
-  AUTHOR = {Bharat Lal Bhatnagar and Cristian Sminchisescu and Christian Theobalt and Gerard Pons-Moll},
-  TITLE = {Combining Implicit Function Learning and Parametric Models for 3D HumanReconstruction},
-  EPRINT = {2007.11432v1},
-  ARCHIVEPREFIX = {arXiv},
-  PRIMARYCLASS = {cs.CV},
-  ABSTRACT = {Implicit functions represented as deep learning approximations are powerfulfor reconstructing 3D surfaces. However, they can only produce static surfacesthat are not controllable, which provides limited ability to modify theresulting model by editing its pose or shape parameters. Nevertheless, suchfeatures are essential in building flexible models for both computer graphicsand computer vision. In this work, we present methodology that combinesdetail-rich implicit functions and parametric representations in order toreconstruct 3D models of people that remain controllable and accurate even inthe presence of clothing. Given sparse 3D point clouds sampled on the surfaceof a dressed person, we use an Implicit Part Network (IP-Net)to jointly predictthe outer 3D surface of the dressed person, the and inner body surface, and thesemantic correspondences to a parametric body model. We subsequently usecorrespondences to fit the body model to our inner surface and then non-rigidlydeform it (under a parametric body + displacement model) to the outer surfacein order to capture garment, face and hair detail. In quantitative andqualitative experiments with both full body data and hand scans we show thatthe proposed methodology generalizes, and is effective even given incompletepoint clouds collected from single-view depth images. Our models and code canbe downloaded from http://virtualhumans.mpi-inf.mpg.de/ipnet.},
-  YEAR = {2020},
-  MONTH = {Jul},
-  URL = {http://arxiv.org/abs/2007.11432v1},
-  FILE = {2007.11432v1.pdf}
- }
-
-@article{bhatnagar2020loopreg,
-  AUTHOR = {Bharat Lal Bhatnagar and Cristian Sminchisescu and Christian Theobalt and Gerard Pons-Moll},
-  TITLE = {LoopReg: Self-supervised Learning of Implicit Surface Correspondences,Pose and Shape for 3D Human Mesh Registration},
-  EPRINT = {2010.12447v1},
-  ARCHIVEPREFIX = {arXiv},
-  PRIMARYCLASS = {cs.CV},
-  ABSTRACT = {We address the problem of fitting 3D human models to 3D scans of dressedhumans. Classical methods optimize both the data-to-model correspondences andthe human model parameters (pose and shape), but are reliable only wheninitialized close to the solution. Some methods initialize the optimizationbased on fully supervised correspondence predictors, which is notdifferentiable end-to-end, and can only process a single scan at a time. Ourmain contribution is LoopReg, an end-to-end learning framework to register acorpus of scans to a common 3D human model. The key idea is to create aself-supervised loop. A backward map, parameterized by a Neural Network,predicts the correspondence from every scan point to the surface of the humanmodel. A forward map, parameterized by a human model, transforms thecorresponding points back to the scan based on the model parameters (pose andshape), thus closing the loop. Formulating this closed loop is notstraightforward because it is not trivial to force the output of the NN to beon the surface of the human model - outside this surface the human model is noteven defined. To this end, we propose two key innovations. First, we define thecanonical surface implicitly as the zero level set of a distance field in R3,which in contrast to morecommon UV parameterizations, does not require cuttingthe surface, does not have discontinuities, and does not induce distortion.Second, we diffuse the human model to the 3D domain R3. This allows to map theNN predictions forward,even when they slightly deviate from the zero level set.Results demonstrate that we can train LoopRegmainly self-supervised - followinga supervised warm-start, the model becomes increasingly more accurate asadditional unlabelled raw scans are processed. Our code and pre-trained modelscan be downloaded for research.},
-  YEAR = {2020},
-  MONTH = {Oct},
-  NOTE = {NeurIPS 2020},
-  URL = {http://arxiv.org/abs/2010.12447v1},
-  FILE = {2010.12447v1.pdf}
- }
-
-@article{li2020pifusion,
-  AUTHOR = {Zhe Li and Tao Yu and Chuanyu Pan and Zerong Zheng and Yebin Liu},
-  TITLE = {Robust 3D Self-portraits in Seconds},
-  EPRINT = {2004.02460v1},
-  ARCHIVEPREFIX = {arXiv},
-  PRIMARYCLASS = {cs.CV},
-  ABSTRACT = {In this paper, we propose an efficient method for robust 3D self-portraitsusing a single RGBD camera. Benefiting from the proposed PIFusion andlightweight bundle adjustment algorithm, our method can generate detailed 3Dself-portraits in seconds and shows the ability to handle subjects wearingextremely loose clothes. To achieve highly efficient and robust reconstruction,we propose PIFusion, which combines learning-based 3D recovery with volumetricnon-rigid fusion to generate accurate sparse partial scans of the subject.Moreover, a non-rigid volumetric deformation method is proposed to continuouslyrefine the learned shape prior. Finally, a lightweight bundle adjustmentalgorithm is proposed to guarantee that all the partial scans can not only"loop" with each other but also remain consistent with the selected live keyobservations. The results and experiments show that the proposed methodachieves more robust and efficient 3D self-portraits compared withstate-of-the-art methods.},
-  YEAR = {2020},
-  MONTH = {Apr},
-  URL = {http://arxiv.org/abs/2004.02460v1},
-  FILE = {2004.02460v1.pdf}
- }
-
-@article{hong2021stereopifu,
-  AUTHOR = {Yang Hong and Juyong Zhang and Boyi Jiang and Yudong Guo and Ligang Liu and Hujun Bao},
-  TITLE = {StereoPIFu: Depth Aware Clothed Human Digitization via Stereo Vision},
-  EPRINT = {2104.05289v2},
-  ARCHIVEPREFIX = {arXiv},
-  PRIMARYCLASS = {cs.CV},
-  ABSTRACT = {In this paper, we propose StereoPIFu, which integrates the geometricconstraints of stereo vision with implicit function representation of PIFu, torecover the 3D shape of the clothed human from a pair of low-cost rectifiedimages. First, we introduce the effective voxel-aligned features from a stereovision-based network to enable depth-aware reconstruction. Moreover, the novelrelative z-offset is employed to associate predicted high-fidelity human depthand occupancy inference, which helps restore fine-level surface details.Second, a network structure that fully utilizes the geometry information fromthe stereo images is designed to improve the human body reconstruction quality.Consequently, our StereoPIFu can naturally infer the human body's spatiallocation in camera space and maintain the correct relative position ofdifferent parts of the human body, which enables our method to capture humanperformance. Compared with previous works, our StereoPIFu significantlyimproves the robustness, completeness, and accuracy of the clothed humanreconstruction, which is demonstrated by extensive experimental results.},
-  YEAR = {2021},
-  MONTH = {Apr},
-  URL = {http://arxiv.org/abs/2104.05289v2},
-  FILE = {2104.05289v2.pdf}
- }
-
-@article{he2020geopifu,
-  AUTHOR = {Tong He and John Collomosse and Hailin Jin and Stefano Soatto},
-  TITLE = {Geo-PIFu: Geometry and Pixel Aligned Implicit Functions for Single-viewHuman Reconstruction},
-  EPRINT = {2006.08072v2},
-  ARCHIVEPREFIX = {arXiv},
-  PRIMARYCLASS = {cs.CV},
-  ABSTRACT = {We propose Geo-PIFu, a method to recover a 3D mesh from a monocular colorimage of a clothed person. Our method is based on a deep implicitfunction-based representation to learn latent voxel features using astructure-aware 3D U-Net, to constrain the model in two ways: first, to resolvefeature ambiguities in query point encoding, second, to serve as a coarse humanshape proxy to regularize the high-resolution mesh and encourage global shaperegularity. We show that, by both encoding query points and constraining globalshape using latent voxel features, the reconstruction we obtain for clothedhuman meshes exhibits less shape distortion and improved surface detailscompared to competing methods. We evaluate Geo-PIFu on a recent human meshpublic dataset that is $10 \times$ larger than the private commercial datasetused in PIFu and previous derivative work. On average, we exceed the state ofthe art by $42.7\%$ reduction in Chamfer and Point-to-Surface Distances, and$19.4\%$ reduction in normal estimation errors.},
-  YEAR = {2020},
-  MONTH = {Jun},
-  URL = {http://arxiv.org/abs/2006.08072v2},
-  FILE = {2006.08072v2.pdf}
- }
-
-@article{li2020monoport,
-  AUTHOR = {Ruilong Li and Yuliang Xiu and Shunsuke Saito and Zeng Huang and Kyle Olszewski and Hao Li},
-  TITLE = {Monocular Real-Time Volumetric Performance Capture},
-  EPRINT = {2007.13988v1},
-  ARCHIVEPREFIX = {arXiv},
-  PRIMARYCLASS = {cs.CV},
-  ABSTRACT = {We present the first approach to volumetric performance capture andnovel-view rendering at real-time speed from monocular video, eliminating theneed for expensive multi-view systems or cumbersome pre-acquisition of apersonalized template model. Our system reconstructs a fully textured 3D humanfrom each frame by leveraging Pixel-Aligned Implicit Function (PIFu). WhilePIFu achieves high-resolution reconstruction in a memory-efficient manner, itscomputationally expensive inference prevents us from deploying such a systemfor real-time applications. To this end, we propose a novel hierarchicalsurface localization algorithm and a direct rendering method without explicitlyextracting surface meshes. By culling unnecessary regions for evaluation in acoarse-to-fine manner, we successfully accelerate the reconstruction by twoorders of magnitude from the baseline without compromising the quality.Furthermore, we introduce an Online Hard Example Mining (OHEM) technique thateffectively suppresses failure modes due to the rare occurrence of challengingexamples. We adaptively update the sampling probability of the training databased on the current reconstruction accuracy, which effectively alleviatesreconstruction artifacts. Our experiments and evaluations demonstrate therobustness of our system to various challenging angles, illuminations, poses,and clothing styles. We also show that our approach compares favorably with thestate-of-the-art monocular performance capture. Our proposed approach removesthe need for multi-view studio settings and enables a consumer-accessiblesolution for volumetric capture.},
-  YEAR = {2020},
-  MONTH = {Jul},
-  URL = {http://arxiv.org/abs/2007.13988v1},
-  FILE = {2007.13988v1.pdf}
- }
-
-@article{he2021arch++,
-  AUTHOR = {Tong He and Yuanlu Xu and Shunsuke Saito and Stefano Soatto and Tony Tung},
-  TITLE = {ARCH++: Animation-Ready Clothed Human Reconstruction Revisited},
-  EPRINT = {2108.07845v1},
-  ARCHIVEPREFIX = {arXiv},
-  PRIMARYCLASS = {cs.CV},
-  ABSTRACT = {We present ARCH++, an image-based method to reconstruct 3D avatars witharbitrary clothing styles. Our reconstructed avatars are animation-ready andhighly realistic, in both the visible regions from input views and the unseenregions. While prior work shows great promise of reconstructing animatableclothed humans with various topologies, we observe that there exist fundamentallimitations resulting in sub-optimal reconstruction quality. In this paper, werevisit the major steps of image-based avatar reconstruction and address thelimitations with ARCH++. First, we introduce an end-to-end point based geometryencoder to better describe the semantics of the underlying 3D human body, inreplacement of previous hand-crafted features. Second, in order to address theoccupancy ambiguity caused by topological changes of clothed humans in thecanonical pose, we propose a co-supervising framework with cross-spaceconsistency to jointly estimate the occupancy in both the posed and canonicalspaces. Last, we use image-to-image translation networks to further refinedetailed geometry and texture on the reconstructed surface, which improves thefidelity and consistency across arbitrary viewpoints. In the experiments, wedemonstrate improvements over the state of the art on both public benchmarksand user studies in reconstruction quality and realism.},
-  YEAR = {2021},
-  MONTH = {Aug},
-  URL = {http://arxiv.org/abs/2108.07845v1},
-  FILE = {2108.07845v1.pdf}
- }
-
-@article{huang2020arch,
-  AUTHOR = {Zeng Huang and Yuanlu Xu and Christoph Lassner and Hao Li and Tony Tung},
-  TITLE = {ARCH: Animatable Reconstruction of Clothed Humans},
-  EPRINT = {2004.04572v2},
+@article{jang2021codenerf,
+  AUTHOR = {Wonbong Jang and Lourdes Agapito},
+  TITLE = {CodeNeRF: Disentangled Neural Radiance Fields for Object Categories},
+  EPRINT = {2109.01750v1},
   ARCHIVEPREFIX = {arXiv},
   PRIMARYCLASS = {cs.GR},
-  ABSTRACT = {In this paper, we propose ARCH (Animatable Reconstruction of Clothed Humans),a novel end-to-end framework for accurate reconstruction of animation-ready 3Dclothed humans from a monocular image. Existing approaches to digitize 3Dhumans struggle to handle pose variations and recover details. Also, they donot produce models that are animation ready. In contrast, ARCH is a learnedpose-aware model that produces detailed 3D rigged full-body human avatars froma single unconstrained RGB image. A Semantic Space and a Semantic DeformationField are created using a parametric 3D body estimator. They allow thetransformation of 2D/3D clothed humans into a canonical space, reducingambiguities in geometry caused by pose variations and occlusions in trainingdata. Detailed surface geometry and appearance are learned using an implicitfunction representation with spatial local features. Furthermore, we proposeadditional per-pixel supervision on the 3D reconstruction using opacity-awaredifferentiable rendering. Our experiments indicate that ARCH increases thefidelity of the reconstructed humans. We obtain more than 50% lowerreconstruction errors for standard metrics compared to state-of-the-art methodson public datasets. We also show numerous qualitative examples of animated,high-quality reconstructed avatars unseen in the literature so far.},
-  YEAR = {2020},
-  MONTH = {Apr},
-  URL = {http://arxiv.org/abs/2004.04572v2},
-  FILE = {2004.04572v2.pdf}
+  ABSTRACT = {CodeNeRF is an implicit 3D neural representation that learns the variation ofobject shapes and textures across a category and can be trained, from a set ofposed images, to synthesize novel views of unseen objects. Unlike the originalNeRF, which is scene specific, CodeNeRF learns to disentangle shape and textureby learning separate embeddings. At test time, given a single unposed image ofan unseen object, CodeNeRF jointly estimates camera viewpoint, and shape andappearance codes via optimization. Unseen objects can be reconstructed from asingle image, and then rendered from new viewpoints or their shape and textureedited by varying the latent codes. We conduct experiments on the SRNbenchmark, which show that CodeNeRF generalises well to unseen objects andachieves on-par performance with methods that require known camera pose at testtime. Our results on real-world images demonstrate that CodeNeRF can bridge thesim-to-real gap. Project page: \url{https://github.com/wayne1123/code-nerf}},
+  YEAR = {2021},
+  MONTH = {Sep},
+  URL = {http://arxiv.org/abs/2109.01750v1},
+  FILE = {2109.01750v1.pdf}
+ }
+
+@article{yang2021learning,
+  AUTHOR = {Bangbang Yang and Yinda Zhang and Yinghao Xu and Yijin Li and Han Zhou and Hujun Bao and Guofeng Zhang and Zhaopeng Cui},
+  TITLE = {Learning Object-Compositional Neural Radiance Field for Editable SceneRendering},
+  EPRINT = {2109.01847v1},
+  ARCHIVEPREFIX = {arXiv},
+  PRIMARYCLASS = {cs.CV},
+  ABSTRACT = {Implicit neural rendering techniques have shown promising results for novelview synthesis. However, existing methods usually encode the entire scene as awhole, which is generally not aware of the object identity and limits theability to the high-level editing tasks such as moving or adding furniture. Inthis paper, we present a novel neural scene rendering system, which learns anobject-compositional neural radiance field and produces realistic renderingwith editing capability for a clustered and real-world scene. Specifically, wedesign a novel two-pathway architecture, in which the scene branch encodes thescene geometry and appearance, and the object branch encodes each standaloneobject conditioned on learnable object activation codes. To survive thetraining in heavily cluttered scenes, we propose a scene-guided trainingstrategy to solve the 3D space ambiguity in the occluded regions and learnsharp boundaries for each object. Extensive experiments demonstrate that oursystem not only achieves competitive performance for static scene novel-viewsynthesis, but also produces realistic rendering for object-level editing.},
+  YEAR = {2021},
+  MONTH = {Sep},
+  URL = {http://arxiv.org/abs/2109.01847v1},
+  FILE = {2109.01847v1.pdf}
  }
 
 @article{shen2021snerf,
@@ -2743,57 +2888,6 @@
   MONTH = {Sep},
   URL = {http://arxiv.org/abs/2109.04456v1},
   FILE = {2109.04456v1.pdf}
- }
-
-@article{sun2021nelf,
-  AUTHOR = {Tiancheng Sun and Kai-En Lin and Sai Bi and Zexiang Xu and Ravi Ramamoorthi},
-  TITLE = {NeLF: Neural Light-transport Field for Portrait View Synthesis andRelighting},
-  EPRINT = {2107.12351v1},
-  ARCHIVEPREFIX = {arXiv},
-  PRIMARYCLASS = {cs.CV},
-  ABSTRACT = {Human portraits exhibit various appearances when observed from differentviews under different lighting conditions. We can easily imagine how the facewill look like in another setup, but computer algorithms still fail on thisproblem given limited observations. To this end, we present a system forportrait view synthesis and relighting: given multiple portraits, we use aneural network to predict the light-transport field in 3D space, and from thepredicted Neural Light-transport Field (NeLF) produce a portrait from a newcamera view under a new environmental lighting. Our system is trained on alarge number of synthetic models, and can generalize to different synthetic andreal portraits under various lighting conditions. Our method achievessimultaneous view synthesis and relighting given multi-view portraits as theinput, and achieves state-of-the-art results.},
-  YEAR = {2021},
-  MONTH = {Jul},
-  URL = {http://arxiv.org/abs/2107.12351v1},
-  FILE = {2107.12351v1.pdf}
- }
-
-@article{yang2021learning,
-  AUTHOR = {Bangbang Yang and Yinda Zhang and Yinghao Xu and Yijin Li and Han Zhou and Hujun Bao and Guofeng Zhang and Zhaopeng Cui},
-  TITLE = {Learning Object-Compositional Neural Radiance Field for Editable SceneRendering},
-  EPRINT = {2109.01847v1},
-  ARCHIVEPREFIX = {arXiv},
-  PRIMARYCLASS = {cs.CV},
-  ABSTRACT = {Implicit neural rendering techniques have shown promising results for novelview synthesis. However, existing methods usually encode the entire scene as awhole, which is generally not aware of the object identity and limits theability to the high-level editing tasks such as moving or adding furniture. Inthis paper, we present a novel neural scene rendering system, which learns anobject-compositional neural radiance field and produces realistic renderingwith editing capability for a clustered and real-world scene. Specifically, wedesign a novel two-pathway architecture, in which the scene branch encodes thescene geometry and appearance, and the object branch encodes each standaloneobject conditioned on learnable object activation codes. To survive thetraining in heavily cluttered scenes, we propose a scene-guided trainingstrategy to solve the 3D space ambiguity in the occluded regions and learnsharp boundaries for each object. Extensive experiments demonstrate that oursystem not only achieves competitive performance for static scene novel-viewsynthesis, but also produces realistic rendering for object-level editing.},
-  YEAR = {2021},
-  MONTH = {Sep},
-  URL = {http://arxiv.org/abs/2109.01847v1},
-  FILE = {2109.01847v1.pdf}
- }
-
-@article{raissi2019physics,
-  ABSTRACT = {We introduce physics-informed neural networks-neural networks that are trained to solve supervised learning tasks while respecting any given laws of physics described by general nonlinear partial differential equations. In this work, we present our developments in the context of solving two main classes of problems: data-driven solution and data-driven discovery of partial differential equations. Depending on the nature and arrangement of the available data, we devise two distinct types of algorithms, namely continuous time and},
-  AUTHOR = {Raissi, Maziar and Perdikaris, Paris and Karniadakis, George E},
-  JOURNAL = {Journal of Computational Physics},
-  PAGES = {686--707},
-  PUB_YEAR = {2019},
-  PUBLISHER = {Elsevier},
-  TITLE = {Physics-informed neural networks: A deep learning framework for solving forward and inverse problems involving nonlinear partial differential equations},
-  VENUE = {Journal of Computational Physics},
-  VOLUME = {378}
- }
-
-@article{jang2021codenerf,
-  AUTHOR = {Wonbong Jang and Lourdes Agapito},
-  TITLE = {CodeNeRF: Disentangled Neural Radiance Fields for Object Categories},
-  EPRINT = {2109.01750v1},
-  ARCHIVEPREFIX = {arXiv},
-  PRIMARYCLASS = {cs.GR},
-  ABSTRACT = {CodeNeRF is an implicit 3D neural representation that learns the variation ofobject shapes and textures across a category and can be trained, from a set ofposed images, to synthesize novel views of unseen objects. Unlike the originalNeRF, which is scene specific, CodeNeRF learns to disentangle shape and textureby learning separate embeddings. At test time, given a single unposed image ofan unseen object, CodeNeRF jointly estimates camera viewpoint, and shape andappearance codes via optimization. Unseen objects can be reconstructed from asingle image, and then rendered from new viewpoints or their shape and textureedited by varying the latent codes. We conduct experiments on the SRNbenchmark, which show that CodeNeRF generalises well to unseen objects andachieves on-par performance with methods that require known camera pose at testtime. Our results on real-world images demonstrate that CodeNeRF can bridge thesim-to-real gap. Project page: \url{https://github.com/wayne1123/code-nerf}},
-  YEAR = {2021},
-  MONTH = {Sep},
-  URL = {http://arxiv.org/abs/2109.01750v1},
-  FILE = {2109.01750v1.pdf}
  }
 
 @article{chen2021mdif,
@@ -2830,110 +2924,119 @@
   VENUE = {NA}
  }
 
-@article{wei2021nerfingmvs,
-  AUTHOR = {Yi Wei and Shaohui Liu and Yongming Rao and Wang Zhao and Jiwen Lu and Jie Zhou},
-  TITLE = {NerfingMVS: Guided Optimization of Neural Radiance Fields for IndoorMulti-view Stereo},
-  EPRINT = {2109.01129v2},
+@article{zhong2019cryodrgn,
+  AUTHOR = {Ellen D. Zhong and Tristan Bepler and Joseph H. Davis and Bonnie Berger},
+  TITLE = {Reconstructing continuous distributions of 3D protein structure from cryo-EM images},
+  EPRINT = {1909.05215v3},
   ARCHIVEPREFIX = {arXiv},
-  PRIMARYCLASS = {cs.CV},
-  ABSTRACT = {In this work, we present a new multi-view depth estimation method thatutilizes both conventional SfM reconstruction and learning-based priors overthe recently proposed neural radiance fields (NeRF). Unlike existing neuralnetwork based optimization method that relies on estimated correspondences, ourmethod directly optimizes over implicit volumes, eliminating the challengingstep of matching pixels in indoor scenes. The key to our approach is to utilizethe learning-based priors to guide the optimization process of NeRF. Our systemfirstly adapts a monocular depth network over the target scene by finetuning onits sparse SfM reconstruction. Then, we show that the shape-radiance ambiguityof NeRF still exists in indoor environments and propose to address the issue byemploying the adapted depth priors to monitor the sampling process of volumerendering. Finally, a per-pixel confidence map acquired by error computation onthe rendered image can be used to further improve the depth quality.Experiments show that our proposed framework significantly outperformsstate-of-the-art methods on indoor scenes, with surprising findings presentedon the effectiveness of correspondence-based optimization and NeRF-basedoptimization over the adapted depth priors. In addition, we show that theguided optimization scheme does not sacrifice the original synthesis capabilityof neural radiance fields, improving the rendering quality on both seen andnovel views. Code is available at https://github.com/weiyithu/NerfingMVS.},
+  PRIMARYCLASS = {q-bio.QM},
+  ABSTRACT = {Cryo-electron microscopy (cryo-EM) is a powerful technique for determiningthe structure of proteins and other macromolecular complexes at near-atomicresolution. In single particle cryo-EM, the central problem is to reconstructthe three-dimensional structure of a macromolecule from $10^{4-7}$ noisy andrandomly oriented two-dimensional projections. However, the imaged proteincomplexes may exhibit structural variability, which complicates reconstructionand is typically addressed using discrete clustering approaches that fail tocapture the full range of protein dynamics. Here, we introduce a novel methodfor cryo-EM reconstruction that extends naturally to modeling continuousgenerative factors of structural heterogeneity. This method encodes structuresin Fourier space using coordinate-based deep neural networks, and trains thesenetworks from unlabeled 2D cryo-EM images by combining exact inference overimage orientation with variational inference for structural heterogeneity. Wedemonstrate that the proposed method, termed cryoDRGN, can perform ab initioreconstruction of 3D protein complexes from simulated and real 2D cryo-EM imagedata. To our knowledge, cryoDRGN is the first neural network-based approach forcryo-EM reconstruction and the first end-to-end method for directlyreconstructing continuous ensembles of protein structures from cryo-EM images.},
+  YEAR = {2019},
+  MONTH = {Sep},
+  NOTE = {International Conference on Learning Representations (ICLR), 2020},
+  URL = {http://arxiv.org/abs/1909.05215v3},
+  FILE = {1909.05215v3.pdf}
+ }
+
+@article{gao2021objectfolder,
+  AUTHOR = {Ruohan Gao and Yen-Yu Chang and Shivani Mall and Li Fei-Fei and Jiajun Wu},
+  TITLE = {ObjectFolder: A Dataset of Objects with Implicit Visual, Auditory, and Tactile Representations},
+  EPRINT = {2109.07991v2},
+  ARCHIVEPREFIX = {arXiv},
+  PRIMARYCLASS = {cs.RO},
+  ABSTRACT = {Multisensory object-centric perception, reasoning, and interaction have beena key research topic in recent years. However, the progress in these directionsis limited by the small set of objects available -- synthetic objects are notrealistic enough and are mostly centered around geometry, while real objectdatasets such as YCB are often practically challenging and unstable to acquiredue to international shipping, inventory, and financial cost. We presentObjectFolder, a dataset of 100 virtualized objects that addresses bothchallenges with two key innovations. First, ObjectFolder encodes the visual,auditory, and tactile sensory data for all objects, enabling a number ofmultisensory object recognition tasks, beyond existing datasets that focuspurely on object geometry. Second, ObjectFolder employs a uniform,object-centric, and implicit representation for each object's visual textures,acoustic simulations, and tactile readings, making the dataset flexible to useand easy to share. We demonstrate the usefulness of our dataset as a testbedfor multisensory perception and control by evaluating it on a variety ofbenchmark tasks, including instance recognition, cross-sensory retrieval, 3Dreconstruction, and robotic grasping.},
   YEAR = {2021},
   MONTH = {Sep},
-  URL = {http://arxiv.org/abs/2109.01129v2},
-  FILE = {2109.01129v2.pdf}
+  URL = {http://arxiv.org/abs/2109.07991v2},
+  FILE = {2109.07991v2.pdf}
  }
 
-@article{smith2020eikonet,
-  AUTHOR = {Jonathan D. Smith and Kamyar Azizzadenesheli and Zachary E. Ross},
-  TITLE = {EikoNet: Solving the Eikonal equation with Deep Neural Networks},
-  EPRINT = {2004.00361v3},
+@article{kwon2021neural human performer,
+  AUTHOR = {Youngjoong Kwon and Dahun Kim and Duygu Ceylan and Henry Fuchs},
+  TITLE = {Neural Human Performer: Learning Generalizable Radiance Fields for Human Performance Rendering},
+  EPRINT = {2109.07448v1},
   ARCHIVEPREFIX = {arXiv},
-  PRIMARYCLASS = {physics.comp-ph},
-  ABSTRACT = {The recent deep learning revolution has created an enormous opportunity foraccelerating compute capabilities in the context of physics-based simulations.Here, we propose EikoNet, a deep learning approach to solving the Eikonalequation, which characterizes the first-arrival-time field in heterogeneous 3Dvelocity structures. Our grid-free approach allows for rapid determination ofthe travel time between any two points within a continuous 3D domain. Thesetravel time solutions are allowed to violate the differential equation - whichcasts the problem as one of optimization - with the goal of finding networkparameters that minimize the degree to which the equation is violated. In doingso, the method exploits the differentiability of neural networks to calculatethe spatial gradients analytically, meaning the network can be trained on itsown without ever needing solutions from a finite difference algorithm. EikoNetis rigorously tested on several velocity models and sampling methods todemonstrate robustness and versatility. Training and inference are highlyparallelized, making the approach well-suited for GPUs. EikoNet has low memoryoverhead, and further avoids the need for travel-time lookup tables. Thedeveloped approach has important applications to earthquake hypocenterinversion, ray multi-pathing, and tomographic modeling, as well as to otherfields beyond seismology where ray tracing is essential.},
-  YEAR = {2020},
-  MONTH = {Mar},
-  URL = {http://arxiv.org/abs/2004.00361v3},
-  FILE = {2004.00361v3.pdf}
+  PRIMARYCLASS = {cs.CV},
+  ABSTRACT = {In this paper, we aim at synthesizing a free-viewpoint video of an arbitraryhuman performance using sparse multi-view cameras. Recently, several works haveaddressed this problem by learning person-specific neural radiance fields(NeRF) to capture the appearance of a particular human. In parallel, some workproposed to use pixel-aligned features to generalize radiance fields toarbitrary new scenes and objects. Adopting such generalization approaches tohumans, however, is highly challenging due to the heavy occlusions and dynamicarticulations of body parts. To tackle this, we propose Neural Human Performer,a novel approach that learns generalizable neural radiance fields based on aparametric human body model for robust performance capture. Specifically, wefirst introduce a temporal transformer that aggregates tracked visual featuresbased on the skeletal body motion over time. Moreover, a multi-view transformeris proposed to perform cross-attention between the temporally-fused featuresand the pixel-aligned features at each time step to integrate observations onthe fly from multiple views. Experiments on the ZJU-MoCap and AIST datasetsshow that our method significantly outperforms recent generalizable NeRFmethods on unseen identities and poses. The video results and code areavailable at https://youngjoongunc.github.io/nhp.},
+  YEAR = {2021},
+  MONTH = {Sep},
+  URL = {http://arxiv.org/abs/2109.07448v1},
+  FILE = {2109.07448v1.pdf}
  }
 
-@inproceedings{huang2021modified,
-  ABSTRACT = {Recently developed physics-informed neural network (PINN) for solving for the scattered wavefield in the Helmholtz equation showed large potential in seismic modeling because of its flexibility, low memory requirement, and no limitations on the shape of the solution space. However, the predicted solutions were somewhat smooth and the convergence of the training was slow. Thus, we propose a modified PINN using sinusoidal activation functions and positional encoding, aiming to accelerate the convergence and fit better. We transform},
-  AUTHOR = {Huang, Xinquan and Alkhalifah, Tariq and Song, Chao},
-  BOOKTITLE = {First International Meeting for Applied Geoscience \& Energy},
-  ORGANIZATION = {Society of Exploration Geophysicists},
-  PAGES = {2480--2484},
+@inproceedings{juhl2021implicit,
+  ABSTRACT = {The task of 3D shape classification is closely related to finding a good representation of the shapes. In this study, we focus on surface representations of complex anatomies and on how such representations can be utilized for super-and unsupervised classification. We present a novel Implicit Neural Distance Representation based on unsigned distance fields (UDFs). The UDFs can be embedded into a low-dimensional latent space, which is optimized using only the shape itself. We demonstrate that this self-optimized latent space},
+  AUTHOR = {Juhl, Kristine Aavild and Morales, Xabier and Backer, Ole de and Camara, Oscar and Paulsen, Rasmus Reinhold},
+  BOOKTITLE = {International Conference on Medical Image Computing and Computer-Assisted Intervention},
+  ORGANIZATION = {Springer},
+  PAGES = {405--415},
   PUB_YEAR = {2021},
-  TITLE = {A modified physics-informed neural network with positional encoding},
-  VENUE = {First International Meeting for ...}
+  TITLE = {Implicit Neural Distance Representation for Unsupervised and Supervised Classification of Complex Anatomies},
+  VENUE = {... Conference on Medical ...}
  }
 
-@article{benbarka2021seeing,
-  AUTHOR = {Nuri Benbarka and Timon Hofer and Hamd ul-moqeet Riaz and Andreas Zell},
-  TITLE = {Seeing Implicit Neural Representations as Fourier Series},
-  EPRINT = {2109.00249v1},
+@article{karunratanakul2021halo,
+  AUTHOR = {Korrawe Karunratanakul and Adrian Spurr and Zicong Fan and Otmar Hilliges and Siyu Tang},
+  TITLE = {A Skeleton-Driven Neural Occupancy Representation for Articulated Hands},
+  EPRINT = {2109.11399v1},
   ARCHIVEPREFIX = {arXiv},
   PRIMARYCLASS = {cs.CV},
-  ABSTRACT = {Implicit Neural Representations (INR) use multilayer perceptrons to representhigh-frequency functions in low-dimensional problem domains. Recently theserepresentations achieved state-of-the-art results on tasks related to complex3D objects and scenes. A core problem is the representation of highly detailedsignals, which is tackled using networks with periodic activation functions(SIRENs) or applying Fourier mappings to the input. This work analyzes theconnection between the two methods and shows that a Fourier mapped perceptronis structurally like one hidden layer SIREN. Furthermore, we identify therelationship between the previously proposed Fourier mapping and the generald-dimensional Fourier series, leading to an integer lattice mapping. Moreover,we modify a progressive training strategy to work on arbitrary Fourier mappingsand show that it improves the generalization of the interpolation task. Lastly,we compare the different mappings on the image regression and novel viewsynthesis tasks. We confirm the previous finding that the main contributor tothe mapping performance is the size of the embedding and standard deviation ofits elements.},
+  ABSTRACT = {We present Hand ArticuLated Occupancy (HALO), a novel representation ofarticulated hands that bridges the advantages of 3D keypoints and neuralimplicit surfaces and can be used in end-to-end trainable architectures. Unlikeexisting statistical parametric hand models (e.g.~MANO), HALO directlyleverages 3D joint skeleton as input and produces a neural occupancy volumerepresenting the posed hand surface. The key benefits of HALO are (1) it isdriven by 3D key points, which have benefits in terms of accuracy and areeasier to learn for neural networks than the latent hand-model parameters; (2)it provides a differentiable volumetric occupancy representation of the posedhand; (3) it can be trained end-to-end, allowing the formulation of losses onthe hand surface that benefit the learning of 3D keypoints. We demonstrate theapplicability of HALO to the task of conditional generation of hands that grasp3D objects. The differentiable nature of HALO is shown to improve the qualityof the synthesized hands both in terms of physical plausibility and userpreference.},
   YEAR = {2021},
   MONTH = {Sep},
-  URL = {http://arxiv.org/abs/2109.00249v1},
-  FILE = {2109.00249v1.pdf}
+  URL = {http://arxiv.org/abs/2109.11399v1},
+  FILE = {2109.11399v1.pdf}
  }
 
-@article{zang2021intratomo,
-  ABSTRACT = {We propose IntraTomo, a powerful framework that combines the benefits of learning-based and model-based approaches for solving highly ill-posed inverse problems, in the Computed Tomography (CT) context. IntraTomo is composed of two core modules: a novel sinogram prediction module and a geometry refinement module, which are applied iteratively. In the first module, the unknown density field is represented as a continuous and differentiable function, parameterized by a deep neural network. This network is learned, in},
-  AUTHOR = {Zang, Guangming and Idoughi, Ramzi and Li, Rui and Wonka, Peter and Heidrich, Wolfgang},
-  PUB_YEAR = {2021},
-  PUBLISHER = {IEEE},
-  TITLE = {IntraTomo: Self-supervised Learning-based Tomography via Sinogram Synthesis and Prediction},
-  VENUE = {NA}
- }
-
-@article{reizenstein2021co3d,
-  AUTHOR = {Jeremy Reizenstein and Roman Shapovalov and Philipp Henzler and Luca Sbordone and Patrick Labatut and David Novotny},
-  TITLE = {Common Objects in 3D: Large-Scale Learning and Evaluation of Real-life3D Category Reconstruction},
-  EPRINT = {2109.00512v1},
+@article{kasten2021layered,
+  AUTHOR = {Yoni Kasten and Dolev Ofri and Oliver Wang and Tali Dekel},
+  TITLE = {Layered Neural Atlases for Consistent Video Editing},
+  EPRINT = {2109.11418v1},
   ARCHIVEPREFIX = {arXiv},
   PRIMARYCLASS = {cs.CV},
-  ABSTRACT = {Traditional approaches for learning 3D object categories have beenpredominantly trained and evaluated on synthetic datasets due to theunavailability of real 3D-annotated category-centric data. Our main goal is tofacilitate advances in this field by collecting real-world data in a magnitudesimilar to the existing synthetic counterparts. The principal contribution ofthis work is thus a large-scale dataset, called Common Objects in 3D, with realmulti-view images of object categories annotated with camera poses and groundtruth 3D point clouds. The dataset contains a total of 1.5 million frames fromnearly 19,000 videos capturing objects from 50 MS-COCO categories and, as such,it is significantly larger than alternatives both in terms of the number ofcategories and objects. We exploit this new dataset to conduct one of the firstlarge-scale "in-the-wild" evaluations of several new-view-synthesis andcategory-centric 3D reconstruction methods. Finally, we contribute NerFormer -a novel neural rendering method that leverages the powerful Transformer toreconstruct an object given a small number of its views. The CO3D dataset isavailable at https://github.com/facebookresearch/co3d .},
+  ABSTRACT = {We present a method that decomposes, or "unwraps", an input video into a setof layered 2D atlases, each providing a unified representation of theappearance of an object (or background) over the video. For each pixel in thevideo, our method estimates its corresponding 2D coordinate in each of theatlases, giving us a consistent parameterization of the video, along with anassociated alpha (opacity) value. Importantly, we design our atlases to beinterpretable and semantic, which facilitates easy and intuitive editing in theatlas domain, with minimal manual work required. Edits applied to a single 2Datlas (or input video frame) are automatically and consistently mapped back tothe original video frames, while preserving occlusions, deformation, and othercomplex scene effects such as shadows and reflections. Our method employs acoordinate-based Multilayer Perceptron (MLP) representation for mappings,atlases, and alphas, which are jointly optimized on a per-video basis, using acombination of video reconstruction and regularization losses. By operatingpurely in 2D, our method does not require any prior 3D knowledge about scenegeometry or camera poses, and can handle complex dynamic real world videos. Wedemonstrate various video editing applications, including texture mapping,video style transfer, image-to-video texture transfer, andsegmentation/labeling propagation, all automatically produced by editing asingle 2D atlas image.},
   YEAR = {2021},
   MONTH = {Sep},
-  NOTE = {International Conference on Computer Vision, 2021},
-  URL = {http://arxiv.org/abs/2109.00512v1},
-  FILE = {2109.00512v1.pdf}
+  URL = {http://arxiv.org/abs/2109.11418v1},
+  FILE = {2109.11418v1.pdf}
  }
 
-@article{lei2020pix2surf,
-  AUTHOR = {Jiahui Lei and Srinath Sridhar and Paul Guerrero and Minhyuk Sung and Niloy Mitra and Leonidas J. Guibas},
-  TITLE = {Pix2Surf: Learning Parametric 3D Surface Models of Objects from Images},
-  EPRINT = {2008.07760v1},
+@article{long2020learning,
+  AUTHOR = {Kehan Long and Cheng Qian and Jorge Cortes and Nikolay Atanasov},
+  TITLE = {Learning Barrier Functions with Memory for Robust Safe Navigation},
+  EPRINT = {2011.01899v2},
   ARCHIVEPREFIX = {arXiv},
-  PRIMARYCLASS = {cs.CV},
-  ABSTRACT = {We investigate the problem of learning to generate 3D parametric surfacerepresentations for novel object instances, as seen from one or more views.Previous work on learning shape reconstruction from multiple views usesdiscrete representations such as point clouds or voxels, while continuoussurface generation approaches lack multi-view consistency. We address theseissues by designing neural networks capable of generating high-qualityparametric 3D surfaces which are also consistent between views. Furthermore,the generated 3D surfaces preserve accurate image pixel to 3D surface pointcorrespondences, allowing us to lift texture information to reconstruct shapeswith rich geometry and appearance. Our method is supervised and trained on apublic dataset of shapes from common object categories. Quantitative resultsindicate that our method significantly outperforms previous work, whilequalitative results demonstrate the high quality of our reconstructions.},
+  PRIMARYCLASS = {cs.RO},
+  ABSTRACT = {Control barrier functions are widely used to enforce safety properties inrobot motion planning and control. However, the problem of constructing barrierfunctions online and synthesizing safe controllers that can deal with theassociated uncertainty has received little attention. This paper investigatessafe navigation in unknown environments, using onboard range sensing toconstruct control barrier functions online. To represent different objects inthe environment, we use the distance measurements to train neural networkapproximations of the signed distance functions incrementally with replaymemory. This allows us to formulate a novel robust control barrier safetyconstraint which takes into account the error in the estimated distance fieldsand its gradient. Our formulation leads to a second-order cone program,enabling safe and stable control synthesis in a priori unknown environments.},
   YEAR = {2020},
-  MONTH = {Aug},
-  URL = {http://arxiv.org/abs/2008.07760v1},
-  FILE = {2008.07760v1.pdf}
+  MONTH = {Nov},
+  URL = {http://arxiv.org/abs/2011.01899v2},
+  FILE = {2011.01899v2.pdf}
  }
 
-@article{liunsupervised,
-  ABSTRACT = {Many computer vision problems face difficulties when imaging through turbulent refractive media (eg, air and water) due to the refraction and scattering of light. These effects cause geometric distortion that requires either handcrafted physical priors or supervised learning methods to remove. In this paper, we present a novel unsupervised network to recover the latent distortion-free image. The key idea is to model non-rigid distortions as deformable grids. Our network consists of a grid deformer that estimates the distortion field and an image},
-  AUTHOR = {Li, Nianyi and Thapa, Simron and Whyte, Cameron and Reed, Albert and Jayasuriya, Suren and Ye, Jinwei},
-  PUB_YEAR = {NA},
-  TITLE = {Unsupervised Non-Rigid Image Distortion Removal via Grid Deformation},
-  VENUE = {NA}
- }
-
-@article{murphy2021implicitpdf,
-  AUTHOR = {Kieran Murphy and Carlos Esteves and Varun Jampani and Srikumar Ramalingam and Ameesh Makadia},
-  TITLE = {Implicit-PDF: Non-Parametric Representation of Probability Distributionson the Rotation Manifold},
-  EPRINT = {2106.05965v1},
+@article{bhardwaj2021storm,
+  AUTHOR = {Mohak Bhardwaj and Balakumar Sundaralingam and Arsalan Mousavian and Nathan Ratliff and Dieter Fox and Fabio Ramos and Byron Boots},
+  TITLE = {STORM: An Integrated Framework for Fast Joint-Space Model-Predictive Control for Reactive Manipulation},
+  EPRINT = {2104.13542v2},
   ARCHIVEPREFIX = {arXiv},
-  PRIMARYCLASS = {cs.CV},
-  ABSTRACT = {Single image pose estimation is a fundamental problem in many vision androbotics tasks, and existing deep learning approaches suffer by not completelymodeling and handling: i) uncertainty about the predictions, and ii) symmetricobjects with multiple (sometimes infinite) correct poses. To this end, weintroduce a method to estimate arbitrary, non-parametric distributions onSO(3). Our key idea is to represent the distributions implicitly, with a neuralnetwork that estimates the probability given the input image and a candidatepose. Grid sampling or gradient ascent can be used to find the most likelypose, but it is also possible to evaluate the probability at any pose, enablingreasoning about symmetries and uncertainty. This is the most general way ofrepresenting distributions on manifolds, and to showcase the rich expressivepower, we introduce a dataset of challenging symmetric and nearly-symmetricobjects. We require no supervision on pose uncertainty -- the model trains onlywith a single pose per example. Nonetheless, our implicit model is highlyexpressive to handle complex distributions over 3D poses, while still obtainingaccurate pose estimation on standard non-ambiguous environments, achievingstate-of-the-art performance on Pascal3D+ and ModelNet10-SO(3) benchmarks.},
+  PRIMARYCLASS = {cs.RO},
+  ABSTRACT = {Sampling-based model-predictive control (MPC) is a promising tool forfeedback control of robots with complex, non-smooth dynamics, and costfunctions. However, the computationally demanding nature of sampling-based MPCalgorithms has been a key bottleneck in their application to high-dimensionalrobotic manipulation problems in the real world. Previous methods haveaddressed this issue by running MPC in the task space while relying on alow-level operational space controller for joint control. However, by not usingthe joint space of the robot in the MPC formulation, existing methods cannotdirectly account for non-task space related constraints such as avoiding jointlimits, singular configurations, and link collisions. In this paper, we developa system for fast, joint space sampling-based MPC for manipulators that isefficiently parallelized using GPUs. Our approach can handle task and jointspace constraints while taking less than 8ms~(125Hz) to compute the nextcontrol command. Further, our method can tightly integrate perception into thecontrol problem by utilizing learned cost functions from raw sensor data. Wevalidate our approach by deploying it on a Franka Panda robot for a variety ofdynamic manipulation tasks. We study the effect of different cost formulationsand MPC parameters on the synthesized behavior and provide key insights thatpave the way for the application of sampling-based MPC for manipulators in aprincipled manner. We also provide highly optimized, open-source code to beused by the wider robot learning and control community. Videos of experimentscan be found at: https://sites.google.com/view/manipulation-mpc},
   YEAR = {2021},
-  MONTH = {Jun},
-  URL = {http://arxiv.org/abs/2106.05965v1},
-  FILE = {2106.05965v1.pdf}
+  MONTH = {Apr},
+  URL = {http://arxiv.org/abs/2104.13542v2},
+  FILE = {2104.13542v2.pdf}
+ }
+
+@article{sutanto2020learning,
+  AUTHOR = {Giovanni Sutanto and Isabel M. Rayas Fernandez and Peter Englert and Ragesh K. Ramachandran and Gaurav S. Sukhatme},
+  TITLE = {Learning Equality Constraints for Motion Planning on Manifolds},
+  EPRINT = {2009.11852v1},
+  ARCHIVEPREFIX = {arXiv},
+  PRIMARYCLASS = {cs.RO},
+  ABSTRACT = {Constrained robot motion planning is a widely used technique to solve complexrobot tasks. We consider the problem of learning representations of constraintsfrom demonstrations with a deep neural network, which we call EqualityConstraint Manifold Neural Network (ECoMaNN). The key idea is to learn alevel-set function of the constraint suitable for integration into aconstrained sampling-based motion planner. Learning proceeds by aligningsubspaces in the network with subspaces of the data. We combine both learnedconstraints and analytically described constraints into the planner and use aprojection-based strategy to find valid points. We evaluate ECoMaNN on itsrepresentation capabilities of constraint manifolds, the impact of itsindividual loss terms, and the motions produced when incorporated into aplanner.},
+  YEAR = {2020},
+  MONTH = {Sep},
+  URL = {http://arxiv.org/abs/2009.11852v1},
+  FILE = {2009.11852v1.pdf}
  }
 
