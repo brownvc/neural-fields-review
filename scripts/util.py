@@ -42,6 +42,7 @@ def get_scholarly_result(title):
 def read_spreadsheet(input_fname, input_ext):
     rows_in = []
     if (input_ext == ".xlsx"):
+        print("Loading workbook: ", input_fname + input_ext)
         workbook = openpyxl.load_workbook(input_fname + input_ext)
         sheet = workbook.active
         for row in sheet.iter_rows():

@@ -46,7 +46,7 @@ for row in tqdm(rows_in):
         auth_str = []
         for a in d['entries'][0]['authors']:
             auth_str.append(a['name'])
-        print(cnt+1, 'authors', ", ".join(auth_str))
+        print(cnt+1, 'Authors:', ", ".join(auth_str))
         row[27] = ", ".join(auth_str)
 
     # Abstract
@@ -61,8 +61,10 @@ for row in tqdm(rows_in):
         if d is None:
            d, id = get_arxiv(row)
         if 'arxiv_comment' in d['entries'][0].keys():
-            row[23] = get_venue(d['entries'][0]['arxiv_comment'], d['entries'][0]['published'][:4])
-            print(cnt+1, row[23])
+            venue = get_venue(d['entries'][0]['arxiv_comment'], d['entries'][0]['published'][:4])
+            if (venue is not None) and (venue != ""):
+                row[23] = venue
+                print(cnt+1, "Venue: ", row[23])
 
     # Bibtex
     if ("https://arxiv.org/" in row[4]) and (row[11] == ""):
@@ -94,7 +96,7 @@ for row in tqdm(rows_in):
     if row[28] == "":
         if (row[11] != ""):
             row[28] = bibtex_name_from_bibtex(row[11])
-            print(cnt+1, row[28])
+            print(cnt+1, "Bibtex Name: ", row[28])
 
     rows_out.append(row)
     cnt += 1

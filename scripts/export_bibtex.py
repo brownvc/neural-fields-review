@@ -26,7 +26,7 @@ def format_dotbib_file(fname):
     data = data.replace("\n\n\n@", "\n@").replace("\n\n@", "\n@").replace("\n@", "\n\n@")
     data = data[data.find("@"):]
     data = data.split("\n\n@")
-    print("{} bibtex citations.".format(len(data)))
+    print("{} bibtex citations found in {}.".format(len(data), fname))
 
     formatted = []
     for d in data:
