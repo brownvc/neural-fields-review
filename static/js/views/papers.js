@@ -450,9 +450,12 @@ const card_html = (paper) =>
                 <h6 class="card-subtitle text-muted" align="center">
                         ${paper.authors.join(", ")}
                 </h6>
+                ${renderMode === MODE.mini ? "" : 
                 <h6 class="card-date text-muted">
                         Date: ${paper.date}
                 </h6>
+                }
+                
                 ${renderMode === MODE.mini ? "" : card_keywords(paper.keywords)}
                 
                 
