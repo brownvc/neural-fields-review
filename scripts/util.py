@@ -6,6 +6,23 @@ from scholarly import scholarly
 from scholarly import ProxyGenerator
 
 import xlsxwriter
+from bibtexparser.bparser import BibTexParser
+
+
+def dict_from_string(str):
+    str.strip(" \n\t")
+    assert str[0] == "@"
+    type = str[1 : str.find("{")]
+    # For each bibtex key, make it a
+    parser = BibTexParser()
+    dict = parser.parse(str).get_entry_dict()
+    name = list(dict.keys())[0]
+    dict_ = dict[name]
+    dict = {}
+    for k in dict_:
+        dict[k.lower()] = dict_[k]
+    return type, name, dict
+
 
 def get_arxiv(row):
     if "https://arxiv.org/pdf/" in row[4]:
@@ -101,11 +118,11 @@ def format_bibtex_str(bibtex, cap_keys="ALL", space=True, indent="    ", article
     else:
         equal = "="
     if type(bibtex) is dict:
-        name = bibtex.keys()[0]
-        d = bibtex[d]
+        name = list(bibtex.keys())[0]
+        d = bibtex[name]
         entries = []
         for key in d:
-            content = d[key].replace(' \n', ' ').replace('\n', '')
+            content = d[key].replace(' \n', ' ').replace('\n', ' ')
             key = key.lower()
             if cap_keys == "ALL":
                 key = key.upper()
@@ -113,8 +130,8 @@ def format_bibtex_str(bibtex, cap_keys="ALL", space=True, indent="    ", article
                 key = key[0].upper() + key[1:]
             entries.append(indent + key + equal + "{" + content + "}")
         head = f"@{article_type}"+"{"+f"{name},\n"
-        tail = "}"
-        texstr = head + ",\n".join(entries)
+        tail = "\n}"
+        texstr = head + ",\n".join(entries) + tail
     else:
         texstr = bibtex
         indents = {"\t", " ", "  ", "    ", "          ", "\r"}
@@ -163,8 +180,8 @@ def format_bibtex_str(bibtex, cap_keys="ALL", space=True, indent="    ", article
             if remove_newline_in_value:
                 braket = texstr[bra:ket]
                 for i in indents:
-                    braket = braket.replace("\n"+i, "")
-                braket = braket.replace("\n", "")
+                    braket = braket.replace("\n"+i, " ")
+                braket = braket.replace("\n", " ")
                 texstr = texstr[:bra] + braket + texstr[ket:]
 
         if indent is not None:
@@ -181,12 +198,12 @@ def format_bibtex_str(bibtex, cap_keys="ALL", space=True, indent="    ", article
         last = rev_str.find("}")
         second_last = rev_str[last+1:].find("}") + last + 1
         texstr = rev_str[second_last:][::-1]+"\n}"
-        return texstr
+    return texstr
 
 
-def bibtex_name_from_bibtex(bibtex, use_parser=True):
-    if use_parser:
-
+def bibtex_name_from_bibtex(bibtex):
+    if type(bibtex) is dict:
+        name = list(bibtex.keys())[0]
     else:
         bibtex = bibtex.replace("\r\n", "\n")
         start, end = bibtex.find("{") + 1, bibtex.find(",")
@@ -196,7 +213,7 @@ def bibtex_name_from_bibtex(bibtex, use_parser=True):
 
 def get_authors_from_bibtex(bibtex, last_name_first=False):
     if type(bibtex) is dict:
-        authors_str = bibtex[bibtex.keys()[0]]['author']
+        authors_str = bibtex['author']
     else:
         author = {"author = {": 10, "author={": 8, "AUTHOR = {": 10, "AUTHOR={": 8}
         for a in author:

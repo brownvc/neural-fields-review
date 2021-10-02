@@ -1,26 +1,6 @@
 import csv
 import util
-from bibtexparser.bparser import BibTexParser
 
-
-class Bibtex():
-    def __init__(self, str):
-        self.str = str.strip(" \n\t")
-        self.bibtex = self.dict_from_string(self.str)
-
-    @staticmethod
-    def dict_from_string(str):
-        assert str[0] == "@"
-        type = str[1 : str.find("{")]
-        # For each bibtex key, make it a
-        parser = BibTexParser()
-        dict = parser.parse(str).get_entry_dict()
-        name = dict.keys()[0]
-        d_ = _dict[name]
-        d = {}
-        for k in d_:
-            d[k.lower()] = d_[k]
-        return type, name, d
 
 def export_from_spreadsheet(input_fname, input_ext, output_fname="references.bib"):
     bibtex = []
