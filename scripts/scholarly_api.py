@@ -1,4 +1,8 @@
 """
+API 1:
+ArXiv API
+
+API 2:
 Use package scholarly (https://scholarly.readthedocs.io/en/stable/)
 to get the following information:
 - Authors
@@ -86,15 +90,6 @@ for r in tqdm(range(start_row, len(rows))):
     #     except Exception as e:
     #         print(e)
 
-    # Authors
-    if row[27] == "":
-        try:
-            if (row[11] != ""):
-                authors = ", ".join(get_authors_from_bibtex(row[11]))
-                row[27] = authors
-                print(cnt, "Authors:", row[27])
-        except Exception as e:
-            print(e)
 
 
 
