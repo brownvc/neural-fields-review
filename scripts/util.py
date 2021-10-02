@@ -177,12 +177,11 @@ def format_bibtex_str(bibtex, cap_keys="ALL", space=True, indent="    ", article
                 if cnt > 100:
                     raise ValueError("Yiheng wrote a bug... check for infinite while loop here")
             ket = right
-            if remove_newline_in_value:
-                braket = texstr[bra:ket]
-                for i in indents:
-                    braket = braket.replace("\n"+i, " ")
-                braket = braket.replace("\n", " ")
-                texstr = texstr[:bra] + braket + texstr[ket:]
+            braket = texstr[bra:ket]
+            for i in indents:
+                braket = braket.replace("\n"+i, " ")
+            braket = braket.replace("\n", " ")
+            texstr = texstr[:bra] + braket + texstr[ket:]
 
         if indent is not None:
             for i in indents:

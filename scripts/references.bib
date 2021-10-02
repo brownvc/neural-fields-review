@@ -11,8 +11,9 @@
   TITLE = {3D Object Reconstruction and Representation Using Neural Networks},
   AUTHOR = {Lim, Wen Peng and Shamsuddin, Siti Mariyam},
   YEAR = {2004},
-  PUBLISHER = {Universiti Teknologi Malaysia}
- }
+  PUBLISHER = {Universiti Teknologi Malaysia},
+  BOOKTITLE = {International Conference on Computer Graphics and Interactive Techniques in Australasia and South East Asia},
+}
 
 @article{yang2017foldingnet,
   AUTHOR = {Yaoqing Yang and Chen Feng and Yiru Shen and Dong Tian},
@@ -355,12 +356,14 @@
 @article{smith2020eikonet,
   AUTHOR = {Jonathan D. Smith and Kamyar Azizzadenesheli and Zachary E. Ross},
   TITLE = {EikoNet: Solving the Eikonal equation with Deep Neural Networks},
+  JOURNAL = {IEEE Transactions on Geoscience and Remote Sensing}
   EPRINT = {2004.00361v3},
   ARCHIVEPREFIX = {arXiv},
   PRIMARYCLASS = {physics.comp-ph},
   ABSTRACT = {The recent deep learning revolution has created an enormous opportunity foraccelerating compute capabilities in the context of physics-based simulations.Here, we propose EikoNet, a deep learning approach to solving the Eikonalequation, which characterizes the first-arrival-time field in heterogeneous 3Dvelocity structures. Our grid-free approach allows for rapid determination ofthe travel time between any two points within a continuous 3D domain. Thesetravel time solutions are allowed to violate the differential equation - whichcasts the problem as one of optimization - with the goal of finding networkparameters that minimize the degree to which the equation is violated. In doingso, the method exploits the differentiability of neural networks to calculatethe spatial gradients analytically, meaning the network can be trained on itsown without ever needing solutions from a finite difference algorithm. EikoNetis rigorously tested on several velocity models and sampling methods todemonstrate robustness and versatility. Training and inference are highlyparallelized, making the approach well-suited for GPUs. EikoNet has low memoryoverhead, and further avoids the need for travel-time lookup tables. Thedeveloped approach has important applications to earthquake hypocenterinversion, ray multi-pathing, and tomographic modeling, as well as to otherfields beyond seismology where ray tracing is essential.},
   YEAR = {2020},
   MONTH = {Mar},
+  PUBLISHER={IEEE}
   URL = {http://arxiv.org/abs/2004.00361v3},
   FILE = {2004.00361v3.pdf}
  }
@@ -435,6 +438,8 @@
 @article{jiang2020meshfreeflownet,
   AUTHOR = {Chiyu Max Jiang and Soheil Esmaeilzadeh and Kamyar Azizzadenesheli and Karthik Kashinath and Mustafa Mustafa and Hamdi A. Tchelepi and Philip Marcus and Prabhat and Anima Anandkumar},
   TITLE = {MeshfreeFlowNet: A Physics-Constrained Deep Continuous Space-TimeSuper-Resolution Framework},
+  BOOKTITLE = {SC20: International Conference for High Performance Computing, Networking, Storage and Analysis},
+  PUBLISHER = {IEEE},
   EPRINT = {2005.01463v2},
   ARCHIVEPREFIX = {arXiv},
   PRIMARYCLASS = {cs.LG},
@@ -1184,9 +1189,18 @@
   EPRINT = {2101.00373v2},
   ARCHIVEPREFIX = {arXiv},
   PRIMARYCLASS = {eess.IV},
+  JOURNAL = {IEEE Transactions on Pattern Analysis & Machine Intelligence},
   ABSTRACT = {We present a neural modeling framework for Non-Line-of-Sight (NLOS) imaging.Previous solutions have sought to explicitly recover the 3D geometry (e.g., aspoint clouds) or voxel density (e.g., within a pre-defined volume) of thehidden scene. In contrast, inspired by the recent Neural Radiance Field (NeRF)approach, we use a multi-layer perceptron (MLP) to represent the neuraltransient field or NeTF. However, NeTF measures the transient over sphericalwavefronts rather than the radiance along lines. We therefore formulate aspherical volume NeTF reconstruction pipeline, applicable to both confocal andnon-confocal setups. Compared with NeRF, NeTF samples a much sparser set ofviewpoints (scanning spots) and the sampling is highly uneven. We thusintroduce a Monte Carlo technique to improve the robustness in thereconstruction. Comprehensive experiments on synthetic and real datasetsdemonstrate NeTF provides higher quality reconstruction and preserves finedetails largely missing in the state-of-the-art.},
+  volume = {43},
+  number = {07},
+  issn = {1939-3539},
+  pages = {2257-2268},
+  keywords = {transient analysis;image reconstruction;imaging;nonlinear optics;measurement by laser beam;surface reconstruction;solid modeling},
+  doi = {10.1109/TPAMI.2021.3076062},
+  publisher = {IEEE Computer Society},
+  address = {Los Alamitos, CA, USA},
   YEAR = {2021},
-  MONTH = {Jan},
+  MONTH = {Jul},
   URL = {http://arxiv.org/abs/2101.00373v2},
   FILE = {2101.00373v2.pdf}
  }
@@ -1674,10 +1688,10 @@
   FILE = {2104.00677v1.pdf}
  }
 
-@article{Fu_2021,
+@article{fu2021multiscene,
   DOI = {10.1088/1742-6596/1880/1/012034},
   URL = {https://doi.org/10.1088/1742-6596/1880/1/012034},
-  YEAR = {apr},
+  YEAR = {2021},
   PUBLISHER = {{IOP} Publishing},
   VOLUME = {1880},
   NUMBER = {1},
@@ -1727,18 +1741,21 @@
   FILE = {2012.00926v2.pdf}
  }
 
-@article{luo2021convolutional,
-  AUTHOR = {Haimin Luo and Anpei Chen and Qixuan Zhang and Bai Pang and Minye Wu and Lan Xu and Jingyi Yu},
-  TITLE = {Convolutional Neural Opacity Radiance Fields},
-  EPRINT = {2104.01772v1},
-  ARCHIVEPREFIX = {arXiv},
-  PRIMARYCLASS = {cs.CV},
-  ABSTRACT = {Photo-realistic modeling and rendering of fuzzy objects with complex opacityare critical for numerous immersive VR/AR applications, but it suffers fromstrong view-dependent brightness, color. In this paper, we propose a novelscheme to generate opacity radiance fields with a convolutional neural rendererfor fuzzy objects, which is the first to combine both explicit opacitysupervision and convolutional mechanism into the neural radiance fieldframework so as to enable high-quality appearance and global consistent alphamattes generation in arbitrary novel views. More specifically, we propose anefficient sampling strategy along with both the camera rays and image plane,which enables efficient radiance field sampling and learning in a patch-wisemanner, as well as a novel volumetric feature integration scheme that generatesper-patch hybrid feature embeddings to reconstruct the view-consistentfine-detailed appearance and opacity output. We further adopt a patch-wiseadversarial training scheme to preserve both high-frequency appearance andopacity details in a self-supervised framework. We also introduce an effectivemulti-view image capture system to capture high-quality color and alpha mapsfor challenging fuzzy objects. Extensive experiments on existing and our newchallenging fuzzy object dataset demonstrate that our method achievesphoto-realistic, globally consistent, and fined detailed appearance and opacityfree-viewpoint rendering for various fuzzy objects.},
-  YEAR = {2021},
-  MONTH = {Apr},
-  URL = {http://arxiv.org/abs/2104.01772v1},
-  FILE = {2104.01772v1.pdf}
- }
+@INPROCEEDINGS{luo2021convolutional,
+  author = {H. Luo and A. Chen and Q. Zhang and B. Pang and M. Wu and L. Xu and J. Yu},
+  booktitle = {2021 IEEE International Conference on Computational Photography (ICCP)},
+  title = {Convolutional Neural Opacity Radiance Fields},
+  year = {2021},
+  volume = {},
+  issn = {},
+  pages = {1-12},
+  keywords = {training;photography;telepresence;image color analysis;computational modeling;entertainment industry;image capture},
+  doi = {10.1109/ICCP51581.2021.9466273},
+  url = {https://doi.ieeecomputersociety.org/10.1109/ICCP51581.2021.9466273},
+  publisher = {IEEE Computer Society},
+  address = {Los Alamitos, CA, USA},
+  month = {may}
+}
 
 @article{wang2021mirrornerf,
   AUTHOR = {Ziyu Wang and Liao Wang and Fuqiang Zhao and Minye Wu and Lan Xu and Jingyi Yu},
@@ -1832,17 +1849,17 @@
  }
 
 @article{lu2021compressive,
-  AUTHOR = {Yuzhe Lu and Kairong Jiang and Joshua A. Levine and Matthew Berger},
-  TITLE = {Compressive Neural Representations of Volumetric Scalar Fields},
-  EPRINT = {2104.04523v1},
-  ARCHIVEPREFIX = {arXiv},
-  PRIMARYCLASS = {cs.LG},
-  ABSTRACT = {We present an approach for compressing volumetric scalar fields usingimplicit neural representations. Our approach represents a scalar field as alearned function, wherein a neural network maps a point in the domain to anoutput scalar value. By setting the number of weights of the neural network tobe smaller than the input size, we achieve compressed representations of scalarfields, thus framing compression as a type of function approximation. Combinedwith carefully quantizing network weights, we show that this approach yieldshighly compact representations that outperform state-of-the-art volumecompression approaches. The conceptual simplicity of our approach enables anumber of benefits, such as support for time-varying scalar fields, optimizingto preserve spatial gradients, and random-access field evaluation. We study theimpact of network design choices on compression performance, highlighting howsimple network architectures are effective for a broad range of volumes.},
-  YEAR = {2021},
-  MONTH = {Apr},
-  URL = {http://arxiv.org/abs/2104.04523v1},
-  FILE = {2104.04523v1.pdf}
- }
+title = {Compressive Neural Representations of Volumetric Scalar Fields},
+author = {Lu, Y. and Jiang, K. and Levine, J. A. and Berger, M.},
+abstractNote = {Here, we present an approach for compressing volumetric scalar fields using implicit neural representations. Our approach represents a scalar field as a learned function, wherein a neural network maps a point in the domain to an output scalar value. By setting the number of weights of the neural network to be smaller than the input size, we achieve compressed representations of scalar fields, thus framing compression as a type of function approximation. Combined with carefully quantizing network weights, we show that this approach yields highly compact representations that outperform state-of-the-art volume compression approaches. The conceptual simplicity of our approach enables a number of benefits, such as support for time-varying scalar fields, optimizing to preserve spatial gradients, and random-access field evaluation. We study the impact of network design choices on compression performance, highlighting how simple network architectures are effective for a broad range of volumes.},
+doi = {10.1111/cgf.14295},
+journal = {Computer Graphics Forum},
+number = 3,
+volume = 40,
+place = {United States},
+year = {2021},
+month = {6}
+}
 
 @article{hong2021stereopifu,
   AUTHOR = {Yang Hong and Juyong Zhang and Boyi Jiang and Yudong Guo and Ligang Liu and Hujun Bao},
@@ -2127,8 +2144,16 @@
   ARCHIVEPREFIX = {arXiv},
   PRIMARYCLASS = {eess.SP},
   ABSTRACT = {Multi-lead electrocardiogram (ECG) provides clinical information ofheartbeats from several fixed viewpoints determined by the lead positioning.However, it is often not satisfactory to visualize ECG signals in these fixedand limited views, as some clinically useful information is represented onlyfrom a few specific ECG viewpoints. For the first time, we propose a newconcept, Electrocardio Panorama, which allows visualizing ECG signals from anyqueried viewpoints. To build Electrocardio Panorama, we assume that anunderlying electrocardio field exists, representing locations, magnitudes, anddirections of ECG signals. We present a Neural electrocardio field Network(Nef-Net), which first predicts the electrocardio field representation by usinga sparse set of one or few input ECG views and then synthesizes ElectrocardioPanorama based on the predicted representations. Specially, to betterdisentangle electrocardio field information from viewpoint biases, a newAngular Encoding is proposed to process viewpoint angles. Also, we propose aself-supervised learning approach called Standin Learning, which helps modelthe electrocardio field without direct supervision. Further, with very fewmodifications, Nef-Net can also synthesize ECG signals from scratch.Experiments verify that our Nef-Net performs well on Electrocardio Panoramasynthesis, and outperforms the previous work on the auxiliary tasks (ECG viewtransformation and ECG synthesis from scratch). The codes and the divisionlabels of cardiac cycles and ECG deflections on Tianchi ECG and PTB datasetsare available at https://github.com/WhatAShot/Electrocardio-Panorama.},
-  YEAR = {2021},
-  MONTH = {May},
+  booktitle = {Proceedings of the Thirtieth International Joint Conference on
+               Artificial Intelligence, {IJCAI-21}},
+  publisher = {International Joint Conferences on Artificial Intelligence Organization},
+  editor    = {Zhi-Hua Zhou},
+  pages     = {3597--3605},
+  year      = {2021},
+  month     = {8},
+  note      = {Main Track}
+  doi       = {10.24963/ijcai.2021/495},
+  url       = {https://doi.org/10.24963/ijcai.2021/495},
   NOTE = {the 30th International Joint Conference on Artificial Intelligence
   (2021)},
   URL = {http://arxiv.org/abs/2105.06293v1},
@@ -2481,8 +2506,11 @@
   ARCHIVEPREFIX = {arXiv},
   PRIMARYCLASS = {eess.IV},
   ABSTRACT = {For collecting high-quality high-resolution (HR) MR image, we propose a novelimage reconstruction network named IREM, which is trained on multiplelow-resolution (LR) MR images and achieve an arbitrary up-sampling rate for HRimage reconstruction. In this work, we suppose the desired HR image as animplicit continuous function of the 3D image spatial coordinate and thethick-slice LR images as several sparse discrete samplings of this function.Then the super-resolution (SR) task is to learn the continuous volumetricfunction from a limited observations using an fully-connected neural networkcombined with Fourier feature positional encoding. By simply minimizing theerror between the network prediction and the acquired LR image intensity acrosseach imaging plane, IREM is trained to represent a continuous model of theobserved tissue anatomy. Experimental results indicate that IREM succeeds inrepresenting high frequency image feature, and in real scene data collection,IREM reduces scan time and achieves high-quality high-resolution MR imaging interms of SNR and local image detail.},
+  booktitle={International Conference on Medical Image Computing and Computer-Assisted Intervention},
+  pages={65--74},
+  year={2021},
+  organization={Springer}
   YEAR = {2021},
-  MONTH = {Jun},
   URL = {http://arxiv.org/abs/2106.15097v1},
   FILE = {2106.15097v1.pdf}
  }
@@ -2526,7 +2554,7 @@
   FILE = {2107.04004v1.pdf}
  }
 
-@article{Pan:21,
+@article{pan2021adaptive,
   AUTHOR = {Hujie Pan and Di Xiao and Fuhao Zhang and Xuesong Li and Min Xu},
   JOURNAL = {Opt. Express},
   KEYWORDS = {Computational imaging; Computed tomography; Light fields; Light propagation; Neural networks; Propagation methods},
@@ -2540,7 +2568,7 @@
   URL = {http://www.opticsexpress.org/abstract.cfm?URI=oe-29-15-23682},
   DOI = {10.1364/OE.427459},
   ABSTRACT = {Classic algebraic reconstruction technique (ART) for computed tomography requires pre-determined weights of the voxels for the projected pixel values to build the equations. However, such weights cannot be accurately obtained in the application of chemiluminescence measurements due to the high physical complexity and computation resources required. Moreover, streaks arise in the results from ART method especially with imperfect projections. In this study, we propose a semi-case-wise learning-based method named Weight Encode Reconstruction Network (WERNet) to co-learn the target phantom intensities and the adaptive weight matrix of the case without labeling the target voxel set and thus offers a more applicable solution for computed tomography problems. Both numerical and experimental validations were conducted to evaluate the algorithm. In the numerical test, with the help of gradient normalization, the WERNet reconstructed voxel set with a high accuracy and showed a higher capability of denoising compared to the classic ART methods. In the experimental test, WERNet produces comparable results to the ART method while having a better performance in avoiding the streaks. Furthermore, with the adaptive weight matrix, WERNet is not sensitive to the ensemble intensity of the projection which shows much better robustness than ART method.}
- }
+}
 
 @article{yu2021uorf,
   AUTHOR = {Hong-Xing Yu and Leonidas J. Guibas and Jiajun Wu},
@@ -2714,10 +2742,10 @@
   FILE = {2108.08931v1.pdf}
   }
 
-@article{wulearning,
+@article{wu2021learning,
   ABSTRACT = {Different from popular neural networks using quasiconvex activations, non-monotonic networks activated by periodic nonlinearities have emerged as a more competitive paradigm, offering revolutionary benefits: 1) compactly characterizing highfrequency patterns; 2) precisely representing highorder derivatives. Nevertheless, they are also wellknown for being hard to train, due to easily overfitting dissonant noise and only allowing for tiny architectures (shallower than 5 layers). The fundamental bottleneck is that the},
   AUTHOR = {Wu, Zheng-Fan and Xue, Hui and Bai, Weimin},
-  PUB_YEAR = {NA},
+  YEAR = {2021},
   TITLE = {Learning Deeper Non-Monotonic Networks by Softly Transferring Solution Space},
   VENUE = {NA}
  }
@@ -2778,16 +2806,17 @@
   VENUE = {arXiv preprint arXiv …}
  }
 
-@inproceedings{huang2021modified,
+@inbook{huang2021modified,
   ABSTRACT = {Recently developed physics-informed neural network (PINN) for solving for the scattered wavefield in the Helmholtz equation showed large potential in seismic modeling because of its flexibility, low memory requirement, and no limitations on the shape of the solution space. However, the predicted solutions were somewhat smooth and the convergence of the training was slow. Thus, we propose a modified PINN using sinusoidal activation functions and positional encoding, aiming to accelerate the convergence and fit better. We transform},
   AUTHOR = {Huang, Xinquan and Alkhalifah, Tariq and Song, Chao},
   BOOKTITLE = {First International Meeting for Applied Geoscience \& Energy},
   ORGANIZATION = {Society of Exploration Geophysicists},
   PAGES = {2480--2484},
-  PUB_YEAR = {2021},
   TITLE = {A modified physics-informed neural network with positional encoding},
-  VENUE = {First International Meeting for ...}
- }
+  year = {2021},
+  doi = {10.1190/segam2021-3584127.1},
+  URL = {https://library.seg.org/doi/abs/10.1190/segam2021-3584127.1},
+}
 
 @article{benbarka2021seeing,
   AUTHOR = {Nuri Benbarka and Timon Hofer and Hamd ul-moqeet Riaz and Andreas Zell},
@@ -2916,12 +2945,13 @@
   FILE = {2109.06166v1.pdf}
  }
 
-@article{mandlneural,
+@article{mand2021lneural,
   ABSTRACT = {Coherent rendering is important for generating plausible Mixed Reality presentations of virtual objects within a user's real-world environment. Besides photo-realistic rendering and correct lighting, visual coherence requires simulating the imaging system that is used to capture the real environment. While existing approaches either focus on a specific camera or a specific component of the imaging system, we introduce Neural Cameras, the first approach that jointly simulates all major components of an arbitrary modern camera using},
   AUTHOR = {Mandl, David and Mohr, Peter and Langlotz, Tobias and Ebner, Christoph and Mori, Shohei and Zollmann, Stefanie and Roth, Peter M and Kalkofen, Denis},
-  PUB_YEAR = {NA},
+  YEAR = {2021},
   TITLE = {Neural Cameras: Learning Camera Characteristics for Coherent Mixed Reality Rendering},
-  VENUE = {NA}
+  BOOKTITLE = {IEEE Symp. on Mixed and Augmented Reality (ISMAR)},
+  MONTH = {Oct}
  }
 
 @article{zhong2019cryodrgn,
@@ -2951,7 +2981,7 @@
   FILE = {2109.07991v2.pdf}
  }
 
-@article{kwon2021neural_human_performer,
+@article{kwon2021neuralhumanperformer,
   AUTHOR = {Youngjoong Kwon and Dahun Kim and Duygu Ceylan and Henry Fuchs},
   TITLE = {Neural Human Performer: Learning Generalizable Radiance Fields for Human Performance Rendering},
   EPRINT = {2109.07448v1},
@@ -3008,8 +3038,12 @@
   ARCHIVEPREFIX = {arXiv},
   PRIMARYCLASS = {cs.RO},
   ABSTRACT = {Control barrier functions are widely used to enforce safety properties inrobot motion planning and control. However, the problem of constructing barrierfunctions online and synthesizing safe controllers that can deal with theassociated uncertainty has received little attention. This paper investigatessafe navigation in unknown environments, using onboard range sensing toconstruct control barrier functions online. To represent different objects inthe environment, we use the distance measurements to train neural networkapproximations of the signed distance functions incrementally with replaymemory. This allows us to formulate a novel robust control barrier safetyconstraint which takes into account the error in the estimated distance fieldsand its gradient. Our formulation leads to a second-order cone program,enabling safe and stable control synthesis in a priori unknown environments.},
-  YEAR = {2020},
-  MONTH = {Nov},
+  journal={IEEE Robotics and Automation Letters},
+  volume={6},
+  number={3},
+  pages={4931--4938},
+  year={2021},
+  publisher={IEEE},
   URL = {http://arxiv.org/abs/2011.01899v2},
   FILE = {2011.01899v2.pdf}
  }
@@ -3039,4 +3073,11 @@
   URL = {http://arxiv.org/abs/2009.11852v1},
   FILE = {2009.11852v1.pdf}
  }
+
+@article{baatz2021nerftex,
+  title={NeRF-Tex: Neural Reflectance Field Textures},
+  author={Baatz, Hendrik and Granskog, Jonathan and Papas, Marios and Rousselle, Fabrice and Nov{\'a}k, Jan},
+  year={2021},
+  publisher={The Eurographics Association}
+}
 

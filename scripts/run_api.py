@@ -6,7 +6,6 @@ Use arxivapi and arxiv2bib
 - Authors
 - Bibtex citation
 - ABSTRACT
-- Venue
 
 API 2:
 Use package scholarly (https://scholarly.readthedocs.io/en/stable/)
@@ -45,7 +44,7 @@ rows = read_spreadsheet(input_fname, input_ext)
 
 # Iterate on each row
 cnt = 0
-start_row = 0           # This is for skipping already processed entries
+start_row = 235           # This is for skipping already processed entries
 for r in tqdm(range(start_row, len(rows))):
     d, search_result, bibtex_str, bibtex_dict, dict = None, None, None, None, None
     row = rows[r]
@@ -112,7 +111,7 @@ for r in tqdm(range(start_row, len(rows))):
         # Step 3) Replace bibtex key
         if replace_bibtex_key:
             if (row[2] != ""):
-                keyword = row[2].lower().replace("-","")
+                keyword = row[2].split(",")[0].lower().replace("-","").replace(" ","")
             else:
                 keyword = row[1].split(" ")[0].lower().replace("-","").replace(" ","")
             lastname = authors[0].split(" ")[-1].lower()
@@ -179,32 +178,26 @@ for r in tqdm(range(start_row, len(rows))):
         # From arxiv api
         if ("https://arxiv.org/" in row[4]):
             if d is None:
-               d, id = get_arxiv(row)
-               abstract = d['entries'][0]['summary'].replace(" \n", " ").replace("\n ", " ").replace("\n", " ")
+                d, id = get_arxiv(row)
+            abstract = d['entries'][0]['summary'].replace(" \n", " ").replace("\n ", " ").replace("\n", " ")
         # From bibtex
         elif (row[11] != ""):
             if bibtex_dict is None:
                 _, _, dict = dict_from_string(row[11])
             if 'abstract' in dict:
                 abstract = dict['abstract']
-        # Todo: Enable
-        # # From scholarly
-        # if abstract == "":
-        #     search_result = get_scholarly_result(row[1]) if (search_result is None) else search_result
-        #     try:
-        #         abstract = search_result['bib']['abstract'].replace(' \n', ' ').replace('\n', '')
-        #         for i in range(5):
-        #             abstract = abstract.replace(' '*(5-i), ' ')
-        #     except Exception as e:
-        #         print(e)
-
+        # From scholarly
+        if abstract == "":
+            search_result = get_scholarly_result(row[1]) if (search_result is None) else search_result
+            try:
+                abstract = search_result['bib']['abstract'].replace(' \n', ' ').replace('\n', '')
+                for i in range(5):
+                    abstract = abstract.replace(' '*(5-i), ' ')
+            except Exception as e:
+                print(e)
         if len(abstract) > 20:
             row[30] = abstract
             print(cnt+1, "Abstract: ", row[30][:20], "...")
-
-    cnt += 1
-    rows[r] = row
-    write_spreadsheet(rows, output_fname, output_ext)
 
     # Citations count
     if (row[31] == "") and citations_cnt:
@@ -215,3 +208,7 @@ for r in tqdm(range(start_row, len(rows))):
             print(cnt, "citations count: ", row[31])
         except Exception as e:
             print(e)
+
+    cnt += 1
+    rows[r] = row
+    write_spreadsheet(rows, output_fname, output_ext)

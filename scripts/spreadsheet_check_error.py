@@ -68,10 +68,14 @@ for row in reader:
         missing_nickname.append(cnt+1)
 
     # Check for missing bibtex citation
-    if row[11] == "":
+    if len(row[11]) < 10:
         missing_bibtex.append(cnt+1)
     else:
-        row[11] = util.format_bibtex_str(row[11])
+        comm = row[11].find(",")
+        row[11] = row[11][:comm].replace(" ", "") + row[11][comm:]
+        article_type, bibtex_key, dict = util.dict_from_string(row[11])
+        bibtex_dict = {bibtex_key : dict}
+        row[11] = util.format_bibtex_str(bibtex_dict, article_type=article_type)
 
     pdf_links_all.append(row[4])
 

@@ -2,7 +2,7 @@ import csv
 import util
 
 
-def export_from_spreadsheet(input_fname, input_ext, output_fname="references.bib"):
+def export_from_spreadsheet(input_fname, input_ext, output_fname="references.bib", exclude_keys=[]):
     bibtex = []
     reader = util.read_spreadsheet(input_fname, input_ext)
 
@@ -43,8 +43,14 @@ if __name__ == "__main__":
     input_fname = "Review Paper Import Portal Responses"
     # input_fname = "output_responses"
     input_ext = ".xlsx"
-
-    export_from_spreadsheet(input_fname, input_ext)
+    exclude_keys = [
+        "EPRINT",
+        "ARCHIVEPREFIX",
+        "PRIMARYCLASS",
+        "FILE",
+        # "URL",
+    ]
+    export_from_spreadsheet(input_fname, input_ext, exclude_keys=exclude_keys)
 
     dotbib_fname = "more_ref.bib"
     format_dotbib_file(dotbib_fname)
