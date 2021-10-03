@@ -128,12 +128,13 @@ body .nav-pills .nav-link.active {
 }
 
 .card-title {
-	margin-top: 10px;
+	padding-top: 15px;
 	font-size: 20px;
+	margin-bottom: 0px;
 }
 
 h2.card-title {
-	margin-top: 10px;
+	padding-top: 15px;
 	font-size: 30px;
 }
 
@@ -278,6 +279,19 @@ body .carousel-control-prev {
 	transition-duration: 100ms;
 }
 
+.checkbox-paper.selected {
+	opacity: 1;
+	color: #6c757d;
+}
+
+.copy-bibtex-icon {
+	color: #ddd;
+	font-size: 18pt;
+	font-weight: bold;
+	cursor: pointer;
+	transition-duration: 100ms;
+}
+
 .checkbox-bookmark {
 	color: #ddd;
 	font-size: 18pt;
@@ -286,9 +300,8 @@ body .carousel-control-prev {
 	transition-duration: 100ms;
 }
 
-.checkbox-paper.selected {
-	opacity: 1;
-	color: #6c757d;
+.card-header-icon {
+	color: #4ea9e6;
 }
 
 .checkbox-bookmark.selected {

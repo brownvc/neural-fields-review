@@ -64,6 +64,9 @@ const updateCards = (papers) => {
         .join("div")
         .attr("class", "myCard col-xs-6 col-md-4")
         .html(card_html);
+      
+      tippy(".copy-bibtex-icon");
+      tippy(".checkbox-bookmark");
 
       all_mounted_cards.select(".card-title").on("click", function (d) {
         const iid = d.UID;
@@ -138,9 +141,11 @@ const start = () => {
       addNewFilter("date", "");
       const urlHasFilterParams = getFilterFromURL();
       updateCards(allPapers);
-      if(urlHasFilterParams) triggerFiltering();
+      if (urlHasFilterParams) triggerFiltering();
+      
     })
     .catch((e) => console.error(e));
+  
 };
 
 const setTitleAndNicknameFilter = () => {
@@ -445,11 +450,21 @@ const triggerFiltering = () => {
   .html(`<p>Displaying ${filteredPapers.length} papers:</p>`)
 }
 
+const copyBibtex = (paperID) => {
+  let paperBibtex;
+  for (paper of allPapers) {
+    if (paper.UID === paperID) {
+      paperBibtex = paper.citation;
+      break;
+    }
+  }
+  console.log("copying ", paperBibtex);
+  navigator.clipboard.writeText(paperBibtex);
+}
+
 /**
  * CARDS
  */
-
-
 const card_image = (paper, show) => {
   if (show)
     return ` <center><img class="lazy-load-img cards_img" data-src="${API.thumbnailPath(paper)}" style="max-width:250px; padding-bottom:10px"/></center>`;
@@ -483,18 +498,36 @@ const card_keywords = (keywords) => {
 const card_html = (paper) =>
   `
         <div class="pp-card pp-mode-${renderMode} ">
-            <div class="pp-card-header" style="">
-            <div class="checkbox-paper fas ${paper.read ? "selected" : ""}" 
-            style="display: block;position: absolute; top:2px; left: 25px;">&#xf00c;</div>
-            <div class="checkbox-bookmark fas  ${paper.bookmarked ? "selected" : ""}" 
-            style="display: block;position: absolute; top:-5px;right: 25px;">&#xf02e;</div>
-<!--                ✓-->
+            <div class="pp-card-header">
+
+ 
+              <div class="checkbox-paper fas ${paper.read ? "selected" : ""}" style="position: absolute; top:2px; left: 25px;"
+              >&#xf00c;</div>
+
+              <div class="copy-bibtex-icon fas" style="position: absolute; top:-3px;right: 55px;" 
+              data-tippy-content="Copy bibtex"
+              onClick="copyBibtex('${paper.UID}')"
+              >&#xf0c5;</div>
+
+              <div class="checkbox-bookmark fas  ${paper.bookmarked ? "selected" : ""}" style="position: absolute; top:-5px;right: 25px;" data-tippy-content="Bookmark"
+              >&#xf02e;</div>
+
                 <a href="${API.paperLink(paper)}"
                 target="_blank"
                 >
                    <h5 class="card-title" align="center"> ${
-    paper.title
-  } </h5></a>
+                      paper.title
+                    } </h5></a>
+                
+                <div class="icons" style="display: flex; flex-direction: row; justify-content: space-around; padding-bottom: 10px">
+                    ${paper.project_link !== "" ?
+                    `<a class="card-header-icon card-header-icon fas" href="${paper.project_link}" target="_blank" title="Project homepage">&#xf015;</a>`
+                    : ""}
+                
+                    ${paper.talk_link !== "" ?
+                    `<a class="card-header-icon card-header-icon fas" href="${paper.talk_link}" target="_blank" title="Talk">&#xf03d;</a>`
+                    : ""}
+                </div>
                 
                 <h6 class="card-subtitle text-muted" align="center">
                         ${paper.authors.join(", ")}
