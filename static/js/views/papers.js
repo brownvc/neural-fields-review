@@ -146,6 +146,13 @@ const getFilterFromURL = () => {
     setFilterByID(2);
     return true;
   }
+  else if (params.has("venue")) {
+    const filterValue = params.get("venue");
+    //addNewFilter("keyword", filterValue);
+    document.getElementById(`filterInput_${3}`).value = filterValue;
+    setFilterByID(3);
+    return true;
+  }
 }
 
 const setTitleAndNicknameFilter = () => {
