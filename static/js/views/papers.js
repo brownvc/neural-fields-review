@@ -104,12 +104,16 @@ const getFilterFromURL = () => {
   const params = new URLSearchParams(URL);
   if (params.has("author")) {
     const filterValue = params.get("author");
-    addNewFilter("author", filterValue);
+    //addNewFilter("author", filterValue);
+    document.getElementById(`filterInput_${1}`).value = filterValue;
+    setFilterByID(1);
     return true;
   }
   else if (params.has("keyword")) {
     const filterValue = params.get("keyword");
-    addNewFilter("keyword", filterValue);
+    //addNewFilter("keyword", filterValue);
+    document.getElementById(`filterInput_${2}`).value = filterValue;
+    setFilterByID(2);
     return true;
   }
 }
