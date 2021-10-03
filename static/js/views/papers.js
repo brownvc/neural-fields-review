@@ -459,7 +459,7 @@ const copyBibtex = (paperID) => {
     }
   }
   navigator.clipboard.writeText(paperBibtex);
-  alert("Copied Bibtex.")
+  //alert("Copied Bibtex.")
 }
 
 /**
