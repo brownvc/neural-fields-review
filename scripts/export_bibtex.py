@@ -12,7 +12,13 @@ def export_from_spreadsheet(input_fname, input_ext, output_fname="references.bib
             cnt += 1
             continue
         if len(row[11]) > 10:
-            bibtex.append(row[11].replace("\r\n", "\n")+"\n\n")
+            article_type, bibtex_key, dict = util.dict_from_string(row[11])
+            for k in exclude_keys:
+                if k.lower() in dict:
+                    dict.pop(k.lower())
+            bibtex_dict = {bibtex_key : dict}
+            bibtex_str = util.format_bibtex_str(bibtex_dict, article_type=article_type)
+            bibtex.append(bibtex_str+"\n\n")
 
     with open(output_fname, "w+", encoding="utf-8") as f:
         f.writelines(bibtex)
@@ -44,10 +50,14 @@ if __name__ == "__main__":
     # input_fname = "output_responses"
     input_ext = ".xlsx"
     exclude_keys = [
+        "NOTE",
+        "ID",
+        "ENTRYTYPE",
         "EPRINT",
         "ARCHIVEPREFIX",
         "PRIMARYCLASS",
         "FILE",
+        "ABSTRACT",
         # "URL",
     ]
     export_from_spreadsheet(input_fname, input_ext, exclude_keys=exclude_keys)

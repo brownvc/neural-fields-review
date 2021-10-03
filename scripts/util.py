@@ -299,7 +299,6 @@ BIBTEX_INFO = {
         "EGSR": "The Eurographics Association and John Wiley & Sons Ltd.",
     },
     "organization": {
-        "ICML": "PMLR",
         "3DV": "IEEE",
     },
 }

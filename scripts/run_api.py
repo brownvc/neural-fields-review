@@ -44,7 +44,7 @@ rows = read_spreadsheet(input_fname, input_ext)
 
 # Iterate on each row
 cnt = 0
-start_row = 235           # This is for skipping already processed entries
+start_row = 0           # This is for skipping already processed entries
 for r in tqdm(range(start_row, len(rows))):
     d, search_result, bibtex_str, bibtex_dict, dict = None, None, None, None, None
     row = rows[r]

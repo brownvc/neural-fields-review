@@ -29,7 +29,7 @@ names = {
     "mÃƒÂ¼ller": "müller",
     "SoÅˆa MokrÃ¡": "Soňa Mokrá"
 }
-non_ascii = ["PapierMâché", "Höfer", "Alenyà"]
+non_ascii = ["PapierMâché", "Höfer", "Alenyà", "Cortés", "TöRF", "Fernández"]
 for k in names:
     non_ascii += names[k].split(" ")
 
@@ -50,6 +50,7 @@ cnt = 0
 prev_pdf = ""
 for row in reader:
     if cnt == 0:
+        rows.append(row)
         cnt += 1
         continue
     # Check for duplicate pdf link

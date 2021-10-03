@@ -34,7 +34,7 @@ replace_name = True
 
 # Iterate on each row
 cnt = 0
-start_row = 165           # This is for skipping already processed entries
+start_row = 0           # This is for skipping already processed entries
 for r in tqdm(range(start_row, len(rows))):
     row = rows[r]
 
