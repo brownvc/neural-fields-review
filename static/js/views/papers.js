@@ -36,6 +36,31 @@ var filters = [
 
 var nextFilterID = 1;
 
+/**
+ * START here and load JSON.
+ */
+const start = () => {
+  Promise.all([API.getPapers()])
+    .then(([papers]) => {
+      allPapers = papers;
+      console.log("all papers: ", allPapers);
+      d3.select("#displaying-number-of-papers-message")
+      .html(`<p>Displaying ${allPapers.length} papers:</p>`)
+      calcAllKeys(allPapers, allKeys);
+      initTypeAhead([...allKeys.titles, ...allKeys.nicknames],".titleAndNicknameTypeahead","titleAndNickname",setTitleAndNicknameFilter)
+      addNewFilter("author", "");
+      addNewFilter("keyword", "");
+      addNewFilter("venue", "");
+      addNewFilter("date", "");
+      const urlHasFilterParams = getFilterFromURL();
+      updateCards(allPapers);
+      if (urlHasFilterParams) triggerFiltering();
+      
+    })
+    .catch((e) => console.error(e));
+  
+};
+
 const updateCards = (papers) => {
   Promise.all([
     API.markGetAll(API.storeIDs.visited),
@@ -122,31 +147,6 @@ const getFilterFromURL = () => {
     return true;
   }
 }
-
-/**
- * START here and load JSON.
- */
-const start = () => {
-  Promise.all([API.getPapers()])
-    .then(([papers]) => {
-      allPapers = papers;
-      console.log("all papers: ", allPapers);
-      d3.select("#displaying-number-of-papers-message")
-      .html(`<p>Displaying ${allPapers.length} papers:</p>`)
-      calcAllKeys(allPapers, allKeys);
-      initTypeAhead([...allKeys.titles, ...allKeys.nicknames],".titleAndNicknameTypeahead","titleAndNickname",setTitleAndNicknameFilter)
-      addNewFilter("author", "");
-      addNewFilter("keyword", "");
-      addNewFilter("venue", "");
-      addNewFilter("date", "");
-      const urlHasFilterParams = getFilterFromURL();
-      updateCards(allPapers);
-      if (urlHasFilterParams) triggerFiltering();
-      
-    })
-    .catch((e) => console.error(e));
-  
-};
 
 const setTitleAndNicknameFilter = () => {
   const titleAndNicknameFilterValue = document.getElementById("titleAndNicknameInput").value;
@@ -340,7 +340,6 @@ const generateRemoveFilterButton = (filterID) => {
  */
 const triggerFiltering = () => {
   const onlyShowPapersWithCode = document.getElementById("onlyShowPapersWithCodeCheckbox").checked;
-  //updateCards([allPapers[0], allPapers[1]]);
   let filteredPapers = allPapers
   if (onlyShowPapersWithCode) {
     filteredPapers = allPapers.filter((paper) => paper.code_link !== "");
@@ -397,7 +396,6 @@ const triggerFiltering = () => {
       return filteredByKeyword;
     });
   }
-
 
   if (venueFilters.length > 0) {
     filteredPapers = filteredPapers.filter((paper) => {
