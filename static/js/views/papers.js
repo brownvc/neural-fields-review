@@ -458,8 +458,8 @@ const copyBibtex = (paperID) => {
       break;
     }
   }
-  console.log("copying ", paperBibtex);
   navigator.clipboard.writeText(paperBibtex);
+  alert("Copied Bibtex.")
 }
 
 /**
