@@ -11,7 +11,6 @@ const start = () => {
 }
 
 const drawTaskLeaderboard = (allPapers) => {
-    console.log("drawing task leaderboard with ", allPapers);
     const tasks2freq = {};
     for (let paper of allPapers) {
         for (let task of paper.Tasks) {
@@ -42,8 +41,8 @@ const drawTaskLeaderboard = (allPapers) => {
         xaxis: { automargin: true },
         yaxis: { automargin: true },
     }
-    Plotly.newPlot('task-leaderboard', data, layout);
-    var myPlot = document.getElementById('task-leaderboard');
+    Plotly.newPlot('task-statistics', data, layout);
+    var myPlot = document.getElementById('task-statistics');
     myPlot.on('plotly_click', function(data){
         const labelClicked = data.points[0].x;
         if (labelClicked) {
@@ -85,8 +84,8 @@ const drawTechniqueLeaderboard = (allPapers) => {
         xaxis: { automargin: true },
         yaxis: { automargin: true },
     }
-    Plotly.newPlot('technique-leaderboard', data, layout);
-    var myPlot = document.getElementById('technique-leaderboard');
+    Plotly.newPlot('technique-statistics', data, layout);
+    var myPlot = document.getElementById('technique-statistics');
     myPlot.on('plotly_click', function(data){
         const labelClicked = data.points[0].x;
         if (labelClicked) {

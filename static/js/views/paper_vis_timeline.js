@@ -369,7 +369,7 @@ const triggerFiltering = () => {
     filteredPapers = allPapers.filter((paper) => paper.code_link !== "");
   }
   // filter by title / nickname
-  const titleAndNicknameFilterValue = filters[0].filterValue
+  const titleAndNicknameFilterValue = filters[0].filterValue;
   if (titleAndNicknameFilterValue !== "") {
     filteredPapers = filteredPapers.filter((paper) =>
       paper.title.toLowerCase().includes(titleAndNicknameFilterValue.toLowerCase()) || paper.nickname.toLowerCase().includes(titleAndNicknameFilterValue.toLowerCase()))

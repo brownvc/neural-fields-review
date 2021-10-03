@@ -8,7 +8,6 @@
 
 
 <script src='static/js/plotly/plotly-2.4.2.min.js'></script>
-<link rel="stylesheet" href="static/css/leaderboard.css">
 
 {% endblock %}
 
@@ -24,20 +23,20 @@
         <a class="nav-link text-muted" href="paper_vis_citation_graph.html">Citation Graph</a>
     </li>
     <li class="nav-item active">
-        <a class="nav-link text-muted active">Leaderboard</a>
+        <a class="nav-link text-muted active">Statistics</a>
     </li>
 </ul>
 {% endblock %}
 
 {% block content %}
 <body>
-    {{ components.sectionTitlePlain("Tasks Leaderboard") }}
-    <div id='task-leaderboard'></div>
-    {{ components.sectionTitlePlain("Techniques Leaderboard") }}
-    <div id='technique-leaderboard'></div>
+    {{ components.sectionTitlePlain("Tasks Statistics") }}
+    <div id='task-statistics'></div>
+    {{ components.sectionTitlePlain("Techniques Statistics") }}
+    <div id='technique-statistics'></div>
 </body>
 
-<script src="static/js/views/paper_vis_leaderboard.js"></script>
+<script src="static/js/views/paper_vis_statistics.js"></script>
 <script>
     start();
 </script>
