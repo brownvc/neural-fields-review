@@ -26,6 +26,8 @@ var filters = [
 ];
 var nextFilterID = 1;
 
+var latestNumPapaersFilteredOut = null;
+
 var paperItems = [];
 
 var paperDataset = new vis.DataSet(paperItems);
@@ -64,6 +66,7 @@ const start = () => {
   Promise.all([API.getPapers()])
     .then(([papers]) => {
       allPapers = papers;
+      latestNumPapaersFilteredOut = allPapers.length;
       console.log("all papers: ", allPapers);
       d3.select("#displaying-number-of-papers-message")
         .html(`<p>Displaying ${allPapers.length} papers:</p>`);
@@ -172,193 +175,6 @@ const renderTimeline = (papers) => {
   )
 }
 
-const setTitleAndNicknameFilter = () => {
-  const titleAndNicknameFilterValue = document.getElementById("titleAndNicknameInput").value;
-  filters[0].filterValue = titleAndNicknameFilterValue;
-  triggerFiltering()
-}
-
-const setFilterByID = (filterID) => {
-  const filterValue = document.getElementById(`filterInput_${filterID}`).value;
-  filterIndex = filters.findIndex((filter) => filter.filterID === filterID);
-  filters[filterIndex].filterValue = filterValue;
-  triggerFiltering()
-}
-
-/**
- * Function for adding a new filter
- */
-function addNewFilter(filterType, filterValue) {
-  const filterID = nextFilterID;
-  nextFilterID += 1;
-
-  filters.push(
-    {
-      filterID: filterID,
-      filterType: filterType,
-      filterValue: filterValue
-    }
-  )
-  d3.select("#dynamicFiltersSection")
-    .append("div")
-    .attr("id",`filter_${filterID}`)
-    .attr("class", "row")
-    .style("padding-top", "5px")
-  
-  d3.select(`#filter_${filterID}`)
-    .html(
-      `
-    <div class="filterTypeSelector col-1">
-    ${generateFilterTypeSelector(filterID, filterType)}
-    </div>
-    <div class="input-group col-10">
-    ${generateFilterInputHTML(filterID, filterType, filterValue)}
-    </div>
-    <div class="col-1">
-    ${generateRemoveFilterButton(filterID)}
-    </div>`)
-  
-  tippy(".removeFilterButton")
-
-  if (filterType == "author") {
-    initTypeAhead([...allKeys.authors],`.authorsTypeahead_${filterID}`,"authors",() => {setFilterByID(filterID)})
-  }
-  else if (filterType == "keyword") {
-    initTypeAhead([...allKeys.keywords], `.keywordTypeahead_${filterID}`, "keyword", () => { setFilterByID(filterID) })
-  }
-  else if (filterType == "venue") {
-    initTypeAhead([...allKeys.venues], `.venueTypeahead_${filterID}`, "venue", () => {setFilterByID(filterID)})
-  }
-  else {
-    $('input[name="daterange"]').daterangepicker({
-      autoUpdateInput: false,
-      showDropdowns: true,
-      minYear: 1900,
-      maxYear: 2030,
-      locale: {
-        cancelLabel: 'Clear',
-      }
-    });
-
-    $('input[name="daterange"]').on('apply.daterangepicker', function(ev, picker) {
-      $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
-      setFilterByID(filterID);
-    });
-
-    $('input[name="daterange"]').on('cancel.daterangepicker', function(ev, picker) {
-        $(this).val('');
-    });
-
-    initTypeAhead([], `.dateTypeahead_${filterID}`, "date", () => { setFilterByID(filterID) });
-  }
-  
-  
-  return filterID;
-}
-
-function removeFilterByID(filterID) {
-  d3.select(`#filter_${filterID}`).remove()
-  filters = filters.filter(filter => filter.filterID !== filterID)
-  triggerFiltering()
-}
-
-function changeFilterType(filterID, newFilterTypeIndex) {
-  const filterTypes = ["author", "keyword", "venue", "date"]
-  const newFilterType = filterTypes[newFilterTypeIndex]
-  d3.select(`#filter_${filterID}`)
-    .select(`.input-group`)
-    .html(generateFilterInputHTML(filterID, newFilterType, ""))
-
-  if (newFilterType === "author") {
-    initTypeAhead([...allKeys.authors], `.authorsTypeahead_${filterID}`, "authors", () => { setFilterByID(filterID) })
-  }
-  else if (newFilterType === "keyword") {
-    initTypeAhead([...allKeys.keywords], `.keywordTypeahead_${filterID}`, "keyword", () => { setFilterByID(filterID) })
-  }
-  else if (newFilterType === "venue") {
-    initTypeAhead([...allKeys.venues], `.venueTypeahead_${filterID}`, "venue", () => { setFilterByID(filterID) })
-  }
-  else {
-    $('input[name="daterange"]').daterangepicker({
-      autoUpdateInput: false,
-      showDropdowns: true,
-      minYear: 1900,
-      maxYear: 2030,
-      locale: {
-        cancelLabel: 'Clear',
-      }
-    });
-
-    $('input[name="daterange"]').on('apply.daterangepicker', function(ev, picker) {
-      $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
-      setFilterByID(filterID);
-    });
-
-    $('input[name="daterange"]').on('cancel.daterangepicker', function(ev, picker) {
-        $(this).val('');
-    });
-    initTypeAhead([], `.dateTypeahead_${filterID}`, "date", () => { setFilterByID(filterID) });
-  }
-  
-  filterIndex = filters.findIndex((filter) => filter.filterID === filterID)
-  filters[filterIndex].filterType = filterTypes[newFilterTypeIndex]
-}
-
-const generateFilterTypeSelector = (filterID, selectedType) => {
-  return `
-      <select style="border: 1px solid #ced4da; border-radius: .25rem; height: calc(1.5em + .75rem + 2px);" onChange="changeFilterType(${filterID}, this.selectedIndex)">
-        <option value="author" ${selectedType == "author" ? "selected" : ""}>Author</option>
-        <option value="keyword" ${selectedType == "keyword" ? "selected" : ""}>Keyword</option>
-        <option value="venue" ${selectedType == "venue" ? "selected" : ""}>Venue</option>
-        <option value="date" ${selectedType == "date" ? "selected" : ""}>Date</option>
-      </select>
-    `
-}
-
-const generateFilterInputHTML = (filterID, filterType, filterValue) => {
-  if (filterType === "author") {
-    return `
-        <input type="text" id="filterInput_${filterID}" class="form-control authorsTypeahead_${filterID}" placeholder="Filter by author" onchange="setFilterByID(${filterID})" value="${filterValue}">
-        <button class="btn bg-transparent authorsTypeahead_${filterID}_clear" style="margin-left: -40px; z-index: 100;">
-          &times;
-        </button>
-    `
-  }
-  else if (filterType === "keyword") {
-    return `
-      <input type="text" id="filterInput_${filterID}" class="form-control keywordTypeahead_${filterID}" placeholder="Filter by keyword" onchange="setFilterByID(${filterID})" value="${filterValue}">
-      <button class="btn bg-transparent keywordTypeahead_${filterID}_clear" style="margin-left: -40px; z-index: 100;">
-        &times;
-      </button>
-    `
-  }
-  else if (filterType === "venue") {
-    return `
-      <input type="text" id="filterInput_${filterID}" class="form-control venueTypeahead_${filterID}" placeholder="Filter by venue" onchange="setFilterByID(${filterID})" value="${filterValue}">
-      <button class="btn bg-transparent venueTypeahead_${filterID}_clear" style="margin-left: -40px; z-index: 100;">
-        &times;
-      </button>
-    `
-  }
-  else if (filterType === "date") {
-    return `
-      <input type="text" id="filterInput_${filterID}" class="form-control dateTypeahead_${filterID}" name="daterange" value="" placeholder="Select a date range" onchange="setFilterByID(${filterID})">
-      <button class="btn bg-transparent dateTypeahead_${filterID}_clear"  style="margin-left: -40px; z-index: 100;">
-        &times;
-      </button>
-    `
-  }
-}
-
-const generateRemoveFilterButton = (filterID) => {
-  return `
-  <button class="btn btn-outline-secondary removeFilterButton" onClick="removeFilterByID(${filterID})" style="border-radius: 25px;"
-          data-tippy-content="Remove this filter">
-          <div class="fas">&#xf068;</div>
-  </button>
-  `
-}
-
 /**
  * Functions for trigger filtering on papers
  */
@@ -440,24 +256,26 @@ const triggerFiltering = () => {
     let filteredByDate = false;
     const paperDate = moment(paper.date, "MM/DD/YYYY");
     for (dateRange of dateFilters) {
-      let startDate = dateRange.split(" - ")[0];
-      startDate = moment(startDate, "MM/DD/YYYY");
-      let endDate = dateRange.split(" - ")[1];
-      endDate = moment(endDate, "MM/DD/YYYY");
+      let startDate = dateRange.split("/")[0];
+      startDate = moment(startDate, "YYYY-MM-DD");
+      let endDate = dateRange.split("/")[1];
+      endDate = moment(endDate, "YYYY-MM-DD");
       if (paperDate.isBetween(startDate, endDate) || paperDate.isSame(startDate) || paperDate.isSame(endDate))
       {
         filteredByDate = true;
         break;
       }
     }
-      console.log(dateFilters, paper.date, filteredByDate);
     return filteredByDate;
     });
   }
 
-  d3.select("#displaying-number-of-papers-message")
-        .html(`<p>Displaying ${filteredPapers.length} papers:</p>`);
-  renderTimeline(filteredPapers);
+  if (filteredPapers.length !== latestNumPapaersFilteredOut) {
+    latestNumPapaersFilteredOut = filteredPapers.length;
+    d3.select("#displaying-number-of-papers-message")
+    .html(`<p>Displaying ${filteredPapers.length} papers:</p>`);
+    renderTimeline(filteredPapers);
+  }
   
 }
 
