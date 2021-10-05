@@ -171,27 +171,30 @@ const setFilterByID = (filterID, isDateInput = false) => {
     let yearAfterEndMonth = Number(endMonth.substring(0, 4));
     yearAfterEndMonth = monthAfterEndMonth === "01" ? yearAfterEndMonth + 1 : yearAfterEndMonth;
     const endDate = endMonth === "" ? "" : `${yearAfterEndMonth}-${monthAfterEndMonth}-01`;
-    
+    console.log(startMonth, endMonth)
+    const filterIndex = filters.findIndex((filter) => filter.filterID === filterID);
     if (startDate && endDate) {
       if (moment(endDate, "YYYY-MM-DD").isBefore(moment(startDate, "YYYY-MM-DD")))
       {
         alert("Start date should be no later than end date.");
         var monthControls = document.querySelectorAll('input[type="month"]');
         for (monthControl of monthControls) monthControl.value = "";
+        filters[filterIndex].filterValue = "";
       }  
       else {
-        filterIndex = filters.findIndex((filter) => filter.filterID === filterID);
         filters[filterIndex].filterValue = `${startDate}/${endDate}`;
-        triggerFiltering();
       }
+    }
+    else {
+      filters[filterIndex].filterValue = "";
     }
   }
   else {
     const filterValue = document.getElementById(`filterInput_${filterID}`).value;
     filterIndex = filters.findIndex((filter) => filter.filterID === filterID);
     filters[filterIndex].filterValue = filterValue;
-    triggerFiltering()
   }
+  triggerFiltering();
 }
 
 /**
