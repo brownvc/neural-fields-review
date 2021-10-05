@@ -161,11 +161,37 @@ const setTitleAndNicknameFilter = () => {
   triggerFiltering()
 }
 
-const setFilterByID = (filterID) => {
-  const filterValue = document.getElementById(`filterInput_${filterID}`).value;
-  filterIndex = filters.findIndex((filter) => filter.filterID === filterID);
-  filters[filterIndex].filterValue = filterValue;
-  triggerFiltering()
+const setFilterByID = (filterID, isDateInput = false) => {
+  if (isDateInput) {
+    const startMonth = document.getElementById(`filterInput_startMonth_${filterID}`).value;
+    const startDate = startMonth === "" ? "" : `${startMonth}-01`;
+    const endMonth = document.getElementById(`filterInput_endMonth_${filterID}`).value;
+    let monthAfterEndMonth = Number(endMonth.substring(5, 7)) % 12 + 1;
+    monthAfterEndMonth = monthAfterEndMonth >= 10 ? String(monthAfterEndMonth) : `0${monthAfterEndMonth}`;
+    let yearAfterEndMonth = Number(endMonth.substring(0, 4));
+    yearAfterEndMonth = monthAfterEndMonth === "01" ? yearAfterEndMonth + 1 : yearAfterEndMonth;
+    const endDate = endMonth === "" ? "" : `${yearAfterEndMonth}-${monthAfterEndMonth}-01`;
+    
+    if (startDate && endDate) {
+      if (moment(endDate, "YYYY-MM-DD").isBefore(moment(startDate, "YYYY-MM-DD")))
+      {
+        alert("Start date should be no later than end date.");
+        var monthControls = document.querySelectorAll('input[type="month"]');
+        for (monthControl of monthControls) monthControl.value = "";
+      }  
+      else {
+        filterIndex = filters.findIndex((filter) => filter.filterID === filterID);
+        filters[filterIndex].filterValue = `${startDate}/${endDate}`;
+        triggerFiltering();
+      }
+    }
+  }
+  else {
+    const filterValue = document.getElementById(`filterInput_${filterID}`).value;
+    filterIndex = filters.findIndex((filter) => filter.filterID === filterID);
+    filters[filterIndex].filterValue = filterValue;
+    triggerFiltering()
+  }
 }
 
 /**
@@ -213,25 +239,6 @@ function addNewFilter(filterType, filterValue) {
     initTypeAhead([...allKeys.venues], `.venueTypeahead_${filterID}`, "venue", () => {setFilterByID(filterID)})
   }
   else {
-    $('input[name="daterange"]').daterangepicker({
-      autoUpdateInput: false,
-      showDropdowns: true,
-      minYear: 1900,
-      maxYear: 2030,
-      locale: {
-        cancelLabel: 'Clear',
-      }
-    });
-
-    $('input[name="daterange"]').on('apply.daterangepicker', function(ev, picker) {
-      $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
-      setFilterByID(filterID);
-    });
-
-    $('input[name="daterange"]').on('cancel.daterangepicker', function(ev, picker) {
-        $(this).val('');
-    });
-
     initTypeAhead([], `.dateTypeahead_${filterID}`, "date", () => { setFilterByID(filterID) });
   }
   
@@ -262,24 +269,6 @@ function changeFilterType(filterID, newFilterTypeIndex) {
     initTypeAhead([...allKeys.venues], `.venueTypeahead_${filterID}`, "venue", () => { setFilterByID(filterID) })
   }
   else {
-    $('input[name="daterange"]').daterangepicker({
-      autoUpdateInput: false,
-      showDropdowns: true,
-      minYear: 1900,
-      maxYear: 2030,
-      locale: {
-        cancelLabel: 'Clear',
-      }
-    });
-
-    $('input[name="daterange"]').on('apply.daterangepicker', function(ev, picker) {
-      $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
-      setFilterByID(filterID);
-    });
-
-    $('input[name="daterange"]').on('cancel.daterangepicker', function(ev, picker) {
-        $(this).val('');
-    });
     initTypeAhead([], `.dateTypeahead_${filterID}`, "date", () => { setFilterByID(filterID) });
   }
   
@@ -325,11 +314,12 @@ const generateFilterInputHTML = (filterID, filterType, filterValue) => {
   }
   else if (filterType === "date") {
     return `
-      <input type="text" id="filterInput_${filterID}" class="form-control dateTypeahead_${filterID}" name="daterange" value="" placeholder="Select a date range" onchange="setFilterByID(${filterID})">
-      <button class="btn bg-transparent dateTypeahead_${filterID}_clear"  style="margin-left: -40px; z-index: 100;">
-        &times;
-      </button>
-    `
+      <div style="display: flex; flex-direction: row; justify-content: space-around; align-items: center; width: 100%">
+        <input type="month" id="filterInput_startMonth_${filterID}" class="form-control dateTypeahead_${filterID}" onchange="setFilterByID(${filterID}, true)" style="width: 100%">
+        <span>&nbsp&nbspto&nbsp&nbsp</span>
+        <input type="month" id="filterInput_endMonth_${filterID}" class="form-control dateTypeahead_${filterID}" onchange="setFilterByID(${filterID}, true)" style="width: 100%">
+      </div>
+      `
   }
 }
 
@@ -422,17 +412,16 @@ const triggerFiltering = () => {
     let filteredByDate = false;
     const paperDate = moment(paper.date, "MM/DD/YYYY");
     for (dateRange of dateFilters) {
-      let startDate = dateRange.split(" - ")[0];
-      startDate = moment(startDate, "MM/DD/YYYY");
-      let endDate = dateRange.split(" - ")[1];
-      endDate = moment(endDate, "MM/DD/YYYY");
+      let startDate = dateRange.split("/")[0];
+      startDate = moment(startDate, "YYYY-MM-DD");
+      let endDate = dateRange.split("/")[1];
+      endDate = moment(endDate, "YYYY-MM-DD");
       if (paperDate.isBetween(startDate, endDate) || paperDate.isSame(startDate) || paperDate.isSame(endDate))
       {
         filteredByDate = true;
         break;
       }
     }
-      console.log(dateFilters, paper.date, filteredByDate);
     return filteredByDate;
     });
   }
