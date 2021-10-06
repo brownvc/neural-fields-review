@@ -45,11 +45,11 @@ title2id = dict()
 titles = set()
 graph = dict()
 
-our_file_path = "../sitedata/citation_graph.json"
+out_file_path = "../sitedata/citation_graph.json"
 paper_ids_already_processed = set()
 
-if os.path.exists(our_file_path):
-    with open(our_file_path, "r") as infile:
+if os.path.exists(out_file_path):
+    with open(out_file_path, "r") as infile:
         currrent_citation_graph = json.load(infile)
         graph = currrent_citation_graph
         paper_ids_already_processed = set(currrent_citation_graph.keys())
@@ -109,5 +109,5 @@ for key in graph:
     graph[key]["in_edge"] = list(graph[key]["in_edge"])
     graph[key]["out_edge"] = list(graph[key]["out_edge"])
 
-with open(our_file_path, "w") as outfile:
+with open(out_file_path, "w") as outfile:
     json.dump(graph, outfile)
