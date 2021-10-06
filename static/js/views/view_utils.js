@@ -160,9 +160,9 @@ const generateFilterInputHTML = (filterID, filterType, filterValue) => {
   else if (filterType === "date") {
     return `
       <div style="display: flex; flex-direction: row; justify-content: space-around; align-items: center; width: 100%">
-        <input type="month" id="filterInput_startMonth_${filterID}" class="form-control dateTypeahead_${filterID}" onchange="setFilterByID(${filterID}, true)" style="width: 100%">
+        <input type="month" id="filterInput_startMonth_${filterID}" class="form-control dateTypeahead_${filterID}" onchange="setFilterByID(${filterID}, true)" placeholder="YYYY-MM" style="width: 100%">
         <span>&nbsp&nbspto&nbsp&nbsp</span>
-        <input type="month" id="filterInput_endMonth_${filterID}" class="form-control dateTypeahead_${filterID}" onchange="setFilterByID(${filterID}, true)" style="width: 100%">
+        <input type="month" id="filterInput_endMonth_${filterID}" class="form-control dateTypeahead_${filterID}" onchange="setFilterByID(${filterID}, true)" placeholder="YYYY-MM" style="width: 100%">
       </div>
       `
   }
