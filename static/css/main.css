@@ -292,6 +292,18 @@ body .carousel-control-prev {
 	transition-duration: 100ms;
 }
 
+.copy-bibtex-icon:hover {
+	color: #6c757d;
+	font-size: 18pt;
+	font-weight: bold;
+	cursor: pointer;
+	transition-duration: 100ms;
+}
+
+.copy-bibtex-icon:active {
+  transform: translateY(4px);
+}
+
 .checkbox-bookmark {
 	color: #ddd;
 	font-size: 18pt;
