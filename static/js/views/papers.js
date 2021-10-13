@@ -293,6 +293,7 @@ const downloadAllBibtex = () => {
  * CARDS
  */
 const card_image = (paper, show) => {
+  console.log(API.thumbnailPath(paper));
   if (show)
     return ` <center><img class="lazy-load-img cards_img" data-src="${API.thumbnailPath(paper)}" style="max-width:250px; padding-bottom:10px"/></center>`;
   return "";
@@ -368,10 +369,11 @@ const card_html = (paper) =>
                 </p>
                 ${renderMode === MODE.mini ? "" : card_keywords(paper.keywords)}
                 
-                
+                 ${card_image(paper, renderMode !== MODE.mini)}
+
             </div>
                 ${card_detail(paper, renderMode === MODE.detail)}
                 
         </div>`;
 
-        // ${card_image(paper, renderMode !== MODE.mini)}
+       
