@@ -200,7 +200,6 @@ def paper(paper):
 @app.route("/thumbnail_<thumbnail>.png")
 def thumbnail(thumbnail):
     uid = thumbnail
-    print(uid)
     if exists(f'{site_data_path}/thumbnails/UID_{uid}.png'):
         return send_from_directory(f'{site_data_path}/thumbnails', f'UID_{uid}.png')
     else:
