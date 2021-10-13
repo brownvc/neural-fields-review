@@ -75,8 +75,8 @@ def favicon():
 @app.route("/index.html")
 def home():
     data = _data()
-    data["readme"] = open("README.md").read()
-    data["committee"] = site_data["committee"]["committee"]
+    # data["readme"] = open("README.md").read()
+    # data["committee"] = site_data["committee"]["committee"]
     return render_template("index.html", **data)
 
 
@@ -85,7 +85,6 @@ def papers():
     data = _data()
     data["papers"] = site_data["papers"]
     return render_template("papers.html", **data)
-
 
 @app.route("/paper_vis_timeline.html")
 def paper_vis_timeline():
