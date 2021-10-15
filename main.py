@@ -15,14 +15,28 @@ from os.path import exists
 site_data = {}
 by_uid = {}
 
+field_name_mapping = {
+    "Title": "Title",
+    "Nickname": "Nickname (e.g. DeepSDF)",
+    "Venue": "Venue (e.g. CVPR, ICML, SIGGRAPH)",
+    "Date": "Date (earliest release date, e.g. arXiv v1 date)",
+    "Citation": "Bibtex Citation",
+    "PDF": "PDF (use ArXiv when possible)",
+    "Project Webpage": "Project Webpage (web link)",
+    "Code Release": "Code Release (Github link)",
+    "Talk/Video": "Talk/Video (link, e.g. youtube)",
+    "Keywords": "Keywords",
+    "Abstract": "Abstract",
+    "UID": "UID",
+    "Authors": "Authors"
+}
 
 def main(site_data_path):
     global site_data, extra_files
     extra_files = ["README.md"]
     # Load all for your sitedata one time.
     for f in glob.glob(site_data_path + "/*"):
-        
-        if f != "sitedata/thumbnails" and f != "sitedata/index":
+        if f != "sitedata/thumbnails":
             extra_files.append(f)
             name, typ = f.split("/")[-1].split(".")
             if typ == "json":
@@ -30,8 +44,7 @@ def main(site_data_path):
             elif typ in {"csv", "tsv"}:
                 site_data[name] = list(csv.DictReader(open(f)))
             elif typ == "yml":
-                site_data[name] = yaml.load(
-                    open(f).read(), Loader=yaml.SafeLoader)
+                site_data[name] = yaml.load(open(f).read(), Loader=yaml.SafeLoader)
     
     for typ in ["papers"]:
         by_uid[typ] = {}
@@ -49,64 +62,15 @@ app.config.from_object(__name__)
 freezer = Freezer(app)
 markdown = Markdown(app)
 
-
-# MAIN PAGES
-
-
 def _data():
     data = {}
     data["config"] = site_data["config"]
     return data
 
-
-@app.route("/")
-def index():
-    return redirect("/index.html")
-
-
-@app.route("/favicon.ico")
-def favicon():
-    return send_from_directory(site_data_path, "favicon.ico")
-
-
-# TOP LEVEL PAGES
-
-
-@app.route("/index.html")
-def home():
-    data = _data()
-    # data["readme"] = open("README.md").read()
-    # data["committee"] = site_data["committee"]["committee"]
-    return render_template("index.html", **data)
-
-
-@app.route("/papers.html")
-def papers():
-    data = _data()
-    data["papers"] = site_data["papers"]
-    return render_template("papers.html", **data)
-
-@app.route("/paper_vis_timeline.html")
-def paper_vis_timeline():
-    data = _data()
-    return render_template("papers_vis_timeline.html", **data)
-
-
-@app.route("/paper_vis_citation_graph.html")
-def paper_vis_citation_graph():
-    data = _data()
-    return render_template("papers_vis_citation_graph.html", **data)
-
-
-@app.route("/paper_vis_statistics.html")
-def paper_vis_statistics():
-    data = _data()
-    return render_template("papers_vis_statistics.html", **data)
-
-
-def extract_list_field(v, key):
+def extract_comma_seperated_field(v, key):
     value = v.get(key, "")
-    if key == "Task" or key == "Techniques":
+    if "Keywords" in key:
+        #keywords may be in form '(apple, banana)', so we don't simply split by ',' here
         result = []
         seenOpenParentheses = False
         tmpStr = ""
@@ -141,13 +105,13 @@ def embed_url(video_url):
 
 
 def format_paper(v):
-    list_keys = ["Authors", "Task", "Techniques"]
+    print(v.keys())
+    list_keys = ["Authors", "Keywords"]
     list_fields = {}
     for key in list_keys:
-        list_fields[key] = extract_list_field(v, key)
+        list_fields[key] = extract_comma_seperated_field(v, field_name_mapping[key])
 
-    talk_URLs = v["Talk/Video"].split(',')
-
+    talk_URLs = v[field_name_mapping["Talk/Video"]].split(',')
     talk_URL = ""
     for URL in talk_URLs:
         if "youtube" in URL:
@@ -159,34 +123,62 @@ def format_paper(v):
             talk_URL = URL
 
     return {
-        "UID": v["UID"],
-        "title": v["Title"],
-        "nickname": v["Nickname"],
+        "UID": v[field_name_mapping["UID"]],
+        "title": v[field_name_mapping["Title"]],
+        "nickname": v[field_name_mapping["Nickname"]],
         "authors": list_fields["Authors"],
-        "Tasks": list_fields["Task"],
-        "Techniques": list_fields["Techniques"],
-        "keywords": list_fields["Task"] + list_fields["Techniques"],
-        "date": v["Date"],
-        "abstract": v["Abstract"],
-        "pdf_url": v.get("PDF", ""),
-        "code_link": v["Code Release"],
+        #"Tasks": list_fields["Task"],
+        #"Techniques": list_fields["Techniques"],
+        "keywords": list_fields["Keywords"],
+        "date": v[field_name_mapping["Date"]],
+        "abstract": v[field_name_mapping["Abstract"]],
+        "pdf_url": v.get(field_name_mapping["PDF"], ""),
+        "code_link": v.get(field_name_mapping["Code Release"], ""),
         "talk_link": talk_URL,
-        "project_link": v["Project Webpage"],
-        "citation": v["Citation"],
-        "venue": v.get("Venue", "")
+        "project_link": v[field_name_mapping["Project Webpage"]],
+        "citation": v[field_name_mapping["Citation"]],
+        "venue": v.get(field_name_mapping["Venue"], "")
     }
 
 
-# ITEM PAGES
+@app.route("/")
+def index():
+    return redirect("/index.html")
 
 
-# @app.route("/poster_<poster>.html")
-# def poster(poster):
-#     uid = poster
-#     v = by_uid["papers"][uid]
-#     data = _data()
-#     data["paper"] = format_paper(v)
-#     return render_template("poster.html", **data)
+@app.route("/favicon.ico")
+def favicon():
+    return send_from_directory(site_data_path, "favicon.ico")
+
+
+@app.route("/index.html")
+def home():
+    data = _data()
+    return render_template("index.html", **data)
+
+@app.route("/papers.html")
+def papers():
+    data = _data()
+    data["papers"] = site_data["papers"]
+    return render_template("papers.html", **data)
+
+
+@app.route("/paper_vis_timeline.html")
+def paper_vis_timeline():
+    data = _data()
+    return render_template("papers_vis_timeline.html", **data)
+
+
+@app.route("/paper_vis_citation_graph.html")
+def paper_vis_citation_graph():
+    data = _data()
+    return render_template("papers_vis_citation_graph.html", **data)
+
+
+@app.route("/paper_vis_statistics.html")
+def paper_vis_statistics():
+    data = _data()
+    return render_template("papers_vis_statistics.html", **data)
 
 @app.route("/paper_<paper>.html")
 def paper(paper):
@@ -206,10 +198,6 @@ def thumbnail(thumbnail):
         return send_from_directory(f'{site_data_path}/thumbnails', 'no_thumbnail_available.png')
 
 
-# @app.route("/index_<imageName>.png")
-# def index_image(imageName):
-#     return send_from_directory(f'{site_data_path}/index', f'{imageName}.png')
-
 
 # FRONT END SERVING
 
@@ -219,21 +207,6 @@ def paper_json():
     for v in site_data["papers"]:
         json.append(format_paper(v))
     return jsonify(json)
-
-
-# @app.route("/thumbnail_<UID>")
-# def serve_thumbnail(UID):
-#     print(f'UID_{UID}.png')
-#     if exists(f'{site_data_path}/thumbnails/UID_{UID}.png'):
-#         return send_from_directory(f'{site_data_path}/thumbnails', f'UID_{UID}.png')
-#     else:
-#         return send_from_directory(f'{site_data_path}/thumbnails', 'no_thumbnail_available.png')
-
-
-# @app.route("/static/<path:path>")
-# def send_static(path):
-#     return send_from_directory("static", path)
-
 
 @app.route("/serve_<path>.json")
 def serve(path):

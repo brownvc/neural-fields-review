@@ -369,11 +369,11 @@ const card_html = (paper) =>
                 </p>
                 ${renderMode === MODE.mini ? "" : card_keywords(paper.keywords)}
                 
-                 ${card_image(paper, renderMode !== MODE.mini)}
+                 
 
             </div>
                 ${card_detail(paper, renderMode === MODE.detail)}
                 
         </div>`;
 
-       
+       //${card_image(paper, renderMode !== MODE.mini)}
