@@ -28,7 +28,8 @@ field_name_mapping = {
     "Keywords": "Keywords",
     "Abstract": "Abstract",
     "UID": "UID",
-    "Authors": "Authors"
+    "Authors": "Authors",
+    "Year": 'Year (corresponding to venue e.g. released in 2021, accepted to CVPR 2022, then put "2022" for this entry, and "2021" for the above)'
 }
 
 def main(site_data_path):
@@ -136,7 +137,8 @@ def format_paper(v):
         "talk_link": talk_URL,
         "project_link": v[field_name_mapping["Project Webpage"]],
         "citation": v[field_name_mapping["Citation"]],
-        "venue": v.get(field_name_mapping["Venue"], "")
+        "venue": v.get(field_name_mapping["Venue"], ""),
+        "year": v[field_name_mapping["Year"]],
     }
 
 

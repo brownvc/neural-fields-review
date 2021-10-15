@@ -39,6 +39,9 @@
         <h3 class="card-subtitle mb-2 text-muted text-center">
             {{paper.date}}
         </h3>
+        <div id="citation-code-wrapper" class="text-muted text-center" 
+        >
+        </div>
         <p class="text-center" style="margin-bottom: 0px;">
             <span>Keywords:</span>
             {% for keyword in paper.keywords %}
@@ -130,7 +133,7 @@
     tippy(".filterByAuthorLink");
     tippy(".filterByKeywordLink");
     const paperID = document.getElementById("invisible-paper-id").innerHTML;
-    drawCitationGraph(paperID);
+    drawCitationGraphAndGenerateCitationCode(paperID);
 </script>
 
 {% endblock %}
