@@ -70,9 +70,11 @@
 </div>
 </div>
 
-<p id="displaying-number-of-papers-message"></p>
-
-
+<div style="display: flex; flex-direction: row; justify-content: flex-start;">
+    <span id="displaying-number-of-papers-message"></span>
+    <div class="button fas download-all-bibtex-icon" style="padding-left: 10px; font-size: larger;"
+        data-tippy-content="Download all bibtex" onclick="downloadAllBibtex()">&#xf56d;</div>
+</div>
 
 <div id="wrapper">
     <div id="citationGraph" style="width: 100%;
@@ -103,6 +105,7 @@
 <script src="static/js/data/persistor.js"></script>
 <script src="static/js/data/wrangle.js"></script>
 <script type="text/javascript" src="static/js/vis/vis-network.min.js"></script>
+<script src="static/js/data/FileSaver.js"></script>
 <script src="static/js/views/view_utils.js"></script>
 <script src="static/js/views/paper_vis_citation_graph.js"></script>
 <script>

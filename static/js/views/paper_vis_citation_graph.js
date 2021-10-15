@@ -1,6 +1,7 @@
 let citationGraph = null;
 
 let allPapers = [];
+let filteredPapers = [];
 const allKeys = {
   authors: [],
   keywords: [],
@@ -26,10 +27,11 @@ const start = () => {
   Promise.all([API.getPapers()])
     .then(([papers]) => {
       allPapers = papers;
+      filteredPapers = allPapers;
       latestNumPapaersFilteredOut = allPapers.length;
       console.log("all papers: ", allPapers);
       d3.select("#displaying-number-of-papers-message")
-        .html(`<p>Displaying ${allPapers.length} papers:</p>`);
+        .html(`<span>Displaying ${allPapers.length} papers</span>`);
       calcAllKeys(allPapers, allKeys);
       initTypeAhead([...allKeys.titles, ...allKeys.nicknames], ".titleAndNicknameTypeahead", "titleAndNickname", setTitleAndNicknameFilter);
       addNewFilter("author", "");
@@ -46,7 +48,7 @@ const start = () => {
  */
 const triggerFiltering = () => {
   const onlyShowPapersWithCode = document.getElementById("onlyShowPapersWithCodeCheckbox").checked;
-  let filteredPapers = allPapers;
+  filteredPapers = allPapers;
   if (onlyShowPapersWithCode) {
     filteredPapers = allPapers.filter((paper) => paper.code_link !== "");
   }
@@ -140,7 +142,7 @@ const triggerFiltering = () => {
   if (filteredPapers.length !== latestNumPapaersFilteredOut) {
     latestNumPapaersFilteredOut = filteredPapers.length;
     d3.select("#displaying-number-of-papers-message")
-      .html(`<p>Displaying ${filteredPapers.length} papers:</p>`);
+      .html(`<span>Displaying ${filteredPapers.length} papers</span>`);
     drawCitationGraph(filteredPapers);
   }
 }
@@ -322,4 +324,12 @@ const openPaperLink = () => {
     const url = `paper_${nodeId}.html`;
     window.open(url, '_blank').focus();
   }
+}
+
+const downloadAllBibtex = () => {
+  console.log("filtered papers:", filteredPapers);
+  let bibtex = "";
+  for (paper of filteredPapers) bibtex += paper.citation + "\n\n";
+  let blob = new Blob([bibtex], { type: "text/plain;charset=utf-8" });
+  saveAs(blob, "bibtex.bib");
 }

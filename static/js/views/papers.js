@@ -47,7 +47,7 @@ const start = () => {
       filteredPapers = allPapers;
       console.log("all papers: ", allPapers);
       d3.select("#displaying-number-of-papers-message")
-      .html(`<span>Displaying ${allPapers.length} papers</span>`)
+        .html(`<span>Displaying ${allPapers.length} papers</span>`);
       calcAllKeys(allPapers, allKeys);
       initTypeAhead([...allKeys.titles, ...allKeys.nicknames],".titleAndNicknameTypeahead","titleAndNickname",setTitleAndNicknameFilter)
       addNewFilter("author", "");
@@ -162,7 +162,7 @@ const getFilterFromURL = () => {
  */
 const triggerFiltering = () => {
   const onlyShowPapersWithCode = document.getElementById("onlyShowPapersWithCodeCheckbox").checked;
-  filteredPapers = allPapers
+  filteredPapers = allPapers;
   if (onlyShowPapersWithCode) {
     filteredPapers = allPapers.filter((paper) => paper.code_link !== "");
   }
@@ -266,7 +266,7 @@ const triggerFiltering = () => {
   }
   updateCards(filteredPapers);
   d3.select("#displaying-number-of-papers-message")
-  .html(`<span>Displaying ${filteredPapers.length} papers</span>`)
+    .html(`<span>Displaying ${filteredPapers.length} papers</span>`);
 }
 
 const copyBibtex = (paperID) => {
