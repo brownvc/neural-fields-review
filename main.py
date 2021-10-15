@@ -105,7 +105,6 @@ def embed_url(video_url):
 
 
 def format_paper(v):
-    print(v.keys())
     list_keys = ["Authors", "Keywords"]
     list_fields = {}
     for key in list_keys:
