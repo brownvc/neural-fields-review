@@ -6,12 +6,27 @@ import os
 
 smoke_test = False
 
+papers_file_path = "../sitedata/papers.csv"
+title2id = dict()
+titles = set()
+graph = dict()
+
+out_file_path = "../sitedata/citation_graph.json"
+paper_ids_already_processed = set()
+
+token_path = "./SemanticScholarAuthKey.txt"
+SemanticScholar_token = None
+
+with open(token_path, "r") as token_file:
+    SemanticScholar_token = token_file.read().strip()
+    print("SemanticScholar auth token loaded: ", SemanticScholar_token)
+
 def get_paper_id(title):
     url = 'https://api.semanticscholar.org/graph/v1/paper/search?'
     params = dict(
         query=title
     )
-    resp = requests.get(url=url, params=params)
+    resp = requests.get(url=url, params=params, headers={'x-api-key': SemanticScholar_token})
     data = resp.json()
     try:
         if data["total"] > 0:
@@ -27,7 +42,7 @@ def get_titles_of_papers_citing_this(title):
 
     if paperID is not None:
         url = f'https://api.semanticscholar.org/graph/v1/paper/{paperID}/citations?fields=title'
-        resp = requests.get(url=url)
+        resp = requests.get(url=url, headers={'x-api-key': SemanticScholar_token})
         data = resp.json()
         try:
             for citingPaper in data["data"]:
@@ -38,15 +53,6 @@ def get_titles_of_papers_citing_this(title):
             pass
 
     return titles_citing_this
-
-
-papers_file_path = "../sitedata/papers.csv"
-title2id = dict()
-titles = set()
-graph = dict()
-
-out_file_path = "../sitedata/citation_graph.json"
-paper_ids_already_processed = set()
 
 if os.path.exists(out_file_path):
     with open(out_file_path, "r") as infile:
@@ -59,7 +65,7 @@ with open(papers_file_path) as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=',')
     for row in csv_reader:
         if line != 0:
-            title, id = row[1], row[29]
+            title, id = row[3], row[28]
             titles.add(title.strip())
             title2id[title] = id
             graph[id] = {
@@ -74,16 +80,15 @@ processed_papers = 0
 for i, title in enumerate(titles):
     if smoke_test and i == 5:
         break
+    # if (processed_papers+1) % 90 == 0:
+    #     print("Sleep for 0.5 min to change IP address...")
+    #     num_minutes = 0
+    #     while num_minutes < 1:
+    #         time.sleep(30)
+    #         num_minutes += 1
+    #         print(f"Slept {num_minutes} minute(s), zzz...")
 
-    if (processed_papers+1) % 90 == 0:
-        print("Sleep for 0.5 min to change IP address...")
-        num_minutes = 0
-        while num_minutes < 1:
-            time.sleep(30)
-            num_minutes += 1
-            print(f"Slept {num_minutes} minute(s), zzz...")
-
-        print("I'm awake!")
+    #     print("I'm awake!")
 
     print(
         f"Checking paper {i} / {len(titles)}, found {num_citations} citation relations")
