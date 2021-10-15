@@ -27,7 +27,7 @@ import unidecode
 from tqdm import tqdm
 
 debug = True
-overwrite_existing = True
+overwrite_existing = False
 replace_bibtex_key = True                 # Reformat bibtex name to our convention
 citations_cnt = False
 capitalize_bibtex_keys = "ALL"
@@ -43,10 +43,11 @@ output_fname.replace(".csv", " - Form Responses 1.csv")
 rows = read_spreadsheet(input_fname, input_ext)
 
 # Iterate on each row
-cnt = 0
-start_row = 0           # This is for skipping already processed entries
+start_row = 230           # This is for skipping already processed entries
+cnt = start_row
 for r in tqdm(range(start_row, len(rows))):
     d, search_result, bibtex_str, bibtex_dict, dict = None, None, None, None, None
+    err = False
     row = rows[r]
 
     if (cnt == 0):
@@ -61,19 +62,21 @@ for r in tqdm(range(start_row, len(rows))):
         month = d['entries'][0]['published'][5:7]
         day = d['entries'][0]['published'][8:10]
         row[3] = month + '/' + day + '/' + year
-        print(cnt+1, row[3])
+        print(r, row[3])
 
     # Bibtex
     if (row[11] == "") or overwrite_existing:
         if row[23] == "":
-            print(cnt+1, "ERROR (Venue): empty")
+            print(r, "ERROR (Venue): empty")
             if debug: exit(12)
             continue
         else:
             s = row[23]
             if s.find("(") > 0:
                 s = s[:s.find("(")]
-            venue = s.strip(" 0123456789")
+            for venue in KNOWN_FORMATS:
+                if venue in s:
+                    break
             venue_year = s.strip(" ")
             try:
                 year = venue_year.split(' ')[-1]
@@ -82,7 +85,6 @@ for r in tqdm(range(start_row, len(rows))):
                 print(e)
                 if debug: exit(12)
                 continue
-
         # Step 1) Get bibtex from arxiv
         if "https://arxiv.org/" in row[4]:
             if d is None:
@@ -141,18 +143,19 @@ for r in tqdm(range(start_row, len(rows))):
 
         if len(bibtex_str) > 10:
             row[11] = unidecode.unidecode(bibtex_str)
-            print(cnt+1, "Bibtex: ", row[11][:20])
+            # todo
+            print(r, "Bibtex: ", row[11][:20])
         else:
-            print(cnt+1, "Bibtex ERROR (bibtex too short): ", bibtex_str)
+            print(r, "Bibtex ERROR (bibtex too short): ", bibtex_str)
             if debug: exit(12)
 
     # Export bibtex name
     if (row[28] == "") or overwrite_existing:
         if (row[11] != ""):
             row[28] = bibtex_name_from_bibtex(row[11])
-            print(cnt+1, "Bibtex Name: ", row[28])
+            print(r, "Bibtex Name: ", row[28])
             if " " in row[28]:
-                print(cnt+1, "Bibtex name contains space: ", row[28])
+                print(r, "Bibtex name contains space: ", row[28])
 
     # Authors
     if row[27] == "":
@@ -167,10 +170,17 @@ for r in tqdm(range(start_row, len(rows))):
         # From bibtex
         elif (row[11] != ""):
             if bibtex_dict is None:
-                dict = dict_from_string(row[11])
-            auth_str_out = ", ".join(get_authors_from_bibtex(dict))
-        row[27] = auth_str_out
-        print(cnt+1, "Authors:", row[27])
+                try:
+                    _, _, dict = dict_from_string(row[11])
+                except Exception as e:
+                    print(e)
+                    print("BibTexParser Error. Skipping")
+                    err = True
+            if not err:
+                auth_str_out = ", ".join(get_authors_from_bibtex(dict))
+        if not err:
+            row[27] = auth_str_out
+        print(r, "Authors:", row[27])
 
     # Abstract
     if (len(row[30]) < 10) or overwrite_existing:
@@ -197,7 +207,7 @@ for r in tqdm(range(start_row, len(rows))):
                 print(e)
         if len(abstract) > 20:
             row[30] = abstract
-            print(cnt+1, "Abstract: ", row[30][:20], "...")
+            print(r, "Abstract: ", row[30][:20], "...")
 
     # Citations count
     if (row[31] == "") and citations_cnt:
