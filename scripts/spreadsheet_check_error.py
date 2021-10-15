@@ -5,6 +5,7 @@ import unicodedata
 from unidecode import unidecode
 import xlsxwriter
 import util
+from tqdm import tqdm
 
 names = {
     "Michael ZollhÃ¶fer": "Michael Zollhöfer",
@@ -41,14 +42,15 @@ output_fname = input_fname
 output_fname = "checked"
 output_ext = ".xlsx"
 
-reader = util.read_spreadsheet(input_fname, input_ext)
+rows = util.read_spreadsheet(input_fname, input_ext)
 
 pdf_links_all, wrong_pdf, missing_author, missing_nickname, missing_bibtex, missing_bibtex_name, missing_abstract, missing_UID = [], [], [], [], [], [], [], []
 incorrect_spelling = {}
-rows = []
+start_row = 0
 cnt = 0
 prev_pdf = ""
-for row in reader:
+for i in tqdm(range(len(rows))):
+    row = rows[i]
     if cnt == 0:
         rows.append(row)
         cnt += 1
@@ -71,7 +73,7 @@ for row in reader:
     # Check for missing bibtex citation
     if len(row[11]) < 10:
         missing_bibtex.append(cnt+1)
-    else:
+    elif i >= start_row:
         comm = row[11].find(",")
         row[11] = row[11][:comm].replace(" ", "") + row[11][comm:]
         article_type, bibtex_key, dict = util.dict_from_string(row[11])
@@ -81,28 +83,29 @@ for row in reader:
     pdf_links_all.append(row[4])
 
     # Correct miss-spelling from unicode
-    for k in names:
-        wrong_w = k.split(" ")
-        correct_w = names[k].split(" ")
-        assert len(wrong_w) == len(correct_w)
-        for i in range(len(wrong_w)):
-            # Title
-            row[1] = row[1].replace(wrong_w[i], correct_w[i])
-            row[1] = row[1].replace(wrong_w[i][0].lower()+wrong_w[i][1:], correct_w[i][0].lower()+correct_w[i][1:])
-            # Nickname
-            row[2] = row[2].replace(wrong_w[i], correct_w[i])
-            row[2] = row[2].replace(wrong_w[i][0].lower()+wrong_w[i][1:], correct_w[i][0].lower()+correct_w[i][1:])
-            # Bibtex
-            row[11] = row[11].replace(wrong_w[i], correct_w[i])
-            row[11] = row[11].replace(wrong_w[i][0].lower()+wrong_w[i][1:], correct_w[i][0].lower()+correct_w[i][1:])
-            row[11] = unidecode(row[11])
-            # Authors
-            row[27] = row[27].replace(wrong_w[i], correct_w[i])
-            row[27] = row[27].replace(wrong_w[i][0].lower()+wrong_w[i][1:], correct_w[i][0].lower()+correct_w[i][1:])
-            # Bibtex handle
-            row[28] = row[28].replace(wrong_w[i], correct_w[i])
-            row[28] = row[28].replace(wrong_w[i][0].lower()+wrong_w[i][1:], correct_w[i][0].lower()+correct_w[i][1:])
-            row[28] = unidecode(row[28])
+    if i >= start_row:
+        for k in names:
+            wrong_w = k.split(" ")
+            correct_w = names[k].split(" ")
+            assert len(wrong_w) == len(correct_w)
+            for i in range(len(wrong_w)):
+                # Title
+                row[1] = row[1].replace(wrong_w[i], correct_w[i])
+                row[1] = row[1].replace(wrong_w[i][0].lower()+wrong_w[i][1:], correct_w[i][0].lower()+correct_w[i][1:])
+                # Nickname
+                row[2] = row[2].replace(wrong_w[i], correct_w[i])
+                row[2] = row[2].replace(wrong_w[i][0].lower()+wrong_w[i][1:], correct_w[i][0].lower()+correct_w[i][1:])
+                # Bibtex
+                row[11] = row[11].replace(wrong_w[i], correct_w[i])
+                row[11] = row[11].replace(wrong_w[i][0].lower()+wrong_w[i][1:], correct_w[i][0].lower()+correct_w[i][1:])
+                row[11] = unidecode(row[11])
+                # Authors
+                row[27] = row[27].replace(wrong_w[i], correct_w[i])
+                row[27] = row[27].replace(wrong_w[i][0].lower()+wrong_w[i][1:], correct_w[i][0].lower()+correct_w[i][1:])
+                # Bibtex handle
+                row[28] = row[28].replace(wrong_w[i], correct_w[i])
+                row[28] = row[28].replace(wrong_w[i][0].lower()+wrong_w[i][1:], correct_w[i][0].lower()+correct_w[i][1:])
+                row[28] = unidecode(row[28])
 
     # # Posisble miss-spelling
     # if unicodedata.normalize('NFD', row[27]) != row[27]:
@@ -131,7 +134,7 @@ for row in reader:
         missing_abstract.append(cnt+1)
 
     cnt += 1
-    rows.append(row)
+    rows[i] = row
 
 util.write_spreadsheet(rows, output_fname, output_ext)
 

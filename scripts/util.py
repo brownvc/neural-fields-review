@@ -106,7 +106,7 @@ def write_spreadsheet(rows, fname, ext):
         workbook.close()
 
 
-def format_bibtex_str(bibtex, cap_keys="ALL", space=True, indent="    ", article_type="article"):
+def format_bibtex_str(bibtex, cap_keys="ALL", space=True, indent="    ", article_type="article", last_name_first=False):
     """
     Args:
         bibtex: str or dict
@@ -128,6 +128,9 @@ def format_bibtex_str(bibtex, cap_keys="ALL", space=True, indent="    ", article
                 key = key.upper()
             elif cap_keys == "Initial":
                 key = key[0].upper() + key[1:]
+            if key == "AUTHOR":
+                if (not last_name_first) and (", " in content):
+                    content = " and ".join([" ".join(a.split(", ")[::-1]) for a in content.split(" and ")])
             entries.append(indent + key + equal + "{" + content + "}")
         head = f"@{article_type}"+"{"+f"{name},\n"
         tail = "\n}"
