@@ -61,15 +61,17 @@
             <a class="card-link" target="_blank" href="{{paper.pdf_url}}">
                 Paper
             </a>
-            {% if paper.code_link != "" %}
-            <a href="{{paper.code_link}}" target="_blank" class="card-link">
-                Code
-            </a>
-            {% endif %}
             {% if paper.citation != "" %}
             <a class="card-link" data-toggle="collapse" role="button" href="#citation">
                 Citation
             </a>
+            {% endif %}
+            {% if paper.code_link != "" %}
+            <a href="{{paper.code_link}}" target="_blank" class="card-link">
+                Code
+            </a>
+            {% else %}
+            <span class="card-link">Code coming soon...</span>
             {% endif %}
         </div>
     </div>
