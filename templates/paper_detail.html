@@ -10,9 +10,6 @@
 <meta name="citation_author" content="{{author}}" />
 {% endfor %}
 
-<meta name="citation_publication_date" content="{{config.citation_date}}" />
-<meta name="citation_conference_title" content="{{config.tagline|striptags|title}}" />
-<meta name="citation_inbook_title" content="{{config.proceedings_title}}" />
 <meta name="citation_abstract" content="{{paper.abstract}}" />
 
 {% for keyword in paper.keywords %}
@@ -42,6 +39,9 @@
         <h3 class="card-subtitle mb-2 text-muted text-center">
             {{paper.date}}
         </h3>
+        <div id="citation-code-wrapper" class="text-muted text-center" 
+        >
+        </div>
         <p class="text-center" style="margin-bottom: 0px;">
             <span>Keywords:</span>
             {% for keyword in paper.keywords %}
@@ -53,7 +53,7 @@
         {% if paper.venue != "" %}
         <p class="text-center" style="margin-bottom: 0px;">
             <span>Venue: </span>
-            <span class="text-secondary text-decoration-none">{{paper.venue}}</span>
+            <a href="papers.html?venue={{paper.venue}}" target="_blank" class="text-secondary text-decoration-none">{{paper.venue}}</a>
         </p>
         {% endif %}
 
@@ -61,15 +61,17 @@
             <a class="card-link" target="_blank" href="{{paper.pdf_url}}">
                 Paper
             </a>
-            {% if paper.code_link != "" %}
-            <a href="{{paper.code_link}}" target="_blank" class="card-link">
-                Code
-            </a>
-            {% endif %}
             {% if paper.citation != "" %}
             <a class="card-link" data-toggle="collapse" role="button" href="#citation">
                 Citation
             </a>
+            {% endif %}
+            {% if paper.code_link != "" %}
+            <a href="{{paper.code_link}}" target="_blank" class="card-link">
+                Code
+            </a>
+            {% else %}
+            <span class="card-link">Code coming soon...</span>
             {% endif %}
         </div>
     </div>
@@ -89,8 +91,10 @@
 <div id="citation" class="pp-card m-3 collapse">
     <div class="card-body">
         <div class="card-text">
-            <span class="font-weight-bold">Citation:</span>
-            {{paper.citation}}
+            <span style="font-size: large; font-weight: bold;">Bibtex:</span>
+            <span style="white-space: pre-line; position: relative; left: 20px;">
+                {{paper.citation}}
+            </span>
         </div>
         <p></p>
     </div>
@@ -119,10 +123,11 @@
 
 <!-- Citation Graph -->
 {{ components.sectionTitleCitationGraph("Citation Graph") }}
+
 <div id="citationGraph" style="width: 100%;
   height: 600px;
   border: 1px solid lightgray;" ondblclick="openPaperLink()"></div>
-
+<p><span style="font-size: 10px;">*</span> Not showing citation relations with papers outside of our current database.</p>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.0/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/tippy.js@6/dist/tippy-bundle.umd.min.js"></script>
 <script src="static/js/views/paper_detail.js"></script>
@@ -130,7 +135,7 @@
     tippy(".filterByAuthorLink");
     tippy(".filterByKeywordLink");
     const paperID = document.getElementById("invisible-paper-id").innerHTML;
-    drawCitationGraph(paperID);
+    drawCitationGraphAndGenerateCitationCode(paperID);
 </script>
 
 {% endblock %}

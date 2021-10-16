@@ -96,7 +96,38 @@ const generateEdges = (thisPaperID, otherPaperIDs, isInEdge) => {
   });
 };
 
-const drawCitationGraph = (paperID) => {
+const constructCitationCode = (paper) => {
+  const authors = paper["authors"];
+  const year = paper["year"];
+  let citationCode = "";
+  if (authors.length == 1)
+  {
+    const familyname = authors[0].split(" ")[1];
+    citationCode = familyname.substring(0, 3) + year;
+  }
+  else if (authors.length == 2)
+  {
+    const familyname1 = authors[0].split(" ")[1];
+    const familyname2 = authors[1].split(" ")[1];
+    citationCode = familyname1[0] + familyname2[0] + year;
+  }
+  else if (authors.length == 3)
+  {
+    const familyname1 = authors[0].split(" ")[1];
+    const familyname2 = authors[1].split(" ")[1];
+    const familyname3 = authors[2].split(" ")[1];
+    citationCode = familyname1[0] + familyname2[0] + familyname3[0] + year;
+  }
+  else {
+    const familyname1 = authors[0].split(" ")[1];
+    const familyname2 = authors[1].split(" ")[1];
+    const familyname3 = authors[2].split(" ")[1];
+    citationCode = familyname1[0] + familyname2[0] + familyname3[0] + "*" + year;
+  }
+  return citationCode;
+}
+
+const drawCitationGraphAndGenerateCitationCode = (paperID) => {
   Promise.all([API.getPapers(), API.getCitationGraphData()])
     .then(([allPapers, citationGraphData]) => {
       paperIDsCitedByThisPaper = new Set(citationGraphData[paperID].out_edge);
@@ -108,12 +139,13 @@ const drawCitationGraph = (paperID) => {
       papersCitingThisPaper = allPapers.filter((paper) =>
         paperIDsCitingThisPaper.has(paper.UID)
       );
-      console.log(thisPaper, papersCitedByThisPaper, papersCitingThisPaper);
+      const citationCode = constructCitationCode(thisPaper[0]);
+      console.log(citationCode);
+      d3.select("#citation-code-wrapper")
+        .html(`<span style="border-radius: 1rem; background-color: #bed972;">&nbsp${citationCode}&nbsp</span>`);
       const nodes_ = new Set([...papersCitedByThisPaper, ...papersCitingThisPaper]);
       const nodes = new vis.DataSet([
         ...generateNodes(thisPaper, true),
-        // ...generateNodes(papersCitedByThisPaper, false),
-        // ...generateNodes(papersCitingThisPaper, false),
         ...generateNodes(Array.from(nodes_), false)
       ]);
       const edges = new vis.DataSet([
@@ -136,10 +168,11 @@ const drawCitationGraph = (paperID) => {
     .catch((e) => console.error(e));
 };
 
+
+
 const openPaperLink = () => {
   const selectedNodes = citationGraph.getSelectedNodes();
   for (let nodeId of selectedNodes) {
-    console.log(nodeId);
     const url = `paper_${nodeId}.html`;
     window.open(url, '_blank').focus();
   }

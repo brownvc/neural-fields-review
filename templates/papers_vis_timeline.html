@@ -31,7 +31,7 @@
     <a class="nav-link text-muted" href="paper_vis_citation_graph.html">Citation Graph</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link text-muted" href="paper_vis_leaderboard.html">Leaderboard</a>
+    <a class="nav-link text-muted" href="paper_vis_statistics.html">Statistics</a>
   </li>
 </ul>
 
@@ -72,7 +72,11 @@
 </div>
 </div>
 
-<p id="displaying-number-of-papers-message"></p>
+<div style="display: flex; flex-direction: row; justify-content: flex-start;">
+  <span id="displaying-number-of-papers-message"></span>
+  <div class="button fas download-all-bibtex-icon" style="padding-left: 10px; font-size: larger;"
+    data-tippy-content="Download all bibtex" onclick="downloadAllBibtex()">&#xf56d;</div>
+</div>
 
 <div id="timelineVisualization"></div>
 
@@ -86,6 +90,8 @@
 <!-- persistor.js stores a dictionary in browser's local storage -->
 <script src="static/js/data/persistor.js"></script>
 <script src="static/js/data/wrangle.js"></script>
+<script src="static/js/data/FileSaver.js"></script>
+<script src="static/js/views/view_utils.js"></script>
 <script src="static/js/views/paper_vis_timeline.js"></script>
 <script>
   $(document).ready(function () {

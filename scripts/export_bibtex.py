@@ -71,8 +71,8 @@ if __name__ == "__main__":
     ]
     export_from_spreadsheet(input_fname, input_ext, exclude_keys=exclude_keys)
 
-    dotbib_fname = "more_ref.bib"
-    format_dotbib_file(dotbib_fname)
+    #dotbib_fname = "more_ref.bib"
+    #format_dotbib_file(dotbib_fname)
 
 
 """

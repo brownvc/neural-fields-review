@@ -2,37 +2,16 @@ repo_name: neural-fields-review
 name: Neural Fields in Visual Computing
 tagline: Neural Fields <br> in <br> Visual Computing
 date: Sept 2021
-citation_date: Sept 2021
-proceedings_title: Proceedings of the xxx
-analytics: G-138S1D0VX9
+favicon: favicon.ico
 logo:
-    image: static/images/MiniConf.png
+    image: static/images/NeuralFieldsinVisualComputing.png
     width: auto
     height: 50px
-# uncomment the following line to show the site title next to the logo image
-# site_title: MiniConf
 page_title:
     prefix: "NeuralFields"
     separator: ": "
 background_image: static/images/main.jpg
-organization: The Authors
-# Remove or change to your chat server.
-# chat_server: miniconf.sloppy.zone
-# default_presentation_id: 38922815
-# default_poster_pdf: /static/images/GLTR_poster.pdf
+organization: Brown Visual Computing Group
 
-# Configuration for auth
-#Test user
-#user: miniconf@miniconf.com
-#pass: mIniconf1_
-
-# use_auth0:
-# auth0_client_id : JIdr6wi0z27LyLgwkJF0fpk700aj7MNH
-# auth0_domain : miniconf.auth0.com
-
-# calendar:
-#   colors: #  Colors for the different event hashtags:
-#     ---: '#bed972'
-#     qa: '#4FCAEB'
-#     talk: '#ccc'
-#   sunday_saturday: false  #  Include Sunday and Saturday
+add_paper_form_link: https://forms.gle/JKMicvyaaekoes3w5
+update_paper_form_link: https://forms.gle/LwetzG6umEyZaRAS6

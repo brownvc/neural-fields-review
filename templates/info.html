@@ -1,0 +1,117 @@
+{% set active_page = "Info" %}
+{% set page_title = "Info" %}
+
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+<style>
+    table, th, td {
+        border:1px solid black;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<p class="infopage-title-1">About this website</p>
+
+<!-- submit / update instructions section -->
+<p class="infopage-title-2">How to submit a new paper or update an existing paper?</p>
+<p class="infopage-text">First, please note that papers can only be submitted / updated by their authors. 
+    All submissions / updates will be reflected in the website upon administrators' approval.</p>
+<p class="infopage-text">To submit a new paper to our database, please follow the steps below:</p>
+<ul>
+    <li class="infopage-step-list-item">Step 1: Clone our <a href="https://github.com/brownvc/neural-fields-review"
+            target="_blank">Github Repository</a> locally.</li>
+    <li class="infopage-step-list-item">Step 2: Fill <a href="https://forms.gle/5fajGXEtV1xRnG3m8" target="_blank">this Google form</a> with relevant information about your paper.</li>
+    <li class="infopage-step-list-item">Step 3: Go to <a href="https://docs.google.com/spreadsheets/d/1n2cUPCbJMAmFdb5sNkpxuvKf2pzY2_lGaWWQfY5t9nE/edit?usp=sharing" target="_blank">this spreadsheet</a>, copy the row corresponding to your paper.</li>
+    <li class="infopage-step-list-item">Step 4: Paste that row at the bottom of file <a href="https://github.com/brownvc/neural-fields-review/blob/main/sitedata/papers.csv" target="_blank">"sitedata/papers.csv".</a></li>
+    <li class="infopage-step-list-item">Step 5: Commit changes to your cloned repository and create a pull request with title "Submitting paper..."</li>.
+</ul>
+<p class="infopage-text">To update an existing paper, please follow the steps below:</p>
+<ul>
+    <li class="infopage-step-list-item">Step 1: Clone our <a href="https://github.com/brownvc/neural-fields-review"
+            target="_blank">Github Repository</a> locally.</li>
+    <li class="infopage-step-list-item">Step 2: Fill <a href="https://forms.gle/5fajGXEtV1xRnG3m8" target="_blank">this
+            Google form</a> with information for updating your paper.</li>
+    <li class="infopage-step-list-item">Step 3: Go to <a href="https://docs.google.com/spreadsheets/d/1n2cUPCbJMAmFdb5sNkpxuvKf2pzY2_lGaWWQfY5t9nE/edit?usp=sharing" target="_blank">this
+            spreadsheet</a>, copy the row corresponding to your paper.</li>
+    <li class="infopage-step-list-item">Step 4: Replace your paper's row in file <a
+            href="https://github.com/brownvc/neural-fields-review/blob/main/sitedata/papers.csv"
+            target="_blank">"sitedata/papers.csv"</a> with the row you just copied.</li>
+    <li class="infopage-step-list-item">Step 5: Commit changes to your cloned repository and create a pull request with
+        title "Updating paper...".</li>
+</ul>
+
+<!-- Keyword Explanations Section -->
+<p class="infopage-title-2">Keyword Explanations</p>
+<table id="keyword-explanation-table" style="width:100%; margin-bottom: 20px;">
+    <tr>
+        <th>Keyword</th>
+        <th>Explanation</th>
+    </tr>
+</table>
+
+<!-- Contributors Section -->
+<p class="infopage-title-2">Contributors</p>
+<p class="infopage-text">Federico Tombari, James Tompkin, Numair Khan, Or Litany, Shiqin Yan, Shunsuke Saito, Srinath Sridhar,
+Sunny Li, Towaki Takikawa, Vincent Sitzmann, Yiheng Xie</p>
+
+<!-- Disclaimer Section -->
+<p class="infopage-title-2">Disclaimer</p>
+<p class="infopage-text">Place Holder</p>
+
+<!-- Acknowledgements Section -->
+<p class="infopage-title-2">Acknowledgements</p>
+<p class="infopage-text">Citation relation data used for generating citation graphs are derived from 
+    <a href="https://www.semanticscholar.org/product/api" target="_blank">Semantic Scholar API</a>.
+</p>
+
+<script>
+    const keyword2expanation = {
+        "Generalization": "Improving neural fields via data-driven methods",
+        "Conditional Neural Field": "Neural fields that take as input latent features in addition to coordinates",
+        "Speed (Training)": "Improving incomputation efficiency and training time.",
+        "Speed (Rendering)": "Improving computation efficiency and rendering speed.",
+        "Surface Reconstruction": "Works that reconstructs hard-surface geometry wihtout modeling appearance (e.g. point cloud completion)",
+        "Sparse Reconstruction": "Reconstruction with limited input observations (a.k.a. Few-Shot Reconstruction)",
+        "Dynamic": "Dynamic, time-varing, deformable scenes",
+        "Human (Body)": "Modelling human body",
+        "Human (Head)": "Modelling human head",
+        "Image": "2D neural fields related to image-based tasks (image2image translation, classification, in-painting, etc.)",
+        "Camera Parameter Estimation": "Estimating camera parameters (extrinsic and/or intrinsic) from scratch or from coarse initialization",
+        "Material/Lighting Estimation": "Estimating material for Physically-Based Rendering (BRDF), and/or explicit lighting conditions",
+        "Compression": "Uses neural fields to compress signals to reduce memory footprint",
+        "Fundamentals": "Seminal work that provides new paradigm in representing continuous signals, with a strong theoretical focus as opposed to improving a particular application",
+        "Alternative Imaging": "Alternative image formation models (e.g. MRI, CT scan, sonar imaging)",
+        "Robotics": "Topics related to robotics",
+        "Generative Models": "Topics related to generative modelling, GAN",
+        "Editable": "A neural field representation that allows editing after reconstruction is completed",
+        "Data-Driven Method": "Techniques including a data-driven component (e.g. pre-trained network)",
+        "Supervision by Gradient (PDE)": "Techniques supervising a neural field via its gradients (e.g. Eikonal equation)",
+        "Hypernetwork/Meta-learning": "Techniques employing hypernetwork or meta-learning to achieve generalization",
+        "Hybrid Geometry Parameterization": "Techniques using hybrid implicit/explicit, discrete/continuous parameterization of signal",
+        "Global Conditioning": "Neural fields with latent code input, where the latent code describes the entire object",
+        "Local Conditioning": "Neural fields with latent code input, where the latent code changes with coordinates",
+        "Voxel Grid": "Techniques using discrete voxel grids and octrees",
+        "Coarse-to-Fine": "Techniques using coarse-to-fine optimization strategy",
+        "Sampling": "Works that propose a novel sampling strategy",
+        "Coordinate Re-mapping": "Techniques that transforms coordinate inputs between multiple coordiante frames (e.g. warping/flow fields)",
+        "Object-Centric": "Object-centric representations that explicitly model individual objects",
+        "Image-based Rendering": "Rendering techniques that make use of captured images at inference time",
+        "Lifting 2D CNN Features to 3D": "3D reconstruction works that use 2D CNN image features",
+        "Physics-Informed Neural Networks/Science & Engineering": "For papers dealing with topics relating to the broader scientfic disciplines such as PINN",
+        "Beyond Visual Computing": "Applications of neural fields beyond visual computing (e.g. Physics-Inspired Neural Network)"
+    };
+    for(entry of Object.entries(keyword2expanation)){
+        const keyword = entry[0];
+        const explanation = entry[1];
+        d3.select("#keyword-explanation-table")
+        .append("tr")
+        .html(`
+        <td>${keyword}</td>
+        <td>${explanation}</td>
+        `);
+    }
+</script>
+{% endblock %}

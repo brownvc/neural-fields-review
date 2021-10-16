@@ -61,7 +61,7 @@
     <title>{{config.page_title.prefix}}{% if page_title
       %}{{config.page_title.separator}}{{page_title}}{% endif %}</title>
 
-    <link rel="icon" type="image/png" href="favicon.ico">
+    <link rel="icon" type="image/png" href="{{config.favicon}}">
     <!-- head block ends here-->
     {% endblock %}
   </head>
@@ -72,6 +72,7 @@
     {% set navigation_bar = [
     ('index.html', 'Home'),
     ('papers.html', 'Papers'),
+    ('info.html', 'Info')
     ] -%}
 
     <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light mr-auto" id="main-nav">
@@ -96,7 +97,9 @@
             {% endfor %}
           </ul>
         </div>
+
       </div>
+      
     </nav>
     {% endblock %}
 
