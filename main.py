@@ -122,7 +122,7 @@ def format_paper(v):
         else:
             talk_URL = URL
 
-    return {
+    data = {
         "UID": v[field_name_mapping["UID"]],
         "title": v[field_name_mapping["Title"]],
         "nickname": v[field_name_mapping["Nickname"]],
@@ -140,6 +140,7 @@ def format_paper(v):
         "venue": v.get(field_name_mapping["Venue"], ""),
         "year": v[field_name_mapping["Year"]],
     }
+    return data
 
 
 @app.route("/")
