@@ -132,7 +132,7 @@ def format_bibtex_str(bibtex, cap_keys="ALL", space=True, indent="    ", article
                 if (not last_name_first) and (", " in content):
                     content = " and ".join([" ".join(a.split(", ")[::-1]) for a in content.split(" and ")])
             entries.append(indent + key + equal + "{" + content + "}")
-        head = f"@{article_type}"+"{"+f"{name},\n"
+        head = f"@{article_type.lower()}"+"{"+f"{name},\n"
         tail = "\n}"
         texstr = head + ",\n".join(entries) + tail
     else:
