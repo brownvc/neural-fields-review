@@ -392,3 +392,21 @@ body .carousel-control-prev {
 	border-radius: 3rem;
 	margin-bottom: 20px;
 }
+
+.infopage-title-1 {
+	font-size: 30px;
+	font-weight: bolder;
+}
+
+.infopage-title-2 {
+	font-size: 25px;
+	font-weight: bold;
+}
+
+.infopage-text {
+	font-size: 23px;
+}
+
+.infopage-step-list-item {
+	font-size: 20px;
+}

@@ -8,5 +8,37 @@
 {% endblock %}
 
 {% block content %}
-<h1>info page</h1>
+<p class="infopage-title-1">About this website</p>
+<p class="infopage-title-2">How to submit a new paper or update an existing paper?</p>
+<p class="infopage-text">First, please note that papers can only be submitted / updated by their authors. 
+    All submissions / updates will be reflected in the website upon administrators' approval.</p>
+<p class="infopage-text">To submit a new paper to our database, please follow the steps below:</p>
+<ul>
+    <li class="infopage-step-list-item">Step 1: Fill <a href="https://forms.gle/5fajGXEtV1xRnG3m8" target="_blank">this Google form</a> with relevant information about your paper.</li>
+    <li class="infopage-step-list-item">Step 2: Clone our <a href="https://github.com/brownvc/neural-fields-review" target="_blank">Github Repository</a> locally.</li>
+    <li class="infopage-step-list-item">Step 3: Go to <a href="https://forms.gle/5fajGXEtV1xRnG3m8" target="_blank">this spreadsheet</a>, copy the row corresponding to your paper.</li>
+    <li class="infopage-step-list-item">Step 4: Paste that row at the bottom of file <a href="https://github.com/brownvc/neural-fields-review/blob/main/sitedata/papers.csv" target="_blank">"sitedata/papers.csv".</a></li>
+    <li class="infopage-step-list-item">Step 5: Commit changes to your cloned repository and create a pull request with title "Submitting paper..."</li>.
+</ul>
+<p class="infopage-text">To update an existing paper, please follow the steps below:</p>
+<ul>
+    <li class="infopage-step-list-item">Step 1: Fill <a href="https://forms.gle/5fajGXEtV1xRnG3m8" target="_blank">this
+            Google form</a> with information for updating your paper.</li>
+    <li class="infopage-step-list-item">Step 2: Clone our <a href="https://github.com/brownvc/neural-fields-review"
+            target="_blank">Github Repository</a> locally.</li>
+    <li class="infopage-step-list-item">Step 3: Go to <a href="https://forms.gle/5fajGXEtV1xRnG3m8" target="_blank">this
+            spreadsheet</a>, copy the row corresponding to your paper.</li>
+    <li class="infopage-step-list-item">Step 4: Paste that row at the bottom of file <a
+            href="https://github.com/brownvc/neural-fields-review/blob/main/sitedata/papers.csv"
+            target="_blank">"sitedata/papers.csv"</a>.</li>
+    <li class="infopage-step-list-item">Step 5: Commit changes to your cloned repository and create a pull request with
+        title "Updating paper...".</li>
+</ul>
+<p class="infopage-title-2">Authors and Contributors</p>
+<p class="infopage-text">Federico Tombari, James Tompkin, Numair Khan, Or Litany, Shiqin Yan, Shunsuke Saito, Srinath Sridhar,
+Sunny Li, Towaki Takikawa, Vincent Sitzmann, Yiheng Xie</p>
+<p class="infopage-title-2">Acknowledgements</p>
+<p class="infopage-text">Citation relation data used for generating citation graphs are derived from 
+    <a href="https://www.semanticscholar.org/product/api" target="_blank">Semantic Scholar API</a>.
+</p>
 {% endblock %}
