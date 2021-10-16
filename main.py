@@ -18,7 +18,7 @@ by_uid = {}
 field_name_mapping = {
     "Title": "Title",
     "Nickname": "Nickname (e.g. DeepSDF)",
-    "Venue": "Venue (e.g. CVPR, ICML, SIGGRAPH)",
+    "Venue": "Venue (e.g. CVPR, SIGGRAPH)",
     "Date": "Date (earliest release date, e.g. arXiv v1 date)",
     "Citation": "Bibtex Citation",
     "PDF": "PDF (use ArXiv when possible)",
@@ -46,7 +46,7 @@ def main(site_data_path):
                 site_data[name] = list(csv.DictReader(open(f)))
             elif typ == "yml":
                 site_data[name] = yaml.load(open(f).read(), Loader=yaml.SafeLoader)
-    
+
     for typ in ["papers"]:
         by_uid[typ] = {}
         for p in site_data[typ]:
