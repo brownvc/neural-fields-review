@@ -72,6 +72,7 @@
     {% set navigation_bar = [
     ('index.html', 'Home'),
     ('papers.html', 'Papers'),
+    ('info.html', 'Info')
     ] -%}
 
     <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light mr-auto" id="main-nav">
@@ -95,17 +96,6 @@
             </li>
             {% endfor %}
           </ul>
-          <div class="dropdown">
-            <a  type="button" id="dropdownMenuButton" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false"
-              style="color: rgba(0,0,0,.5); padding-left: 8px;">
-              Add / Update Papers
-            </a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" target="_blank" href="{{config.add_paper_form_link}}">Add papers</a>
-              <a class="dropdown-item" target="_blank" href="{{config.update_paper_form_link}}">Update papers</a>
-            </div>
-          </div>
         </div>
 
       </div>
