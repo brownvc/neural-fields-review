@@ -95,17 +95,17 @@ for i, title in enumerate(titles):
 
     cur_id = title2id[title]
 
-    if cur_id not in paper_ids_already_processed:
-        papers_citing_this = get_titles_of_papers_citing_this(title)
-        for paper_citing_this in papers_citing_this:
-            paper_citing_this = paper_citing_this.strip()
-            if paper_citing_this in titles:
-                id_of_paper_citing_this = title2id[paper_citing_this]
-                if cur_id != id_of_paper_citing_this:
-                    graph[id_of_paper_citing_this]["out_edge"].add(cur_id)
-                    graph[cur_id]["in_edge"].add(id_of_paper_citing_this)
-                num_citations += 1
-        processed_papers += 1
+    #if cur_id not in paper_ids_already_processed:
+    papers_citing_this = get_titles_of_papers_citing_this(title)
+    for paper_citing_this in papers_citing_this:
+        paper_citing_this = paper_citing_this.strip()
+        if paper_citing_this in titles:
+            id_of_paper_citing_this = title2id[paper_citing_this]
+            if cur_id != id_of_paper_citing_this:
+                graph[id_of_paper_citing_this]["out_edge"].add(cur_id)
+                graph[cur_id]["in_edge"].add(id_of_paper_citing_this)
+            num_citations += 1
+    processed_papers += 1
 
 
 print(f"Found {num_citations} citation relations.")
