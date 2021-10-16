@@ -50,6 +50,7 @@ rows = util.read_spreadsheet(input_fname, input_ext)
 UIDs, pdf_links_all, wrong_pdf, missing_author, missing_nickname, missing_bibtex, missing_bibtex_name, missing_abstract, missing_UID = [], [], [], [], [], [], [], [], []
 incorrect_spelling = {}
 start_row = 0
+end_row = len(rows)
 cnt = 0
 prev_pdf = ""
 for i in tqdm(range(len(rows))):
@@ -77,7 +78,7 @@ for i in tqdm(range(len(rows))):
     bibtex_ = row[csv_head_key['Bibtex']]
     if len(bibtex_) < 10:
         missing_bibtex.append(cnt+1)
-    elif i >= start_row:
+    elif start_row <= i <= end_row:
         comm = bibtex_.find(",")
         bibtex_ = bibtex_[:comm].replace(" ", "") + bibtex_[comm:]
         article_type, bibtex_key, dict = util.dict_from_string(bibtex_)
@@ -87,7 +88,7 @@ for i in tqdm(range(len(rows))):
     pdf_links_all.append(row[csv_head_key['PDF']])
 
     # Correct miss-spelling from unicode
-    if i >= start_row:
+    if start_row <= i <= end_row:
         for k in names:
             wrong_w = k.split(" ")
             correct_w = names[k].split(" ")
@@ -130,10 +131,10 @@ for i in tqdm(range(len(rows))):
         missing_bibtex_name.append(cnt+1)
 
     # UID
-    if len(row[csv_head_key['UID']]) < 2:
+    if len("%08d" %int(row[csv_head_key['UID']])) < 2:
         missing_UID.append(cnt+1)
     else:
-        UIDs.append(row[csv_head_key['UID'])
+        UIDs.append(row[csv_head_key['UID']])
 
     # Abstract
     if len(row[csv_head_key['Abstract']]) < 20:

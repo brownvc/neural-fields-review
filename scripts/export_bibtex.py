@@ -54,8 +54,9 @@ def format_dotbib_file(fname):
 if __name__ == "__main__":
     # input_fname = "Review Paper Import Portal Responses - Form Responses 1"
     # input_ext = ".csv"
-    input_fname = "Review Paper Import Portal Responses"
+    # input_fname = "Review Paper Import Portal Responses"
     # input_fname = "output_responses"
+    input_fname = "Neural Fields_ Paper Import Portal (Responses)"
     input_ext = ".xlsx"
     exclude_keys = [
         "NOTE",
