@@ -26,6 +26,7 @@ from util import *
 import unidecode
 from tqdm import tqdm
 
+csv_format = "New"
 debug = True
 overwrite_existing = False
 replace_bibtex_key = True                 # Reformat bibtex name to our convention
@@ -55,48 +56,62 @@ for r in tqdm(range(start_row, len(rows))):
         continue
 
     # Date
-    if ("https://arxiv.org/" in row[4]) and (row[3] == ""):
+    if ("https://arxiv.org/" in row[csv_head_key['PDF']]) and (row[csv_head_key['Date']] == ""):
         if d is None:
            d, id = get_arxiv(row)
         year = d['entries'][0]['published'][:4]
         month = d['entries'][0]['published'][5:7]
         day = d['entries'][0]['published'][8:10]
-        row[3] = month + '/' + day + '/' + year
-        print(r, row[3])
+        row[csv_head_key['Date']] = month + '/' + day + '/' + year
+        print(r, row[csv_head_key['Date']])
 
     # Bibtex
-    if (row[11] == "") or overwrite_existing:
-        if row[23] == "":
-            print(r, "ERROR (Venue): empty")
-            if debug: exit(12)
-            continue
-        else:
-            s = row[23]
-            if s.find("(") > 0:
-                s = s[:s.find("(")]
-            for venue in KNOWN_FORMATS:
-                if venue in s:
-                    break
-            venue_year = s.strip(" ")
-            try:
-                year = venue_year.split(' ')[-1]
-                assert len(year) == 4, f"ERROR (year in vanue is not valid): {year}"
-            except Exception as e:
-                print(e)
+    if (row[csv_head_key['Bibtex']] == "") or overwrite_existing:
+        if csv_format == "old":
+            if row[csv_head_key['Venue']] == "":
+                print(r, "ERROR (Venue): empty")
                 if debug: exit(12)
                 continue
+            else:
+                s = row[csv_head_key['Venue']]
+                if s.find("(") > 0:
+                    s = s[:s.find("(")]
+                for venue in KNOWN_FORMATS:
+                    if venue in s:
+                        break
+                venue_year = s.strip(" ")
+                try:
+                    year = venue_year.split(' ')[-1]
+                    assert len(year) == 4, f"ERROR (year in vanue is not valid): {year}"
+                except Exception as e:
+                    print(e)
+                    if debug: exit(12)
+                    continue
+        else:
+            if row[csv_head_key['Venue']] == "":
+                print(r, "ERROR (Venue): empty")
+                if debug: exit(12)
+            elif row[csv_head_key['Year']] == "":
+                print(r, "ERROR (Year): empty")
+                if debug: exit(12)
+            else:
+                venue = row[csv_head_key['Venue']]
+                venue = venue[:venue.find("(")].strip(" ")
+                year = row[csv_head_key['Year']]
+                if debug: assert len(year) == 4, f"ERROR (year in vanue is not valid): {year}"
+
         # Step 1) Get bibtex from arxiv
-        if "https://arxiv.org/" in row[4]:
+        if "https://arxiv.org/" in row[csv_head_key['PDF']]:
             if d is None:
                d, id = get_arxiv(row)
             result = arxiv2bib([id])[0]
             bibtex_str = result.bibtex()
         # Step 1) Get bibtex from scholarly
-        elif len(row[11]) < 10:
-            search_result = get_scholarly_result(row[1]) if (search_result is None) else search_result
+        elif len(row[csv_head_key['Bibtex']]) < 10:
+            search_result = get_scholarly_result(row[csv_head_key['Title']]) if (search_result is None) else search_result
             bibtex_str = scholarly.bibtex(search_result)
         else:
-            bibtex_str = row[11]
+            bibtex_str = row[csv_head_key['Bibtex']]
         try:
             article_type, bibtex_key, dict = dict_from_string(bibtex_str)
         except Exception as e:
@@ -112,10 +127,10 @@ for r in tqdm(range(start_row, len(rows))):
             continue
         # Step 3) Replace bibtex key
         if replace_bibtex_key:
-            if (row[2] != ""):
-                keyword = row[2].split(",")[0].lower().replace("-","").replace(" ","")
+            if (row[csv_head_key['Nickname']] != ""):
+                keyword = row[csv_head_key['Nickname']].split(",")[0].lower().replace("-","").replace(" ","")
             else:
-                keyword = row[1].split(" ")[0].lower().replace("-","").replace(" ","")
+                keyword = row[csv_head_key['Title']].split(" ")[0].lower().replace("-","").replace(" ","")
             lastname = authors[0].split(" ")[-1].lower()
             bibtex_key = lastname + year + keyword
         # Step 4) Add/Update additional info from venue
@@ -129,8 +144,8 @@ for r in tqdm(range(start_row, len(rows))):
                 if venue in BIBTEX_INFO[k]:
                     dict[k] = BIBTEX_INFO[k][venue]
             if venue == "ARXIV":
-                if "https://arxiv.org/" in row[4]:
-                   dict['journal'] += " arXiv:" + row[4].strip("https://arxiv.org/pdf/")
+                if "https://arxiv.org/" in row[csv_head_key['PDF']]:
+                   dict['journal'] += " arXiv:" + row[csv_head_key['PDF']].strip("https://arxiv.org/pdf/")
         bibtex_dict = {bibtex_key : dict}
         # Format the final bibtex string
         bibtex_str = ""
@@ -142,25 +157,25 @@ for r in tqdm(range(start_row, len(rows))):
             if debug: exit(12)
 
         if len(bibtex_str) > 10:
-            row[11] = unidecode.unidecode(bibtex_str)
+            row[csv_head_key['Bibtex']] = unidecode.unidecode(bibtex_str)
             # todo
-            print(r, "Bibtex: ", row[11][:20])
+            print(r, "Bibtex: ", row[csv_head_key['Bibtex']][:20])
         else:
             print(r, "Bibtex ERROR (bibtex too short): ", bibtex_str)
             if debug: exit(12)
 
     # Export bibtex name
-    if (row[28] == "") or overwrite_existing:
-        if (row[11] != ""):
-            row[28] = bibtex_name_from_bibtex(row[11])
-            print(r, "Bibtex Name: ", row[28])
-            if " " in row[28]:
-                print(r, "Bibtex name contains space: ", row[28])
+    if (row[csv_head_key['Bibtex Name']] == "") or overwrite_existing:
+        if (row[csv_head_key['Bibtex']] != ""):
+            row[csv_head_key['Bibtex Name']] = bibtex_name_from_bibtex(row[csv_head_key['Bibtex']])
+            print(r, "Bibtex Name: ", row[csv_head_key['Bibtex Name']])
+            if " " in row[csv_head_key['Bibtex Name']]:
+                print(r, "Bibtex name contains space: ", row[csv_head_key['Bibtex Name']])
 
     # Authors
-    if row[27] == "":
+    if row[csv_head_key['Authors']] == "":
         # From arxiv api
-        if ("https://arxiv.org/" in row[4]):
+        if ("https://arxiv.org/" in row[csv_head_key['PDF']]):
             if d is None:
                d, id = get_arxiv(row)
             auth_str = []
@@ -168,10 +183,10 @@ for r in tqdm(range(start_row, len(rows))):
                 auth_str.append(a['name'])
             auth_str_out = ", ".join(auth_str)
         # From bibtex
-        elif (row[11] != ""):
+        elif (row[csv_head_key['Bibtex']] != ""):
             if bibtex_dict is None:
                 try:
-                    _, _, dict = dict_from_string(row[11])
+                    _, _, dict = dict_from_string(row[csv_head_key['Bibtex']])
                 except Exception as e:
                     print(e)
                     print("BibTexParser Error. Skipping")
@@ -179,26 +194,26 @@ for r in tqdm(range(start_row, len(rows))):
             if not err:
                 auth_str_out = ", ".join(get_authors_from_bibtex(dict))
         if not err:
-            row[27] = auth_str_out
-        print(r, "Authors:", row[27])
+            row[csv_head_key['Authors']] = auth_str_out
+        print(r, "Authors:", row[csv_head_key['Authors']])
 
     # Abstract
-    if (len(row[30]) < 10) or overwrite_existing:
+    if (len(row[csv_head_key['Abstract']]) < 10) or overwrite_existing:
         abstract = ""
         # From arxiv api
-        if ("https://arxiv.org/" in row[4]):
+        if ("https://arxiv.org/" in row[csv_head_key['PDF']]):
             if d is None:
                 d, id = get_arxiv(row)
             abstract = d['entries'][0]['summary'].replace(" \n", " ").replace("\n ", " ").replace("\n", " ")
         # From bibtex
-        elif (row[11] != ""):
+        elif (row[csv_head_key['Bibtex']] != ""):
             if bibtex_dict is None:
-                _, _, dict = dict_from_string(row[11])
+                _, _, dict = dict_from_string(row[csv_head_key['Bibtex']])
             if 'abstract' in dict:
                 abstract = dict['abstract']
         # From scholarly
         if abstract == "":
-            search_result = get_scholarly_result(row[1]) if (search_result is None) else search_result
+            search_result = get_scholarly_result(row[csv_head_key['Title']]) if (search_result is None) else search_result
             try:
                 abstract = search_result['bib']['abstract'].replace(' \n', ' ').replace('\n', '')
                 for i in range(5):
@@ -206,16 +221,16 @@ for r in tqdm(range(start_row, len(rows))):
             except Exception as e:
                 print(e)
         if len(abstract) > 20:
-            row[30] = abstract
-            print(r, "Abstract: ", row[30][:20], "...")
+            row[csv_head_key['Abstract']] = abstract
+            print(r, "Abstract: ", row[csv_head_key['Abstract']][:20], "...")
 
     # Citations count
-    if (row[31] == "") and citations_cnt:
-        search_result = get_scholarly_result(row[1]) if (search_result is None) else search_result
+    if (row[csv_head_key['Citation Count']] == "") and citations_cnt:
+        search_result = get_scholarly_result(row[csv_head_key['Title']]) if (search_result is None) else search_result
         try:
             citations = search_result['num_citations']
-            row[31] = citations
-            print(cnt, "citations count: ", row[31])
+            row[csv_head_key['Citation Count']] = citations
+            print(cnt, "citations count: ", row[csv_head_key['Citation Count']])
         except Exception as e:
             print(e)
 
