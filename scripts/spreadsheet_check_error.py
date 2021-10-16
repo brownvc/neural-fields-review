@@ -5,6 +5,8 @@ import unicodedata
 from unidecode import unidecode
 import xlsxwriter
 import util
+from util import csv_head_key
+from tqdm import tqdm
 
 names = {
     "Michael ZollhÃ¶fer": "Michael Zollhöfer",
@@ -29,11 +31,13 @@ names = {
     "mÃƒÂ¼ller": "müller",
     "SoÅˆa MokrÃ¡": "Soňa Mokrá"
 }
-non_ascii = ["PapierMâché", "Höfer", "Alenyà", "Cortés", "TöRF", "Fernández"]
+non_ascii = ["PapierMâché", "Höfer", "Alenyà", "Cortés", "TöRF", "TöRF:", "Fernández"]
 for k in names:
     non_ascii += names[k].split(" ")
 
-known_nonunicode_rows = [5, 11, 29, 33, 35, 50, 54, 63, 64, 73, 77, 79, 97, 100, 103, 113, 114, 128, 141, 155]
+"""
+Script begins
+"""
 input_fname = "output_responses"
 # input_fname = "Review Paper Import Portal Responses"
 input_ext = ".xlsx"
@@ -41,72 +45,76 @@ output_fname = input_fname
 output_fname = "checked"
 output_ext = ".xlsx"
 
-reader = util.read_spreadsheet(input_fname, input_ext)
+rows = util.read_spreadsheet(input_fname, input_ext)
 
-pdf_links_all, wrong_pdf, missing_author, missing_nickname, missing_bibtex, missing_bibtex_name, missing_abstract, missing_UID = [], [], [], [], [], [], [], []
+UIDs, pdf_links_all, wrong_pdf, missing_author, missing_nickname, missing_bibtex, missing_bibtex_name, missing_abstract, missing_UID = [], [], [], [], [], [], [], [], []
 incorrect_spelling = {}
-rows = []
+start_row = 0
+end_row = len(rows)
 cnt = 0
 prev_pdf = ""
-for row in reader:
+for i in tqdm(range(len(rows))):
+    row = rows[i]
     if cnt == 0:
         rows.append(row)
         cnt += 1
         continue
     # Check for duplicate pdf link
-    if prev_pdf == row[4]:
+    if prev_pdf == row[csv_head_key['PDF']]:
         # print("Wrong pdf link (same as row above) at row {}".format(cnt+1))
         wrong_pdf.append(cnt+1)
 
-    prev_pdf = row[4]
+    prev_pdf = row[csv_head_key['PDF']]
 
     # Check for missing authors
-    if row[27] == "":
+    if row[csv_head_key['Authors']] == "":
         missing_author.append(cnt+1)
 
     # Check for missing nickname
-    if (0 < row[1].find(":") < 18) and (row[2] == ""):
+    if (0 < row[csv_head_key['Title']].find(":") < 18) and (row[csv_head_key['Nickname']] == ""):
         missing_nickname.append(cnt+1)
 
     # Check for missing bibtex citation
-    if len(row[11]) < 10:
+    bibtex_ = row[csv_head_key['Bibtex']]
+    if len(bibtex_) < 10:
         missing_bibtex.append(cnt+1)
-    else:
-        comm = row[11].find(",")
-        row[11] = row[11][:comm].replace(" ", "") + row[11][comm:]
-        article_type, bibtex_key, dict = util.dict_from_string(row[11])
+    elif start_row <= i <= end_row:
+        comm = bibtex_.find(",")
+        bibtex_ = bibtex_[:comm].replace(" ", "") + bibtex_[comm:]
+        article_type, bibtex_key, dict = util.dict_from_string(bibtex_)
         bibtex_dict = {bibtex_key : dict}
-        row[11] = util.format_bibtex_str(bibtex_dict, article_type=article_type)
+        row[csv_head_key['Bibtex']] = util.format_bibtex_str(bibtex_dict, article_type=article_type)
 
-    pdf_links_all.append(row[4])
+    pdf_links_all.append(row[csv_head_key['PDF']])
 
     # Correct miss-spelling from unicode
-    for k in names:
-        wrong_w = k.split(" ")
-        correct_w = names[k].split(" ")
-        assert len(wrong_w) == len(correct_w)
-        for i in range(len(wrong_w)):
-            # Title
-            row[1] = row[1].replace(wrong_w[i], correct_w[i])
-            row[1] = row[1].replace(wrong_w[i][0].lower()+wrong_w[i][1:], correct_w[i][0].lower()+correct_w[i][1:])
-            # Nickname
-            row[2] = row[2].replace(wrong_w[i], correct_w[i])
-            row[2] = row[2].replace(wrong_w[i][0].lower()+wrong_w[i][1:], correct_w[i][0].lower()+correct_w[i][1:])
-            # Bibtex
-            row[11] = row[11].replace(wrong_w[i], correct_w[i])
-            row[11] = row[11].replace(wrong_w[i][0].lower()+wrong_w[i][1:], correct_w[i][0].lower()+correct_w[i][1:])
-            row[11] = unidecode(row[11])
-            # Authors
-            row[27] = row[27].replace(wrong_w[i], correct_w[i])
-            row[27] = row[27].replace(wrong_w[i][0].lower()+wrong_w[i][1:], correct_w[i][0].lower()+correct_w[i][1:])
-            # Bibtex handle
-            row[28] = row[28].replace(wrong_w[i], correct_w[i])
-            row[28] = row[28].replace(wrong_w[i][0].lower()+wrong_w[i][1:], correct_w[i][0].lower()+correct_w[i][1:])
-            row[28] = unidecode(row[28])
+    if start_row <= i <= end_row:
+        for k in names:
+            wrong_w = k.split(" ")
+            correct_w = names[k].split(" ")
+            assert len(wrong_w) == len(correct_w)
+            for i in range(len(wrong_w)):
+                # Title
+                row[csv_head_key['Title']] = row[csv_head_key['Title']].replace(wrong_w[i], correct_w[i])
+                row[csv_head_key['Title']] = row[csv_head_key['Title']].replace(wrong_w[i][0].lower()+wrong_w[i][1:], correct_w[i][0].lower()+correct_w[i][1:])
+                # Nickname
+                row[csv_head_key['Nickname']] = row[csv_head_key['Nickname']].replace(wrong_w[i], correct_w[i])
+                row[csv_head_key['Nickname']] = row[csv_head_key['Nickname']].replace(wrong_w[i][0].lower()+wrong_w[i][1:], correct_w[i][0].lower()+correct_w[i][1:])
+                # Bibtex
+                row[csv_head_key['Bibtex']] = row[csv_head_key['Bibtex']].replace(wrong_w[i], correct_w[i])
+                row[csv_head_key['Bibtex']] = row[csv_head_key['Bibtex']].replace(wrong_w[i][0].lower()+wrong_w[i][1:], correct_w[i][0].lower()+correct_w[i][1:])
+                row[csv_head_key['Bibtex']] = unidecode(row[csv_head_key['Bibtex']])
+                # Authors
+                row[csv_head_key['Authors']] = row[csv_head_key['Authors']].replace(wrong_w[i], correct_w[i])
+                row[csv_head_key['Authors']] = row[csv_head_key['Authors']].replace(wrong_w[i][0].lower()+wrong_w[i][1:], correct_w[i][0].lower()+correct_w[i][1:])
+                # Bibtex handle
+                row[csv_head_key['Bibtex Name']] = row[csv_head_key['Bibtex Name']].replace(wrong_w[i], correct_w[i])
+                row[csv_head_key['Bibtex Name']] = row[csv_head_key['Bibtex Name']].replace(wrong_w[i][0].lower()+wrong_w[i][1:], correct_w[i][0].lower()+correct_w[i][1:])
+                row[csv_head_key['Bibtex Name']] = unidecode(row[csv_head_key['Bibtex Name']])
 
     # # Posisble miss-spelling
-    # if unicodedata.normalize('NFD', row[27]) != row[27]:
-    #     print(cnt, row[27])
+    # if unicodedata.normalize('NFD', row[csv_head_key['Authors']]) != row[csv_head_key['Authors']]:
+    #     print(cnt, row[csv_head_key['Authors']])
 
     # Chcek miss-spelling
     for word in row:
@@ -119,25 +127,29 @@ for row in reader:
                         break
 
     # Bibtex name
-    if len(row[28]) < 5:
+    if len(row[csv_head_key['Bibtex Name']]) < 5:
         missing_bibtex_name.append(cnt+1)
 
     # UID
-    if len(row[29]) < 2:
+    if len("%08d" %int(row[csv_head_key['UID']])) < 2:
         missing_UID.append(cnt+1)
+    else:
+        UIDs.append(row[csv_head_key['UID']])
 
     # Abstract
-    if len(row[30]) < 20:
+    if len(row[csv_head_key['Abstract']]) < 20:
         missing_abstract.append(cnt+1)
 
     cnt += 1
-    rows.append(row)
+    rows[i] = row
 
 util.write_spreadsheet(rows, output_fname, output_ext)
 
 
 print("# Check for duplicate entries")
 print([item for item, count in collections.Counter(pdf_links_all).items() if count > 1])
+print("# Check for duplicate UID")
+print([item for item, count in collections.Counter(UIDs).items() if count > 1])
 print("# Check for duplicate pdf link")
 print(wrong_pdf)
 print("# Check for missing authors")

@@ -1,5 +1,6 @@
 import csv
 import util
+from util import csv_head_key
 
 
 def export_from_spreadsheet(input_fname, input_ext, output_fname="references.bib", exclude_keys=[]):
@@ -11,8 +12,8 @@ def export_from_spreadsheet(input_fname, input_ext, output_fname="references.bib
         if cnt == 0:
             cnt += 1
             continue
-        if len(row[11]) > 10:
-            article_type, bibtex_key, dict = util.dict_from_string(row[11])
+        if len(row[csv_head_key['Bibtex']]) > 10:
+            article_type, bibtex_key, dict = util.dict_from_string(row[csv_head_key['Bibtex']])
             for k in exclude_keys:
                 if k.lower() in dict:
                     dict.pop(k.lower())
@@ -32,22 +33,30 @@ def format_dotbib_file(fname):
     data = data.replace("\n\n\n@", "\n@").replace("\n\n@", "\n@").replace("\n@", "\n\n@")
     data = data[data.find("@"):]
     data = data.split("\n\n@")
+    data[0] = data[0][1:]
     print("{} bibtex citations found in {}.".format(len(data), fname))
 
-    formatted = []
+    bibtex = []
     for d in data:
-        formatted.append(util.format_bibtex_str(d))
+        d = "@"+d
+        article_type, bibtex_key, dict = util.dict_from_string(d)
+        for k in exclude_keys:
+            if k.lower() in dict:
+                dict.pop(k.lower())
+        bibtex_dict = {bibtex_key : dict}
+        bibtex_str = util.format_bibtex_str(bibtex_dict, article_type=article_type)
+        bibtex.append(bibtex_str+"\n\n")
 
-    formatted = "\n\n@".join(formatted)
+    with open(fname, "w+", encoding="utf-8") as f:
+        f.writelines(bibtex)
 
-    with open(fname, "w") as file:
-        file.write(formatted)
 
 if __name__ == "__main__":
     # input_fname = "Review Paper Import Portal Responses - Form Responses 1"
     # input_ext = ".csv"
-    input_fname = "Review Paper Import Portal Responses"
+    # input_fname = "Review Paper Import Portal Responses"
     # input_fname = "output_responses"
+    input_fname = "Neural Fields_ Paper Import Portal (Responses)"
     input_ext = ".xlsx"
     exclude_keys = [
         "NOTE",

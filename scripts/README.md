@@ -6,7 +6,7 @@ Step 2: Run scripts
 rm *Zone.Identifier
 python run_api.py
 python spreadsheet_check_error.py
-mv checked.xlsx "Review Paper Import Portal Responses.xlsx"
+mv checked.xlsx "Neural Fields_ Paper Import Portal (Responses).xlsx"
 rm *Zone.Identifier
 python export_bibtex.py
 ```

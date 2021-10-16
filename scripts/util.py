@@ -15,8 +15,12 @@ def dict_from_string(str):
     type = str[1 : str.find("{")]
     # For each bibtex key, make it a
     parser = BibTexParser()
-    dict = parser.parse(str).get_entry_dict()
-    name = list(dict.keys())[0]
+    try:
+        dict = parser.parse(str).get_entry_dict()
+        name = list(dict.keys())[0]
+    except Exception as e:
+        print("Probably malformed bibtex: \n", str)
+        raise e
     dict_ = dict[name]
     dict = {}
     for k in dict_:
@@ -106,7 +110,7 @@ def write_spreadsheet(rows, fname, ext):
         workbook.close()
 
 
-def format_bibtex_str(bibtex, cap_keys="ALL", space=True, indent="    ", article_type="article"):
+def format_bibtex_str(bibtex, cap_keys="ALL", space=True, indent="    ", article_type="article", last_name_first=False):
     """
     Args:
         bibtex: str or dict
@@ -128,8 +132,11 @@ def format_bibtex_str(bibtex, cap_keys="ALL", space=True, indent="    ", article
                 key = key.upper()
             elif cap_keys == "Initial":
                 key = key[0].upper() + key[1:]
+            if key == "AUTHOR":
+                if (not last_name_first) and (", " in content):
+                    content = " and ".join([" ".join(a.split(", ")[::-1]) for a in content.split(" and ")])
             entries.append(indent + key + equal + "{" + content + "}")
-        head = f"@{article_type}"+"{"+f"{name},\n"
+        head = f"@{article_type.lower()}"+"{"+f"{name},\n"
         tail = "\n}"
         texstr = head + ",\n".join(entries) + tail
     else:
@@ -318,3 +325,8 @@ TYPE = {
     "EGSR": "article",
     "ARXIV": "article",
 }
+
+csv_head = ['Timestamp', 'Email Address', 'Does your work use coordinate(s) as neural network input(s)?', 'Title', 'Nickname (e.g. DeepSDF)', '"Venue (e.g. ""CVPR"".""SIGGRAPH"".or ""ECCV (Oral)"")"', '"Date (earliest release date.e.g. arXiv v1 date)"', '"Year (corresponding to venue e.g. released in 2021.accepted to CVPR 2022.then put ""2022"" for this entry.and ""2021"" for the above)"', 'Bibtex Citation', 'PDF (use ArXiv when possible)', 'Project Webpage (web link)', 'Code Release (Github link)', 'Data Release (link)', '"Talk/Video (link.e.g. youtube)"', 'Supplement PDF (link)', '"Supplement video (link.comma separated if multiple exists)"', 'Keywords', 'Frequency/Positional Encoding', '"Geometry proxy (for non-visual computing papers.choose ""N/A"")"', '"Reconstructs Geometry Only (i.e. no color texture) (for non-visual computing papers.choose ""N/A"")"', 'Training time (hr)', 'Rendering time (FPS)', 'Dataset(s) used (e.g. Tanks and Temples)', '# of input views (e.g. 18 for 18-camera system)', 'Inputs', 'Lighting', 'Authors', 'Bibtex Name', 'UID', 'Citation Count', 'Abstract', 'Coordinates all at once', '"Feature-as-input (coordinate samples feature grid.but coordinate is not supplied as input)"', 'Direct/Indirect Neural Field (one or more dimension built into the network e.g. 2D CNN + z)']
+csv_head_key = {'Timestamp': 0, 'Email': 1, 'Screening': 2, 'Title': 3, 'Nickname': 4, 'Venue': 5, 'Date': 6, 'Year': 7, 'Bibtex': 8, 'PDF': 9, 'Website': 10, 'Code': 11, 'Data': 12, 'Talk/Video': 13, 'Supplement PDF': 14, '"Supplement': 15, 'Keywords': 16, 'Frequency/Positional Encoding': 17, 'Geometry proxy': 18, 'Geometry Only': 19, 'Training time': 20, 'Rendering time': 21, 'Dataset(s) used': 22, '# of input views': 23, 'Inputs': 24, 'Lighting': 25, 'Authors': 26, 'Bibtex Name': 27, 'UID': 28, 'Citation Count': 29, 'Abstract': 30, 'Coordinates all at once': 31, 'Feature-as-input': 32, 'Direct/Indirect Neural Field': 33}
+# Old sheet
+# csv_head_key = {'Timestamp': 0, 'Title': 1, 'Nickname': 2, 'Venue': 23, 'Date': 3, 'Bibtex': 11, 'PDF': 4, 'Authors': 27, 'Bibtex Name': 28, 'Citation Count': 31, 'Abstract': 30, 'UID': 29}
