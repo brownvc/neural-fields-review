@@ -39,7 +39,7 @@
         <h3 class="card-subtitle mb-2 text-muted text-center">
             {{paper.date}}
         </h3>
-        <div id="citation-code-wrapper" class="text-muted text-center" 
+        <div id="citation-code-wrapper" class="text-muted text-center"
         >
         </div>
         <p class="text-center" style="margin-bottom: 0px;">
@@ -53,7 +53,7 @@
         {% if paper.venue != "" %}
         <p class="text-center" style="margin-bottom: 0px;">
             <span>Venue: </span>
-            <a href="papers.html?venue={{paper.venue}}" target="_blank" class="text-secondary text-decoration-none">{{paper.venue}}</a>
+            <a href="papers.html?venue={{paper.venue}}" target="_blank" class="text-secondary text-decoration-none">{{paper.venue}+" "+{paper.year}}</a>
         </p>
         {% endif %}
 
