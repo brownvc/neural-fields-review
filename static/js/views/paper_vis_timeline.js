@@ -167,9 +167,15 @@ const renderTimeline = (papers) => {
     }
     }
         );
-        paperDataset = new vis.DataSet(paperItems);
+        paperItems.sort((x, y) => {
+          if (x.start.isBefore(y.start)) return -1;
+          else if (y.start.isBefore(x.start)) return 1;
+          else return 0;
+    })
+    paperDataset = new vis.DataSet(paperItems);
     timeline = new vis.Timeline(container, paperDataset, timelineOptions);
-    if (paperItems.length > 0) {
+        if (paperItems.length > 0) {
+      //focus on the latest paper
       timeline.focus(paperItems[paperItems.length - 1].id, { duration: 1, easingFunction: "linear" });
       timeline.zoomOut(0);
     }
@@ -181,11 +187,18 @@ const renderTimeline = (papers) => {
  * Functions for trigger filtering on papers
  */
 const triggerFiltering = () => {
-  const onlyShowPapersWithCode = document.getElementById("onlyShowPapersWithCodeCheckbox").checked;
   filteredPapers = allPapers;
+
+  const onlyShowPapersWithCode = document.getElementById("onlyShowPapersWithCodeCheckbox").checked;
   if (onlyShowPapersWithCode) {
     filteredPapers = allPapers.filter((paper) => paper.code_link !== "");
   }
+
+  const onlyShowPeerReviewedPapers = document.getElementById("onlyShowPeerReviewedPapersCheckbox").checked;
+  if (onlyShowPeerReviewedPapers) {
+    filteredPapers = filteredPapers.filter((paper) => !(paper.venue.includes("ARXIV") || paper.venue.includes("OpenReview")));
+  }
+  
   // filter by title / nickname
   const titleAndNicknameFilterValue = filters[0].filterValue;
   if (titleAndNicknameFilterValue !== "") {
@@ -193,7 +206,6 @@ const triggerFiltering = () => {
       paper.title.toLowerCase().includes(titleAndNicknameFilterValue.toLowerCase()) || paper.nickname.toLowerCase().includes(titleAndNicknameFilterValue.toLowerCase()))
   }
 
-  // filter by author, keyword, date
   // filter by author, keyword, date
   const authorFilters = [];
   const keywordFilters = [];

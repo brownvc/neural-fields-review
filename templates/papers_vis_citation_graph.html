@@ -62,18 +62,27 @@
 </div>
 
 <div class="row " style="padding-top: 10px;">
-    <div class="col-6">
+    <div class="col-3">
         <label><input type="checkbox" name="checkbox" id="onlyShowPapersWithCodeCheckbox" onclick="triggerFiltering()">
             Only show papers with code
         </label>
     </div>
+    <div class="col-3">
+        <label><input type="checkbox" name="checkbox" id="onlyShowPeerReviewedPapersCheckbox"
+                onclick="triggerFiltering()">
+            Only show peer-reviewed papers
+        </label>
+    </div>
 </div>
+
 </div>
 
 <div style="display: flex; flex-direction: row; justify-content: flex-start;">
     <span id="displaying-number-of-papers-message"></span>
     <div class="button fas download-all-bibtex-icon" style="padding-left: 10px; font-size: larger;"
         data-tippy-content="Download all bibtex" onclick="downloadAllBibtex()">&#xf56d;</div>
+    <span style="padding-left: 15%; font-style: italic;">Double click on a node to open its corresponding paper page.
+        </span>
 </div>
 
 <div id="wrapper">
@@ -89,6 +98,7 @@
         </div>
     </div>
 </div>
+
 
 <p><span style="font-size: 10px;">*</span> Not showing citation relations with papers outside of our current database.
 </p>
