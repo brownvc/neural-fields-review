@@ -35,7 +35,7 @@ non_ascii = ["PapierMâché", "Höfer", "Alenyà", "Cortés", "TöRF", "TöRF:",
 for k in names:
     non_ascii += names[k].split(" ")
 
-eject_keys = [ "NOTE", "ID", "ENTRYTYPE", "EPRINT", "ARCHIVEPREFIX", "PRIMARYCLASS", "FILE", "ABSTRACT"]
+eject_keys = ["NOTE", "ID", "ENTRYTYPE", "EPRINT", "ARCHIVEPREFIX", "PRIMARYCLASS", "FILE", "ABSTRACT"]
 """
 Script begins
 """
@@ -84,6 +84,7 @@ for i in tqdm(range(len(rows))):
         article_type, bibtex_key, dict = util.dict_from_string(bibtex_)
         bibtex_dict = {bibtex_key : dict}
         row[csv_head_key['Bibtex']] = util.format_bibtex_str(bibtex_dict, article_type=article_type, eject_keys=eject_keys)
+        print(row[csv_head_key['Bibtex']])
 
     pdf_links_all.append(row[csv_head_key['PDF']])
 

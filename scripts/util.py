@@ -126,7 +126,7 @@ def format_bibtex_str(bibtex, cap_keys="ALL", space=True, indent="    ", article
         d = bibtex[name]
         entries = []
         for key in d:
-            if not (key in eject_keys):
+            if not (key.upper() in eject_keys):
                 content = d[key].replace(' \n', ' ').replace('\n', ' ')
                 key = key.lower()
                 if cap_keys == "ALL":
