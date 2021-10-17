@@ -187,11 +187,18 @@ const renderTimeline = (papers) => {
  * Functions for trigger filtering on papers
  */
 const triggerFiltering = () => {
-  const onlyShowPapersWithCode = document.getElementById("onlyShowPapersWithCodeCheckbox").checked;
   filteredPapers = allPapers;
+
+  const onlyShowPapersWithCode = document.getElementById("onlyShowPapersWithCodeCheckbox").checked;
   if (onlyShowPapersWithCode) {
     filteredPapers = allPapers.filter((paper) => paper.code_link !== "");
   }
+
+  const onlyShowPeerReviewedPapers = document.getElementById("onlyShowPeerReviewedPapersCheckbox").checked;
+  if (onlyShowPeerReviewedPapers) {
+    filteredPapers = filteredPapers.filter((paper) => !(paper.venue.includes("ARXIV") || paper.venue.includes("OpenReview")));
+  }
+  
   // filter by title / nickname
   const titleAndNicknameFilterValue = filters[0].filterValue;
   if (titleAndNicknameFilterValue !== "") {

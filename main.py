@@ -18,7 +18,7 @@ by_uid = {}
 field_name_mapping = {
     "Title": "Title",
     "Nickname": "Nickname (e.g. DeepSDF)",
-    "Venue": "Venue (e.g. CVPR, ICML, SIGGRAPH)",
+    "Venue": "Venue (e.g. CVPR, SIGGRAPH)",
     "Date": "Date (earliest release date, e.g. arXiv v1 date)",
     "Citation": "Bibtex Citation",
     "PDF": "PDF (use ArXiv when possible)",
