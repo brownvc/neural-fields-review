@@ -35,15 +35,15 @@ non_ascii = ["PapierMâché", "Höfer", "Alenyà", "Cortés", "TöRF", "TöRF:",
 for k in names:
     non_ascii += names[k].split(" ")
 
+eject_keys = ["NOTE", "ID", "ENTRYTYPE", "EPRINT", "ARCHIVEPREFIX", "PRIMARYCLASS", "FILE", "ABSTRACT"]
 """
 Script begins
 """
-input_fname = "output_responses"
 # input_fname = "Review Paper Import Portal Responses"
-input_ext = ".xlsx"
-output_fname = input_fname
-output_fname = "checked"
-output_ext = ".xlsx"
+input_fname = "temp/output_responses"
+input_ext = ".csv"
+output_fname = "temp/checked"
+output_ext = ".csv"
 
 rows = util.read_spreadsheet(input_fname, input_ext)
 
@@ -83,7 +83,8 @@ for i in tqdm(range(len(rows))):
         bibtex_ = bibtex_[:comm].replace(" ", "") + bibtex_[comm:]
         article_type, bibtex_key, dict = util.dict_from_string(bibtex_)
         bibtex_dict = {bibtex_key : dict}
-        row[csv_head_key['Bibtex']] = util.format_bibtex_str(bibtex_dict, article_type=article_type)
+        row[csv_head_key['Bibtex']] = util.format_bibtex_str(bibtex_dict, article_type=article_type, eject_keys=eject_keys)
+        print(row[csv_head_key['Bibtex']])
 
     pdf_links_all.append(row[csv_head_key['PDF']])
 

@@ -46,7 +46,7 @@ def main(site_data_path):
                 site_data[name] = list(csv.DictReader(open(f)))
             elif typ == "yml":
                 site_data[name] = yaml.load(open(f).read(), Loader=yaml.SafeLoader)
-    
+
     for typ in ["papers"]:
         by_uid[typ] = {}
         for p in site_data[typ]:
@@ -122,7 +122,7 @@ def format_paper(v):
         else:
             talk_URL = URL
 
-    return {
+    data = {
         "UID": v[field_name_mapping["UID"]],
         "title": v[field_name_mapping["Title"]],
         "nickname": v[field_name_mapping["Nickname"]],
@@ -140,6 +140,7 @@ def format_paper(v):
         "venue": v.get(field_name_mapping["Venue"], ""),
         "year": v[field_name_mapping["Year"]],
     }
+    return data
 
 
 @app.route("/")

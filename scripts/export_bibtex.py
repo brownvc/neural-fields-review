@@ -56,8 +56,10 @@ if __name__ == "__main__":
     # input_ext = ".csv"
     # input_fname = "Review Paper Import Portal Responses"
     # input_fname = "output_responses"
-    input_fname = "Neural Fields_ Paper Import Portal (Responses)"
-    input_ext = ".xlsx"
+    # input_fname = "Neural Fields_ Paper Import Portal (Responses)"
+    # input_ext = ".xlsx"
+    input_fname = "temp/papers"
+    input_ext = ".csv"
     exclude_keys = [
         "NOTE",
         "ID",

@@ -36,13 +36,13 @@ def run():
     citations_cnt = False
     capitalize_bibtex_keys = "ALL"
 
-    input_fname = "Review Paper Import Portal Responses"
-    input_fname = "Neural Fields_ Paper Import Portal (Responses)"
-    input_ext = ".xlsx"
-    output_fname = "output_responses"
-    output_ext = ".xlsx"
-    input_fname.replace(".csv", " - Form Responses 1.csv")
-    output_fname.replace(".csv", " - Form Responses 1.csv")
+    # input_fname = "Review Paper Import Portal Responses"
+    # input_fname = "Neural Fields_ Paper Import Portal (Responses)"
+    # input_ext = ".xlsx"
+    input_fname = "sitedata/papers"
+    input_ext = ".csv"
+    output_fname = "temp/output_responses"
+    output_ext = ".csv"
 
     # Load spreadsheet
     rows = read_spreadsheet(input_fname, input_ext)

@@ -370,7 +370,7 @@ body .carousel-control-prev {
 }
 
 .homepage-title-1 {
-	font-size: 30px;
+	font-size: 33px;
 	font-weight: bolder;
 }
 
@@ -403,10 +403,15 @@ body .carousel-control-prev {
 	font-weight: bold;
 }
 
-.infopage-text {
+.infopage-title-3 {
 	font-size: 23px;
+	font-weight: bold;
+}
+
+.infopage-text {
+	font-size: 22px;
 }
 
 .infopage-step-list-item {
-	font-size: 20px;
+	font-size: 21px;
 }

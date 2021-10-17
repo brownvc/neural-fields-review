@@ -3,12 +3,9 @@ Step 1: Download the google form as .xlsx file
 
 Step 2: Run scripts
 ```
-rm *Zone.Identifier
-python run_api.py
-python spreadsheet_check_error.py
-mv checked.xlsx "Neural Fields_ Paper Import Portal (Responses).xlsx"
-rm *Zone.Identifier
-python export_bibtex.py
+python scripts/run_api.py
+python scripts/spreadsheet_check_error.py
+mv temp/checked.csv sitedata/papers.csv
 ```
 
 Step 4: Update the following columns when copying to google sheets
