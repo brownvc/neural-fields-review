@@ -167,9 +167,15 @@ const renderTimeline = (papers) => {
     }
     }
         );
-        paperDataset = new vis.DataSet(paperItems);
+        paperItems.sort((x, y) => {
+          if (x.start.isBefore(y.start)) return -1;
+          else if (y.start.isBefore(x.start)) return 1;
+          else return 0;
+    })
+    paperDataset = new vis.DataSet(paperItems);
     timeline = new vis.Timeline(container, paperDataset, timelineOptions);
-    if (paperItems.length > 0) {
+        if (paperItems.length > 0) {
+      //focus on the latest paper
       timeline.focus(paperItems[paperItems.length - 1].id, { duration: 1, easingFunction: "linear" });
       timeline.zoomOut(0);
     }
@@ -193,7 +199,6 @@ const triggerFiltering = () => {
       paper.title.toLowerCase().includes(titleAndNicknameFilterValue.toLowerCase()) || paper.nickname.toLowerCase().includes(titleAndNicknameFilterValue.toLowerCase()))
   }
 
-  // filter by author, keyword, date
   // filter by author, keyword, date
   const authorFilters = [];
   const keywordFilters = [];

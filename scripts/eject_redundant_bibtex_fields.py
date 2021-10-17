@@ -31,15 +31,15 @@ with open(papers_file_path) as csv_file:
             out_rows.append(csv_header)
         else:
             cur_row = row[:]
-            if len(row[11]) > 10:         
-                article_type, bibtex_key, dict = util.dict_from_string(row[11])
+            if len(row[8]) > 10:         
+                article_type, bibtex_key, dict = util.dict_from_string(row[8])
                 for k in exclude_keys:
                     if k.lower() in dict:
                         dict.pop(k.lower())
                 bibtex_dict = {bibtex_key: dict}
                 bibtex_str = util.format_bibtex_str(
                     bibtex_dict, article_type=article_type)
-                cur_row[11] = bibtex_str
+                cur_row[8] = bibtex_str
             out_rows.append(cur_row)
         line += 1
 
