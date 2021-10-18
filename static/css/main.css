@@ -393,6 +393,19 @@ body .carousel-control-prev {
 	margin-bottom: 20px;
 }
 
+.contributor-card {
+	height: 340px;
+}
+
+.contributor-headshot {
+	width: 80%;
+	display: block; 
+	margin-left: auto;
+	margin-right: auto; 
+	padding-top: 10px; 
+	padding-bottom: 10px;
+}
+
 .infopage-title-1 {
 	font-size: 30px;
 	font-weight: bolder;
