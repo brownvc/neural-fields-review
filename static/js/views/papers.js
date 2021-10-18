@@ -94,6 +94,7 @@ const updateCards = (papers) => {
       
       tippy(".copy-bibtex-icon");
       tippy(".checkbox-bookmark");
+      tippy(".card-header-icon");
 
       all_mounted_cards.select(".card-title").on("click", function (d) {
         const iid = d.UID;
@@ -356,11 +357,15 @@ const card_html = (paper) =>
                 
                 <div class="icons" style="display: flex; flex-direction: row; justify-content: space-around; padding-bottom: 10px">
                     ${paper.project_link !== "" ?
-                    `<a class="card-header-icon card-header-icon fas" href="${paper.project_link}" target="_blank" title="Project homepage">&#xf015;</a>`
+                    `<a class="card-header-icon card-header-icon fas" href="${paper.project_link}" target="_blank" data-tippy-content="Project homepage">&#xf015;</a>`
                     : ""}
                 
                     ${paper.talk_link !== "" ?
-                    `<a class="card-header-icon card-header-icon fas" href="${paper.talk_link}" target="_blank" title="Talk">&#xf03d;</a>`
+                    `<a class="card-header-icon card-header-icon fas" href="${paper.talk_link}" target="_blank" data-tippy-content="Talk video">&#xf03d;</a>`
+                    : ""}
+                    
+                    ${paper.pdf_url !== "" ?
+                    `<a class="card-header-icon card-header-icon fas" href="${paper.pdf_url}" target="_blank" data-tippy-content="PDF file">&#xf1c1;</a>`
                     : ""}
                 </div>
                 
