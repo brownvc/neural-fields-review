@@ -84,7 +84,6 @@ for i in tqdm(range(len(rows))):
         article_type, bibtex_key, dict = util.dict_from_string(bibtex_)
         bibtex_dict = {bibtex_key : dict}
         row[csv_head_key['Bibtex']] = util.format_bibtex_str(bibtex_dict, article_type=article_type, eject_keys=eject_keys)
-        print(row[csv_head_key['Bibtex']])
 
     pdf_links_all.append(row[csv_head_key['PDF']])
 
