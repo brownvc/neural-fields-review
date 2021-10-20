@@ -138,5 +138,6 @@ node_modules/
 # MacOS
 .DS_Store
 
-# Auth key
+# Auth keys
 scripts/SemanticScholarAuthKey
+neural-fields-AWS-key.pem
