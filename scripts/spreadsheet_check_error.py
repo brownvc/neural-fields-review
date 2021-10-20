@@ -53,32 +53,31 @@ start_row = 0
 end_row = len(rows)
 cnt = 0
 prev_pdf = ""
-for i in tqdm(range(len(rows))):
-    row = rows[i]
+for j in tqdm(range(len(rows))):
+    row = rows[j]
     if cnt == 0:
-        rows.append(row)
         cnt += 1
         continue
     # Check for duplicate pdf link
     if prev_pdf == row[csv_head_key['PDF']]:
-        # print("Wrong pdf link (same as row above) at row {}".format(cnt+1))
-        wrong_pdf.append(cnt+1)
+        # print("Wrong pdf link (same as row above) at row {}".format(cnt))
+        wrong_pdf.append(cnt)
 
     prev_pdf = row[csv_head_key['PDF']]
 
     # Check for missing authors
     if row[csv_head_key['Authors']] == "":
-        missing_author.append(cnt+1)
+        missing_author.append(cnt)
 
     # Check for missing nickname
     if (0 < row[csv_head_key['Title']].find(":") < 18) and (row[csv_head_key['Nickname']] == ""):
-        missing_nickname.append(cnt+1)
+        missing_nickname.append(cnt)
 
     # Check for missing bibtex citation
     bibtex_ = row[csv_head_key['Bibtex']]
     if len(bibtex_) < 10:
-        missing_bibtex.append(cnt+1)
-    elif start_row <= i <= end_row:
+        missing_bibtex.append(cnt)
+    elif start_row <= j <= end_row:
         comm = bibtex_.find(",")
         bibtex_ = bibtex_[:comm].replace(" ", "") + bibtex_[comm:]
         article_type, bibtex_key, dict = util.dict_from_string(bibtex_)
@@ -88,7 +87,7 @@ for i in tqdm(range(len(rows))):
     pdf_links_all.append(row[csv_head_key['PDF']])
 
     # Correct miss-spelling from unicode
-    if start_row <= i <= end_row:
+    if start_row <= j <= end_row:
         for k in names:
             wrong_w = k.split(" ")
             correct_w = names[k].split(" ")
@@ -123,25 +122,25 @@ for i in tqdm(range(len(rows))):
                 w = w.replace("-", "").replace(",","")
                 if (unicodedata.normalize('NFD', w) != w):
                     if w not in (non_ascii):
-                        incorrect_spelling[cnt+1] = w
+                        incorrect_spelling[cnt] = w
                         break
 
     # Bibtex name
     if len(row[csv_head_key['Bibtex Name']]) < 5:
-        missing_bibtex_name.append(cnt+1)
+        missing_bibtex_name.append(cnt)
 
     # UID
     if len("%08d" %int(row[csv_head_key['UID']])) < 2:
-        missing_UID.append(cnt+1)
+        missing_UID.append(cnt)
     else:
         UIDs.append(row[csv_head_key['UID']])
 
     # Abstract
     if len(row[csv_head_key['Abstract']]) < 20:
-        missing_abstract.append(cnt+1)
+        missing_abstract.append(cnt)
 
+    rows[j] = row
     cnt += 1
-    rows[i] = row
 
 util.write_spreadsheet(rows, output_fname, output_ext)
 
