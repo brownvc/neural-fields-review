@@ -48,7 +48,7 @@ def run():
     rows = read_spreadsheet(input_fname, input_ext)
 
     # Iterate on each row
-    start_row = 0           # This is for skipping already processed entries
+    start_row = 256           # This is for skipping already processed entries
     end_row = len(rows)
     cnt = start_row
     for r in tqdm(range(start_row, end_row)):
@@ -59,6 +59,16 @@ def run():
         if (cnt == 0):
             cnt += 1
             continue
+
+        # if ("https://arxiv.org/" in row[csv_head_key['PDF']]):
+        #     serial_num = row[csv_head_key['PDF']].strip("https://arxiv.org/abs/pdf")
+        #     if "https://arxiv.org/ftp/arxiv/papers" in row[csv_head_key['PDF']]:
+        #         serial_num =
+        #     elif len(serial_num) != 10:
+        #         print("Unknown ARXIV PDF link format: ", row[csv_head_key['PDF']])
+        #         continue
+        #     else:
+        #         row[csv_head_key['PDF']] = f"https://arxiv.org/pdf/{serial_num}.pdf"
 
         # Date
         if ("https://arxiv.org/" in row[csv_head_key['PDF']]) and (row[csv_head_key['Date']] == ""):
@@ -150,7 +160,7 @@ def run():
                         dict[k] = BIBTEX_INFO[k][venue]
                 if venue == "ARXIV":
                     if "https://arxiv.org/" in row[csv_head_key['PDF']]:
-                       dict['journal'] += " arXiv:" + row[csv_head_key['PDF']].strip("https://arxiv.org/pdf/")
+                       dict['journal'] += " arXiv:" + row[csv_head_key['PDF']].strip("https://arxiv.org/pdf/abs")
             bibtex_dict = {bibtex_key : dict}
             # Format the final bibtex string
             bibtex_str = ""
