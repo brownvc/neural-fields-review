@@ -8,6 +8,10 @@ from tqdm import tqdm
 # @profile
 def run():
     """
+    python scripts/run_api.py
+    python scripts/spreadsheet_check_error.py
+    mv temp/checked.csv sitedata/papers.csv
+
     API 1:
     arxiv api
     Use arxivapi and arxiv2bib
@@ -46,10 +50,11 @@ def run():
 
     # Load spreadsheet
     rows = read_spreadsheet(input_fname, input_ext)
-
+    with open("scripts/papers_metadata.txt", "r") as f:
+        num_rows_old = int(f.read())
     # Iterate on each row
-    start_row = 256           # This is for skipping already processed entries
-    end_row = len(rows)
+    start_row = 0           # This is for skipping already processed entries
+    end_row = len(rows) - num_rows_old
     cnt = start_row
     for r in tqdm(range(start_row, end_row)):
         d, search_result, bibtex_str, bibtex_dict, dict = None, None, None, None, None
@@ -60,15 +65,16 @@ def run():
             cnt += 1
             continue
 
-        # if ("https://arxiv.org/" in row[csv_head_key['PDF']]):
-        #     serial_num = row[csv_head_key['PDF']].strip("https://arxiv.org/abs/pdf")
-        #     if "https://arxiv.org/ftp/arxiv/papers" in row[csv_head_key['PDF']]:
-        #         serial_num =
-        #     elif len(serial_num) != 10:
-        #         print("Unknown ARXIV PDF link format: ", row[csv_head_key['PDF']])
-        #         continue
-        #     else:
-        #         row[csv_head_key['PDF']] = f"https://arxiv.org/pdf/{serial_num}.pdf"
+        if ("https://arxiv.org/" in row[csv_head_key['PDF']]):
+            serial_num = row[csv_head_key['PDF']].strip("https://arxiv.org/abs/pdf")
+            if "https://arxiv.org/ftp/arxiv/papers" in row[csv_head_key['PDF']]:
+                # "https://arxiv.org/ftp/arxiv/papers/2108/2108.10991.pdf"
+                serial_num = row[csv_head_key['PDF']][40:50]
+            elif len(serial_num) != 10:
+                print("Unknown ARXIV PDF link format: ", row[csv_head_key['PDF']])
+                continue
+            else:
+                row[csv_head_key['PDF']] = f"https://arxiv.org/pdf/{serial_num}.pdf"
 
         # Date
         if ("https://arxiv.org/" in row[csv_head_key['PDF']]) and (row[csv_head_key['Date']] == ""):
@@ -160,7 +166,7 @@ def run():
                         dict[k] = BIBTEX_INFO[k][venue]
                 if venue == "ARXIV":
                     if "https://arxiv.org/" in row[csv_head_key['PDF']]:
-                       dict['journal'] += " arXiv:" + row[csv_head_key['PDF']].strip("https://arxiv.org/pdf/abs")
+                       dict['journal'] += " arXiv:" + serial_num
             bibtex_dict = {bibtex_key : dict}
             # Format the final bibtex string
             bibtex_str = ""
