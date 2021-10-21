@@ -49,8 +49,12 @@ rows = util.read_spreadsheet(input_fname, input_ext)
 
 UIDs, pdf_links_all, wrong_pdf, missing_author, missing_nickname, missing_bibtex, missing_bibtex_name, missing_abstract, missing_UID = [], [], [], [], [], [], [], [], []
 incorrect_spelling = {}
-start_row = 0
-end_row = len(rows)
+
+with open("scripts/papers_metadata.txt", "r") as f:
+    num_rows_old = int(f.read())
+# Iterate on each row
+start_row = 0           # This is for skipping already processed entries
+end_row = len(rows) - num_rows_old
 cnt = 0
 prev_pdf = ""
 for j in tqdm(range(len(rows))):
@@ -143,6 +147,8 @@ for j in tqdm(range(len(rows))):
     cnt += 1
 
 util.write_spreadsheet(rows, output_fname, output_ext)
+with open("scripts/papers_metadata.txt", "w+") as f:
+    f.write(str(len(rows)))
 
 
 print("# Check for duplicate entries")
