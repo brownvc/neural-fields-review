@@ -259,6 +259,13 @@ def get_venue(comment, pub_year):
     return venue
 
 
+def find_max_uid(rows):
+    max_uid = 0
+    for r in rows:
+        if int(r[csv_head_key["UID"]]) > max_uid:
+            max_uid = int(r[csv_head_key["UID"]])
+    return max_uid
+
 ## Note on citation conventions and generation
 """
 Minimally, the keys should be: AUTHOR, TITLE, BOOKTITLE, YEAR,

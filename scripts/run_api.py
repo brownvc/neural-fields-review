@@ -50,11 +50,14 @@ def run():
 
     # Load spreadsheet
     rows = read_spreadsheet(input_fname, input_ext)
+    # This doesn't include row(0)
     with open("scripts/papers_metadata.txt", "r") as f:
         num_rows_old = int(f.read())
+
+    max_uid = util.find_max_uid(rows)
     # Iterate on each row
     start_row = 0           # This is for skipping already processed entries
-    end_row = len(rows) - num_rows_old
+    end_row = (len(rows) - 1) - num_rows_old
     cnt = start_row
     for r in tqdm(range(start_row, end_row)):
         d, search_result, bibtex_str, bibtex_dict, dict = None, None, None, None, None
@@ -64,6 +67,9 @@ def run():
         if (cnt == 0):
             cnt += 1
             continue
+
+        if len(str(row[csv_head_key["UID"]])) == 0:
+            row[csv_head_key["UID"]] = max_uid
 
         if ("https://arxiv.org/" in row[csv_head_key['PDF']]):
             serial_num = row[csv_head_key['PDF']].strip("https://arxiv.org/abs/pdf")

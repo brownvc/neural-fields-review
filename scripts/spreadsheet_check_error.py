@@ -148,7 +148,7 @@ for j in tqdm(range(len(rows))):
 
 util.write_spreadsheet(rows, output_fname, output_ext)
 with open("scripts/papers_metadata.txt", "w+") as f:
-    f.write(str(len(rows)))
+    f.write(str(len(rows)-1))
 
 
 print("# Check for duplicate entries")
