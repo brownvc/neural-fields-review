@@ -103,26 +103,26 @@ const constructCitationCode = (paper) => {
   if (authors.length == 1)
   {
     const familyname = authors[0].split(" ")[1];
-    citationCode = familyname.substring(0, 3) + year;
+    citationCode = familyname.substring(0, 3) + year.substring(2);
   }
   else if (authors.length == 2)
   {
     const familyname1 = authors[0].split(" ")[1];
     const familyname2 = authors[1].split(" ")[1];
-    citationCode = familyname1[0] + familyname2[0] + year;
+    citationCode = familyname1[0] + familyname2[0] + year.substring(2);
   }
   else if (authors.length == 3)
   {
     const familyname1 = authors[0].split(" ")[1];
     const familyname2 = authors[1].split(" ")[1];
     const familyname3 = authors[2].split(" ")[1];
-    citationCode = familyname1[0] + familyname2[0] + familyname3[0] + year;
+    citationCode = familyname1[0] + familyname2[0] + familyname3[0] + year.substring(2);
   }
   else {
     const familyname1 = authors[0].split(" ")[1];
     const familyname2 = authors[1].split(" ")[1];
     const familyname3 = authors[2].split(" ")[1];
-    citationCode = familyname1[0] + familyname2[0] + familyname3[0] + "*" + year;
+    citationCode = familyname1[0] + familyname2[0] + familyname3[0] + "*" + year.substring(2);
   }
   return citationCode;
 }
