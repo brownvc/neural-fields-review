@@ -38,6 +38,9 @@ const drawKeywordsStatistics = (allPapers) => {
             }
     ];
     let layout = {
+        margin: {
+            t: 0
+        },
         paper_bgcolor: 'rgba(0,0,0,0)',
         plot_bgcolor: 'rgba(0,0,0,0)',
         xaxis: { automargin: true },
