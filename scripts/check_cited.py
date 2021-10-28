@@ -20,8 +20,6 @@ output_fname_cited = "temp/cited"
 output_fname_not = "temp/not_cited"
 output_ext = ".xlsx"
 
-print(latex_references_section)
-# exit(12)
 # Load spreadsheet
 rows = read_spreadsheet(input_fname, input_ext)
 for r in rows:
