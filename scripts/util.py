@@ -110,7 +110,7 @@ def write_spreadsheet(rows, fname, ext):
         workbook.close()
 
 
-def format_bibtex_str(bibtex, cap_keys="ALL", space=True, indent="    ", article_type="article", last_name_first=False, eject_keys=None):
+def format_bibtex_str(bibtex, cap_keys="ALL", space=True, indent="    ", article_type="article", last_name_first=False, exclude_keys=[]):
     """
     Args:
         bibtex: str or dict
@@ -126,7 +126,7 @@ def format_bibtex_str(bibtex, cap_keys="ALL", space=True, indent="    ", article
         d = bibtex[name]
         entries = []
         for key in d:
-            if not (key.upper() in eject_keys):
+            if not (key.upper() in exclude_keys):
                 content = d[key].replace(' \n', ' ').replace('\n', ' ')
                 key = key.lower()
                 if cap_keys == "ALL":

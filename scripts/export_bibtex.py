@@ -3,7 +3,7 @@ import util
 from util import csv_head_key
 
 
-def export_from_spreadsheet(input_fname, input_ext, output_fname="references.bib", exclude_keys=[]):
+def export_from_spreadsheet(input_fname, input_ext, output_fname="temp/references.bib", exclude_keys=[]):
     bibtex = []
     reader = util.read_spreadsheet(input_fname, input_ext)
 
@@ -18,14 +18,14 @@ def export_from_spreadsheet(input_fname, input_ext, output_fname="references.bib
                 if k.lower() in dict:
                     dict.pop(k.lower())
             bibtex_dict = {bibtex_key : dict}
-            bibtex_str = util.format_bibtex_str(bibtex_dict, article_type=article_type)
+            bibtex_str = util.format_bibtex_str(bibtex_dict, article_type=article_type, exclude_keys=exclude_keys)
             bibtex.append(bibtex_str+"\n\n")
 
     with open(output_fname, "w+", encoding="utf-8") as f:
         f.writelines(bibtex)
 
 
-def format_dotbib_file(fname):
+def format_dotbib_file(fname, exclude_keys=[]):
     with open(fname, 'r') as file:
         data = file.read()
 
@@ -58,7 +58,7 @@ if __name__ == "__main__":
     # input_fname = "output_responses"
     # input_fname = "Neural Fields_ Paper Import Portal (Responses)"
     # input_ext = ".xlsx"
-    input_fname = "temp/papers"
+    input_fname = "sitedata/papers"
     input_ext = ".csv"
     exclude_keys = [
         "NOTE",
@@ -73,8 +73,8 @@ if __name__ == "__main__":
     ]
     export_from_spreadsheet(input_fname, input_ext, exclude_keys=exclude_keys)
 
-    #dotbib_fname = "more_ref.bib"
-    #format_dotbib_file(dotbib_fname)
+    dotbib_fname = "temp/more_ref.bib"
+    format_dotbib_file(dotbib_fname, exclude_keys=exclude_keys)
 
 
 """
