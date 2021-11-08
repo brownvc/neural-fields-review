@@ -60,7 +60,6 @@ const start = () => {
 
 const setVagueSearchFilter = () => {
   const vagueSearchInputValue = document.getElementById("vagueSearchInput").value;
-  console.log("setting, ", vagueSearchInputValue);
   filter = vagueSearchInputValue;
   triggerFiltering();
 }
@@ -145,7 +144,7 @@ const getFilterFromURL = () => {
   }
   else if (params.has("feelingLucky")) {
     console.log("I'm feeling lucky");
-    const filterTypes = ["keywords", "titles", "nicknames", "venues"];
+    const filterTypes = ["keywords", "titles", "venues"];
     const typeIndex = Math.floor(Math.random() * filterTypes.length);
     const entryIndex = Math.floor(Math.random() * allKeys[filterTypes[typeIndex]].length);
     const filterValue = allKeys[filterTypes[typeIndex]][entryIndex];
