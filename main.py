@@ -165,6 +165,13 @@ def papers():
     return render_template("papers.html", **data)
 
 
+@app.route("/papers_vague.html")
+def papers_vague():
+    data = _data()
+    data["papers"] = site_data["papers"]
+    return render_template("papers_vague.html", **data)
+
+
 @app.route("/paper_vis_timeline.html")
 def paper_vis_timeline():
     data = _data()

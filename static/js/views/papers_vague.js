@@ -23,17 +23,11 @@ let renderMode = MODE.compact;
  * Entries are in format:
  * {
  *  filterID: number
- *  filterType: "titleAndNickname" / "author" / "date" / "keyword" / "venue";
+ *  filterType: "vagueSearch" / "author" / "date" / "keyword" / "venue";
  *  filterValue: string
  * }
  */
-var filters = [
-  {
-    filterID: 0,
-    filterType: "titleAndNickname",
-    filterValue: ""
-  }
-];
+var filter = "";
 
 var nextFilterID = 1;
 
@@ -49,19 +43,27 @@ const start = () => {
       d3.select("#displaying-number-of-papers-message")
         .html(`<span>Displaying ${allPapers.length} papers</span>`);
       calcAllKeys(allPapers, allKeys);
-      initTypeAhead([...allKeys.titles, ...allKeys.nicknames],".titleAndNicknameTypeahead","titleAndNickname",setTitleAndNicknameFilter)
-      addNewFilter("author", "");
-      addNewFilter("keyword", "");
-      addNewFilter("venue", "");
-      addNewFilter("date", "");
+      initTypeAhead(
+        [...allKeys.titles,
+        ...allKeys.nicknames,
+        ...allKeys.authors,
+        ...allKeys.keywords,
+        ...allKeys.venues],
+        ".vagueSearchTypeahead", "vagueSearch", setVagueSearchFilter);
       const urlHasFilterParams = getFilterFromURL();
       updateCards(allPapers);
       if (urlHasFilterParams) triggerFiltering();
-      
     })
     .catch((e) => console.error(e));
   
 };
+
+const setVagueSearchFilter = () => {
+  const vagueSearchInputValue = document.getElementById("vagueSearchInput").value;
+  console.log("setting, ", vagueSearchInputValue);
+  filter = vagueSearchInputValue;
+  triggerFiltering();
+}
 
 const updateCards = (papers) => {
   Promise.all([
@@ -135,25 +137,20 @@ const changeRenderMode = (newRenderMode) => {
 const getFilterFromURL = () => {
   const URL = window.location.search;
   const params = new URLSearchParams(URL);
-  if (params.has("author")) {
-    const filterValue = params.get("author");
-    //addNewFilter("author", filterValue);
-    document.getElementById(`filterInput_${1}`).value = filterValue;
-    setFilterByID(1);
+  if (params.has("vagueSearch")) {
+    const filterValue = params.get("vagueSearch");
+    document.getElementById(`vagueSearchInput`).value = filterValue;
+    filter = filterValue;
     return true;
   }
-  else if (params.has("keyword")) {
-    const filterValue = params.get("keyword");
-    //addNewFilter("keyword", filterValue);
-    document.getElementById(`filterInput_${2}`).value = filterValue;
-    setFilterByID(2);
-    return true;
-  }
-  else if (params.has("venue")) {
-    const filterValue = params.get("venue");
-    //addNewFilter("keyword", filterValue);
-    document.getElementById(`filterInput_${3}`).value = filterValue;
-    setFilterByID(3);
+  else if (params.has("feelingLucky")) {
+    console.log("I'm feeling lucky");
+    const filterTypes = ["keywords", "titles", "nicknames", "venues"];
+    const typeIndex = Math.floor(Math.random() * filterTypes.length);
+    const entryIndex = Math.floor(Math.random() * allKeys[filterTypes[typeIndex]].length);
+    const filterValue = allKeys[filterTypes[typeIndex]][entryIndex];
+    document.getElementById(`vagueSearchInput`).value = filterValue;
+    filter = filterValue;
     return true;
   }
 }
@@ -163,100 +160,20 @@ const getFilterFromURL = () => {
  */
 const triggerFiltering = () => {
   filteredPapers = allPapers;
-
-  const onlyShowPapersWithCode = document.getElementById("onlyShowPapersWithCodeCheckbox").checked;
-  if (onlyShowPapersWithCode) {
-    filteredPapers = allPapers.filter((paper) => paper.code_link !== "");
-  }
-
-  const onlyShowPeerReviewedPapers = document.getElementById("onlyShowPeerReviewedPapersCheckbox").checked;
-  if (onlyShowPeerReviewedPapers) {
-    filteredPapers = filteredPapers.filter((paper) => !(paper.venue.includes("ARXIV") || paper.venue.includes("OpenReview")));
-  }
-
-  // filter by title / nickname
-  const titleAndNicknameFilterValue = filters[0].filterValue
-  if (titleAndNicknameFilterValue !== "") {
+  console.log("filtering: ", filter);
+  const vagueSearchFilterValue = filter;
+  if (vagueSearchFilterValue !== "") {
     filteredPapers = filteredPapers.filter((paper) =>
-      paper.title.toLowerCase().includes(titleAndNicknameFilterValue.toLowerCase()) || paper.nickname.toLowerCase().includes(titleAndNicknameFilterValue.toLowerCase()))
-  }
-
-  // filter by author, keyword, date
-  const authorFilters = [];
-  const keywordFilters = [];
-  const venueFilters = [];
-  const dateFilters = [];
-  filters.forEach((filter) => {
-    if (filter.filterType === "author" && filter.filterValue !== "") {
-      authorFilters.push(filter.filterValue);
+    {
+      return paper.title.toLowerCase().includes(vagueSearchFilterValue.toLowerCase()) ||
+        paper.nickname.toLowerCase().includes(vagueSearchFilterValue.toLowerCase()) ||
+        paper.venue.toLowerCase().includes(vagueSearchFilterValue.toLowerCase()) ||
+        paper.authors.reduce((prev, cur) =>
+          prev || cur.toLowerCase().includes(vagueSearchFilterValue.toLowerCase()), false) ||
+        paper.keywords.reduce((prev, cur) =>
+        prev || cur.toLowerCase().includes(vagueSearchFilterValue.toLowerCase()), false)
     }
-    else if (filter.filterType === "keyword" && filter.filterValue !== "") {
-      keywordFilters.push(filter.filterValue);
-    }
-    else if (filter.filterType === "venue" && filter.filterValue !== "") {
-      venueFilters.push(filter.filterValue);
-    }
-    else if (filter.filterType === "date" && filter.filterValue !== "") {
-      dateFilters.push(filter.filterValue);
-    }
-  });
-
-  if (authorFilters.length > 0) {
-    filteredPapers = filteredPapers.filter((paper) => {
-      let filteredByAuthor = false;
-      for (authorFilter of authorFilters) {
-        if (paper.authors.includes(authorFilter)) {
-          filteredByAuthor = true;
-          break;
-        }
-      }
-      return filteredByAuthor;
-    });
-  }
-
-  if (keywordFilters.length > 0) {
-    filteredPapers = filteredPapers.filter((paper) => {
-      let filteredByKeyword = false;
-      for (keywordFilter of keywordFilters) {
-        if (paper.keywords.includes(keywordFilter)) {
-          filteredByKeyword = true;
-          break;
-        }
-      }
-      return filteredByKeyword;
-    });
-  }
-
-  if (venueFilters.length > 0) {
-    filteredPapers = filteredPapers.filter((paper) => {
-    let filteredByVenue = false;
-    for (venueFilter of venueFilters) {
-      if (paper.venue.includes(venueFilter)) {
-        filteredByVenue = true;
-        break;
-      }
-    }
-    return filteredByVenue;
-    });
-  }
-  
-  if (dateFilters.length > 0) {
-    filteredPapers = filteredPapers.filter((paper) => {
-    let filteredByDate = false;
-    const paperDate = moment(paper.date, "MM/DD/YYYY");
-    for (dateRange of dateFilters) {
-      let startDate = dateRange.split("/")[0];
-      startDate = moment(startDate, "YYYY-MM-DD");
-      let endDate = dateRange.split("/")[1];
-      endDate = moment(endDate, "YYYY-MM-DD");
-      if (paperDate.isBetween(startDate, endDate) || paperDate.isSame(startDate) || paperDate.isSame(endDate))
-      {
-        filteredByDate = true;
-        break;
-      }
-    }
-    return filteredByDate;
-    });
+    );
   }
 
   // sorting

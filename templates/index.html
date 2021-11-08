@@ -26,6 +26,41 @@
 
 {% block content %}
 
+<div class="row">
+  <div class="input-group col-11">
+    <input type="text" id="vagueSearchInput" class="form-control vagueSearchTypeahead"
+      onchange="vagueSearch()">
+    <button type="button" class="btn bg-transparent vagueSearchTypeahead_clear"
+      style="margin-left: -40px; z-index: 100;">
+      &times;
+    </button>
+  </div>
+  <div class="col-1">
+    <button class="btn btn-outline-secondary" style="border-radius: 25px;" data-tippy-content="Search"
+      onclick="vagueSearch()">
+      <div class="fas">&#xf002;</div>
+    </button>
+  </div>
+</div>
+
+<div class="row" style="padding-top: 10px; padding-bottom: 20px;">
+  <div class="col-4">
+    <button type="button" class="btn btn-success" onclick="window.open('papers.html','_self').focus();">
+      Advanced Search
+    </button>
+  </div>
+  <div class="col-3 d-flex justify-content-center">
+    <button type="button" class="btn btn-success" onclick="window.open('papers_vague.html?feelingLucky=true','_self').focus();">
+      I'm fielding lucky
+    </button>
+  </div>
+  <div class="col-4  d-flex justify-content-end">
+    <button type="button" class="btn btn-success" onclick="window.open('info.html','_self').focus();">
+      Add my paper
+    </button>
+  </div>
+</div>
+
 <p class="homepage-title-1">What is this?</p>
 <p class="homepage-text">
     <!-- This is the complementary web-page for Eurographics 2022 State-of-The-Art Report
@@ -80,7 +115,11 @@ paper to the database, or edit your existing entry.
 
 <img src="static/images/citation.gif" class="homepage-image">
 
+<script src="static/js/modules/typeaheadSetup.js"></script>
+<script src="static/js/views/view_utils.js"></script>
+<script src="static/js/views/index.js"></script>
 <script>
+  start();
   const contributors = [
     {
       name: "Yiheng Xie",
