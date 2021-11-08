@@ -143,8 +143,7 @@ const getFilterFromURL = () => {
     return true;
   }
   else if (params.has("feelingLucky")) {
-    console.log("I'm feeling lucky");
-    const filterTypes = ["keywords", "titles", "venues"];
+    const filterTypes = ["keywords", "titles"];
     const typeIndex = Math.floor(Math.random() * filterTypes.length);
     const entryIndex = Math.floor(Math.random() * allKeys[filterTypes[typeIndex]].length);
     const filterValue = allKeys[filterTypes[typeIndex]][entryIndex];
@@ -159,9 +158,11 @@ const getFilterFromURL = () => {
  */
 const triggerFiltering = () => {
   filteredPapers = allPapers;
-  console.log("filtering: ", filter);
-  const vagueSearchFilterValue = filter;
-  if (vagueSearchFilterValue !== "") {
+  const vagueSearchFilterValues = filter.split(" ");
+  for (vagueSearchFilterValue of vagueSearchFilterValues)
+  {
+    console.log(vagueSearchFilterValue);
+    if (vagueSearchFilterValue !== "") {
     filteredPapers = filteredPapers.filter((paper) =>
     {
       return paper.title.toLowerCase().includes(vagueSearchFilterValue.toLowerCase()) ||
@@ -173,7 +174,9 @@ const triggerFiltering = () => {
         prev || cur.toLowerCase().includes(vagueSearchFilterValue.toLowerCase()), false)
     }
     );
+  }  
   }
+  
 
   // sorting
   const sortBy = document.getElementById("sortBySelector").value;

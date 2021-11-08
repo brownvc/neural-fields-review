@@ -202,6 +202,11 @@ def info():
     data = _data()
     return render_template("info.html", **data)
 
+@app.route("/contributors.html")
+def contributors():
+    data = _data()
+    return render_template("contributors.html", **data)
+
 @app.route("/thumbnail_<thumbnail>.png")
 def thumbnail(thumbnail):
     uid = thumbnail

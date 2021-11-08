@@ -61,17 +61,23 @@
   </div>
 </div>
 
+<iframe src="static/pdf/Neural Fields in Visual Computing.pdf" width="100%" height="800px"></iframe>
+
 <p class="homepage-title-1">What is this?</p>
 <p class="homepage-text">
-    <!-- This is the complementary web-page for Eurographics 2022 State-of-The-Art Report
-    (under review): <i><a href="">Neural Fields in Visual Computing and Beyond</a></i>. -->
+    This is the complementary web-page for Eurographics 2022 State-of-The-Art Report
+    (under review): <i><a href="">Neural Fields in Visual Computing and Beyond</a></i>.
+</p>
+<p class="homepage-text">
     We aim to provide a comprehensive yet interactive database of all papers using
     the coordinate-based neural network technique.
-    <!-- For more in-depth discussions, please visit our <a href="">review paper</a> -->
-    <!-- (<a class="card-link" data-toggle="collapse" role="button" href="#paper-bibtex">
+</p>
+<p class="homepage-text">
+    For more in-depth discussions, please visit our <a href="">review paper</a>
+    (<a class="card-link" data-toggle="collapse" role="button" href="#paper-bibtex">
       Bibtex
-    </a>). -->
-    <!-- <div id="paper-bibtex" class="pp-card m-3 collapse">
+    </a>).
+    <div id="paper-bibtex" class="pp-card m-3 collapse">
       <div class="card-body">
         <div class="card-text">
           <span style="font-size: large; font-weight: bold;">Bibtex for our paper:</span>
@@ -86,16 +92,13 @@
         </div>
         <p></p>
       </div>
-    </div> -->
+    </div>
 </p>
 
 <p class="homepage-text">
 For authors, please visit the <a href="info.html" target="_blank">info page</a> to find instructions on how to add your
 paper to the database, or edit your existing entry.
 </p>
-
-<p class="homepage-title-1">Contributors</p>
-<div class="row" id="contributor-cards"></div>
 
 <p class="homepage-title-1">Features</p>
 <p class="homepage-title-2">Filtering</p>
@@ -120,93 +123,5 @@ paper to the database, or edit your existing entry.
 <script src="static/js/views/index.js"></script>
 <script>
   start();
-  const contributors = [
-    {
-      name: "Yiheng Xie",
-      affliation: "Brown University, Unity Technologies",
-      headshotURL: "static/images/contributors/Yiheng_Xie.jpg",
-      websiteURL: "https://drive.google.com/file/d/1Jdnoj1Agpg1uLLUZW5thCwikjEu_X_K2/view?usp=sharing"
-    },
-    {
-      name: "Towaki Takikawa",
-      affliation: "University of Toronto, NVIDIA",
-      headshotURL: "static/images/contributors/Towaki_Takikawa.png",
-      websiteURL: "https://tovacinni.github.io/"
-    },
-    {
-      name: "Shunsuke Saito",
-      affliation: "Facebook Reality Labs",
-      headshotURL: "static/images/contributors/Shunsuke_Saito.png",
-      websiteURL: "http://www-scf.usc.edu/~saitos/"
-    },
-    {
-      name: "Or Litany",
-      affliation: "NVIDIA",
-      headshotURL: "static/images/contributors/Or_Litany.jpg",
-      websiteURL: "https://orlitany.github.io/"
-    },
-    {
-      name: "Shiqin Yan",
-      affliation: "Brown University",
-      headshotURL: "static/images/contributors/Shiqin_Yan.jpg",
-      websiteURL: "https://player-eric.com/about"
-    },
-    {
-      name: "Numair Khan",
-      affliation: "Brown University",
-      headshotURL: "static/images/contributors/Numair_Khan.jpg",
-      websiteURL: "http://cs.brown.edu/~nkhan6/"
-    },
-    {
-      name: "Federico Tombari",
-      affliation: "Google, TU Munich",
-      headshotURL: "static/images/contributors/Federico_Tombari.jpg",
-      websiteURL: "https://federicotombari.github.io"
-    },
-    {
-      name: "Sunny Li",
-      affliation: "Brown University",
-      headshotURL: "static/images/contributors/Sunny_Li.jpg",
-      websiteURL: ""
-    },
-    {
-      name: "James Tompkin",
-      affliation: "Brown University",
-      headshotURL: "static/images/contributors/James_Tompkin.jpg",
-      websiteURL: "https://jamestompkin.com/"
-    },
-    {
-      name: "Vincent Sitzmann",
-      affliation: "Massachusetts Institute of Technology",
-      headshotURL: "static/images/contributors/Vincent_Sitzmann.jpeg",
-      websiteURL: "http://vsitzmann.github.io/"
-    },
-    {
-      name: "Srinath Sridhar",
-      affliation: "Brown University",
-      headshotURL: "static/images/contributors/Srinath_Sridhar.jpeg",
-      websiteURL: "https://cs.brown.edu/people/ssrinath"
-    },
-  ];
-  for (contributor of contributors) {
-      const name = contributor.name;
-      const affliation = contributor.affliation;
-      const headshotURL = contributor.headshotURL;
-      const websiteURL = contributor.websiteURL;
-      d3.select("#contributor-cards")
-        .append("div")
-        .attr("class", "col-md-3 col-sm-6")
-        .html(`
-        <div class="pp-card contributor-card">
-          <div class="pp-card-header" style="text-align: center;">
-            <a ${websiteURL ? "href=" + websiteURL : ""} target="_blank"><h5 class="card-title">${name}</h5></a>
-            <h6 class="card-subtitle text-muted m-1">${affliation}</h6>
-          </div>
-          <a ${websiteURL ? "href=" + websiteURL : ""} target="_blank">
-            <img src="${headshotURL}" class="contributor-headshot">
-          </a>
-        </div>
-        `);
-    }
 </script>
 {% endblock %}

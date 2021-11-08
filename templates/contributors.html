@@ -1,0 +1,105 @@
+{% set active_page = "Contributors" %}
+{% set page_title = "Contributors" %}
+
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+
+{% endblock %}
+
+{% block content %}
+<p class="homepage-title-1">Contributors</p>
+<div class="row" id="contributor-cards"></div>
+
+<script>
+    const contributors = [
+        {
+            name: "Yiheng Xie",
+            affliation: "Brown University, Unity Technologies",
+            headshotURL: "static/images/contributors/Yiheng_Xie.jpg",
+            websiteURL: "https://drive.google.com/file/d/1Jdnoj1Agpg1uLLUZW5thCwikjEu_X_K2/view?usp=sharing"
+        },
+        {
+            name: "Towaki Takikawa",
+            affliation: "University of Toronto, NVIDIA",
+            headshotURL: "static/images/contributors/Towaki_Takikawa.png",
+            websiteURL: "https://tovacinni.github.io/"
+        },
+        {
+            name: "Shunsuke Saito",
+            affliation: "Facebook Reality Labs",
+            headshotURL: "static/images/contributors/Shunsuke_Saito.png",
+            websiteURL: "http://www-scf.usc.edu/~saitos/"
+        },
+        {
+            name: "Or Litany",
+            affliation: "NVIDIA",
+            headshotURL: "static/images/contributors/Or_Litany.jpg",
+            websiteURL: "https://orlitany.github.io/"
+        },
+        {
+            name: "Shiqin Yan",
+            affliation: "Brown University",
+            headshotURL: "static/images/contributors/Shiqin_Yan.jpg",
+            websiteURL: "https://player-eric.com/about"
+        },
+        {
+            name: "Numair Khan",
+            affliation: "Brown University",
+            headshotURL: "static/images/contributors/Numair_Khan.jpg",
+            websiteURL: "http://cs.brown.edu/~nkhan6/"
+        },
+        {
+            name: "Federico Tombari",
+            affliation: "Google, TU Munich",
+            headshotURL: "static/images/contributors/Federico_Tombari.jpg",
+            websiteURL: "https://federicotombari.github.io"
+        },
+        {
+            name: "Sunny Li",
+            affliation: "Brown University",
+            headshotURL: "static/images/contributors/Sunny_Li.jpg",
+            websiteURL: ""
+        },
+        {
+            name: "James Tompkin",
+            affliation: "Brown University",
+            headshotURL: "static/images/contributors/James_Tompkin.jpg",
+            websiteURL: "https://jamestompkin.com/"
+        },
+        {
+            name: "Vincent Sitzmann",
+            affliation: "Massachusetts Institute of Technology",
+            headshotURL: "static/images/contributors/Vincent_Sitzmann.jpeg",
+            websiteURL: "http://vsitzmann.github.io/"
+        },
+        {
+            name: "Srinath Sridhar",
+            affliation: "Brown University",
+            headshotURL: "static/images/contributors/Srinath_Sridhar.jpeg",
+            websiteURL: "https://cs.brown.edu/people/ssrinath"
+        },
+    ];
+    for (contributor of contributors) {
+        const name = contributor.name;
+        const affliation = contributor.affliation;
+        const headshotURL = contributor.headshotURL;
+        const websiteURL = contributor.websiteURL;
+        d3.select("#contributor-cards")
+            .append("div")
+            .attr("class", "col-md-3 col-sm-6")
+            .html(`
+        <div class="pp-card contributor-card">
+          <div class="pp-card-header" style="text-align: center;">
+            <a ${websiteURL ? "href=" + websiteURL : ""} target="_blank"><h5 class="card-title">${name}</h5></a>
+            <h6 class="card-subtitle text-muted m-1">${affliation}</h6>
+          </div>
+          <a ${websiteURL ? "href=" + websiteURL : ""} target="_blank">
+            <img src="${headshotURL}" class="contributor-headshot">
+          </a>
+        </div>
+        `);
+    }
+</script>
+{% endblock %}

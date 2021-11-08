@@ -19,7 +19,8 @@ const start = () => {
         ...allKeys.authors,
         ...allKeys.keywords,
         ...allKeys.venues],
-        ".vagueSearchTypeahead", "vagueSearch", vagueSearch);
+          ".vagueSearchTypeahead", "vagueSearch", vagueSearch);
+        console.log("initialed")
     })
     .catch((e) => console.error(e));
 };
