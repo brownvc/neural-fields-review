@@ -165,6 +165,13 @@ def papers():
     return render_template("papers.html", **data)
 
 
+@app.route("/papers_vague.html")
+def papers_vague():
+    data = _data()
+    data["papers"] = site_data["papers"]
+    return render_template("papers_vague.html", **data)
+
+
 @app.route("/paper_vis_timeline.html")
 def paper_vis_timeline():
     data = _data()
@@ -194,6 +201,11 @@ def paper(paper):
 def info():
     data = _data()
     return render_template("info.html", **data)
+
+@app.route("/contributors.html")
+def contributors():
+    data = _data()
+    return render_template("contributors.html", **data)
 
 @app.route("/thumbnail_<thumbnail>.png")
 def thumbnail(thumbnail):

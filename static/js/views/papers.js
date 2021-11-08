@@ -377,7 +377,7 @@ const card_html = (paper) =>
                         ${renderMode === MODE.mini ? "" : "Date: " + paper.date}
                 </p>
                 <p class="card-venue text-muted">
-                        ${renderMode === MODE.mini ? "" : "Venue: " + paper.venue}
+                        ${renderMode === MODE.mini ? "" : "Venue: " + paper.venue + " " + paper.year}
                 </p>
                 ${renderMode === MODE.mini ? "" : card_keywords(paper.keywords)}
                 

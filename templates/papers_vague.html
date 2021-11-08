@@ -1,0 +1,109 @@
+{% set page_title = "Papers" %}
+
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+<!-- resources used in papers page -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.0/dist/umd/popper.min.js"></script>
+
+<!-- tippy.js is used for creating tooltips-->
+<script src="https://cdn.jsdelivr.net/npm/tippy.js@6/dist/tippy-bundle.umd.min.js"></script>
+
+<script src="static/js/modules/icons.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
+{% endblock %}
+
+
+{% block content %}
+<div class="row p-3"></div>
+
+
+<!-- title / nickname search input -->
+<div class="row">
+  <div class="input-group col-11">
+    <input type="text" id="vagueSearchInput" class="form-control vagueSearchTypeahead"
+      onchange="setVagueSearchFilter()">
+    <button type="button" class="btn bg-transparent vagueSearchTypeahead_clear"
+      style="margin-left: -40px; z-index: 100;">
+      &times;
+    </button>
+  </div>
+  <div class="col-1">
+    <button class="btn btn-outline-secondary" 
+    style="border-radius: 25px;" 
+    data-tippy-content="Search"
+    onclick="setVagueSearchFilter()">
+      <div class="fas">&#xf002;</div>
+    </button>
+  </div>
+</div>
+
+<div class="row" style="padding-top: 10px;">
+  <div class="col-3">
+    <a href="papers.html">Advanced Search</a>
+  </div>
+  <div class="col-6">
+    <label style="width: 100%;">
+      Sort By
+      <select id="sortBySelector" style="width: 70%; border: 1px solid #ced4da; border-radius: .25rem;"
+        onChange="triggerFiltering()">
+        <option value=""></option>
+        <option value="Title">Title</option>
+        <option value="DateLatestToOldest">Date - Latest to Oldest</option>
+        <option value="DateOldestToLatest">Date - Oldest to Latest</option>
+      </select>
+    </label>
+  </div>
+  <div class="col-3">
+    <div class="float-right">
+      <div class="btn-group btn-group-toggle render_option" data-toggle="buttons">
+        <label class="btn btn-outline-secondary active" onclick="changeRenderMode('mini')">
+          <input type="radio" name="options" value="mini" autocomplete="off" />
+          mini
+        </label>
+        <label class="btn btn-outline-secondary active">
+          <input type="radio" name="options" value="compact" autocomplete="off" onclick="changeRenderMode('compact')"
+            checked />
+          compact
+        </label>
+        <label class="btn btn-outline-secondary">
+          <input type="radio" name="options" value="detail" autocomplete="off" onclick="changeRenderMode('detail')" />
+          detail
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="display: flex; flex-direction: row; justify-content: flex-start;">
+  <span id="displaying-number-of-papers-message" ></span>
+  <div class="button fas download-all-bibtex-icon" 
+  style="padding-left: 10px; font-size: larger;"
+  data-tippy-content="Download all bibtex"
+  onclick="downloadAllBibtex()">&#xf56d;</div>
+</div>
+
+<!-- Cards -->
+<div class="cards row"></div>
+<!-- urlParams.js parses filter keyword from url -->
+<script src="static/js/modules/urlParams.js"></script>
+<!-- typeaheadSetup.js enables autocompleting -->
+<script src="static/js/modules/typeaheadSetup.js"></script>
+<!-- lazyload.js loads images lazily-->
+<script src="static/js/modules/lazyLoad.js"></script>
+<!-- persistor.js stores a dictionary in browser's local storage -->
+<script src="static/js/data/persistor.js"></script>
+<script src="static/js/data/wrangle.js"></script>
+<script src="static/js/data/FileSaver.js"></script>
+<script src="static/js/views/view_utils.js"></script>
+<script src="static/js/views/papers_vague.js"></script>
+<script>
+  $(document).ready(function () {
+    tippy("[data-tippy-content]", { trigger: "mouseenter focus" });
+    start();
+  });
+</script>
+
+{% endblock %}

@@ -434,3 +434,14 @@ body .carousel-control-prev {
 .infopage-step-list-item {
 	font-size: 21px;
 }
+
+.btn-success,
+.btn-success:hover,
+.btn-success:active,
+.btn-success:visited,
+.btn-success:focus {
+	color: #6c757d;
+    background-color: #bed972;
+    border-color: #bed972;
+;
+}
