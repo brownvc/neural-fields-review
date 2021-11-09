@@ -26,7 +26,7 @@
 
 {% block content %}
 
-<div class="row">
+<div class="row" style="padding-top: 20px;">
   <div class="input-group col-11">
     <input type="text" id="vagueSearchInput" class="form-control vagueSearchTypeahead"
       onchange="vagueSearch()">
@@ -43,8 +43,8 @@
   </div>
 </div>
 
-<div class="row" style="padding-top: 10px; padding-bottom: 20px;">
-  <div class="col-4">
+<div class="row" style="padding-top: 20px; padding-bottom: 60px;">
+  <div class="col-4 d-flex justify-content-end">
     <button type="button" class="btn btn-success" onclick="window.open('papers.html','_self').focus();">
       Advanced Search
     </button>
@@ -54,7 +54,7 @@
       I'm fielding lucky
     </button>
   </div>
-  <div class="col-4  d-flex justify-content-end">
+  <div class="col-4  d-flex justify-content-start">
     <button type="button" class="btn btn-success" onclick="window.open('info.html','_self').focus();">
       Add my paper
     </button>
@@ -63,7 +63,7 @@
 
 <iframe src="static/pdf/Neural Fields in Visual Computing.pdf" width="100%" height="800px"></iframe>
 
-<p class="homepage-title-1">What is this?</p>
+<p class="homepage-title-1" style="padding-top: 40px;">What is this?</p>
 <p class="homepage-text">
     This is the complementary web-page for Eurographics 2022 State-of-The-Art Report
     (under review): <i><a href="">Neural Fields in Visual Computing and Beyond</a></i>.
@@ -73,11 +73,8 @@
     the coordinate-based neural network technique.
 </p>
 <p class="homepage-text">
-    For more in-depth discussions, please visit our <a href="">review paper</a>
-    (<a class="card-link" data-toggle="collapse" role="button" href="#paper-bibtex">
-      Bibtex
-    </a>).
-    <div id="paper-bibtex" class="pp-card m-3 collapse">
+    For more in-depth discussions, please visit our <a href="">review paper</a>.
+    <div id="paper-bibtex" class="pp-card m-3">
       <div class="card-body">
         <div class="card-text">
           <span style="font-size: large; font-weight: bold;">Bibtex for our paper:</span>
@@ -101,22 +98,24 @@ paper to the database, or edit your existing entry.
 </p>
 
 <p class="homepage-title-1">Features</p>
-<p class="homepage-title-2">Filtering</p>
+<!-- <p class="homepage-title-2">Filtering</p> -->
 <p class="homepage-text">Users can filter out disired papers by applying one or multiple filters on papers' titles,
   authors, keywords, or publication dates.</p>
 <img src="static/images/browse.gif" class="homepage-image">
-<p class="homepage-title-2">Building a timeline</p>
+<!-- <p class="homepage-title-2">Building a timeline</p> -->
 <p class="homepage-text">A scrollable and zoomable timeline can be built given a set of papers. Users can use this
   feature to
   check the trajectory of how a certerin technique has evolved over time.
 </p>
 <img src="static/images/timeline.gif" class="homepage-image">
-<p class="homepage-title-2">Citation graph</p>
+<!-- <p class="homepage-title-2">Citation graph</p> -->
 <p class="homepage-text">Citation graph offers an intuitive way to check citation relations given a single paper or a
   set of papers.
 </p>
 
 <img src="static/images/citation.gif" class="homepage-image">
+
+
 
 <script src="static/js/modules/typeaheadSetup.js"></script>
 <script src="static/js/views/view_utils.js"></script>

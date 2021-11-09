@@ -393,7 +393,7 @@ body .carousel-control-prev {
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
-	width: 50vw;
+	width: 100%;
 	border: 3px solid #555;
 	border-radius: 3rem;
 	margin-bottom: 20px;

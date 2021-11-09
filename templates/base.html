@@ -71,7 +71,7 @@
     {% block header %}
     {% set navigation_bar = [
     ('index.html', 'Home'),
-    ('papers.html', 'Papers'),
+    ('papers.html', 'Database'),
     ('info.html', 'Info'),
     ('contributors.html', 'Contributors')
     ] -%}
@@ -132,8 +132,10 @@
     <!-- Footer -->
     <footer class="footer bg-light p-4">
       <div class="container">
+        <div class="text-center">This website is built on <a href="https://github.com/Mini-Conf/Mini-Conf"
+            target="_blank">MiniConf</a> </div>
+        <div class="text-center">© 2021 {{config.organization}}</div>
         <p class="float-right"><a href="#">Back to Top</a></p>
-        <p class="text-center">© 2021 {{config.organization}}</p>
       </div>
     </footer>
 
