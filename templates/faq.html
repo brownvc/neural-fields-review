@@ -1,5 +1,5 @@
-{% set active_page = "Info" %}
-{% set page_title = "Info" %}
+{% set active_page = "FAQ" %}
+{% set page_title = "FAQ" %}
 
 {% extends "base.html" %}
 
@@ -13,7 +13,37 @@
 {% endblock %}
 
 {% block content %}
-<p class="infopage-title-1">About this website</p>
+<p class="homepage-title-1">What is this?</p>
+<p class="homepage-text">
+    This is the complementary web-page for Eurographics 2022 State-of-The-Art Report
+    (under review): <i><a href="">Neural Fields in Visual Computing and Beyond</a></i>.
+</p>
+<p class="homepage-text">
+    We aim to provide a comprehensive yet interactive database of all papers using
+    the coordinate-based neural network technique.
+</p>
+<p class="homepage-text">
+    For more in-depth discussions, please visit our <a href="">review paper</a>.
+
+</p>
+
+<p class="homepage-title-1">Features</p>
+<!-- <p class="homepage-title-2">Filtering</p> -->
+<p class="homepage-text">Users can filter out disired papers by applying one or multiple filters on papers' titles,
+    authors, keywords, or publication dates.</p>
+<img src="static/images/browse.gif" class="homepage-image">
+<!-- <p class="homepage-title-2">Building a timeline</p> -->
+<p class="homepage-text">A scrollable and zoomable timeline can be built given a set of papers. Users can use this
+    feature to
+    check the trajectory of how a certerin technique has evolved over time.
+</p>
+<img src="static/images/timeline.gif" class="homepage-image">
+<!-- <p class="homepage-title-2">Citation graph</p> -->
+<p class="homepage-text">Citation graph offers an intuitive way to check citation relations given a single paper or a
+    set of papers.
+</p>
+
+<img src="static/images/citation.gif" class="homepage-image">
 
 <!-- submit / update instructions section -->
 <p class="infopage-title-2">Submit a new paper or update an existing paper</p>
@@ -59,14 +89,6 @@
     peer-reviewed papers and arXiv pre-prints. We recognize the importance and rigor of peer-review,
     so we have included the venue in each paper's landing page. When searching, you may filter for
     peer-reviewed papers only by selecting the corresponding check box.
-</p>
-
-<!-- Become a contributor -->
-<p class="infopage-title-2">Become a contributor</p>
-<p class="infopage-text"> We hope that this website becomes an asset of the community,
-    and we welcome anyone interested to become a contributor/moderator/admin for this website.
-    You may contribute new, helpful features and visualizations. We also welcome content moderators,
-    i.e. folks who will review new paper pull requests. Please email <a href="mailto:yiheng_xie@brown.edu">Yiheng</a> to join us!
 </p>
 
 <!-- Acknowledgements Section -->

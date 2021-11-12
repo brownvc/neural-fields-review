@@ -319,8 +319,9 @@ body .carousel-control-prev {
 }
 
 .copy-bibtex-icon:active {
-  transform: translateY(4px);
+  	transform: translateY(4px);
 }
+
 
 .checkbox-bookmark {
 	color: #ddd;

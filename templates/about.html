@@ -1,5 +1,5 @@
-{% set active_page = "Contributors" %}
-{% set page_title = "Contributors" %}
+{% set active_page = "About" %}
+{% set page_title = "About" %}
 
 {% extends "base.html" %}
 
@@ -9,8 +9,17 @@
 {% endblock %}
 
 {% block content %}
-<p class="homepage-title-1">Contributors</p>
+<p class="infopage-title-1">Contributors</p>
 <div class="row" id="contributor-cards"></div>
+
+<!-- Become a contributor -->
+<p class="infopage-title-1">Become a contributor</p>
+<p class="infopage-text"> We hope that this website becomes an asset of the community,
+    and we welcome anyone interested to become a contributor/moderator/admin for this website.
+    You may contribute new, helpful features and visualizations. We also welcome content moderators,
+    i.e. folks who will review new paper pull requests. Please email <a href="mailto:yiheng_xie@brown.edu">Yiheng</a> to
+    join us!
+</p>
 
 <script>
     const contributors = [

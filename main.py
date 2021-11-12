@@ -197,15 +197,15 @@ def paper(paper):
     data["paper"] = format_paper(v)
     return render_template("paper_detail.html", **data)
 
-@app.route("/info.html")
+@app.route("/faq.html")
 def info():
     data = _data()
-    return render_template("info.html", **data)
+    return render_template("faq.html", **data)
 
-@app.route("/contributors.html")
+@app.route("/about.html")
 def contributors():
     data = _data()
-    return render_template("contributors.html", **data)
+    return render_template("about.html", **data)
 
 @app.route("/thumbnail_<thumbnail>.png")
 def thumbnail(thumbnail):
