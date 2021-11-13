@@ -14,7 +14,7 @@
 
 {% block content %}
 
-<p class="infopage-title-2">What is this?</p>
+<p class="infopage-title-1">What is this?</p>
 <p class="infopage-text">
     This is the complementary web-page for Eurographics 2022 State-of-The-Art Report
     (under review): <i><a href="">Neural Fields in Visual Computing and Beyond</a></i>.
@@ -30,7 +30,7 @@
 
 <!-- submit / update instructions section -->
 <div id="add-paper-instructions">
-    <p class="infopage-title-2">How to submit a new paper or update an existing paper?</p>
+    <p class="infopage-title-1">How to submit a new paper or update an existing paper?</p>
     <p class="infopage-text">To submit a new paper or update an existing entry,
         please fill out <a href="https://forms.gle/5fajGXEtV1xRnG3m8" target="_blank">this Google form</a>.
         Papers can only be submitted or updated by their authors.
@@ -56,27 +56,53 @@
     </ul>
 </div>
 
-<p class="homepage-title-1">Features</p>
-<!-- <p class="homepage-title-2">Filtering</p> -->
-<p class="homepage-text">Users can filter out disired papers by applying one or multiple filters on papers' titles,
-    authors, keywords, or publication dates.</p>
-<img src="static/images/browse.gif" class="homepage-image">
-<!-- <p class="homepage-title-2">Building a timeline</p> -->
-<p class="homepage-text">A scrollable and zoomable timeline can be built given a set of papers. Users can use this
-    feature to
-    check the trajectory of how a certerin technique has evolved over time.
-</p>
-<img src="static/images/timeline.gif" class="homepage-image">
-<!-- <p class="homepage-title-2">Citation graph</p> -->
-<p class="homepage-text">Citation graph offers an intuitive way to check citation relations given a single paper or a
-    set of papers.
-</p>
+<p class="infopage-title-1">Features</p>
+<!-- <p class="infopage-title-2">Filtering</p> -->
+<div class="container">
+    <div class="row">
+        <div class="col-9">
+            <img src="static/images/browse.gif" class="homepage-image">
+        </div>
+        <div class="col-3 align-self-center">
+            <p class="infopage-text">Users can filter out desired papers by applying one or multiple filters on papers' titles,
+                authors, keywords, or publication dates.</p>
+        </div>
+    </div>
+</div>
 
-<img src="static/images/citation.gif" class="homepage-image">
 
+<!-- <p class="infopage-title-2">Building a timeline</p> -->
+<div class="container">
+    <div class="row">
+        <div class="col-9">
+            <img src="static/images/timeline.gif" class="homepage-image">
+        </div>
+        <div class="col-3 align-self-center">
+            <p class="infopage-text">A scrollable and zoomable timeline can be built given a set of papers. Users can use this
+                feature to
+                check the trajectory of how a certain technique has evolved over time.
+            </p>
+        </div>
+    </div>
+</div>
+
+
+<!-- <p class="infopage-title-2">Citation graph</p> -->
+<div class="container">
+    <div class="row">
+        <div class="col-9">
+            <img src="static/images/citation.gif" class="homepage-image">
+        </div>
+        <div class="col-3 align-self-center">
+            <p class="infopage-text">Citation graph offers an intuitive way to check citation relations given a single paper or a
+                set of papers.
+            </p>
+        </div>
+    </div>
+</div>
 
 <!-- Keyword Explanations Section -->
-<p class="infopage-title-2">Keyword Explanations</p>
+<p class="infopage-title-1">Keyword Explanations</p>
 <table id="keyword-explanation-table" style="width:100%; margin-bottom: 20px;">
     <tr>
         <th>Keyword</th>
@@ -85,15 +111,15 @@
 </table>
 
 <!-- Disclaimer Section -->
-<p class="infopage-title-2">Disclaimer</p>
-<p class="infopage-title-3">Data accuracy</p>
+<p class="infopage-title-1">Disclaimer</p>
+<p class="infopage-title-2">Data accuracy</p>
 <p class="infopage-text">
     Up until the release date (Oct.29, 2021), all ~250 data entries were imported manually by our contributers.
     Please be patient with our mistakes. We encourage all authors to verify that the data corresponding
     to their papers are accurate by using our submission/editing tool (see instructions below). We also
     encourage all authors to update the venue, once an arXiv pre-print is accepted by a peer-reviewed venue.
 </p>
-<p class="infopage-title-3">Peer-review criteria</p>
+<p class="infopage-title-2">Peer-review criteria</p>
 <p class="infopage-text">
     In this website, we include all published results, which includes both
     peer-reviewed papers and arXiv pre-prints. We recognize the importance and rigor of peer-review,
@@ -102,7 +128,7 @@
 </p>
 
 <!-- Acknowledgements Section -->
-<p class="infopage-title-2">Acknowledgements</p>
+<p class="infopage-title-1">Acknowledgements</p>
 <p class="infopage-text">This website is based on the extremely useful <a href="https://github.com/Mini-Conf/Mini-Conf" target="_blank">MiniConf</a> project for
     a virtual conference in a box from <a href="http://twitter.com/hen_str" target="_blank">Hendrik Strobelt</a> and <a href="http://twitter.com/srush_nlp" target="_blank">Sasha Rush</a>—thank you!
 <p class="infopage-text">Citation relation data used for generating citation graphs are derived from
