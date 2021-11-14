@@ -139,6 +139,12 @@ body .nav-pills .nav-link.active {
 	margin-bottom: 0px;
 }
 
+.bibtex-text {
+	padding-top: 8px;
+	font-size: 9px;
+	margin-bottom: 0px;
+}
+
 h2.card-title {
 	padding-top: 15px;
 	font-size: 30px;
@@ -406,10 +412,10 @@ body .carousel-control-prev {
 
 .contributor-headshot {
 	width: 80%;
-	display: block; 
+	display: block;
 	margin-left: auto;
-	margin-right: auto; 
-	padding-top: 10px; 
+	margin-right: auto;
+	padding-top: 10px;
 	padding-bottom: 10px;
 }
 
