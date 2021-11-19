@@ -24,7 +24,7 @@
   <div class="col-2"></div>
   <div class="input-group col-8">
     <input type="text" id="vagueSearchInput" class="form-control vagueSearchTypeahead" placeholder="Search all neural field papers."
-      onchange="vagueSearch()">
+      onchange="vagueSearch()" style="font-family: 'Ubuntu', sans-serif;">
     <button type="button" class="btn bg-transparent vagueSearchTypeahead_clear"
       style="margin-left: -40px; z-index: 100;">
       &times;
@@ -40,17 +40,17 @@
 
 <div class="row" style="padding-top: 20px; padding-bottom: 60px;">
   <div class="col-5 d-flex justify-content-end">
-    <button type="button" class="btn btn-success" onclick="window.open('papers.html','_self').focus();">
+    <button type="button" class="btn btn-success" style="font-family: 'Ubuntu', sans-serif;" onclick="window.open('papers.html','_self').focus();">
       Advanced Search
     </button>
   </div>
   <div class="col-2 d-flex justify-content-center">
-    <button type="button" class="btn btn-success" onclick="window.open('papers_vague.html?feelingLucky=true','_self').focus();">
+    <button type="button" class="btn btn-success" style="font-family: 'Ubuntu', sans-serif;" onclick="window.open('papers_vague.html?feelingLucky=true','_self').focus();">
       I'm Fielding Lucky
     </button>
   </div>
   <div class="col-5  d-flex justify-content-start">
-    <button type="button" class="btn btn-success" onclick="window.open('add_paper.html','_self').focus();">
+    <button type="button" class="btn btn-success" style="font-family: 'Ubuntu', sans-serif;" onclick="window.open('add_paper.html','_self').focus();">
       Add Paper
     </button>
   </div>
@@ -62,8 +62,8 @@
       <a href="static/pdf/2021_NeuralFieldsReview.pdf" target="_blank">
         <image src="static/images/our_paper_first_page.png" style="width: 100%;">
       </a>
-      <a class="fas" style="cursor: pointer; color: #212529;" href="static/pdf/2021_NeuralFieldsReview.pdf" target="_blank">&#xf1c1; PDF &nbsp;</a>
-      <a class="fas" style="cursor: pointer;" onclick="copyBibtex()">&#xf0c5; Copy Bibtex</a>
+      <a class="fas" style="cursor: pointer; color: #212529;" href="static/pdf/2021_NeuralFieldsReview.pdf" target="_blank">&#xf1c1; <span style="font-family: 'Ubuntu', sans-serif;">PDF</span> &nbsp;</a>
+      <a class="fas" style="cursor: pointer;" onclick="copyBibtex()">&#xf0c5; <span style="font-family: 'Ubuntu', sans-serif;">Copy Bibtex</span></a>
     </div>
     <!-- <div class="col-4">
       <div id="paper-bibtex" class="pp-card m-1" style="height: 300px;">

@@ -50,6 +50,10 @@
         <link href="static/css/Exo.css" rel="stylesheet" />
         <link href="static/css/Cuprum.css" rel="stylesheet" />
         <link rel="stylesheet" href="static/css/main.css" />
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
         <!--    <link rel="stylesheet" href="static/css/fa_regular.css"/>-->
         <link rel="stylesheet" href="static/css/fa_solid.css" />
         <link rel="stylesheet" href="static/css/lazy_load.css" />
@@ -81,9 +85,6 @@
 
         <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light mr-auto" id="main-nav">
             <div class="container">
-                {% if config.site_title %}
-                <a class="navbar-brand" href="index.html">{{config.site_title}}</a>
-                {% endif %}
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -92,14 +93,12 @@
                     <ul class="navbar-nav ml-auto">
                         {% for href, id in navigation_bar %}
                         <li class="nav-item {% if id == active_page %}active{% endif %}">
-                            <a class="nav-link" href="{{href}}">{{id}}</a>
+                            <a class="nav-link" href="{{href}}" style="font-family: 'Ubuntu', sans-serif;">{{id}}</a>
                         </li>
                         {% endfor %}
                     </ul>
                 </div>
-
             </div>
-
         </nav>
         {% endblock %}
 
