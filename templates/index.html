@@ -13,7 +13,7 @@
   }
 </style>
 
-<image src="static/images/main.png" style="width: 30%; display: block;
+<image src="static/images/logo_ubuntu_font.png" style="width: 30%; display: block;
   margin-left: auto;
   margin-right: auto;"></image>
 <!-- <div class="jumbotron jumbotron-fluid back" style="padding-bottom: 30px;">
@@ -32,7 +32,7 @@
 <div class="row" style="padding-top: 20px;">
   <div class="col-2"></div>
   <div class="input-group col-8">
-    <input type="text" id="vagueSearchInput" class="form-control vagueSearchTypeahead" placeholder="Search all Neural Field papers!"
+    <input type="text" id="vagueSearchInput" class="form-control vagueSearchTypeahead" placeholder="Search all neural field papers."
       onchange="vagueSearch()">
     <button type="button" class="btn bg-transparent vagueSearchTypeahead_clear"
       style="margin-left: -40px; z-index: 100;">
@@ -59,8 +59,8 @@
     </button>
   </div>
   <div class="col-5  d-flex justify-content-start">
-    <button type="button" class="btn btn-success" onclick="window.open('faq.html','_self').focus();">
-      Add my paper
+    <button type="button" class="btn btn-success" onclick="window.open('add_paper.html','_self').focus();">
+      Add Paper
     </button>
   </div>
 </div>
@@ -69,7 +69,7 @@
 <!-- <a href="static/pdf/Neural Fields in Visual Computing.pdf" target="_blank"><image src="static/images/our_paper.png" width="100%"></a> -->
 <div class="container" style="padding-bottom: 60px;">
   <div class="row justify-content-center">
-    <div class="col-3">
+    <div class="col-2">
       <a href="static/pdf/Neural Fields in Visual Computing.pdf" target="_blank">
         <image src="static/images/our_paper_first_page.png" style="width: 100%;">
       </a>
@@ -78,6 +78,7 @@
       <div id="paper-bibtex" class="pp-card m-1" style="height: 300px;">
         <div class="card-body">
           <div class="bibtex-text">
+            <!-- smaller font -->
             <p style="white-space: pre-line; position: relative; font-size: larger;">@article{xie2021neuralfield,
                 title = {Neural Fields in Visual Computing and Beyond},
                 author = {Yiheng Xie and Towaki Takikawa and Shunsuke Saito and Or Litany and Shiqin Yan and Numair Khan and Federico Tombari and James Tompkin and Vincent Sitzmann and Srinath Sridhar},

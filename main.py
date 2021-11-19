@@ -202,6 +202,11 @@ def info():
     data = _data()
     return render_template("faq.html", **data)
 
+@app.route("/add_paper.html")
+def add_paper():
+    data = _data()
+    return render_template("add_paper.html", **data)
+
 @app.route("/about.html")
 def contributors():
     data = _data()
