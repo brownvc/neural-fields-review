@@ -100,6 +100,8 @@ body {
 body .nav-pills .nav-link.active {
 	font-size: 18px;
 	background-color: #bed972;
+	/* color: white !important;
+	background-color: #4E3629; */
 }
 
 .nav-item {
@@ -443,7 +445,7 @@ body .carousel-control-prev {
 	font-size: 21px;
 }
 
-.btn-success,
+/* .btn-success,
 .btn-success:hover,
 .btn-success:active,
 .btn-success:visited,
@@ -451,5 +453,15 @@ body .carousel-control-prev {
 	color: #6c757d;
     background-color: #bed972;
     border-color: #bed972;
+;
+} */
+.btn-success,
+.btn-success:hover,
+.btn-success:active,
+.btn-success:visited,
+.btn-success:focus {
+	color: white;
+    background-color: #4E3629;
+    border-color: #4E3629;
 ;
 }
