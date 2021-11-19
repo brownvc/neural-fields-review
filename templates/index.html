@@ -13,18 +13,9 @@
   }
 </style>
 
-<image src="{{config.logo.main}}" style="width: 30%; display: block;
+<image src="{{config.logo.main}}" style="padding-top: 12vh; width: 30%; display: block;
   margin-left: auto;
   margin-right: auto;"></image>
-<!-- <div class="jumbotron jumbotron-fluid back" style="padding-bottom: 30px;">
-  <div class="row header p-6 m-5">
-    <div class="p-1 mx-auto text-center col-md-9 col-sm-12">
-      <h2 style="font-family: Sans-Serif;">
-        {{config.tagline|safe}}
-      </h2>
-    </div>
-  </div>
-</div> -->
 {% endblock %}
 
 {% block content %}
@@ -65,20 +56,19 @@
   </div>
 </div>
 
-<!-- <iframe src="static/pdf/Neural Fields in Visual Computing.pdf" width="100%" height="800px"></iframe> -->
-<!-- <a href="static/pdf/Neural Fields in Visual Computing.pdf" target="_blank"><image src="static/images/our_paper.png" width="100%"></a> -->
 <div class="container" style="padding-bottom: 60px;">
   <div class="row justify-content-center">
     <div class="col-2">
       <a href="static/pdf/2021_NeuralFieldsReview.pdf" target="_blank">
         <image src="static/images/our_paper_first_page.png" style="width: 100%;">
       </a>
+      <a class="fas" style="cursor: pointer; color: #212529;" href="static/pdf/2021_NeuralFieldsReview.pdf" target="_blank">&#xf1c1; PDF &nbsp;</a>
+      <a class="fas" style="cursor: pointer;" onclick="copyBibtex()">&#xf0c5; Copy Bibtex</a>
     </div>
-    <div class="col-4">
+    <!-- <div class="col-4">
       <div id="paper-bibtex" class="pp-card m-1" style="height: 300px;">
         <div class="card-body">
           <div class="bibtex-text">
-            <!-- smaller font -->
             <p style="white-space: pre-line; position: relative; font-size: larger;">@article{xie2021neuralfield,
                 title = {Neural Fields in Visual Computing and Beyond},
                 author = {Yiheng Xie and Towaki Takikawa and Shunsuke Saito and Or Litany and Shiqin Yan and Numair Khan and Federico Tombari and James Tompkin and Vincent Sitzmann and Srinath Sridhar},
@@ -92,7 +82,7 @@
           <p></p>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>
 
