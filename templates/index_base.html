@@ -68,6 +68,16 @@
             %}{{config.page_title.separator}}{{page_title}}{% endif %}</title>
 
         <link rel="icon" type="image/png" href="{{config.favicon}}">
+
+        <!-- Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-GT7LEVW06Z"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+
+            gtag('config', 'G-GT7LEVW06Z');
+        </script>
         <!-- head block ends here-->
         {% endblock %}
     </head>
