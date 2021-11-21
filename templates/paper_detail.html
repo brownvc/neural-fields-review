@@ -1,6 +1,7 @@
 {% set page_title = paper.title %}
 {% extends "base.html" %}
 
+
 {% block head %}
 
 {{ super() }}
@@ -18,7 +19,11 @@
 <meta name="citation_pdf_url" content="{{paper.pdf_url|default('') }}" />
 
 <script type="text/javascript" src="static/js/vis/vis-network.min.js"></script>
-
+<style>
+    .red-hyper-link {
+        color: #ED1C24 !important;
+    }
+</style>
 {% endblock %}
 
 {% block content %}
@@ -59,16 +64,16 @@
         {% endif %}
 
         <div class="text-center p-3">
-            <a class="card-link" target="_blank" href="{{paper.pdf_url}}">
+            <a class="card-link red-hyper-link" target="_blank" href="{{paper.pdf_url}}">
                 Paper
             </a>
             {% if paper.citation != "" %}
-            <a class="card-link" data-toggle="collapse" role="button" href="#citation">
+            <a class="card-link red-hyper-link" data-toggle="collapse" role="button" href="#citation">
                 Citation
             </a>
             {% endif %}
             {% if paper.code_link != "" %}
-            <a href="{{paper.code_link}}" target="_blank" class="card-link">
+            <a href="{{paper.code_link}}" target="_blank" class="card-link red-hyper-link">
                 Code
             </a>
             {% else %}

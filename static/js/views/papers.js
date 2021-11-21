@@ -348,7 +348,7 @@ const card_html = (paper) =>
               <div class="checkbox-bookmark fas  ${paper.bookmarked ? "selected" : ""}" style="position: absolute; top:-5px;right: 25px;" data-tippy-content="Bookmark"
               >&#xf02e;</div>
 
-                <a href="${API.paperLink(paper)}"
+                <a href="${API.paperLink(paper)}" class="red-hyper-link"
                 target="_blank"
                 >
                    <h5 class="card-title" align="center"> ${
@@ -357,15 +357,15 @@ const card_html = (paper) =>
                 
                 <div class="icons" style="display: flex; flex-direction: row; justify-content: space-around; padding-bottom: 10px">
                     ${paper.project_link !== "" ?
-                    `<a class="card-header-icon card-header-icon fas" href="${paper.project_link}" target="_blank" data-tippy-content="Project homepage">&#xf015;</a>`
+                    `<a class="card-header-icon card-header-icon fas red-hyper-link" href="${paper.project_link}" target="_blank" data-tippy-content="Project homepage">&#xf015;</a>`
                     : ""}
                 
                     ${paper.talk_link !== "" ?
-                    `<a class="card-header-icon card-header-icon fas" href="${paper.talk_link}" target="_blank" data-tippy-content="Talk video">&#xf03d;</a>`
+                    `<a class="card-header-icon card-header-icon fas red-hyper-link" href="${paper.talk_link}" target="_blank" data-tippy-content="Talk video">&#xf03d;</a>`
                     : ""}
                     
                     ${paper.pdf_url !== "" ?
-                    `<a class="card-header-icon card-header-icon fas" href="${paper.pdf_url}" target="_blank" data-tippy-content="PDF file">&#xf1c1;</a>`
+                    `<a class="card-header-icon card-header-icon fas red-hyper-link" href="${paper.pdf_url}" target="_blank" data-tippy-content="PDF file">&#xf1c1;</a>`
                     : ""}
                 </div>
                 
