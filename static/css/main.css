@@ -20,7 +20,8 @@ label:text-muted,
 
 body {
 	font-family: 'Ubuntu', sans-serif !important;
-	background-color: rgba(236, 241, 246, 1);
+	/* background-color: rgba(236, 241, 246, 1); */
+	background-color: white;
 }
 
 .container {
@@ -99,10 +100,11 @@ body {
 
 body .nav-pills .nav-link.active {
 	font-size: 18px;
-	background-color: #bed972;
+	background-color: #ED1C24;
 	font-family: 'Ubuntu', sans-serif !important;
+	color: white !important;
 	/* color: white !important;
-	background-color: #4E3629; */
+	background-color: #4E3629 ; */
 }
 
 .nav-item {
@@ -446,23 +448,32 @@ body .carousel-control-prev {
 	font-size: 21px;
 }
 
-/* .btn-success,
-.btn-success:hover,
-.btn-success:active,
-.btn-success:visited,
-.btn-success:focus {
-	color: #6c757d;
-    background-color: #bed972;
-    border-color: #bed972;
-;
-} */
 .btn-success,
 .btn-success:hover,
 .btn-success:active,
 .btn-success:visited,
 .btn-success:focus {
 	color: white;
-    background-color: #4E3629;
-    border-color: #4E3629;
+    background-color: #ED1C24;
+    border-color: #ED1C24;
 ;
+}
+
+.change::-webkit-input-placeholder {
+    /* WebKit, Blink, Edge */
+    color: rgb(207, 207, 207);
+}
+.change:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: rgb(207, 207, 207);
+    opacity: 1;
+}
+.change::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: rgb(207, 207, 207);
+    opacity: 1;
+}
+.change:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: rgb(207, 207, 207);
 }

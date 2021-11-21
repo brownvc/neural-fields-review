@@ -4,8 +4,8 @@ tagline: Neural Fields in Visual Computing
 date: Sept 2021
 favicon: favicon.ico
 logo:
-    main: static/images/main_logo.png
-    long: static/images/long_logo.png
+    main: static/images/main_logo_new.png
+    long: static/images/long_logo_new.png
 page_title:
     prefix: "NeuralFields"
     separator: ": "

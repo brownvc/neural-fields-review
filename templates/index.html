@@ -1,4 +1,5 @@
 {% set active_page = "Home" %}
+{% set page_title = "Home" %}
 {% extends "index_base.html" %}
 
 {% block top %}
@@ -13,9 +14,9 @@
   }
 </style>
 
-<image src="{{config.logo.main}}" style="padding-top: 12vh; width: 30%; display: block;
+<image src="{{config.logo.main}}" style="padding-top: 8vh; width: 20%; display: block;
   margin-left: auto;
-  margin-right: auto;"></image>
+  margin-right: auto;" alt="A living database of neural field papers in visual computing and beyond"></image>
 {% endblock %}
 
 {% block content %}
@@ -23,7 +24,7 @@
 <div class="row" style="padding-top: 20px;">
   <div class="col-2"></div>
   <div class="input-group col-8">
-    <input type="text" id="vagueSearchInput" class="form-control vagueSearchTypeahead" placeholder="Search all neural field papers."
+    <input type="text" id="vagueSearchInput" class="form-control vagueSearchTypeahead change" placeholder="Search all neural field papers."
       onchange="vagueSearch()" style="font-family: 'Ubuntu', sans-serif;">
     <button type="button" class="btn bg-transparent vagueSearchTypeahead_clear"
       style="margin-left: -40px; z-index: 100;">
@@ -31,7 +32,7 @@
     </button>
   </div>
   <div class="col-1">
-    <button class="btn btn-outline-secondary" style="border-radius: 20px; background-color: #4E3629; color: white;" data-tippy-content="Search"
+    <button class="btn btn-outline-secondary" style="border-radius: 20px; background-color: #ED1C24; color: white;" data-tippy-content="Search"
       onclick="vagueSearch()">
       <div class="fas">&#xf002;</div>
     </button>
@@ -62,8 +63,8 @@
       <a href="static/pdf/2021_NeuralFieldsReview.pdf" target="_blank">
         <image src="static/images/our_paper_first_page.png" style="width: 100%;">
       </a>
-      <a class="fas" style="cursor: pointer; color: #212529;" href="static/pdf/2021_NeuralFieldsReview.pdf" target="_blank">&#xf1c1; <span style="font-family: 'Ubuntu', sans-serif;">PDF</span> &nbsp;</a>
-      <a class="fas" style="cursor: pointer;" onclick="copyBibtex()">&#xf0c5; <span style="font-family: 'Ubuntu', sans-serif;">Copy Bibtex</span></a>
+      <a class="fas" style="cursor: pointer; color: #ED1C24;;" href="static/pdf/2021_NeuralFieldsReview.pdf" target="_blank">&#xf1c1; <span style="font-family: 'Ubuntu', sans-serif; color: #ED1C24;">PDF</span> &nbsp;</a>
+      <a class="fas" style="cursor: pointer; color: #ED1C24;" onclick="copyBibtex()">&#xf0c5; <span style="font-family: 'Ubuntu', sans-serif; color: #ED1C24;">Copy Bibtex</span></a>
     </div>
     <!-- <div class="col-4">
       <div id="paper-bibtex" class="pp-card m-1" style="height: 300px;">

@@ -12,33 +12,37 @@
         border: 1px solid black;
     }
 
+    .red-hyper-link {
+        color: #ED1C24 !important;
+    }
+
 </style>
 {% endblock %}
 
 {% block content %}
 
 <!-- submit / update instructions section -->
-<div id="add-paper-instructions" style="padding-bottom: 40vh;">
+<div id="add-paper-instructions" style="padding-bottom: 45vh;">
     <p class="infopage-title-1">How to submit a new paper or update an existing paper?</p>
     <p class="infopage-text">To submit a new paper or update an existing entry,
-        please fill out <a href="https://forms.gle/5fajGXEtV1xRnG3m8" target="_blank">this Google form</a>.
+        please fill out <a class="red-hyper-link" href="https://forms.gle/5fajGXEtV1xRnG3m8" target="_blank">this Google form</a>.
         Papers can only be submitted or updated by their authors.
         Changes will be reflected in the website upon administrators' approval.</p>
     <p class="infopage-text">If you would like to see the changes reflected immediately, please follow these additional
         steps:</p>
     <ul>
-        <li class="infopage-step-list-item">Step 1: Clone our <a href="https://github.com/brownvc/neural-fields-review"
+        <li class="infopage-step-list-item">Step 1: Clone our <a class="red-hyper-link" href="https://github.com/brownvc/neural-fields-review"
                 target="_blank">Github Repository</a> locally.</li>
-        <li class="infopage-step-list-item">Step 2: Go to <a
+        <li class="infopage-step-list-item">Step 2: Go to <a class="red-hyper-link"
                 href="https://docs.google.com/spreadsheets/d/1n2cUPCbJMAmFdb5sNkpxuvKf2pzY2_lGaWWQfY5t9nE/edit?usp=sharing"
                 target="_blank">this spreadsheet</a>,
             copy the row you just entered (first row).</li>
-        <li class="infopage-step-list-item">Step 3 (new paper): Append the row to the <b>top</b> (row 1) in file <a
+        <li class="infopage-step-list-item">Step 3 (new paper): Append the row to the <b>top</b> (row 1) in file <a class="red-hyper-link"
                 href="https://github.com/brownvc/neural-fields-review/blob/main/sitedata/papers.csv"
                 target="_blank">"sitedata/papers.csv"</a>
             in your cloned local repository.</li>
         <li class="infopage-step-list-item">Step 3 (update existing): Replace the existing row (corresponding to your
-            paper) in file <a href="https://github.com/brownvc/neural-fields-review/blob/main/sitedata/papers.csv"
+            paper) in file <a class="red-hyper-link" href="https://github.com/brownvc/neural-fields-review/blob/main/sitedata/papers.csv"
                 target="_blank">"sitedata/papers.csv"</a> with the row you copied.</li>
         <li class="infopage-step-list-item">Step 4: Commit changes to your cloned repository and create a pull request.
         </li>
