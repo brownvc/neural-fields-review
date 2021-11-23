@@ -1,26 +1,22 @@
 ## Neural Fields in Visual Computing&mdash;Complementary Webpage
 
-This is based on the extremely useful <a href="https://mini-conf.github.io/index.html">MiniConf</a> project for a virtual conference in a box from [Hendrik Strobelt](http://twitter.com/hen_str) and [Sasha Rush](http://twitter.com/srush_nlp)&mdash;thank you!
+This is based on the amazing <a href="https://mini-conf.github.io/index.html">MiniConf</a> project from [Hendrik Strobelt](http://twitter.com/hen_str) and [Sasha Rush](http://twitter.com/srush_nlp)&mdash;thank you!
 
 
 ### Citation
-When the paper comes out, please cite:
+If you find our project helpful, please cite our review paper:
 ```bibtex
-@misc{xxx,
-    title={xxx},
-    author={xxx},
-    year={xxx},
-    eprint={xxx},
-    archivePrefix={xxx},
-    primaryClass={xxx}
+@article{xie2021neuralfield,
+    title = {Neural Fields in Visual Computing and Beyond},
+    author = {Yiheng Xie and Towaki Takikawa and Shunsuke Saito and Or Litany and Shiqin Yan and Numair Khan
+    and Federico Tombari and James Tompkin and Vincent Sitzmann and Srinath Sridhar},
+    booktitle = {ArXiv Pre-print},
+    year = {2021} 
 }
 ```
 
 ## Adding a paper&mdash;How To
-
-- Fork the repo.
-- Add your paper to the *datastore* in <a href="https://github.com/brownvc/neural-fields-review/tree/main/sitedata">`sitedata/`</a>, within the `papers.csv` file. Make a new row, and create a *unique* ID. Include all information where possible.
-- Create a pull request.
+See our <a href="https://brownvc.github.io/neural-fields-review/add_paper.html">website instructions</a>
 
 ## Website Team&mdash;Get Started on Development
 
@@ -35,6 +31,7 @@ When you are ready to deploy run `make freeze` to get a static version of the si
 
 - Define two command-line variables `GH_TOKEN` and `GH_REF`. `GH_TOKEN` is your Github personal access token, and will look like `username:token`. `GH_REF` is the location of this repo, e.g., ```$> export GH_REF=github.com/brownvc/neural-fields-review```.
 - *DO NOT* add `GH_TOKEN` to the Makefile&mdash;this is your personal access token and should be kept private. Hence, declare a temporary command line variable using `export`.
+- Commit any changes. Any uncommited changes will be OVERWRITTEN!
 - Execute `make deploy`. 
 - That's it. The page is now [live here](https://brownvc.github.io/neural-fields-review/).
 
@@ -75,10 +72,5 @@ MiniConf is designed to be a completely static solution. However it is designed 
 * SlidesLive: It is easy to embedded any video provider -> YouTube, Vimeo, etc. However we have had great experience with SlidesLive and recommend them as a host. We include a slideslive example on the main page. 
 
 * PDF.js: For conferences that use posters it is easy to include an embedded pdf on poster pages. An example is given. 
-
-
-### Acknowledgements
-
-More things here.
 
 

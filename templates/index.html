@@ -60,10 +60,10 @@
 <div class="container" style="padding-bottom: 60px;">
   <div class="row justify-content-center">
     <div class="col-2">
-      <a href="static/pdf/2021_NeuralFieldsReview.pdf" target="_blank">
+      <a href="https://arxiv.org/pdf/2111.11426.pdf" target="_blank">
         <image src="static/images/our_paper_first_page.png" style="width: 100%; border: 1px solid black;">
       </a>
-      <a class="fas" style="cursor: pointer; color: #4A372B;;" href="static/pdf/2021_NeuralFieldsReview.pdf" target="_blank">&#xf1c1; <span style="font-family: 'Ubuntu', sans-serif; color: #4A372B;">PDF</span> &nbsp;</a>
+      <a class="fas" style="cursor: pointer; color: #4A372B;;" href="https://arxiv.org/pdf/2111.11426.pdf" target="_blank">&#xf1c1; <span style="font-family: 'Ubuntu', sans-serif; color: #4A372B;">PDF</span> &nbsp;</a>
       <a class="fas" style="cursor: pointer; color: #4A372B;" onclick="copyBibtex()">&#xf0c5; <span style="font-family: 'Ubuntu', sans-serif; color: #4A372B;">Copy Bibtex</span></a>
     </div>
     <!-- <div class="col-4">
@@ -95,12 +95,11 @@
   setTimeout(() => { document.getElementById("vagueSearchInput").focus();}, 400)
   const copyBibtex = () => {
     const bibtex = `@article{xie2021neuralfield,
-              TITLE = {Neural Fields in Visual Computing and Beyond},
-              AUTHOR = {Yiheng Xie and Towaki Takikawa and Shunsuke Saito and Or Litany and Shiqin Yan and Numair Khan
-              and Federico Tombari
-              and James Tompkin and Vincent Sitzmann and Srinath Sridhar},
-              BOOKTITLE = {ArXiv Pre-print},
-              YEAR = {2021} }`
+    title = {Neural Fields in Visual Computing and Beyond},
+    author = {Yiheng Xie and Towaki Takikawa and Shunsuke Saito and Or Litany and Shiqin Yan and Numair Khan and Federico Tombari and James Tompkin and Vincent Sitzmann and Srinath Sridhar},
+    booktitle = {ArXiv Pre-print},
+    year = {2021} 
+}`
     navigator.clipboard.writeText(bibtex)
     .then(() => alert('Successfully copied Bibtex'));
     //alert('Successfully copied Bibtex');
