@@ -45,7 +45,6 @@ const start = () => {
     .then(([papers]) => {
       allPapers = papers;
       filteredPapers = allPapers;
-      console.log("all papers: ", allPapers);
       d3.select("#displaying-number-of-papers-message")
         .html(`<span>Displaying ${allPapers.length} papers</span>`);
       calcAllKeys(allPapers, allKeys);
@@ -290,7 +289,6 @@ const copyBibtex = (paperID) => {
 }
 
 const downloadAllBibtex = () => {
-  console.log("filtered papers:", filteredPapers);
   let bibtex = "";
   for (paper of filteredPapers) bibtex += paper.citation + "\n\n";
   let blob = new Blob([bibtex], { type: "text/plain;charset=utf-8" });
@@ -301,7 +299,6 @@ const downloadAllBibtex = () => {
  * CARDS
  */
 const card_image = (paper, show) => {
-  console.log(API.thumbnailPath(paper));
   if (show)
     return ` <center><img class="lazy-load-img cards_img" data-src="${API.thumbnailPath(paper)}" style="max-width:250px; padding-bottom:10px"/></center>`;
   return "";
@@ -360,7 +357,7 @@ const card_html = (paper) =>
                     `<a class="card-header-icon card-header-icon fas red-hyper-link" href="${paper.project_link}" target="_blank" data-tippy-content="Project homepage">&#xf015;</a>`
                     : ""}
                     
-                    ${paper.code_link !== "" ?
+                    ${paper.code_link !== "" && (!paper.code_link.toLowerCase.includes("soon"))?
                     `<a class="card-header-icon card-header-icon fas red-hyper-link" href="${paper.code_link}" target="_blank" data-tippy-content="Code">&#xf121;</a>`
                     : ""}
                 

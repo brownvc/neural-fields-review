@@ -29,7 +29,6 @@ const start = () => {
       allPapers = papers;
       filteredPapers = allPapers;
       latestNumPapaersFilteredOut = allPapers.length;
-      console.log("all papers: ", allPapers);
       d3.select("#displaying-number-of-papers-message")
         .html(`<span>Displaying ${allPapers.length} papers</span>`);
       calcAllKeys(allPapers, allKeys);
@@ -203,7 +202,6 @@ const generatePaperInfoBox = (paper) => {
 const generateNodes = (papers, isCurrentPaper) => {
   papers = papers.filter((paper) => paper.UID);
   return papers.map((paper) => {
-    //console.log(paper.UID)
     return {
       id: paper.UID,
       label:
@@ -325,14 +323,12 @@ const drawCitationGraph = (papers) => {
 const openPaperLink = () => {
   const selectedNodes = citationGraph.getSelectedNodes();
   for (let nodeId of selectedNodes) {
-    console.log(nodeId);
     const url = `paper_${nodeId}.html`;
     window.open(url, '_blank').focus();
   }
 }
 
 const downloadAllBibtex = () => {
-  console.log("filtered papers:", filteredPapers);
   let bibtex = "";
   for (paper of filteredPapers) bibtex += paper.citation + "\n\n";
   let blob = new Blob([bibtex], { type: "text/plain;charset=utf-8" });

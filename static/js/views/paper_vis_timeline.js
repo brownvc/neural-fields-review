@@ -69,7 +69,6 @@ const start = () => {
       allPapers = papers;
       filteredPapers = allPapers;
       latestNumPapaersFilteredOut = allPapers.length;
-      console.log("all papers: ", allPapers);
       d3.select("#displaying-number-of-papers-message")
         .html(`<span>Displaying ${allPapers.length} papers</span>`);
       calcAllKeys(allPapers, allKeys);
@@ -151,7 +150,6 @@ const generatePaperInfoBox = (paper) => {
 }
 
 const renderTimeline = (papers) => {
-  console.log("rendering: ", papers);
   //const config = await API.getConfig();
   if (timeline) timeline.destroy();
   Promise.all([API.getConfig()])
@@ -293,7 +291,6 @@ const triggerFiltering = () => {
 }
 
 const downloadAllBibtex = () => {
-  console.log("filtered papers:", filteredPapers);
   let bibtex = "";
   for (paper of filteredPapers) bibtex += paper.citation + "\n\n";
   let blob = new Blob([bibtex], { type: "text/plain;charset=utf-8" });

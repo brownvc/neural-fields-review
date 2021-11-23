@@ -1,5 +1,3 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable no-underscore-dangle */
 class API {
 	/**
 	 * get and cache config object

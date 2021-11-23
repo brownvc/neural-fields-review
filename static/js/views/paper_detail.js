@@ -140,7 +140,6 @@ const drawCitationGraphAndGenerateCitationCode = (paperID) => {
         paperIDsCitingThisPaper.has(paper.UID)
       );
       const citationCode = constructCitationCode(thisPaper[0]);
-      console.log(citationCode);
       d3.select("#citation-code-wrapper")
         .html(`<span style="border-radius: 1rem; background-color: #bed972;">&nbsp${citationCode}&nbsp</span>`);
       const nodes_ = new Set([...papersCitedByThisPaper, ...papersCitingThisPaper]);

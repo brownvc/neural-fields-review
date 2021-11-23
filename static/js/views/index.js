@@ -20,7 +20,6 @@ const start = () => {
         ...allKeys.keywords,
         ...allKeys.venues],
           ".vagueSearchTypeahead", "vagueSearch", vagueSearch);
-        console.log("initialed")
     })
     .catch((e) => console.error(e));
 };
@@ -28,7 +27,6 @@ const start = () => {
 
 const vagueSearch = () => {
     const searchValue = document.getElementById("vagueSearchInput").value;
-    console.log("searching ", searchValue);
     const url = `papers_vague.html?vagueSearch=${searchValue}`;
     window.open(url,"_self").focus();
 }
