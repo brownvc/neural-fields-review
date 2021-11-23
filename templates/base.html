@@ -87,7 +87,7 @@
     ('about.html', 'About')
     ] -%}
 
-    <nav class="navbar sticky-top navbar-expand-lg navbar-light mr-auto" style="background-color: #B7B09C;" id="main-nav">
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light mr-auto" style="background-color: #EFECE5;" id="main-nav">
       <div class="container">
         <a class="navbar-brand" href="index.html">
           <img class="logo" src="{{config.logo.long}}" style="width: 300px;"/>
@@ -135,13 +135,17 @@
 
 
     <!-- Footer -->
-    <footer class="footer" style="background-color: #353535; height: 8.5vh; text-align: center;">
-      <!-- <div class="container"></div> -->
-
-        <a href="https://visual.cs.brown.edu/" target="_blank"><img src="static/images/Brown_logo.png"
-            style="height: 90%; padding-right: 30px;"></a>
-        <a href="https://csail.mit.edu" target="_blank"><img src="static/images/MIT_logo.png" style="height: 60%;"></a>
-      
+    <footer class="footer"
+      style="background-color: #353535; width: 100%; height: 8vh; display: flex; justify-content: center; align-items: center; ">
+      <a class="fas" style="cursor: pointer; margin-right: auto; padding-left: 10px;"
+        href="https://twitter.com/neural_fields" target="_blank">
+        <img src="static/images/twitter_logo.png" style="width: 48px; height: 40px;">
+      </a>
+      <a href="https://visual.cs.brown.edu/" target="_blank"><img src="static/images/Brown_logo.png"
+    style="height: 6vh; padding-right: 1vw;"></a>
+      <a href="https://csail.mit.edu" target="_blank"><img src="static/images/MIT_logo.png" style="height: 3vh"></a>
+      <a style="color: white; margin-left: auto; padding-right: 10px;" href="mailto:neuralfields@brown.edu"
+        target="_blank">Contact Us</a>
     </footer>
 
     <!-- Code for hash tags -->
