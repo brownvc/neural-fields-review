@@ -100,7 +100,7 @@ body {
 
 body .nav-pills .nav-link.active {
 	font-size: 18px;
-	background-color: #4A472B;
+	background-color: #4A372B;
 	font-family: 'Ubuntu', sans-serif !important;
 	color: white !important;
 	/* color: white !important;
@@ -454,8 +454,8 @@ body .carousel-control-prev {
 .btn-success:visited,
 .btn-success:focus {
 	color: white;
-    background-color: #4A472B;
-    border-color: #4A472B;
+    background-color: #4A372B;
+    border-color: #4A372B;
 ;
 }
 
