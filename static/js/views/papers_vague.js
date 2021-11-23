@@ -204,7 +204,7 @@ const copyBibtex = (paperID) => {
       break;
     }
   }
-  navigator.clipboard.writeText(paperBibtex);
+  navigator.clipboard.writeText(paperBibtex).then(() => alert('Successfully copied Bibtex'));
   //alert("Copied Bibtex.")
 }
 
