@@ -357,7 +357,7 @@ const card_html = (paper) =>
                     `<a class="card-header-icon card-header-icon fas red-hyper-link" href="${paper.project_link}" target="_blank" data-tippy-content="Project homepage">&#xf015;</a>`
                     : ""}
                     
-                    ${paper.code_link !== "" && (!paper.code_link.toLowerCase.includes("soon"))?
+                    ${paper.code_link !== "" && (!paper.code_link.toLowerCase().includes("soon"))?
                     `<a class="card-header-icon card-header-icon fas red-hyper-link" href="${paper.code_link}" target="_blank" data-tippy-content="Code">&#xf121;</a>`
                     : ""}
                 
