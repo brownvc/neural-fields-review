@@ -14,7 +14,7 @@
   }
 </style>
 
-<image src="{{config.logo.main}}" style="padding-top: 8vh; width: 30%; display: block;
+<image src="{{config.logo.main}}" style="padding-top: 8vh; width: 30%; min-width: 240px; display: block;
   margin-left: auto;
   margin-right: auto;" alt="A living database of neural field papers in visual computing and beyond"></image>
 {% endblock %}
@@ -40,17 +40,17 @@
 </div>
 
 <div class="row" style="padding-top: 20px; padding-bottom: 30px;">
-  <div class="col-5 d-flex justify-content-end">
+  <div class="col-lg-5 col-sm-4 mt-1 d-flex justify-content-center justify-content-md-end">
     <button type="button" class="btn btn-success" style="font-family: 'Ubuntu', sans-serif;" onclick="window.open('papers.html','_self').focus();">
       Advanced Search
     </button>
   </div>
-  <div class="col-2 d-flex justify-content-center">
+  <div class="col-lg-2 col-sm-4 mt-1 d-flex justify-content-center justify-content-md-center">
     <button type="button" class="btn btn-success" style="font-family: 'Ubuntu', sans-serif;" onclick="window.open('papers_vague.html?feelingLucky=true','_self').focus();">
       I'm Fielding Lucky
     </button>
   </div>
-  <div class="col-5  d-flex justify-content-start">
+  <div class="col-lg-5 col-sm-4 mt-1 d-flex justify-content-center justify-content-md-start">
     <button type="button" class="btn btn-success" style="font-family: 'Ubuntu', sans-serif;" onclick="window.open('add_paper.html','_self').focus();">
       Add Paper
     </button>
@@ -60,16 +60,18 @@
 <p style="text-align: center; font-size:normal; font-style: italic; color: #adadad;">A review and database of neural fields in visual computing and beyond.</p>
 
 <div class="container" style="padding-bottom: 60px;">
-  <div class="row justify-content-center">
+  <div class="row">
+    <div class="col-5"></div>
     <div class="col-2">
       <a href="static/pdf/2021_NeuralFieldsReview.pdf" target="_blank">
       <!-- <a href="https://arxiv.org/pdf/2111.11426.pdf" target="_blank"> -->
-        <image src="static/images/our_paper_first_page.png" style="width: 100%; border: 1px solid black;">
+        <image src="static/images/our_paper_first_page.png" style="width: 100%; min-width: 100px; border: 1px solid black;">
       </a>
-      <a class="fas" style="cursor: pointer; color: #4A372B;;" href="static/pdf/2021_NeuralFieldsReview.pdf" target="_blank">&#xf1c1; <span style="font-family: 'Ubuntu', sans-serif; color: #4A372B;">PDF</span> &nbsp;</a>
+      <a class="fas" style="cursor: pointer; color: #4A372B;;" href="static/pdf/2021_NeuralFieldsReview.pdf" target="_blank">&#xf1c1;&nbsp;<span style="font-family: 'Ubuntu', sans-serif; color: #4A372B;">PDF</span></a>
       <!-- <a class="fas" style="cursor: pointer; color: #4A372B;;" href="https://arxiv.org/pdf/2111.11426.pdf" target="_blank">&#xf1c1; <span style="font-family: 'Ubuntu', sans-serif; color: #4A372B;">PDF</span> &nbsp;</a> -->
-      <a class="fas" style="cursor: pointer; color: #4A372B;" onclick="copyBibtex()">&#xf0c5; <span style="font-family: 'Ubuntu', sans-serif; color: #4A372B;">Copy Bibtex</span></a>
+      <a class="fas" style="cursor: pointer; color: #4A372B;" onclick="copyBibtex()">&#xf0c5;&nbsp;<span style="font-family: 'Ubuntu', sans-serif; color: #4A372B;">Copy Bibtex</span></a>
     </div>
+    <div class="col-5"></div>
   </div>
 </div>
 
