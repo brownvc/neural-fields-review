@@ -35,7 +35,7 @@ non_ascii = ["PapierMâché", "Höfer", "Alenyà", "Cortés", "TöRF", "TöRF:",
 for k in names:
     non_ascii += names[k].split(" ")
 
-eject_keys = ["NOTE", "ID", "ENTRYTYPE", "EPRINT", "ARCHIVEPREFIX", "PRIMARYCLASS", "FILE", "ABSTRACT"]
+exclude_keys = ["NOTE", "ID", "ENTRYTYPE", "EPRINT", "ARCHIVEPREFIX", "PRIMARYCLASS", "FILE", "ABSTRACT"]
 """
 Script begins
 """
@@ -86,7 +86,7 @@ for j in tqdm(range(len(rows))):
         bibtex_ = bibtex_[:comm].replace(" ", "") + bibtex_[comm:]
         article_type, bibtex_key, dict = util.dict_from_string(bibtex_)
         bibtex_dict = {bibtex_key : dict}
-        row[csv_head_key['Bibtex']] = util.format_bibtex_str(bibtex_dict, article_type=article_type, eject_keys=eject_keys)
+        row[csv_head_key['Bibtex']] = util.format_bibtex_str(bibtex_dict, article_type=article_type, exclude_keys=exclude_keys)
 
     pdf_links_all.append(row[csv_head_key['PDF']])
 
@@ -134,7 +134,9 @@ for j in tqdm(range(len(rows))):
         missing_bibtex_name.append(cnt)
 
     # UID
-    if len("%08d" %int(row[csv_head_key['UID']])) < 2:
+    if (row[csv_head_key['UID']] is None) \
+        or (row[csv_head_key['UID']] == "") \
+        or len("%08d" %int(row[csv_head_key['UID']])) < 2:
         missing_UID.append(cnt)
     else:
         UIDs.append(row[csv_head_key['UID']])

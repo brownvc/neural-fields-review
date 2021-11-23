@@ -72,12 +72,19 @@
                 Citation
             </a>
             {% endif %}
-            {% if paper.code_link != "" %}
+            {% if ((paper.code_link == "Coming soon") or (paper.code_link == "coming soon") or (paper.code_link == "Coming soon...")) %}
+            <span class="card-link">Code coming soon...</span>
+            {% elif paper.code_link != "" %}
             <a href="{{paper.code_link}}" target="_blank" class="card-link red-hyper-link">
                 Code
             </a>
-            {% else %}
-            <span class="card-link">Code coming soon...</span>
+            {% endif %}
+            {% if (paper.data_link == "Coming soon") or (paper.data_link == "coming soon") or (paper.data_link == "Coming soon...") %}
+            <span class="card-link">Data coming soon...</span>
+            {% elif paper.data_link != "" %}
+            <a href="{{paper.code_link}}" target="_blank" class="card-link red-hyper-link">
+                Data
+            </a>
             {% endif %}
         </div>
     </div>
