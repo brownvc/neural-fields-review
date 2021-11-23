@@ -90,17 +90,6 @@
     </div>
     <span id="invisible-paper-id" style="display: none;">{{paper.UID}}</span>
 </div>
-<div id="details" class="pp-card m-3">
-    <div class="card-body">
-        <div class="card-text">
-            <div id="abstractExample">
-                <p style="font-weight: bolder; font-size: 25px; text-align: center;">Abstract</p>
-                {{paper.abstract}}
-            </div>
-        </div>
-        <p></p>
-    </div>
-</div>
 <div id="citation" class="pp-card m-3 collapse">
     <div class="card-body">
         <div class="card-text">
@@ -112,7 +101,17 @@
         <p></p>
     </div>
 </div>
-
+<div id="details" class="pp-card m-3">
+    <div class="card-body">
+        <div class="card-text">
+            <div id="abstractExample">
+                <p style="font-weight: bolder; font-size: 25px; text-align: center;">Abstract</p>
+                {{paper.abstract}}
+            </div>
+        </div>
+        <p></p>
+    </div>
+</div>
 
 <!-- Youtube Video -->
 {% if "youtube" in paper.talk_link %}
