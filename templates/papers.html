@@ -46,7 +46,7 @@
 
 
 <!-- title / nickname search input -->
-<div class="row">
+<div class="row" style="min-width: 1050px;">
   <div class="input-group col-11">
     <input type="text" id="titleAndNicknameInput" class="form-control titleAndNicknameTypeahead"
       placeholder="Search by title / nickname" onchange="setTitleAndNicknameFilter()">
@@ -68,17 +68,17 @@
 </div>
 
 <div class="row" style="padding-top: 10px;">
-  <div class="col-3">
+  <div class="col-12 col-md-3">
     <label><input type="checkbox" name="checkbox" id="onlyShowPapersWithCodeCheckbox" onclick="triggerFiltering()">
       Only show papers with code
     </label>
   </div>
-  <div class="col-3">
+  <div class="col-12 col-md-3">
     <label><input type="checkbox" name="checkbox" id="onlyShowPeerReviewedPapersCheckbox" onclick="triggerFiltering()">
       Only show peer-reviewed papers
     </label>
   </div>
-  <div class="col-3">
+  <div class="col-12 col-md-3">
     <label style="width: 100%;">
       Sort By
       <select id="sortBySelector" style="width: 70%; border: 1px solid #ced4da; border-radius: .25rem;"
@@ -90,7 +90,7 @@
       </select>
     </label>
   </div>
-  <div class="col-3">
+  <div class="col-12 col-md-3">
     <div class="float-right">
       <div class="btn-group btn-group-toggle render_option" data-toggle="buttons">
         <label class="btn btn-outline-secondary active" onclick="changeRenderMode('mini')">

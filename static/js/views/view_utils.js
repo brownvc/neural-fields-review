@@ -71,6 +71,7 @@ function addNewFilter(filterType, filterValue) {
     .attr("id",`filter_${filterID}`)
     .attr("class", "row")
     .style("padding-top", "5px")
+    .style("min-width", "1050px")
   
   d3.select(`#filter_${filterID}`)
     .html(
