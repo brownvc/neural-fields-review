@@ -54,11 +54,12 @@ def run():
     with open("scripts/papers_metadata.txt", "r") as f:
         num_rows_old = int(f.read())
 
-    max_uid = util.find_max_uid(rows)
+    max_uid = find_max_uid(rows)
     # Iterate on each row
-    start_row = 0           # This is for skipping already processed entries
-    end_row = (len(rows) - 1) - num_rows_old
+    start_row = 1           # This is for skipping already processed entries
+    end_row = len(rows) - num_rows_old
     cnt = start_row
+    print(f"Processing rows: {start_row} to {end_row}")
     for r in tqdm(range(start_row, end_row)):
         d, search_result, bibtex_str, bibtex_dict, dict = None, None, None, None, None
         err = False
@@ -69,7 +70,8 @@ def run():
             continue
 
         if len(str(row[csv_head_key["UID"]])) == 0:
-            row[csv_head_key["UID"]] = max_uid
+            row[csv_head_key["UID"]] = "%08d" % (max_uid+1)
+            max_uid += 1
 
         if ("https://arxiv.org/" in row[csv_head_key['PDF']]):
             serial_num = row[csv_head_key['PDF']].strip("https://arxiv.org/abs/pdf")
@@ -85,7 +87,7 @@ def run():
         # Date
         if ("https://arxiv.org/" in row[csv_head_key['PDF']]) and (row[csv_head_key['Date']] == ""):
             if d is None:
-               d, id = get_arxiv(row)
+               d, id = get_arxiv(row[csv_head_key['PDF']])
             year = d['entries'][0]['published'][:4]
             month = d['entries'][0]['published'][5:7]
             day = d['entries'][0]['published'][8:10]
@@ -130,7 +132,7 @@ def run():
             # Step 1) Get bibtex from arxiv
             if "https://arxiv.org/" in row[csv_head_key['PDF']]:
                 if d is None:
-                   d, id = get_arxiv(row)
+                   d, id = get_arxiv(row[csv_head_key['PDF']])
                 result = arxiv2bib([id])[0]
                 bibtex_str = result.bibtex()
             # Step 1) Get bibtex from scholarly
@@ -170,7 +172,7 @@ def run():
                 for k in BIBTEX_INFO:
                     if venue in BIBTEX_INFO[k]:
                         dict[k] = BIBTEX_INFO[k][venue]
-                if venue == "ARXIV":
+                if venue.upper() == "ARXIV":
                     if "https://arxiv.org/" in row[csv_head_key['PDF']]:
                        dict['journal'] += " arXiv:" + serial_num
             bibtex_dict = {bibtex_key : dict}
@@ -185,8 +187,7 @@ def run():
 
             if len(bibtex_str) > 10:
                 row[csv_head_key['Bibtex']] = unidecode.unidecode(bibtex_str)
-                # todo
-                print(r, "Bibtex: ", row[csv_head_key['Bibtex']][:20])
+                print(r, "Bibtex: ", row[csv_head_key['Bibtex']][:20], "...")
             else:
                 print(r, "Bibtex ERROR (bibtex too short): ", bibtex_str)
                 if debug: exit(12)
@@ -204,7 +205,7 @@ def run():
             # From arxiv api
             if ("https://arxiv.org/" in row[csv_head_key['PDF']]):
                 if d is None:
-                   d, id = get_arxiv(row)
+                   d, id = get_arxiv(row[csv_head_key['PDF']])
                 auth_str = []
                 for a in d['entries'][0]['authors']:
                     auth_str.append(a['name'])
@@ -230,7 +231,7 @@ def run():
             # From arxiv api
             if ("https://arxiv.org/" in row[csv_head_key['PDF']]):
                 if d is None:
-                    d, id = get_arxiv(row)
+                    d, id = get_arxiv(row[csv_head_key['PDF']])
                 abstract = d['entries'][0]['summary'].replace(" \n", " ").replace("\n ", " ").replace("\n", " ")
             # From bibtex
             elif (row[csv_head_key['Bibtex']] != ""):

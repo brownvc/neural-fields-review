@@ -28,13 +28,13 @@ def dict_from_string(str):
     return type, name, dict
 
 
-def get_arxiv(row):
-    if "https://arxiv.org/pdf/" in row[4]:
-        id = row[4][22:32]
-    elif "https://arxiv.org/ftp/arxiv/papers/" in row[4]:
-        id = row[4][40:50]
+def get_arxiv(arxiv):
+    if ("https://arxiv.org/pdf/" in arxiv) or ("https://arxiv.org/abs/" in arxiv):
+        id = arxiv[22:32]
+    elif "https://arxiv.org/ftp/arxiv/papers/" in arxiv:
+        id = arxiv[40:50]
     else:
-        raise ValueError("Invalid arxiv link")
+        raise ValueError("Invalid arxiv link: ", arxiv)
     url = 'http://export.arxiv.org/api/query?id_list={}&start=0&max_results=1'.format(id)
     data = urllib.request.urlopen(url)
     d = feedparser.parse(data.read().decode('utf-8'))
@@ -262,7 +262,11 @@ def get_venue(comment, pub_year):
 def find_max_uid(rows):
     max_uid = 0
     for r in rows:
-        if int(r[csv_head_key["UID"]]) > max_uid:
+        if r[csv_head_key["UID"]] == "UID":
+            continue
+        elif r[csv_head_key["UID"]] == "":
+            continue
+        elif int(r[csv_head_key["UID"]]) > max_uid:
             max_uid = int(r[csv_head_key["UID"]])
     return max_uid
 
