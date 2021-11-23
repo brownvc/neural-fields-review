@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 const initTypeAhead = (list, css_sel, name, callback) => {
 	const bh = new Bloodhound({
 		datumTokenizer: Bloodhound.tokenizers.whitespace,
@@ -28,16 +27,9 @@ const initTypeAhead = (list, css_sel, name, callback) => {
 				hint: false,
 				highlight: true /* Enable substring highlighting */,
 				minLength: 0 /* Specify minimum characters required for showing suggestions */,
-				limit: 20,
 			},
-			{ name, source: bhDefaults }
+			{ source: bhDefaults, limit: 100 }
 		)
-		// .on("keydown", function (e) {
-		//   if (e.which === 13) {
-		//     callback(e, e.target.value);
-		//     $(css_sel).typeahead("close");
-		//   }
-		// })
 		.on("typeahead:selected", function (evt, item) {
 			callback(evt, item);
 		});
@@ -47,14 +39,3 @@ const initTypeAhead = (list, css_sel, name, callback) => {
 		callback(null, "");
 	});
 };
-
-// const setTypeAhead = (subset, allKeys, filters, render) => {
-//   // eslint-disable-next-line no-return-assign
-//   Object.keys(filters).forEach((k) => (filters[k] = null));
-
-//   initTypeAhead(allKeys[subset], ".titleAndNicknameTypeahead", subset, (e, it) => {
-//     setQueryStringParameter("search", it);
-//     filters[subset] = it.length > 0 ? it : null;
-//     render();
-//   });
-// };
