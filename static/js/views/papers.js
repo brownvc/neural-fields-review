@@ -359,6 +359,10 @@ const card_html = (paper) =>
                     ${paper.project_link !== "" ?
                     `<a class="card-header-icon card-header-icon fas red-hyper-link" href="${paper.project_link}" target="_blank" data-tippy-content="Project homepage">&#xf015;</a>`
                     : ""}
+                    
+                    ${paper.code_link !== "" ?
+                    `<a class="card-header-icon card-header-icon fas red-hyper-link" href="${paper.code_link}" target="_blank" data-tippy-content="Code">&#xf121;</a>`
+                    : ""}
                 
                     ${paper.talk_link !== "" ?
                     `<a class="card-header-icon card-header-icon fas red-hyper-link" href="${paper.talk_link}" target="_blank" data-tippy-content="Talk video">&#xf03d;</a>`
