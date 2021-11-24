@@ -43,7 +43,7 @@ deploy:
 	git push --force "https://${GH_TOKEN}@${GH_REF}.git" gh-pages
 	# git push --force origin gh-pages
 	# @yxie20: added CNAME here
-	git branch gh-pages
+	git checkout gh-pages
 	touch CNAME
 	echo "neuralfields.cs.brown.edu" >> CNAME
 	git add CNAME
