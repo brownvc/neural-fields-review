@@ -40,7 +40,7 @@ deploy:
 	git add -f build
 	touch CNAME
 	echo "neuralfields.cs.brown.edu" >> CNAME
-	git add -f CNAME
+	git add CNAME
 	git commit -am "Deploy on gh-pages"
 	git subtree split --prefix build -b gh-pages
 	git push --force "https://${GH_TOKEN}@${GH_REF}.git" gh-pages
