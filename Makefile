@@ -38,13 +38,15 @@ deploy:
 	-git branch -D $(TEMP_DEPLOY_BRANCH)
 	git checkout -b $(TEMP_DEPLOY_BRANCH)
 	git add -f build
-	touch CNAME
-	echo "neuralfields.cs.brown.edu" >> CNAME
-	git add CNAME
 	git commit -am "Deploy on gh-pages"
 	git subtree split --prefix build -b gh-pages
 	git push --force "https://${GH_TOKEN}@${GH_REF}.git" gh-pages
 	# git push --force origin gh-pages
+	touch CNAME
+	echo "neuralfields.cs.brown.edu" >> CNAME
+	git add CNAME
+	git commit -m "Auto-add CNAME"
+	git push --force "https://${GH_TOKEN}@${GH_REF}.git" gh-pages
 	git checkout @{-1}
 	-git branch -D $(TEMP_DEPLOY_BRANCH)
 	@echo "Deployed to gh-pages 🚀"
