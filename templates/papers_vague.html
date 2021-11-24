@@ -32,7 +32,7 @@
 
 <!-- title / nickname search input -->
 <div class="row">
-  <div class="input-group col-11">
+  <div class="input-group col-10 col-md-11">
     <input type="text" id="vagueSearchInput" class="form-control vagueSearchTypeahead"
       onchange="setVagueSearchFilter()">
     <button type="button" class="btn bg-transparent vagueSearchTypeahead_clear"
@@ -40,7 +40,7 @@
       &times;
     </button>
   </div>
-  <div class="col-1">
+  <div class="col-2 col-md-1">
     <button class="btn btn-outline-secondary" 
     style="border-radius: 25px;" 
     data-tippy-content="Search"
@@ -51,10 +51,10 @@
 </div>
 
 <div class="row" style="padding-top: 10px;">
-  <div class="col-3">
+  <div class="col-12 col-md-4">
     <a class="red-hyper-link" href="papers.html">Advanced Search</a>
   </div>
-  <div class="col-6">
+  <div class="col-12 col-md-4">
     <label style="width: 100%;">
       Sort By
       <select id="sortBySelector" style="width: 70%; border: 1px solid #ced4da; border-radius: .25rem;"
@@ -66,7 +66,7 @@
       </select>
     </label>
   </div>
-  <div class="col-3">
+  <div class="col-12 col-md-4">
     <div class="float-right">
       <div class="btn-group btn-group-toggle render_option" data-toggle="buttons">
         <label class="btn btn-outline-secondary active" onclick="changeRenderMode('mini')">

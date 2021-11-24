@@ -46,8 +46,8 @@
 
 
 <!-- title / nickname search input -->
-<div class="row" style="min-width: 1050px;">
-  <div class="input-group col-11">
+<div class="row">
+  <div class="input-group col-10 col-md-11">
     <input type="text" id="titleAndNicknameInput" class="form-control titleAndNicknameTypeahead"
       placeholder="Search by title / nickname" onchange="setTitleAndNicknameFilter()">
     <button type="button" class="btn bg-transparent titleAndNicknameTypeahead_clear"
@@ -55,7 +55,7 @@
       &times;
     </button>
   </div>
-  <div class="col-1">
+  <div class="col-2 col-md-1">
     <button class="btn btn-outline-secondary" id="add_new_filter_button" style="border-radius: 25px;"
       onclick="addNewFilter('author','')" data-tippy-content="Add a filter">
       <div class="fas">&#xf067;</div>

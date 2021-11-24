@@ -43,7 +43,7 @@
 
 <!-- title / nickname search input -->
 <div class="row">
-  <div class="input-group col-11">
+  <div class="input-group col-10 col-md-11">
     <input type="text" id="titleAndNicknameInput" class="form-control titleAndNicknameTypeahead"
       placeholder="Search by title / nickname" onchange="setTitleAndNicknameFilter()">
     <button type="button" class="btn bg-transparent titleAndNicknameTypeahead_clear"
@@ -51,7 +51,7 @@
       &times;
     </button>
   </div>
-  <div class="col-1">
+  <div class="col-2 col-md-1">
     <button class="btn btn-outline-secondary" id="add_new_filter_button" style="border-radius: 25px;"
       onclick="addNewFilter('author','')" data-tippy-content="Add a filter">
       <div class="fas">&#xf067;</div>
@@ -63,13 +63,13 @@
 <div id="dynamicFiltersSection">
 </div>
 
-<div class="row " style="padding-top: 10px;">
-  <div class="col-3">
+<div class="row" style="padding-top: 10px;">
+  <div class="col-12 col-md-6">
     <label><input type="checkbox" name="checkbox" id="onlyShowPapersWithCodeCheckbox" onclick="triggerFiltering()">
       Only show papers with code
     </label>
   </div>
-  <div class="col-3">
+  <div class="col-12 col-md-6">
     <label><input type="checkbox" name="checkbox" id="onlyShowPeerReviewedPapersCheckbox" onclick="triggerFiltering()">
       Only show peer-reviewed papers
     </label>

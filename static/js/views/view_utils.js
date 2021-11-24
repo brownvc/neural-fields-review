@@ -71,18 +71,17 @@ function addNewFilter(filterType, filterValue) {
     .attr("id",`filter_${filterID}`)
     .attr("class", "row")
     .style("padding-top", "5px")
-    .style("min-width", "1050px")
   
   d3.select(`#filter_${filterID}`)
     .html(
       `
-    <div class="filterTypeSelector col-1">
+    <div class="filterTypeSelector col-3 col-md-1">
     ${generateFilterTypeSelector(filterID, filterType)}
     </div>
-    <div class="input-group col-10">
+    <div class="input-group col-7 col-md-10">
     ${generateFilterInputHTML(filterID, filterType, filterValue)}
     </div>
-    <div class="col-1">
+    <div class="col-1 col-md-1">
     ${generateRemoveFilterButton(filterID)}
     </div>`)
   
@@ -178,11 +177,27 @@ const generateFilterInputHTML = (filterID, filterType, filterValue) => {
     `
   }
   else if (filterType === "date") {
+    // return `
+    //   <div style="display: flex; flex-direction: row; justify-content: space-around; align-items: center; width: 100%;">
+    //     <input type="month" id="filterInput_startMonth_${filterID}" class="form-control dateTypeahead_${filterID}" onchange="setFilterByID(${filterID}, true)" placeholder="YYYY-MM" style="width: 100%">
+    //     <span>&nbsp&nbspto&nbsp&nbsp</span>
+    //     <input type="month" id="filterInput_endMonth_${filterID}" class="form-control dateTypeahead_${filterID}" onchange="setFilterByID(${filterID}, true)" placeholder="YYYY-MM" style="width: 100%">
+    //   </div>
+    //   `
+
+
+    // return `
+    //   <div class="row" style="width: 100%; padding-left: 15px; padding-right: 15px;">
+    //     <input type="month" id="filterInput_startMonth_${filterID}" class="form-control dateTypeahead_${filterID} col-3" onchange="setFilterByID(${filterID}, true)" placeholder="YYYY-MM">
+    //     <span class="col-1">to</span>
+    //     <input type="month" id="filterInput_endMonth_${filterID}" class="form-control dateTypeahead_${filterID} col-3" onchange="setFilterByID(${filterID}, true)" placeholder="YYYY-MM">
+    //   </div>
+    //   
     return `
-      <div style="display: flex; flex-direction: row; justify-content: space-around; align-items: center; width: 100%">
-        <input type="month" id="filterInput_startMonth_${filterID}" class="form-control dateTypeahead_${filterID}" onchange="setFilterByID(${filterID}, true)" placeholder="YYYY-MM" style="width: 100%">
-        <span>&nbsp&nbspto&nbsp&nbsp</span>
-        <input type="month" id="filterInput_endMonth_${filterID}" class="form-control dateTypeahead_${filterID}" onchange="setFilterByID(${filterID}, true)" placeholder="YYYY-MM" style="width: 100%">
+      <div class="row" style="width: 101.6%; padding-left: 15px;">
+        <input type="month" id="filterInput_startMonth_${filterID}" class="col-5 form-control" onchange="setFilterByID(${filterID}, true)" placeholder="YYYY-MM">
+        <span class="col-2 d-flex justify-content-center" style="margin-top: 2px">to</span>
+        <input type="month" id="filterInput_endMonth_${filterID}" class="col-5 form-control" onchange="setFilterByID(${filterID}, true)" placeholder="YYYY-MM">
       </div>
       `
   }
