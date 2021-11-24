@@ -48,7 +48,7 @@ deploy:
 	echo "neuralfields.cs.brown.edu" >> CNAME
 	git add CNAME
 	git commit -m "Auto-add CNAME"
-	git push
+	git push --set-upstream origin gh-pages
 	# END @yxie20
 	git checkout @{-1}
 	-git branch -D $(TEMP_DEPLOY_BRANCH)
