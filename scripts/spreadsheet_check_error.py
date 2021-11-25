@@ -5,7 +5,7 @@ import unicodedata
 from unidecode import unidecode
 import xlsxwriter
 import util
-from util import csv_head_key
+from util import csv_head_key, KNOWN_FORMATS
 from tqdm import tqdm
 
 names = {
@@ -89,6 +89,11 @@ for j in tqdm(range(len(rows))):
         row[csv_head_key['Bibtex']] = util.format_bibtex_str(bibtex_dict, article_type=article_type, exclude_keys=exclude_keys)
 
     pdf_links_all.append(row[csv_head_key['PDF']])
+
+    # Correct Venue Name
+    for k in KNOWN_FORMATS:
+        if row[csv_head_key['Venue']].upper() == k.upper():
+            row[csv_head_key['Venue']] = k
 
     # Correct miss-spelling from unicode
     if start_row <= j <= end_row:
