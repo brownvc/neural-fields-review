@@ -5,13 +5,12 @@ This is based on the amazing <a href="https://mini-conf.github.io/index.html">Mi
 
 ### Citation
 If you find our project helpful, please cite our review paper:
-```bibtex
-@article{xie2021neuralfield,
-    title = {Neural Fields in Visual Computing and Beyond},
-    author = {Yiheng Xie and Towaki Takikawa and Shunsuke Saito and Or Litany and Shiqin Yan and Numair Khan
-    and Federico Tombari and James Tompkin and Vincent Sitzmann and Srinath Sridhar},
-    booktitle = {ArXiv Pre-print},
-    year = {2021} 
+```
+@misc{xie2021neuralfield,
+Author = {Yiheng Xie and Towaki Takikawa and Shunsuke Saito and Or Litany and Shiqin Yan and Numair Khan and Federico Tombari and James Tompkin and Vincent Sitzmann and Srinath Sridhar},
+Title = {Neural Fields in Visual Computing and Beyond},
+Year = {2021},
+Eprint = {arXiv:2111.11426},
 }
 ```
 
