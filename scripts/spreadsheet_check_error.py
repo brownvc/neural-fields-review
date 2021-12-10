@@ -35,7 +35,8 @@ non_ascii = ["PapierMâché", "Höfer", "Alenyà", "Cortés", "TöRF", "TöRF:",
 for k in names:
     non_ascii += names[k].split(" ")
 
-exclude_keys = ["NOTE", "ID", "ENTRYTYPE", "EPRINT", "ARCHIVEPREFIX", "PRIMARYCLASS", "FILE", "ABSTRACT"]
+exclude_keys = ["NOTE", "ID", "ENTRYTYPE", "EPRINT", "ARCHIVEPREFIX", "PRIMARYCLASS", "FILE", "ABSTRACT", "VENUE"]
+replace_keys = {"PUB_YEAR": "YEAR"}
 """
 Script begins
 """
