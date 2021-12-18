@@ -87,7 +87,7 @@ for j in tqdm(range(len(rows))):
         bibtex_ = bibtex_[:comm].replace(" ", "") + bibtex_[comm:]
         article_type, bibtex_key, dict = util.dict_from_string(bibtex_)
         bibtex_dict = {bibtex_key : dict}
-        row[csv_head_key['Bibtex']] = util.format_bibtex_str(bibtex_dict, article_type=article_type, exclude_keys=exclude_keys)
+        row[csv_head_key['Bibtex']] = util.format_bibtex_str(bibtex_dict, article_type=article_type, exclude_keys=exclude_keys, replace_keys=replace_keys)
 
     pdf_links_all.append(row[csv_head_key['PDF']])
 

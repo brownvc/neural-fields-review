@@ -110,7 +110,8 @@ def write_spreadsheet(rows, fname, ext):
         workbook.close()
 
 
-def format_bibtex_str(bibtex, cap_keys="ALL", space=True, indent="    ", article_type="article", last_name_first=False, exclude_keys=[]):
+def format_bibtex_str(bibtex, cap_keys="ALL", space=True, indent="    ",
+    article_type="article", last_name_first=False, exclude_keys=[], replace_keys={}):
     """
     Args:
         bibtex: str or dict
@@ -124,7 +125,7 @@ def format_bibtex_str(bibtex, cap_keys="ALL", space=True, indent="    ", article
     if type(bibtex) is dict:
         name = list(bibtex.keys())[0]
         d = bibtex[name]
-        entries = []
+        entries, pop_keys = [], []
         for key in d:
             if not (key.upper() in exclude_keys):
                 content = d[key].replace(' \n', ' ').replace('\n', ' ')
@@ -136,7 +137,13 @@ def format_bibtex_str(bibtex, cap_keys="ALL", space=True, indent="    ", article
                 if key == "AUTHOR":
                     if (not last_name_first) and (", " in content):
                         content = " and ".join([" ".join(a.split(", ")[::-1]) for a in content.split(" and ")])
+                if key in replace_keys:
+                    d[replace_keys[key]] = d[key]
+                    pop_keys.append(key)
+                    key = replace_keys[key]
                 entries.append(indent + key + equal + "{" + content + "}")
+        for key in pop_keys:
+            d.pop(key, None)
         head = f"@{article_type.lower()}"+"{"+f"{name},\n"
         tail = "\n}"
         texstr = head + ",\n".join(entries) + tail
