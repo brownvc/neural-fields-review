@@ -85,11 +85,12 @@
   start();
   setTimeout(() => { document.getElementById("vagueSearchInput").focus();}, 400)
   const copyBibtex = () => {
-    const bibtex = `@article{xie2021neuralfield,
-    title = {Neural Fields in Visual Computing and Beyond},
-    author = {Yiheng Xie and Towaki Takikawa and Shunsuke Saito and Or Litany and Shiqin Yan and Numair Khan and Federico Tombari and James Tompkin and Vincent Sitzmann and Srinath Sridhar},
-    booktitle = {ArXiv Pre-print},
-    year = {2021} 
+    const bibtex = `@misc{xie2021neuralfield,
+author = {Yiheng Xie and Towaki Takikawa and Shunsuke Saito and Or Litany and Shiqin Yan and Numair Khan and Federico Tombari and James Tompkin and Vincent Sitzmann and Srinath Sridhar},
+title = {Neural Fields in Visual Computing and Beyond},
+year = {2021},
+eprint = {arXiv:2111.11426},
+url = {https://neuralfields.cs.brown.edu/}
 }`
     navigator.clipboard.writeText(bibtex)
     .then(() => alert('Successfully copied Bibtex'));
