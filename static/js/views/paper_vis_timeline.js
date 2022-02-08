@@ -85,7 +85,7 @@ const start = () => {
 const generatePaperItem = (paper, config) => {
   if (paper.nickname) {
     return `
-    <a href="/${config.repo_name}/paper_${paper.UID}.html" target="_blank">${paper.nickname}</a>
+    <a href="/paper_${paper.UID}.html" target="_blank">${paper.nickname}</a>
     `
   }
   else {
@@ -95,13 +95,13 @@ const generatePaperItem = (paper, config) => {
       const firstHalf = titleWords.slice(0, halfLen).join(' ');
       const secondHalf = titleWords.slice(halfLen, titleWords.length).join(' ');
       return `
-      <a href="/${config.repo_name}/paper_${paper.UID}.html" target="_blank">${firstHalf}</a><br>
-      <a href="/${config.repo_name}/paper_${paper.UID}.html" target="_blank">${secondHalf}</a>
+      <a href="/paper_${paper.UID}.html" target="_blank">${firstHalf}</a><br>
+      <a href="/paper_${paper.UID}.html" target="_blank">${secondHalf}</a>
       `
     }
     else {
       return `
-      <a href="/${config.repo_name}/paper_${paper.UID}.html" target="_blank">${paper.title}</a>
+      <a href="/paper_${paper.UID}.html" target="_blank">${paper.title}</a>
       `
     }
   }
