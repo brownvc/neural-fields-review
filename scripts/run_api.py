@@ -118,7 +118,7 @@ def run():
             if ("https://arxiv.org/" in row[csv_head_key['PDF']]):
                 if d is None:
                    d, id = get_arxiv(row[csv_head_key['PDF']])
-                row[csv_head_key['Title']] = d['entries'][0]['title']
+                row[csv_head_key['Title']] = d['entries'][0]['title'].replace(" \n", "").replace("\n ", "").replace("\n", "")
                 print(r, row[csv_head_key['Title']])
             else:
                 if debug:
