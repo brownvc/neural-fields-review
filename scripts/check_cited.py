@@ -1,3 +1,8 @@
+"""
+A rough check whether paper is cited in paper. Consider the result a lower bound.
+"""
+
+
 from util import *
 from tqdm import tqdm
 from unidecode import unidecode

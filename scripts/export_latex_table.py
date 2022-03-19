@@ -1,3 +1,8 @@
+"""
+Experimental script that converts csv into a latex formatted table.
+"""
+
+
 from util import *
 
 keywords = [
