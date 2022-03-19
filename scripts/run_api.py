@@ -32,11 +32,10 @@ def run():
     This is especially useful if the paper is not on ArXiv.
     """
 
-    csv_format = "New"
-    write_every = False
+    write_every = False                     # Whether to write to csv file at the end of each entry (no real difference, just saves data in case of a bug or force quit)
     debug = True
     overwrite_existing = False
-    replace_bibtex_key = True                 # Reformat bibtex name to our convention
+    replace_bibtex_key = True               # Reformat bibtex name to our convention
     citations_cnt = False
     capitalize_bibtex_keys = "ALL"
 
@@ -52,14 +51,18 @@ def run():
     rows = read_spreadsheet(input_fname, input_ext)
     # This doesn't include row(0)
     with open("scripts/papers_metadata.txt", "r") as f:
-        num_rows_old = int(f.read())
+        num_papers_prev = int(f.read())
 
     max_uid = find_max_uid(rows)
     # Iterate on each row
     start_row = 1           # This is for skipping already processed entries
-    end_row = len(rows) - num_rows_old
     cnt = start_row
-    print(f"Processing rows: {start_row} to {end_row}")
+    end_row = len(rows) - num_papers_prev
+    if end_row == 1:
+        print("No new entries. Quitting.")
+        exit(12)
+
+    print(f"Processing rows: {start_row} to {end_row-1}")
     for r in tqdm(range(start_row, end_row)):
         d, search_result, bibtex_str, bibtex_dict, dict = None, None, None, None, None
         err = False
@@ -94,40 +97,34 @@ def run():
             row[csv_head_key['Date']] = month + '/' + day + '/' + year
             print(r, row[csv_head_key['Date']])
 
+        # Venue (this section needs to go first because the following sections needs this info)
+        if (row[csv_head_key['Venue']] == "") or (row[csv_head_key['Year']] == "") or overwrite_existing:
+            venue_year = row[csv_head_key['Venue+Year']].strip(" ")
+            if venue_year[-4:].isnumeric():
+                year = venue_year[-4:]
+            elif venue_year[-2:].isnumeric():
+                year = "20" + venue_year[-2:]
+            elif len(row[csv_head_key['Date']]):
+                year = row[csv_head_key['Date']][-4:]
+                if debug: assert (len(year) == 4) and year.isnumeric(), f"ERROR (Entry \"Year\" is not valid): {year}"
+
+            if not ((len(row[csv_head_key['Year']]) == 4) and row[csv_head_key['Year']].isnumeric()):
+                row[csv_head_key['Year']] = year
+            if row[csv_head_key['Venue']] == "":
+                row[csv_head_key['Venue']] = venue_year.strip("0123456789 ")
+
         # Bibtex
         if (row[csv_head_key['Bibtex']] == "") or overwrite_existing:
-            if csv_format == "old":
-                if row[csv_head_key['Venue']] == "":
-                    print(r, "ERROR (Venue): empty")
-                    if debug: exit(12)
-                    continue
-                else:
-                    s = row[csv_head_key['Venue']]
-                    if s.find("(") > 0:
-                        s = s[:s.find("(")]
-                    for venue in KNOWN_FORMATS:
-                        if venue in s:
-                            break
-                    venue_year = s.strip(" ")
-                    try:
-                        year = venue_year.split(' ')[-1]
-                        assert len(year) == 4, f"ERROR (year in vanue is not valid): {year}"
-                    except Exception as e:
-                        print(e)
-                        if debug: exit(12)
-                        continue
+            if row[csv_head_key['Venue']] == "":
+                print(r, "ERROR (Venue): empty")
+                if debug: exit(12)
+            elif row[csv_head_key['Year']] == "":
+                print(r, "ERROR (Year): empty")
+                if debug: exit(12)
             else:
-                if row[csv_head_key['Venue']] == "":
-                    print(r, "ERROR (Venue): empty")
-                    if debug: exit(12)
-                elif row[csv_head_key['Year']] == "":
-                    print(r, "ERROR (Year): empty")
-                    if debug: exit(12)
-                else:
-                    venue = row[csv_head_key['Venue']]
-                    venue = venue[:venue.find("(")].strip(" ")
-                    year = str(int(row[csv_head_key['Year']]))
-                    if debug: assert len(year) == 4, f"ERROR (year in vanue is not valid): {year}"
+                venue = row[csv_head_key['Venue']]
+                venue = venue[:venue.find("(")].strip(" ")
+                year = str(int(row[csv_head_key['Year']]))
 
             # Step 1) Get bibtex from arxiv
             if "https://arxiv.org/" in row[csv_head_key['PDF']]:
