@@ -58,11 +58,8 @@ def run():
     start_row = 1           # This is for skipping already processed entries
     cnt = start_row
     end_row = len(rows) - num_papers_prev
-    if end_row == 1:
-        print("No new entries. Quitting.")
-        exit(12)
-
-    print(f"Processing rows: {start_row} to {end_row-1}")
+    if end_row == 1: print("No new entries.")
+    else: print(f"Processing rows: {start_row} to {end_row-1}")
     for r in tqdm(range(start_row, end_row)):
         d, search_result, bibtex_str, bibtex_dict, dict = None, None, None, None, None
         err = False
