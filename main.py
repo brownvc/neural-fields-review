@@ -38,7 +38,7 @@ def main(site_data_path):
     extra_files = ["README.md"]
     # Load all for your sitedata one time.
     for f in glob.glob(site_data_path + "/*"):
-        if f != "sitedata/thumbnails":
+        if not os.path.isdir(f):
             extra_files.append(f)
             name, typ = f.split("/")[-1].split(".")
             if typ == "json":
