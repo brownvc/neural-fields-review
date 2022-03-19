@@ -113,6 +113,17 @@ def run():
             if row[csv_head_key['Venue']] == "":
                 row[csv_head_key['Venue']] = venue_year.strip("0123456789 ")
 
+        # Title
+        if (row[csv_head_key['Title']] == "") or overwrite_existing:
+            if ("https://arxiv.org/" in row[csv_head_key['PDF']]):
+                if d is None:
+                   d, id = get_arxiv(row[csv_head_key['PDF']])
+                row[csv_head_key['Title']] = d['entries'][0]['title']
+                print(r, row[csv_head_key['Title']])
+            else:
+                if debug:
+                    raise ValueError("Missing paper title")
+
         # Bibtex
         if (row[csv_head_key['Bibtex']] == "") or overwrite_existing:
             if row[csv_head_key['Venue']] == "":
