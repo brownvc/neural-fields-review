@@ -18,7 +18,8 @@ def export_from_spreadsheet(input_fname, input_ext, output_fname="temp/reference
                 if k.lower() in dict:
                     dict.pop(k.lower())
             bibtex_dict = {bibtex_key : dict}
-            bibtex_str = util.format_bibtex_str(bibtex_dict, article_type=article_type, exclude_keys=exclude_keys)
+            bibtex_str = util.format_bibtex_str(bibtex_dict, cap_keys="ALL", space=True, indent="    ", bracket="{}",
+                article_type=article_type, last_name_first=False, exclude_keys=exclude_keys)
             bibtex.append(bibtex_str+"\n\n")
 
     with open(output_fname, "w+", encoding="utf-8") as f:
@@ -44,7 +45,8 @@ def format_dotbib_file(fname, exclude_keys=[]):
             if k.lower() in dict:
                 dict.pop(k.lower())
         bibtex_dict = {bibtex_key : dict}
-        bibtex_str = util.format_bibtex_str(bibtex_dict, article_type=article_type)
+        bibtex_str = util.format_bibtex_str(bibtex_dict, cap_keys="ALL", space=True, indent="    ", bracket="{}",
+                article_type=article_type, last_name_first=False, exclude_keys=exclude_keys)
         bibtex.append(bibtex_str+"\n\n")
 
     with open(fname, "w+", encoding="utf-8") as f:

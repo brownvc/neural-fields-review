@@ -12,7 +12,8 @@ from bibtexparser.bparser import BibTexParser
 def dict_from_string(str):
     str.strip(" \n\t")
     assert str[0] == "@"
-    type = str[1 : str.find("{")]
+    bra = min(str.find("{"), str.find("(")) if (str.find("(") >= 0) else str.find("{")
+    type = str[1 : bra]
     # For each bibtex key, make it a
     parser = BibTexParser()
     try:
@@ -110,7 +111,7 @@ def write_spreadsheet(rows, fname, ext):
         workbook.close()
 
 
-def format_bibtex_str(bibtex, cap_keys="ALL", space=True, indent="    ",
+def format_bibtex_str(bibtex, cap_keys="ALL", space=True, indent="    ", bracket="{}",
     article_type="article", last_name_first=False, exclude_keys=[], replace_keys={}):
     """
     Args:
@@ -122,6 +123,11 @@ def format_bibtex_str(bibtex, cap_keys="ALL", space=True, indent="    ",
         equal = " = "
     else:
         equal = "="
+    if bracket == "{}":
+        bra, ket = "{", "}"
+    elif bracket == "()":
+        bra, ket = "(", ")"
+
     if type(bibtex) is dict:
         name = list(bibtex.keys())[0]
         d = bibtex[name]
@@ -144,8 +150,8 @@ def format_bibtex_str(bibtex, cap_keys="ALL", space=True, indent="    ",
                 entries.append(indent + key + equal + "{" + content + "}")
         for key in pop_keys:
             d.pop(key, None)
-        head = f"@{article_type.lower()}"+"{"+f"{name},\n"
-        tail = "\n}"
+        head = f"@{article_type.lower()}" + bra + f"{name},\n"
+        tail = "\n" + ket
         texstr = head + ",\n".join(entries) + tail
     else:
         print("Deprecated: bibtex str formatting")
@@ -221,7 +227,8 @@ def bibtex_name_from_bibtex(bibtex):
         name = list(bibtex.keys())[0]
     else:
         bibtex = bibtex.replace("\r\n", "\n")
-        start, end = bibtex.find("{") + 1, bibtex.find(",")
+        bra = min(bibtex.find("{"), bibtex.find("(")) if (bibtex.find("(") >= 0) else bibtex.find("{")
+        start, end = bra + 1, bibtex.find(",")
         name = bibtex[start:end].lower()
         return name
 
