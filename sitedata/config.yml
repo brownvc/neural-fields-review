@@ -7,7 +7,7 @@ logo:
     main: static/images/main_logo.png
     long: static/images/long_logo.png
 page_title:
-    prefix: "NeuralFields"
+    prefix: "Neural Fields"
     separator: ": "
 background_image: static/images/main.jpg
 organization: Brown Visual Computing Group
