@@ -59,6 +59,8 @@ if os.path.exists(out_file_path):
         currrent_citation_graph = json.load(infile)
         graph = currrent_citation_graph
         paper_ids_already_processed = set(currrent_citation_graph.keys())
+else:
+    print("No json file found. Starting from scratch.")
 
 with open(papers_file_path) as csv_file:
     line = 0
