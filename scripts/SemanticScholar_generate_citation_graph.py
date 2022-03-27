@@ -4,18 +4,18 @@ import json
 import time
 import os
 
+
+papers_file_path = "./sitedata/papers.csv"
+out_file_path = "./sitedata/citation_graph.json"
+token_path = "./sitedata/SemanticScholarAuthKey.txt"
+SemanticScholar_token = None
 smoke_test = False
 
-papers_file_path = "../sitedata/papers.csv"
 title2id = dict()
 titles = set()
 graph = dict()
-
-out_file_path = "../sitedata/citation_graph.json"
 paper_ids_already_processed = set()
 
-token_path = "./SemanticScholarAuthKey.txt"
-SemanticScholar_token = None
 
 with open(token_path, "r") as token_file:
     SemanticScholar_token = token_file.read().strip()
@@ -90,22 +90,22 @@ for i, title in enumerate(titles):
 
     #     print("I'm awake!")
 
-    if i % 100 == 0:
+    if i % 10 == 0:
         print(
             f"Checking paper {i} / {len(titles)}, found {num_citations} citation relations")
 
     cur_id = title2id[title]
 
-    #if cur_id not in paper_ids_already_processed:
-    papers_citing_this = get_titles_of_papers_citing_this(title)
-    for paper_citing_this in papers_citing_this:
-        paper_citing_this = paper_citing_this.strip()
-        if paper_citing_this in titles:
-            id_of_paper_citing_this = title2id[paper_citing_this]
-            if cur_id != id_of_paper_citing_this:
-                graph[id_of_paper_citing_this]["out_edge"].add(cur_id)
-                graph[cur_id]["in_edge"].add(id_of_paper_citing_this)
-            num_citations += 1
+    if cur_id not in paper_ids_already_processed:
+        papers_citing_this = get_titles_of_papers_citing_this(title)
+        for paper_citing_this in papers_citing_this:
+            paper_citing_this = paper_citing_this.strip()
+            if paper_citing_this in titles:
+                id_of_paper_citing_this = title2id[paper_citing_this]
+                if cur_id != id_of_paper_citing_this:
+                    graph[id_of_paper_citing_this]["out_edge"].add(cur_id)
+                    graph[cur_id]["in_edge"].add(id_of_paper_citing_this)
+                num_citations += 1
     processed_papers += 1
 
 
