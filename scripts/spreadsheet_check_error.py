@@ -31,7 +31,7 @@ names = {
     "mÃƒÂ¼ller": "müller",
     "SoÅˆa MokrÃ¡": "Soňa Mokrá"
 }
-non_ascii = ["PapierMâché", "Höfer", "Alenyà", "Cortés", "TöRF", "TöRF:", "Fernández", "László", "Goldlücke", 'Lähner', 'Trzciński']
+non_ascii = ["PapierMâché", "Höfer", "Alenyà", "Cortés", "TöRF", "TöRF:", "Fernández", "László", "Goldlücke", 'Lähner', 'Trzciński', 'Vinícius', 'Hélio']
 for k in names:
     non_ascii += names[k].split(" ")
 
@@ -51,7 +51,7 @@ rows = util.read_spreadsheet(input_fname, input_ext)
 UIDs, pdf_links_all, wrong_pdf, missing_author, missing_nickname, missing_bibtex, missing_bibtex_name, missing_abstract, missing_UID = [], [], [], [], [], [], [], [], []
 incorrect_spelling = {}
 
-with open("scripts/papers_metadata.txt", "r") as f:
+with open("sitedata/papers_metadata.txt", "r") as f:
     num_rows_old = int(f.read())
 # Iterate on each row
 start_row = 0           # This is for skipping already processed entries
@@ -87,7 +87,9 @@ for j in tqdm(range(len(rows))):
         bibtex_ = bibtex_[:comm].replace(" ", "") + bibtex_[comm:]
         article_type, bibtex_key, dict = util.dict_from_string(bibtex_)
         bibtex_dict = {bibtex_key : dict}
-        row[csv_head_key['Bibtex']] = util.format_bibtex_str(bibtex_dict, article_type=article_type, exclude_keys=exclude_keys, replace_keys=replace_keys)
+        row[csv_head_key['Bibtex']] = util.format_bibtex_str(
+            bibtex_dict, exclude_keys=exclude_keys, replace_keys=replace_keys, cap_keys="lower", space=True, 
+                indent="    ", bracket="{}", article_type=article_type, last_name_first=False)
 
     pdf_links_all.append(row[csv_head_key['PDF']])
 
@@ -155,7 +157,7 @@ for j in tqdm(range(len(rows))):
     cnt += 1
 
 util.write_spreadsheet(rows, output_fname, output_ext)
-with open("scripts/papers_metadata.txt", "w+") as f:
+with open("sitedata/papers_metadata.txt", "w+") as f:
     f.write(str(len(rows)-1))
 
 

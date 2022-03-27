@@ -50,7 +50,7 @@ def run():
     # Load spreadsheet
     rows = read_spreadsheet(input_fname, input_ext)
     # This doesn't include row(0)
-    with open("scripts/papers_metadata.txt", "r") as f:
+    with open("sitedata/papers_metadata.txt", "r") as f:
         num_papers_prev = int(f.read())
 
     max_uid = find_max_uid(rows)
@@ -182,14 +182,14 @@ def run():
                        dict['journal'] += " arXiv:" + serial_num
             bibtex_dict = {bibtex_key : dict}
             # Format the final bibtex string
-            bibtex_str = ""
-            bibtex_str = format_bibtex_str(bibtex_dict, article_type=article_type)
             try:
-                bibtex_str = format_bibtex_str(bibtex_dict, article_type=article_type)
+                bibtex_str = format_bibtex_str(bibtex_dict, cap_keys="lower", space=True, 
+                    indent="    ", bracket="{}", article_type=article_type, last_name_first=False)
             except Exception as e:
                 print("Error: format_bibtex_str", e)
+                bibtex_str = ""
                 if debug: exit(12)
-
+            # Print
             if len(bibtex_str) > 10:
                 row[csv_head_key['Bibtex']] = unidecode.unidecode(bibtex_str)
                 print(r, "Bibtex: ", row[csv_head_key['Bibtex']][:20], "...")

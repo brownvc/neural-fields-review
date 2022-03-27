@@ -140,7 +140,7 @@ def format_bibtex_str(bibtex, cap_keys="ALL", space=True, indent="    ", bracket
                     key = key.upper()
                 elif cap_keys == "Initial":
                     key = key[0].upper() + key[1:]
-                if key == "AUTHOR":
+                if key.lower() == "author":
                     if (not last_name_first) and (", " in content):
                         content = " and ".join([" ".join(a.split(", ")[::-1]) for a in content.split(" and ")])
                 if key in replace_keys:
