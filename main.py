@@ -29,7 +29,7 @@ field_name_mapping = {
     "Keywords": "Keywords",
     "Abstract": "Abstract",
     "UID": "UID",
-    "Authors": "Authors",
+    "Authors": "Authors (format: First Last, First Middle Last, ...)",
     "Year": 'Year (corresponding to venue e.g. released in 2021, accepted to CVPR 2022, then put "2022" for this entry, and "2021" for the above)'
 }
 
