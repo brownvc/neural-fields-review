@@ -93,8 +93,7 @@ for i, title in enumerate(titles):
     #     print("I'm awake!")
 
     if i % 10 == 0:
-        print(
-            f"Checking paper {i} / {len(titles)}, found {num_citations} citation relations")
+        print(f"Checking paper {i} / {len(titles)}, found {num_citations} citation relations")
 
     cur_id = title2id[title]
 
