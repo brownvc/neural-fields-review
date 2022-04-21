@@ -70,7 +70,7 @@ def run():
             continue
 
         if len(str(row[csv_head_key["UID"]])) == 0:
-            row[csv_head_key["UID"]] = "%08d" % (max_uid+1)
+            row[csv_head_key["UID"]] = str(max_uid+1)
             max_uid += 1
 
         if ("https://arxiv.org/" in row[csv_head_key['PDF']]):
@@ -183,7 +183,7 @@ def run():
             bibtex_dict = {bibtex_key : dict}
             # Format the final bibtex string
             try:
-                bibtex_str = format_bibtex_str(bibtex_dict, cap_keys="lower", space=True, 
+                bibtex_str = format_bibtex_str(bibtex_dict, cap_keys="lower", space=True,
                     indent="    ", bracket="{}", article_type=article_type, last_name_first=False)
             except Exception as e:
                 print("Error: format_bibtex_str", e)
