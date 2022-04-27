@@ -1,5 +1,5 @@
-{% set active_page = "About" %}
-{% set page_title = "About" %}
+{% set active_page = "Join Us" %}
+{% set page_title = "Join Us" %}
 
 {% extends "base.html" %}
 
@@ -14,11 +14,42 @@
 
 {% block content %}
 
-<div class="main-text" style="width: 65%; display: block; margin-left: auto; margin-right: auto; padding-bottom: 5vh;">
+<div class="main-text" style="width: 70%; display: block; margin-left: auto; margin-right: auto; padding-bottom: 5vh;">
+<!-- Slack channel -->
+<p class="infopage-title-1">Join our Slack channel</p>
+<p class="infopage-text"> Joint the community of Neural Field researchers on our
+    <a class="red-hyper-link" href="https://join.slack.com/t/neuralfields/shared_invite/zt-17jd5yxck-EKXl6iO3_dBzZhTP4CfO8w">Slack channel</a>, 
+    where you can bounce off ideas, join reading groups, and ask questions.
+</p>
+
+
+<!-- Become a contributor -->
+<p class="infopage-title-1">Become a moderator</p>
+<p class="infopage-text"> We hope that this database becomes an asset of our community,
+    so we welcome anyone interested to become a moderator for the database. 
+    You can help by submitting new papers, and review paper submissions.
+    Please let us know via this short 
+    <a class="red-hyper-link" href="https://docs.google.com/forms/d/e/1FAIpQLSeu0vga6L3YavgMbKKRsTCam-i-b8QHV1JdG9HzLUilEBXv2A/viewform">Google Form</a>
+    if you are interested!
+</p>
+
+
+<!-- Contributors -->
 <p class="infopage-title-1" style="padding-top: 5vh;">Contributors</p>
 <div class="row" id="contributor-cards"></div>
 
-<!-- Project Led By -->
+
+<!-- Acknowledgements Section -->
+<p class="infopage-title-1">Acknowledgements</p>
+<p class="infopage-text">This website was built on top of <a class="red-hyper-link" href="https://github.com/Mini-Conf/Mini-Conf" target="_blank">MiniConf</a> project for
+    a virtual conference in a box from <a class="red-hyper-link" href="http://twitter.com/hen_str" target="_blank">Hendrik Strobelt</a> and <a class="red-hyper-link" href="http://twitter.com/srush_nlp" target="_blank">Sasha Rush</a>.
+    Citation relation data used for generating citation graphs are derived from
+the <a class="red-hyper-link" href="https://www.semanticscholar.org/product/api" target="_blank">Semantic Scholar API</a>.
+This work was supported by an NSF grant (CNS-2038897) and the Google Research Scholar Program.
+</p>
+
+
+<!-- Affiliations -->
 <p class="infopage-title-1">Project Led By</p>
 <div class="row" style="padding-bottom: 10vh; padding-top: 5vh;">
     <div class="col-6">
@@ -35,26 +66,8 @@
     </div>
 </div>
 
-
-
-<!-- Become a contributor -->
-<p class="infopage-title-1">Become a contributor</p>
-<p class="infopage-text"> We hope that this website becomes an asset of the community,
-    and we welcome anyone interested to become a contributor/moderator/admin for this website.
-    You may contribute new, helpful features and visualizations. We also welcome content moderators,
-    i.e. folks who will review new paper pull requests. Please email <a class="red-hyper-link" href="mailto:yiheng_xie@brown.edu">Yiheng</a> to
-    join us!
-</p>
-
-<!-- Acknowledgements Section -->
-<p class="infopage-title-1">Acknowledgements</p>
-<p class="infopage-text">This website was built on top of <a class="red-hyper-link" href="https://github.com/Mini-Conf/Mini-Conf" target="_blank">MiniConf</a> project for
-    a virtual conference in a box from <a class="red-hyper-link" href="http://twitter.com/hen_str" target="_blank">Hendrik Strobelt</a> and <a class="red-hyper-link" href="http://twitter.com/srush_nlp" target="_blank">Sasha Rush</a>.
-    Citation relation data used for generating citation graphs are derived from
-the <a class="red-hyper-link" href="https://www.semanticscholar.org/product/api" target="_blank">Semantic Scholar API</a>.
-This work was supported by an NSF grant (CNS-2038897) and the Google Research Scholar Program.
-</p>
 </div>
+
 <script>
     const contributors = [
         {
@@ -62,12 +75,6 @@ This work was supported by an NSF grant (CNS-2038897) and the Google Research Sc
             affliation: "Brown University, Unity Technologies",
             headshotURL: "static/images/contributors/Yiheng_Xie.jpg",
             websiteURL: "https://yxie20.github.io/"
-        },
-        {
-            name: "Shiqin Yan",
-            affliation: "Brown University",
-            headshotURL: "static/images/contributors/Shiqin_Yan.jpg",
-            websiteURL: "https://player-eric.com/about"
         },
         {
             name: "Towaki Takikawa",
@@ -86,6 +93,12 @@ This work was supported by an NSF grant (CNS-2038897) and the Google Research Sc
             affliation: "NVIDIA",
             headshotURL: "static/images/contributors/Or_Litany.jpg",
             websiteURL: "https://orlitany.github.io/"
+        },
+        {
+            name: "Shiqin Yan",
+            affliation: "Brown University",
+            headshotURL: "static/images/contributors/Shiqin_Yan.jpg",
+            websiteURL: "https://player-eric.com/about"
         },
         {
             name: "Numair Khan",
@@ -113,7 +126,7 @@ This work was supported by an NSF grant (CNS-2038897) and the Google Research Sc
         },
         {
             name: "Vincent Sitzmann",
-            affliation: "Massachusetts Institute of Technology",
+            affliation: "MIT",
             headshotURL: "static/images/contributors/Vincent_Sitzmann.jpeg",
             websiteURL: "http://vsitzmann.github.io/"
         },
@@ -131,7 +144,7 @@ This work was supported by an NSF grant (CNS-2038897) and the Google Research Sc
         const websiteURL = contributor.websiteURL;
         d3.select("#contributor-cards")
             .append("div")
-            .attr("class", "col-md-4 col-sm-6")
+            .attr("class", "col-md-4 col-sm-4")
             .html(`
         <div class="pp-card contributor-card">
           <div class="pp-card-header" style="text-align: center;">

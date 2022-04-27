@@ -209,10 +209,10 @@ def add_paper():
     data = _data()
     return render_template("add_paper.html", **data)
 
-@app.route("/about.html")
+@app.route("/join_us.html")
 def contributors():
     data = _data()
-    return render_template("about.html", **data)
+    return render_template("join_us.html", **data)
 
 @app.route("/thumbnail_<thumbnail>.png")
 def thumbnail(thumbnail):
