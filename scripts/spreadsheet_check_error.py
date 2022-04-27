@@ -31,7 +31,7 @@ names = {
     "mÃƒÂ¼ller": "müller",
     "SoÅˆa MokrÃ¡": "Soňa Mokrá"
 }
-non_ascii = ["PapierMâché", "Höfer", "Alenyà", "Cortés", "TöRF", "TöRF:", "Fernández", "László", "Goldlücke", 'Lähner', 'Trzciński', 'Vinícius', 'Hélio']
+non_ascii = ["ArandjeloviÄ‡", "PapierMâché", "Höfer", "Alenyà", "Cortés", "TöRF", "TöRF:", "Fernández", "László", "Goldlücke", 'Lähner', 'Trzciński', 'Vinícius', 'Hélio']
 for k in names:
     non_ascii += names[k].split(" ")
 
