@@ -87,12 +87,15 @@
   start();
   setTimeout(() => { document.getElementById("vagueSearchInput").focus();}, 400)
   const copyBibtex = () => {
-    const bibtex = `@misc{xie2021neuralfield,
-author = {Yiheng Xie and Towaki Takikawa and Shunsuke Saito and Or Litany and Shiqin Yan and Numair Khan and Federico Tombari and James Tompkin and Vincent Sitzmann and Srinath Sridhar},
-title = {Neural Fields in Visual Computing and Beyond},
-year = {2021},
-eprint = {arXiv:2111.11426},
-url = {https://neuralfields.cs.brown.edu/}
+    const bibtex = `
+@article{10.1111:cgf.14505,
+    journal = {Computer Graphics Forum},
+    title = {Neural Fields in Visual Computing and Beyond},
+    author = {Xie, Yiheng and Takikawa, Towaki and Saito, Shunsuke and Litany, Or and Yan, Shiqin and Khan, Numair and Tombari, Federico and Tompkin, James and Sitzmann, Vincent and Sridhar, Srinath},
+    year = {2022},
+    publisher = {The Eurographics Association and John Wiley & Sons Ltd.},
+    ISSN = {1467-8659},
+    DOI = {10.1111/cgf.14505}
 }`
     navigator.clipboard.writeText(bibtex)
     .then(() => alert('Successfully copied Bibtex'));
