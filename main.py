@@ -214,6 +214,16 @@ def contributors():
     data = _data()
     return render_template("join_us.html", **data)
 
+@app.route("/eg22.html")
+def eg22():
+    data = _data()
+    return render_template("eg22.html", **data)
+
+@app.route("/cvpr22.html")
+def cvpr22():
+    data = _data()
+    return render_template("cvpr22.html", **data)
+
 @app.route("/thumbnail_<thumbnail>.png")
 def thumbnail(thumbnail):
     uid = thumbnail
