@@ -6,7 +6,7 @@ This is based on the amazing <a href="https://mini-conf.github.io/index.html">Mi
 ### Citation
 If you find our project helpful, please cite our review paper:
 ```
-@article {10.1111:cgf.14505,
+@article{10.1111:cgf.14505,
     journal = {Computer Graphics Forum},
     title = {Neural Fields in Visual Computing and Beyond},
     author = {Xie, Yiheng and Takikawa, Towaki and Saito, Shunsuke and Litany, Or and Yan, Shiqin and Khan, Numair and Tombari, Federico and Tompkin, James and Sitzmann, Vincent and Sridhar, Srinath},
