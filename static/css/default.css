@@ -243,13 +243,13 @@ table#program td {
     border-color: #ffffff;
 }
 
-table#CVPR-program {
+table#CVPR-program td{
     padding: 10px;
     border-width: 2px;
     border-style: solid;
     border-color: #ffffff;
 }
-tr.cvpr_row:nth-child(even) {
+tr.cvpr_row:nth-child(odd) {
     background-color: #eeeded;
 }
 /* table#program td:nth-child(2) {
