@@ -242,6 +242,16 @@ table#program td {
     border-style: solid;
     border-color: #ffffff;
 }
+
+table#CVPR-program {
+    padding: 10px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #ffffff;
+}
+tr.cvpr_row:nth-child(even) {
+    background-color: #eeeded;
+}
 /* table#program td:nth-child(2) {
     text-align: center;
     width: 110px;
