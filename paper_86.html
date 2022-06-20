@@ -1,0 +1,397 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    
+
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- External Javascript libs_ext  -->
+    <script src="https://cdn.jsdelivr.net/npm/d3@5/dist/d3.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@4.7.3/dist/handlebars.min.js"
+      integrity="sha256-/PJBs6QWvXijOFIX04kZpLb6ZtSQckdOIavLWKKOgXU=" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+      integrity="sha256-WqU1JavFxSAMcLP2WIOI+GB2zWmShMI82mTpLDcqFUg=" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/min/moment.min.js"
+      integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ=" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/moment-timezone@0.5.28/builds/moment-timezone-with-data.min.js"
+      integrity="sha256-IWYg4uIC8/erItNXYvLtyYHioRi2zT1TFva8qaAU/ww=" crossorigin="anonymous"></script>
+
+
+    <!-- Library libs_ext -->
+    <script src="static/js/libs_ext/typeahead.bundle.js"></script>
+
+    <script src="static/js/tagEditor/jquery.caret.min.js"></script>
+    <script src="static/js/tagEditor/jquery.tag-editor.min.js"></script>
+
+
+    <!-- Internal Libs -->
+    <script src="static/js/data/api.js"></script>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+      integrity="sha256-YLGeXaapI0/5IgZopewRJcFXomhRMlYYjugPLSyNjTY=" crossorigin="anonymous">
+
+    <!-- External Fonts (no google for china) -->
+    <link href="static/css/Lato.css" rel="stylesheet" />
+    <link href="static/css/Exo.css" rel="stylesheet" />
+    <link href="static/css/Cuprum.css" rel="stylesheet" />
+    <link rel="stylesheet" href="static/css/main.css" />
+    <!--    <link rel="stylesheet" href="static/css/fa_regular.css"/>-->
+    <link rel="stylesheet" href="static/css/fa_solid.css" />
+    <link rel="stylesheet" href="static/css/lazy_load.css" />
+    <link rel="stylesheet" href="static/css/typeahead.css" />
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+    <title>Neural Fields: i3DMM: Deep Implicit 3D Morphable Model of Human Heads</title>
+
+    <link rel="icon" type="image/png" href="favicon.ico">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GT7LEVW06Z"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+
+      gtag('config', 'G-GT7LEVW06Z');
+    </script>
+    <!-- head block ends here-->
+    
+<meta name="citation_title" content="i3DMM: Deep Implicit 3D Morphable Model of Human Heads" />
+
+
+<meta name="citation_author" content="Tarun Yenamandra" />
+
+<meta name="citation_author" content="Ayush Tewari" />
+
+<meta name="citation_author" content="Florian Bernard" />
+
+<meta name="citation_author" content="Hans-Peter Seidel" />
+
+<meta name="citation_author" content="Mohamed Elgharib" />
+
+<meta name="citation_author" content="Daniel Cremers" />
+
+<meta name="citation_author" content="Christian Theobalt" />
+
+
+<meta name="citation_abstract" content="We present the first deep implicit 3D morphable model (i3DMM) of full heads. Unlike earlier morphable face models it not only captures identity-specific geometry, texture, and expressions of the frontal face, but also models the entire head, including hair. We collect a new dataset consisting of 64 people with different expressions and hairstyles to train i3DMM. Our approach has the following favorable properties: (i) It is the first full head morphable model that includes hair. (ii) In contrast to mesh-based models it can be trained on merely rigidly aligned scans, without requiring difficult non-rigid registration. (iii) We design a novel architecture to decouple the shape model into an implicit reference shape and a deformation of this reference shape. With that, dense correspondences between shapes can be learned implicitly. (iv) This architecture allows us to semantically disentangle the geometry and color components, as color is learned in the reference space. Geometry is further disentangled as identity, expressions, and hairstyle, while color is disentangled as identity and hairstyle components. We show the merits of i3DMM using ablation studies, comparisons to state-of-the-art models, and applications such as semantic head editing and texture transfer. We will make our model publicly available." />
+
+
+<meta name="citation_keywords" content="Dynamic/Temporal" />
+
+<meta name="citation_keywords" content="Human (Head)" />
+
+<meta name="citation_keywords" content="Editable" />
+
+<meta name="citation_keywords" content="Global Conditioning" />
+
+<meta name="citation_pdf_url" content="https://arxiv.org/pdf/2011.14143.pdf" />
+
+<script type="text/javascript" src="static/js/vis/vis-network.min.js"></script>
+<style>
+    .red-hyper-link {
+        color: #ED1C24 !important;
+    }
+</style>
+
+  </head>
+
+  <body>
+    <!-- NAV -->
+    
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: #EFECE5;" id="main-nav">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <img class="logo" src="static/images/long_logo.png" style="width: 300px;"/>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse text-right flex-grow-1" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            
+            <li class="nav-item ">
+              <a class="nav-link" href="index.html" style="font-family: 'Ubuntu', sans-serif;">Home</a>
+            </li>
+            
+            <li class="nav-item ">
+              <a class="nav-link" href="papers.html" style="font-family: 'Ubuntu', sans-serif;">Advanced Search</a>
+            </li>
+            
+            <li class="nav-item ">
+              <a class="nav-link" href="add_paper.html" style="font-family: 'Ubuntu', sans-serif;">Add Paper</a>
+            </li>
+            
+            <li class="nav-item ">
+              <a class="nav-link" href="join_us.html" style="font-family: 'Ubuntu', sans-serif;">Join Us</a>
+            </li>
+            
+            <li class="nav-item ">
+              <a class="nav-link" href="faq.html" style="font-family: 'Ubuntu', sans-serif;">FAQ</a>
+            </li>
+            
+          </ul>
+        </div>
+      </div>
+    </nav>
+    
+
+    
+    <!-- User Overrides -->
+
+    
+    <!-- top block ends here-->
+    
+
+    <div class="container">
+      <!-- Tabs -->
+      <div class="tabs">
+         
+      </div>
+      <!-- Content -->
+      <div class="content">
+        
+
+<!-- Title -->
+<div class="pp-card m-3">
+    <div class="card-header">
+        <h2 class="card-title main-title text-center" style="color: black;">
+            i3DMM: Deep Implicit 3D Morphable Model of Human Heads
+        </h2>
+        <h3 class="card-subtitle mb-2 text-muted text-center">
+            
+            <a href="papers.html?author=Tarun Yenamandra" target="_blank"
+                data-tippy-content="See all papers authored by Tarun Yenamandra"
+                class="text-muted filterByAuthorLink">Tarun Yenamandra</a>,
+            
+            <a href="papers.html?author=Ayush Tewari" target="_blank"
+                data-tippy-content="See all papers authored by Ayush Tewari"
+                class="text-muted filterByAuthorLink">Ayush Tewari</a>,
+            
+            <a href="papers.html?author=Florian Bernard" target="_blank"
+                data-tippy-content="See all papers authored by Florian Bernard"
+                class="text-muted filterByAuthorLink">Florian Bernard</a>,
+            
+            <a href="papers.html?author=Hans-Peter Seidel" target="_blank"
+                data-tippy-content="See all papers authored by Hans-Peter Seidel"
+                class="text-muted filterByAuthorLink">Hans-Peter Seidel</a>,
+            
+            <a href="papers.html?author=Mohamed Elgharib" target="_blank"
+                data-tippy-content="See all papers authored by Mohamed Elgharib"
+                class="text-muted filterByAuthorLink">Mohamed Elgharib</a>,
+            
+            <a href="papers.html?author=Daniel Cremers" target="_blank"
+                data-tippy-content="See all papers authored by Daniel Cremers"
+                class="text-muted filterByAuthorLink">Daniel Cremers</a>,
+            
+            <a href="papers.html?author=Christian Theobalt" target="_blank"
+                data-tippy-content="See all papers authored by Christian Theobalt"
+                class="text-muted filterByAuthorLink">Christian Theobalt</a>
+            
+        </h3>
+        <h3 class="card-subtitle mb-2 text-muted text-center">
+            11/28/2020
+        </h3>
+        <div id="citation-code-wrapper" class="text-muted text-center"
+        >
+        </div>
+        <p class="text-center" style="margin-bottom: 0px;">
+            <span>Keywords:</span>
+            
+            <a href="papers.html?keyword=Dynamic/Temporal" target="_blank"
+                data-tippy-content="See all papers with keyword 'Dynamic/Temporal'"
+                class="text-secondary text-decoration-none filterByKeywordLink">Dynamic/Temporal</a>,
+            
+            <a href="papers.html?keyword=Human (Head)" target="_blank"
+                data-tippy-content="See all papers with keyword 'Human (Head)'"
+                class="text-secondary text-decoration-none filterByKeywordLink">Human (Head)</a>,
+            
+            <a href="papers.html?keyword=Editable" target="_blank"
+                data-tippy-content="See all papers with keyword 'Editable'"
+                class="text-secondary text-decoration-none filterByKeywordLink">Editable</a>,
+            
+            <a href="papers.html?keyword=Global Conditioning" target="_blank"
+                data-tippy-content="See all papers with keyword 'Global Conditioning'"
+                class="text-secondary text-decoration-none filterByKeywordLink">Global Conditioning</a>
+            
+        </p>
+
+        
+        <p class="text-center" style="margin-bottom: 0px;">
+            <span>Venue: </span>
+            <a href="papers.html?venue=CVPR" target="_blank" class="text-secondary text-decoration-none">CVPR 2021</a>
+        </p>
+        
+
+        <div class="text-center p-3">
+            <a class="card-link red-hyper-link" target="_blank" href="https://arxiv.org/pdf/2011.14143.pdf">
+                Paper
+            </a>
+            
+            <a class="card-link red-hyper-link" data-toggle="collapse" role="button" href="#citation">
+                Citation
+            </a>
+            
+            
+            <a href="https://github.com/tarun738/i3DMM" target="_blank" class="card-link red-hyper-link">
+                Code
+            </a>
+            
+            
+        </div>
+    </div>
+    <span id="invisible-paper-id" style="display: none;">86</span>
+</div>
+<div id="citation" class="pp-card m-3 collapse">
+    <div class="card-body">
+        <div class="card-text">
+            <span style="font-size: large; font-weight: bold;">Bibtex:</span>
+            <span style="white-space: pre-line; position: relative; left: 20px;">
+                @inproceedings{yenamandra2021i3dmm,
+    booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+    author = {Tarun Yenamandra and Ayush Tewari and Florian Bernard and Hans-Peter Seidel and Mohamed Elgharib and Daniel Cremers and Christian Theobalt},
+    title = {i3DMM: Deep Implicit 3D Morphable Model of Human Heads},
+    year = {2021},
+    url = {http://arxiv.org/abs/2011.14143v1},
+    entrytype = {inproceedings},
+    id = {yenamandra2021i3dmm}
+}
+            </span>
+        </div>
+        <p></p>
+    </div>
+</div>
+<div id="details" class="pp-card m-3">
+    <div class="card-body">
+        <div class="card-text">
+            <div id="abstractExample">
+                <p style="font-weight: bolder; font-size: 25px; text-align: center;">Abstract</p>
+                We present the first deep implicit 3D morphable model (i3DMM) of full heads. Unlike earlier morphable face models it not only captures identity-specific geometry, texture, and expressions of the frontal face, but also models the entire head, including hair. We collect a new dataset consisting of 64 people with different expressions and hairstyles to train i3DMM. Our approach has the following favorable properties: (i) It is the first full head morphable model that includes hair. (ii) In contrast to mesh-based models it can be trained on merely rigidly aligned scans, without requiring difficult non-rigid registration. (iii) We design a novel architecture to decouple the shape model into an implicit reference shape and a deformation of this reference shape. With that, dense correspondences between shapes can be learned implicitly. (iv) This architecture allows us to semantically disentangle the geometry and color components, as color is learned in the reference space. Geometry is further disentangled as identity, expressions, and hairstyle, while color is disentangled as identity and hairstyle components. We show the merits of i3DMM using ablation studies, comparisons to state-of-the-art models, and applications such as semantic head editing and texture transfer. We will make our model publicly available.
+            </div>
+        </div>
+        <p></p>
+    </div>
+</div>
+
+<!-- Youtube Video -->
+
+<div class="border-top my-3"></div>
+<div class="row p-4">
+  <div class="col-12" style="text-align: center;">
+    <a style="font-size: 25px; color: #ED1C24;" target="_blank" href="https://www.youtube.com/embed/4pYzV3ButPY" >Video</a>
+  </div>
+</div>
+<div class="col-md-12 col-xs-12 p-2">
+    <iframe style="width: 100%; height: 60vh;" src="https://www.youtube.com/embed/4pYzV3ButPY">
+    </iframe>
+</div>
+
+
+
+<!-- Project Webpage -->
+
+<div class="border-top my-3"></div>
+<div class="row p-4">
+  <div class="col-12" style="text-align: center;">
+    <a style="font-size: 25px; color: #ED1C24;" target="_blank" href="https://vcai.mpi-inf.mpg.de/projects/i3DMM/" >Project Webpage</a>
+  </div>
+</div>
+<div class="col-md-12 col-xs-12 p-2">
+    <iframe style="width: 100%; height: 60vh;" src="https://vcai.mpi-inf.mpg.de/projects/i3DMM/">
+    </iframe>
+</div>
+
+
+
+<!-- Citation Graph -->
+<div class="border-top my-3"></div>
+<div class="row p-4">
+  <div class="col-12" style="text-align: center;">
+    <span style="font-size: 25px;">Citation Graph</span> <br>
+    <span>(Double click on nodes to open corresponding papers' pages)</span>
+  </div>
+</div>
+
+<div id="citationGraph" style="width: 100%;
+  height: 600px;
+  border: 1px solid lightgray;" ondblclick="openPaperLink()"></div>
+<p><span style="font-size: 10px;">*</span> Showing citation graph for papers within our database. Data retrieved from <a href="https://www.semanticscholar.org/search?q=i3DMM: Deep Implicit 3D Morphable Model of Human Heads&sort=relevance">Semantic Scholar</a>. For full citation graphs, visit <a href="https://www.connectedpapers.com/search?q=i3DMM: Deep Implicit 3D Morphable Model of Human Heads">ConnectedPapers</a>.</p>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tippy.js@6/dist/tippy-bundle.umd.min.js"></script>
+<script src="static/js/views/paper_detail.js"></script>
+<script>
+    tippy(".filterByAuthorLink");
+    tippy(".filterByKeywordLink");
+    const paperID = document.getElementById("invisible-paper-id").innerHTML;
+    drawCitationGraphAndGenerateCitationCode(paperID);
+</script>
+
+
+      </div>
+    </div>
+
+    <!-- body block ends here-->
+    
+
+
+    
+
+
+    <!-- Footer -->
+    <footer class="footer"
+      style="background-color: #353535; width: 100%; height: 8vh; display: flex; justify-content: center; align-items: center; ">
+      <a class="fas" style="cursor: pointer; margin-right: auto; padding-left: 10px;"
+        href="https://twitter.com/neural_fields" target="_blank">
+        <img src="static/images/twitter_logo.png" style="width: 30px; height: 24px;">
+      </a>
+      <a href="https://visual.cs.brown.edu/" target="_blank"><img src="static/images/Brown_logo.png"
+    style="height: 6vh; padding-right: 1vw;"></a>
+      <a href="http://www.scenerepresentations.org/" target="_blank"><img src="static/images/MIT_logo.png" style="height: 2.7vh"></a>
+      <a style="color: white; margin-left: auto; padding-right: 10px;" href="mailto:neuralfields@brown.edu"
+        target="_blank">Contact Us</a>
+    </footer>
+
+    <!-- Code for hash tags -->
+    <script type="text/javascript">
+      $(document).ready(function () {
+        if (window.location.hash !== "") {
+          $(`a[href="${window.location.hash}"]`).tab("show");
+        }
+
+        $("a[data-toggle='tab']").on("shown.bs.tab", function (e) {
+          const hash = $(e.target).attr("href");
+          if (hash.substr(0, 1) === "#") {
+            const position = $(window).scrollTop();
+            window.location.replace(`#${hash.substr(1)}`);
+            $(window).scrollTop(position);
+          }
+        });
+      });
+    </script>
+
+    <!-- footer block ends here -->
+    
+  </body>
+
+</html>

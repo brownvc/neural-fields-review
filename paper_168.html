@@ -1,0 +1,370 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    
+
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- External Javascript libs_ext  -->
+    <script src="https://cdn.jsdelivr.net/npm/d3@5/dist/d3.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@4.7.3/dist/handlebars.min.js"
+      integrity="sha256-/PJBs6QWvXijOFIX04kZpLb6ZtSQckdOIavLWKKOgXU=" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+      integrity="sha256-WqU1JavFxSAMcLP2WIOI+GB2zWmShMI82mTpLDcqFUg=" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/min/moment.min.js"
+      integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ=" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/moment-timezone@0.5.28/builds/moment-timezone-with-data.min.js"
+      integrity="sha256-IWYg4uIC8/erItNXYvLtyYHioRi2zT1TFva8qaAU/ww=" crossorigin="anonymous"></script>
+
+
+    <!-- Library libs_ext -->
+    <script src="static/js/libs_ext/typeahead.bundle.js"></script>
+
+    <script src="static/js/tagEditor/jquery.caret.min.js"></script>
+    <script src="static/js/tagEditor/jquery.tag-editor.min.js"></script>
+
+
+    <!-- Internal Libs -->
+    <script src="static/js/data/api.js"></script>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+      integrity="sha256-YLGeXaapI0/5IgZopewRJcFXomhRMlYYjugPLSyNjTY=" crossorigin="anonymous">
+
+    <!-- External Fonts (no google for china) -->
+    <link href="static/css/Lato.css" rel="stylesheet" />
+    <link href="static/css/Exo.css" rel="stylesheet" />
+    <link href="static/css/Cuprum.css" rel="stylesheet" />
+    <link rel="stylesheet" href="static/css/main.css" />
+    <!--    <link rel="stylesheet" href="static/css/fa_regular.css"/>-->
+    <link rel="stylesheet" href="static/css/fa_solid.css" />
+    <link rel="stylesheet" href="static/css/lazy_load.css" />
+    <link rel="stylesheet" href="static/css/typeahead.css" />
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+    <title>Neural Fields: FiG-NeRF: Figure-Ground Neural Radiance Fields for 3D Object Category Modelling</title>
+
+    <link rel="icon" type="image/png" href="favicon.ico">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GT7LEVW06Z"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+
+      gtag('config', 'G-GT7LEVW06Z');
+    </script>
+    <!-- head block ends here-->
+    
+<meta name="citation_title" content="FiG-NeRF: Figure-Ground Neural Radiance Fields for 3D Object Category Modelling" />
+
+
+<meta name="citation_author" content="Christopher Xie" />
+
+<meta name="citation_author" content="Keunhong Park" />
+
+<meta name="citation_author" content="Ricardo Martin-Brualla" />
+
+<meta name="citation_author" content="Matthew Brown" />
+
+
+<meta name="citation_abstract" content="We investigate the use of Neural Radiance Fields (NeRF) to learn high quality 3D object category models from collections of input images. In contrast to previous work, we are able to do this whilst simultaneously separating foreground objects from their varying backgrounds. We achieve this via a 2-component NeRF model, FiG-NeRF, that prefers explanation of the scene as a geometrically constant background and a deformable foreground that represents the object category. We show that this method can learn accurate 3D object category models using only photometric supervision and casually captured images of the objects. Additionally, our 2-part decomposition allows the model to perform accurate and crisp amodal segmentation. We quantitatively evaluate our method with view synthesis and image fidelity metrics, using synthetic, lab-captured, and in-the-wild data. Our results demonstrate convincing 3D object category modelling that exceed the performance of existing methods." />
+
+
+<meta name="citation_keywords" content="Generalization" />
+
+<meta name="citation_keywords" content="Fundamentals" />
+
+<meta name="citation_keywords" content="Global Conditioning" />
+
+<meta name="citation_pdf_url" content="https://arxiv.org/pdf/2104.08418.pdf" />
+
+<script type="text/javascript" src="static/js/vis/vis-network.min.js"></script>
+<style>
+    .red-hyper-link {
+        color: #ED1C24 !important;
+    }
+</style>
+
+  </head>
+
+  <body>
+    <!-- NAV -->
+    
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: #EFECE5;" id="main-nav">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <img class="logo" src="static/images/long_logo.png" style="width: 300px;"/>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse text-right flex-grow-1" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            
+            <li class="nav-item ">
+              <a class="nav-link" href="index.html" style="font-family: 'Ubuntu', sans-serif;">Home</a>
+            </li>
+            
+            <li class="nav-item ">
+              <a class="nav-link" href="papers.html" style="font-family: 'Ubuntu', sans-serif;">Advanced Search</a>
+            </li>
+            
+            <li class="nav-item ">
+              <a class="nav-link" href="add_paper.html" style="font-family: 'Ubuntu', sans-serif;">Add Paper</a>
+            </li>
+            
+            <li class="nav-item ">
+              <a class="nav-link" href="join_us.html" style="font-family: 'Ubuntu', sans-serif;">Join Us</a>
+            </li>
+            
+            <li class="nav-item ">
+              <a class="nav-link" href="faq.html" style="font-family: 'Ubuntu', sans-serif;">FAQ</a>
+            </li>
+            
+          </ul>
+        </div>
+      </div>
+    </nav>
+    
+
+    
+    <!-- User Overrides -->
+
+    
+    <!-- top block ends here-->
+    
+
+    <div class="container">
+      <!-- Tabs -->
+      <div class="tabs">
+         
+      </div>
+      <!-- Content -->
+      <div class="content">
+        
+
+<!-- Title -->
+<div class="pp-card m-3">
+    <div class="card-header">
+        <h2 class="card-title main-title text-center" style="color: black;">
+            FiG-NeRF: Figure-Ground Neural Radiance Fields for 3D Object Category Modelling
+        </h2>
+        <h3 class="card-subtitle mb-2 text-muted text-center">
+            
+            <a href="papers.html?author=Christopher Xie" target="_blank"
+                data-tippy-content="See all papers authored by Christopher Xie"
+                class="text-muted filterByAuthorLink">Christopher Xie</a>,
+            
+            <a href="papers.html?author=Keunhong Park" target="_blank"
+                data-tippy-content="See all papers authored by Keunhong Park"
+                class="text-muted filterByAuthorLink">Keunhong Park</a>,
+            
+            <a href="papers.html?author=Ricardo Martin-Brualla" target="_blank"
+                data-tippy-content="See all papers authored by Ricardo Martin-Brualla"
+                class="text-muted filterByAuthorLink">Ricardo Martin-Brualla</a>,
+            
+            <a href="papers.html?author=Matthew Brown" target="_blank"
+                data-tippy-content="See all papers authored by Matthew Brown"
+                class="text-muted filterByAuthorLink">Matthew Brown</a>
+            
+        </h3>
+        <h3 class="card-subtitle mb-2 text-muted text-center">
+            4/17/2021
+        </h3>
+        <div id="citation-code-wrapper" class="text-muted text-center"
+        >
+        </div>
+        <p class="text-center" style="margin-bottom: 0px;">
+            <span>Keywords:</span>
+            
+            <a href="papers.html?keyword=Generalization" target="_blank"
+                data-tippy-content="See all papers with keyword 'Generalization'"
+                class="text-secondary text-decoration-none filterByKeywordLink">Generalization</a>,
+            
+            <a href="papers.html?keyword=Fundamentals" target="_blank"
+                data-tippy-content="See all papers with keyword 'Fundamentals'"
+                class="text-secondary text-decoration-none filterByKeywordLink">Fundamentals</a>,
+            
+            <a href="papers.html?keyword=Global Conditioning" target="_blank"
+                data-tippy-content="See all papers with keyword 'Global Conditioning'"
+                class="text-secondary text-decoration-none filterByKeywordLink">Global Conditioning</a>
+            
+        </p>
+
+        
+        <p class="text-center" style="margin-bottom: 0px;">
+            <span>Venue: </span>
+            <a href="papers.html?venue=ARXIV" target="_blank" class="text-secondary text-decoration-none">ARXIV 2021</a>
+        </p>
+        
+
+        <div class="text-center p-3">
+            <a class="card-link red-hyper-link" target="_blank" href="https://arxiv.org/pdf/2104.08418.pdf">
+                Paper
+            </a>
+            
+            <a class="card-link red-hyper-link" data-toggle="collapse" role="button" href="#citation">
+                Citation
+            </a>
+            
+            
+            
+        </div>
+    </div>
+    <span id="invisible-paper-id" style="display: none;">168</span>
+</div>
+<div id="citation" class="pp-card m-3 collapse">
+    <div class="card-body">
+        <div class="card-text">
+            <span style="font-size: large; font-weight: bold;">Bibtex:</span>
+            <span style="white-space: pre-line; position: relative; left: 20px;">
+                @article{xie2021fignerf,
+    journal = {arXiv preprint arXiv:2104.08418},
+    booktitle = {ArXiv Pre-print},
+    author = {Christopher Xie and Keunhong Park and Ricardo Martin-Brualla and Matthew Brown},
+    title = {FiG-NeRF: Figure-Ground Neural Radiance Fields for 3D Object Category Modelling},
+    year = {2021},
+    url = {http://arxiv.org/abs/2104.08418v1},
+    entrytype = {article},
+    id = {xie2021fignerf}
+}
+            </span>
+        </div>
+        <p></p>
+    </div>
+</div>
+<div id="details" class="pp-card m-3">
+    <div class="card-body">
+        <div class="card-text">
+            <div id="abstractExample">
+                <p style="font-weight: bolder; font-size: 25px; text-align: center;">Abstract</p>
+                We investigate the use of Neural Radiance Fields (NeRF) to learn high quality 3D object category models from collections of input images. In contrast to previous work, we are able to do this whilst simultaneously separating foreground objects from their varying backgrounds. We achieve this via a 2-component NeRF model, FiG-NeRF, that prefers explanation of the scene as a geometrically constant background and a deformable foreground that represents the object category. We show that this method can learn accurate 3D object category models using only photometric supervision and casually captured images of the objects. Additionally, our 2-part decomposition allows the model to perform accurate and crisp amodal segmentation. We quantitatively evaluate our method with view synthesis and image fidelity metrics, using synthetic, lab-captured, and in-the-wild data. Our results demonstrate convincing 3D object category modelling that exceed the performance of existing methods.
+            </div>
+        </div>
+        <p></p>
+    </div>
+</div>
+
+<!-- Youtube Video -->
+
+<div class="border-top my-3"></div>
+<div class="row p-4">
+  <div class="col-12" style="text-align: center;">
+    <a style="font-size: 25px; color: #ED1C24;" target="_blank" href="https://www.youtube.com/embed/WtZxuv_hkic" >Video</a>
+  </div>
+</div>
+<div class="col-md-12 col-xs-12 p-2">
+    <iframe style="width: 100%; height: 60vh;" src="https://www.youtube.com/embed/WtZxuv_hkic">
+    </iframe>
+</div>
+
+
+
+<!-- Project Webpage -->
+
+<div class="border-top my-3"></div>
+<div class="row p-4">
+  <div class="col-12" style="text-align: center;">
+    <a style="font-size: 25px; color: #ED1C24;" target="_blank" href="https://fig-nerf.github.io/" >Project Webpage</a>
+  </div>
+</div>
+<div class="col-md-12 col-xs-12 p-2">
+    <iframe style="width: 100%; height: 60vh;" src="https://fig-nerf.github.io/">
+    </iframe>
+</div>
+
+
+
+<!-- Citation Graph -->
+<div class="border-top my-3"></div>
+<div class="row p-4">
+  <div class="col-12" style="text-align: center;">
+    <span style="font-size: 25px;">Citation Graph</span> <br>
+    <span>(Double click on nodes to open corresponding papers' pages)</span>
+  </div>
+</div>
+
+<div id="citationGraph" style="width: 100%;
+  height: 600px;
+  border: 1px solid lightgray;" ondblclick="openPaperLink()"></div>
+<p><span style="font-size: 10px;">*</span> Showing citation graph for papers within our database. Data retrieved from <a href="https://www.semanticscholar.org/search?q=FiG-NeRF: Figure-Ground Neural Radiance Fields for 3D Object Category Modelling&sort=relevance">Semantic Scholar</a>. For full citation graphs, visit <a href="https://www.connectedpapers.com/search?q=FiG-NeRF: Figure-Ground Neural Radiance Fields for 3D Object Category Modelling">ConnectedPapers</a>.</p>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tippy.js@6/dist/tippy-bundle.umd.min.js"></script>
+<script src="static/js/views/paper_detail.js"></script>
+<script>
+    tippy(".filterByAuthorLink");
+    tippy(".filterByKeywordLink");
+    const paperID = document.getElementById("invisible-paper-id").innerHTML;
+    drawCitationGraphAndGenerateCitationCode(paperID);
+</script>
+
+
+      </div>
+    </div>
+
+    <!-- body block ends here-->
+    
+
+
+    
+
+
+    <!-- Footer -->
+    <footer class="footer"
+      style="background-color: #353535; width: 100%; height: 8vh; display: flex; justify-content: center; align-items: center; ">
+      <a class="fas" style="cursor: pointer; margin-right: auto; padding-left: 10px;"
+        href="https://twitter.com/neural_fields" target="_blank">
+        <img src="static/images/twitter_logo.png" style="width: 30px; height: 24px;">
+      </a>
+      <a href="https://visual.cs.brown.edu/" target="_blank"><img src="static/images/Brown_logo.png"
+    style="height: 6vh; padding-right: 1vw;"></a>
+      <a href="http://www.scenerepresentations.org/" target="_blank"><img src="static/images/MIT_logo.png" style="height: 2.7vh"></a>
+      <a style="color: white; margin-left: auto; padding-right: 10px;" href="mailto:neuralfields@brown.edu"
+        target="_blank">Contact Us</a>
+    </footer>
+
+    <!-- Code for hash tags -->
+    <script type="text/javascript">
+      $(document).ready(function () {
+        if (window.location.hash !== "") {
+          $(`a[href="${window.location.hash}"]`).tab("show");
+        }
+
+        $("a[data-toggle='tab']").on("shown.bs.tab", function (e) {
+          const hash = $(e.target).attr("href");
+          if (hash.substr(0, 1) === "#") {
+            const position = $(window).scrollTop();
+            window.location.replace(`#${hash.substr(1)}`);
+            $(window).scrollTop(position);
+          }
+        });
+      });
+    </script>
+
+    <!-- footer block ends here -->
+    
+  </body>
+
+</html>

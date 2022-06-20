@@ -1,0 +1,397 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    
+
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- External Javascript libs_ext  -->
+    <script src="https://cdn.jsdelivr.net/npm/d3@5/dist/d3.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@4.7.3/dist/handlebars.min.js"
+      integrity="sha256-/PJBs6QWvXijOFIX04kZpLb6ZtSQckdOIavLWKKOgXU=" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+      integrity="sha256-WqU1JavFxSAMcLP2WIOI+GB2zWmShMI82mTpLDcqFUg=" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/min/moment.min.js"
+      integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ=" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/moment-timezone@0.5.28/builds/moment-timezone-with-data.min.js"
+      integrity="sha256-IWYg4uIC8/erItNXYvLtyYHioRi2zT1TFva8qaAU/ww=" crossorigin="anonymous"></script>
+
+
+    <!-- Library libs_ext -->
+    <script src="static/js/libs_ext/typeahead.bundle.js"></script>
+
+    <script src="static/js/tagEditor/jquery.caret.min.js"></script>
+    <script src="static/js/tagEditor/jquery.tag-editor.min.js"></script>
+
+
+    <!-- Internal Libs -->
+    <script src="static/js/data/api.js"></script>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+      integrity="sha256-YLGeXaapI0/5IgZopewRJcFXomhRMlYYjugPLSyNjTY=" crossorigin="anonymous">
+
+    <!-- External Fonts (no google for china) -->
+    <link href="static/css/Lato.css" rel="stylesheet" />
+    <link href="static/css/Exo.css" rel="stylesheet" />
+    <link href="static/css/Cuprum.css" rel="stylesheet" />
+    <link rel="stylesheet" href="static/css/main.css" />
+    <!--    <link rel="stylesheet" href="static/css/fa_regular.css"/>-->
+    <link rel="stylesheet" href="static/css/fa_solid.css" />
+    <link rel="stylesheet" href="static/css/lazy_load.css" />
+    <link rel="stylesheet" href="static/css/typeahead.css" />
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+    <title>Neural Fields: Neural Sparse Voxel Fields</title>
+
+    <link rel="icon" type="image/png" href="favicon.ico">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GT7LEVW06Z"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+
+      gtag('config', 'G-GT7LEVW06Z');
+    </script>
+    <!-- head block ends here-->
+    
+<meta name="citation_title" content="Neural Sparse Voxel Fields" />
+
+
+<meta name="citation_author" content="Lingjie Liu" />
+
+<meta name="citation_author" content="Jiatao Gu" />
+
+<meta name="citation_author" content="Kyaw Zaw Lin" />
+
+<meta name="citation_author" content="Tat-Seng Chua" />
+
+<meta name="citation_author" content="Christian Theobalt" />
+
+
+<meta name="citation_abstract" content="Photo-realistic free-viewpoint rendering of real-world scenes using classical computer graphics techniques is challenging, because it requires the difficult step of capturing detailed appearance and geometry models. Recent studies have demonstrated promising results by learning scene representations that implicitly encode both geometry and appearance without 3D supervision. However, existing approaches in practice often show blurry renderings caused by the limited network capacity or the difficulty in finding accurate intersections of camera rays with the scene geometry. Synthesizing high-resolution imagery from these representations often requires time-consuming optical ray marching. In this work, we introduce Neural Sparse Voxel Fields (NSVF), a new neural scene representation for fast and high-quality free-viewpoint rendering. NSVF defines a set of voxel-bounded implicit fields organized in a sparse voxel octree to model local properties in each cell. We progressively learn the underlying voxel structures with a differentiable ray-marching operation from only a set of posed RGB images. With the sparse voxel octree structure, rendering novel views can be accelerated by skipping the voxels containing no relevant scene content. Our method is typically over 10 times faster than the state-of-the-art (namely, NeRF(Mildenhall et al., 2020)) at inference time while achieving higher quality results. Furthermore, by utilizing an explicit sparse voxel representation, our method can easily be applied to scene editing and scene composition. We also demonstrate several challenging tasks, including multi-scene learning, free-viewpoint rendering of a moving human, and large-scale scene rendering. Code and data are available at our website: https://github.com/facebookresearch/NSVF." />
+
+
+<meta name="citation_keywords" content="Speed &amp; Computational Efficiency" />
+
+<meta name="citation_keywords" content="Local Conditioning" />
+
+<meta name="citation_keywords" content="Coarse-to-Fine" />
+
+<meta name="citation_keywords" content="Voxel Grid" />
+
+<meta name="citation_keywords" content="Sampling" />
+
+<meta name="citation_keywords" content="Hybrid Geometry Representation" />
+
+<meta name="citation_pdf_url" content="https://arxiv.org/pdf/2007.11571.pdf" />
+
+<script type="text/javascript" src="static/js/vis/vis-network.min.js"></script>
+<style>
+    .red-hyper-link {
+        color: #ED1C24 !important;
+    }
+</style>
+
+  </head>
+
+  <body>
+    <!-- NAV -->
+    
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: #EFECE5;" id="main-nav">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <img class="logo" src="static/images/long_logo.png" style="width: 300px;"/>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse text-right flex-grow-1" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            
+            <li class="nav-item ">
+              <a class="nav-link" href="index.html" style="font-family: 'Ubuntu', sans-serif;">Home</a>
+            </li>
+            
+            <li class="nav-item ">
+              <a class="nav-link" href="papers.html" style="font-family: 'Ubuntu', sans-serif;">Advanced Search</a>
+            </li>
+            
+            <li class="nav-item ">
+              <a class="nav-link" href="add_paper.html" style="font-family: 'Ubuntu', sans-serif;">Add Paper</a>
+            </li>
+            
+            <li class="nav-item ">
+              <a class="nav-link" href="join_us.html" style="font-family: 'Ubuntu', sans-serif;">Join Us</a>
+            </li>
+            
+            <li class="nav-item ">
+              <a class="nav-link" href="faq.html" style="font-family: 'Ubuntu', sans-serif;">FAQ</a>
+            </li>
+            
+          </ul>
+        </div>
+      </div>
+    </nav>
+    
+
+    
+    <!-- User Overrides -->
+
+    
+    <!-- top block ends here-->
+    
+
+    <div class="container">
+      <!-- Tabs -->
+      <div class="tabs">
+         
+      </div>
+      <!-- Content -->
+      <div class="content">
+        
+
+<!-- Title -->
+<div class="pp-card m-3">
+    <div class="card-header">
+        <h2 class="card-title main-title text-center" style="color: black;">
+            Neural Sparse Voxel Fields
+        </h2>
+        <h3 class="card-subtitle mb-2 text-muted text-center">
+            
+            <a href="papers.html?author=Lingjie Liu" target="_blank"
+                data-tippy-content="See all papers authored by Lingjie Liu"
+                class="text-muted filterByAuthorLink">Lingjie Liu</a>,
+            
+            <a href="papers.html?author=Jiatao Gu" target="_blank"
+                data-tippy-content="See all papers authored by Jiatao Gu"
+                class="text-muted filterByAuthorLink">Jiatao Gu</a>,
+            
+            <a href="papers.html?author=Kyaw Zaw Lin" target="_blank"
+                data-tippy-content="See all papers authored by Kyaw Zaw Lin"
+                class="text-muted filterByAuthorLink">Kyaw Zaw Lin</a>,
+            
+            <a href="papers.html?author=Tat-Seng Chua" target="_blank"
+                data-tippy-content="See all papers authored by Tat-Seng Chua"
+                class="text-muted filterByAuthorLink">Tat-Seng Chua</a>,
+            
+            <a href="papers.html?author=Christian Theobalt" target="_blank"
+                data-tippy-content="See all papers authored by Christian Theobalt"
+                class="text-muted filterByAuthorLink">Christian Theobalt</a>
+            
+        </h3>
+        <h3 class="card-subtitle mb-2 text-muted text-center">
+            7/22/2020
+        </h3>
+        <div id="citation-code-wrapper" class="text-muted text-center"
+        >
+        </div>
+        <p class="text-center" style="margin-bottom: 0px;">
+            <span>Keywords:</span>
+            
+            <a href="papers.html?keyword=Speed &amp; Computational Efficiency" target="_blank"
+                data-tippy-content="See all papers with keyword 'Speed &amp; Computational Efficiency'"
+                class="text-secondary text-decoration-none filterByKeywordLink">Speed &amp; Computational Efficiency</a>,
+            
+            <a href="papers.html?keyword=Local Conditioning" target="_blank"
+                data-tippy-content="See all papers with keyword 'Local Conditioning'"
+                class="text-secondary text-decoration-none filterByKeywordLink">Local Conditioning</a>,
+            
+            <a href="papers.html?keyword=Coarse-to-Fine" target="_blank"
+                data-tippy-content="See all papers with keyword 'Coarse-to-Fine'"
+                class="text-secondary text-decoration-none filterByKeywordLink">Coarse-to-Fine</a>,
+            
+            <a href="papers.html?keyword=Voxel Grid" target="_blank"
+                data-tippy-content="See all papers with keyword 'Voxel Grid'"
+                class="text-secondary text-decoration-none filterByKeywordLink">Voxel Grid</a>,
+            
+            <a href="papers.html?keyword=Sampling" target="_blank"
+                data-tippy-content="See all papers with keyword 'Sampling'"
+                class="text-secondary text-decoration-none filterByKeywordLink">Sampling</a>,
+            
+            <a href="papers.html?keyword=Hybrid Geometry Representation" target="_blank"
+                data-tippy-content="See all papers with keyword 'Hybrid Geometry Representation'"
+                class="text-secondary text-decoration-none filterByKeywordLink">Hybrid Geometry Representation</a>
+            
+        </p>
+
+        
+        <p class="text-center" style="margin-bottom: 0px;">
+            <span>Venue: </span>
+            <a href="papers.html?venue=ECCV" target="_blank" class="text-secondary text-decoration-none">ECCV 2020</a>
+        </p>
+        
+
+        <div class="text-center p-3">
+            <a class="card-link red-hyper-link" target="_blank" href="https://arxiv.org/pdf/2007.11571.pdf">
+                Paper
+            </a>
+            
+            <a class="card-link red-hyper-link" data-toggle="collapse" role="button" href="#citation">
+                Citation
+            </a>
+            
+            
+            <a href="https://github.com/facebookresearch/NSVF" target="_blank" class="card-link red-hyper-link">
+                Code
+            </a>
+            
+            
+        </div>
+    </div>
+    <span id="invisible-paper-id" style="display: none;">53</span>
+</div>
+<div id="citation" class="pp-card m-3 collapse">
+    <div class="card-body">
+        <div class="card-text">
+            <span style="font-size: large; font-weight: bold;">Bibtex:</span>
+            <span style="white-space: pre-line; position: relative; left: 20px;">
+                @inproceedings{liu2020nsvf,
+    booktitle = {Proceedings of the European Conference on Computer Vision (ECCV)},
+    author = {Lingjie Liu and Jiatao Gu and Kyaw Zaw Lin and Tat-Seng Chua and Christian Theobalt},
+    title = {Neural Sparse Voxel Fields},
+    year = {2020},
+    url = {http://arxiv.org/abs/2007.11571v2},
+    entrytype = {inproceedings},
+    id = {liu2020nsvf}
+}
+            </span>
+        </div>
+        <p></p>
+    </div>
+</div>
+<div id="details" class="pp-card m-3">
+    <div class="card-body">
+        <div class="card-text">
+            <div id="abstractExample">
+                <p style="font-weight: bolder; font-size: 25px; text-align: center;">Abstract</p>
+                Photo-realistic free-viewpoint rendering of real-world scenes using classical computer graphics techniques is challenging, because it requires the difficult step of capturing detailed appearance and geometry models. Recent studies have demonstrated promising results by learning scene representations that implicitly encode both geometry and appearance without 3D supervision. However, existing approaches in practice often show blurry renderings caused by the limited network capacity or the difficulty in finding accurate intersections of camera rays with the scene geometry. Synthesizing high-resolution imagery from these representations often requires time-consuming optical ray marching. In this work, we introduce Neural Sparse Voxel Fields (NSVF), a new neural scene representation for fast and high-quality free-viewpoint rendering. NSVF defines a set of voxel-bounded implicit fields organized in a sparse voxel octree to model local properties in each cell. We progressively learn the underlying voxel structures with a differentiable ray-marching operation from only a set of posed RGB images. With the sparse voxel octree structure, rendering novel views can be accelerated by skipping the voxels containing no relevant scene content. Our method is typically over 10 times faster than the state-of-the-art (namely, NeRF(Mildenhall et al., 2020)) at inference time while achieving higher quality results. Furthermore, by utilizing an explicit sparse voxel representation, our method can easily be applied to scene editing and scene composition. We also demonstrate several challenging tasks, including multi-scene learning, free-viewpoint rendering of a moving human, and large-scale scene rendering. Code and data are available at our website: https://github.com/facebookresearch/NSVF.
+            </div>
+        </div>
+        <p></p>
+    </div>
+</div>
+
+<!-- Youtube Video -->
+
+<div class="border-top my-3"></div>
+<div class="row p-4">
+  <div class="col-12" style="text-align: center;">
+    <a style="font-size: 25px; color: #ED1C24;" target="_blank" href="https://www.youtube.com/embed/RFqPwH7QFEI" >Video</a>
+  </div>
+</div>
+<div class="col-md-12 col-xs-12 p-2">
+    <iframe style="width: 100%; height: 60vh;" src="https://www.youtube.com/embed/RFqPwH7QFEI">
+    </iframe>
+</div>
+
+
+
+<!-- Project Webpage -->
+
+<div class="border-top my-3"></div>
+<div class="row p-4">
+  <div class="col-12" style="text-align: center;">
+    <a style="font-size: 25px; color: #ED1C24;" target="_blank" href="https://lingjie0206.github.io/papers/NSVF/" >Project Webpage</a>
+  </div>
+</div>
+<div class="col-md-12 col-xs-12 p-2">
+    <iframe style="width: 100%; height: 60vh;" src="https://lingjie0206.github.io/papers/NSVF/">
+    </iframe>
+</div>
+
+
+
+<!-- Citation Graph -->
+<div class="border-top my-3"></div>
+<div class="row p-4">
+  <div class="col-12" style="text-align: center;">
+    <span style="font-size: 25px;">Citation Graph</span> <br>
+    <span>(Double click on nodes to open corresponding papers' pages)</span>
+  </div>
+</div>
+
+<div id="citationGraph" style="width: 100%;
+  height: 600px;
+  border: 1px solid lightgray;" ondblclick="openPaperLink()"></div>
+<p><span style="font-size: 10px;">*</span> Showing citation graph for papers within our database. Data retrieved from <a href="https://www.semanticscholar.org/search?q=Neural Sparse Voxel Fields&sort=relevance">Semantic Scholar</a>. For full citation graphs, visit <a href="https://www.connectedpapers.com/search?q=Neural Sparse Voxel Fields">ConnectedPapers</a>.</p>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tippy.js@6/dist/tippy-bundle.umd.min.js"></script>
+<script src="static/js/views/paper_detail.js"></script>
+<script>
+    tippy(".filterByAuthorLink");
+    tippy(".filterByKeywordLink");
+    const paperID = document.getElementById("invisible-paper-id").innerHTML;
+    drawCitationGraphAndGenerateCitationCode(paperID);
+</script>
+
+
+      </div>
+    </div>
+
+    <!-- body block ends here-->
+    
+
+
+    
+
+
+    <!-- Footer -->
+    <footer class="footer"
+      style="background-color: #353535; width: 100%; height: 8vh; display: flex; justify-content: center; align-items: center; ">
+      <a class="fas" style="cursor: pointer; margin-right: auto; padding-left: 10px;"
+        href="https://twitter.com/neural_fields" target="_blank">
+        <img src="static/images/twitter_logo.png" style="width: 30px; height: 24px;">
+      </a>
+      <a href="https://visual.cs.brown.edu/" target="_blank"><img src="static/images/Brown_logo.png"
+    style="height: 6vh; padding-right: 1vw;"></a>
+      <a href="http://www.scenerepresentations.org/" target="_blank"><img src="static/images/MIT_logo.png" style="height: 2.7vh"></a>
+      <a style="color: white; margin-left: auto; padding-right: 10px;" href="mailto:neuralfields@brown.edu"
+        target="_blank">Contact Us</a>
+    </footer>
+
+    <!-- Code for hash tags -->
+    <script type="text/javascript">
+      $(document).ready(function () {
+        if (window.location.hash !== "") {
+          $(`a[href="${window.location.hash}"]`).tab("show");
+        }
+
+        $("a[data-toggle='tab']").on("shown.bs.tab", function (e) {
+          const hash = $(e.target).attr("href");
+          if (hash.substr(0, 1) === "#") {
+            const position = $(window).scrollTop();
+            window.location.replace(`#${hash.substr(1)}`);
+            $(window).scrollTop(position);
+          }
+        });
+      });
+    </script>
+
+    <!-- footer block ends here -->
+    
+  </body>
+
+</html>

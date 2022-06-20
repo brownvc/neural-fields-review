@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="Neural Fields in Visual Computing and Beyond">
+    <meta name="keywords" content="Neural Fields">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Neural Fields in Visual Computing and Beyond</title>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GT7LEVW06Z"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-GT7LEVW06Z');
+    </script>
+    <!-- head block ends here-->
+
+    <!-- Load Bootstrap -->
+    <!-- <link rel="stylesheet"
+			href=
+"https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+			integrity=
+"sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
+			crossorigin="anonymous" />
+		<script src=
+"https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+				integrity=
+"sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+				crossorigin="anonymous">
+	</script>
+		<script src=
+"https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+				integrity=
+"sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+				crossorigin="anonymous">
+  </script>
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet"> -->
+
+    <link rel="stylesheet" href="./static/css/bulma.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="./static/css/index.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="./static/js/fontawesome.all.min.js"></script>
+    <script src="./static/js/bulma-carousel.min.js"></script>
+    <script src="./static/js/bulma-slider.min.js"></script>
+    <script src="./static/js/index.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+
+    <section class="hero">
+        <div class="hero-body">
+            <div class="container is-max-desktop">
+                <div class="columns is-centered">
+                    <div class="column has-text-centered">
+                        <h1 class="title is-1 publication-title">Neural Fields in Visual Computing and Beyond</h1>
+                        <h3>Eurographics / CGF State-of-the-Art Report</h3>
+                        <br>
+                        <div class="is-size-5 publication-authors">
+                            <span class="author-block">
+                                <a href="https://yxie20.github.io/">Yiheng Xie</a><sup>1,2</span>
+                            <span class="author-block">
+                                <a href="https://tovacinni.github.io/">Towaki Takikawa</a><sup>3,4</sup>,</span>
+                            <span class="author-block">
+                                <a href="http://www-scf.usc.edu/~saitos/">Shunsuke Saito</a><sup>5</sup>,</span>
+                            </span>
+                            <span class="author-block">
+                                <a href="https://orlitany.github.io/">Or Litany</a><sup>4</sup>,
+                            </span>
+                            <span class="author-block">
+                                <a href="https://player-eric.com/about">Shiqin Yan</a><sup>1</sup>,
+                            </span>
+                            <span class="author-block">
+                                <a href="http://cs.brown.edu/~nkhan6/">Numair Khan</a><sup>1</sup>
+                            </span>
+                            </br>
+                            <span class="author-block">
+                                <a href="https://federicotombari.github.io/">Federico Tombari</a><sup>5,6</sup>
+                            </span>
+                            <span class="author-block">
+                                <a href="https://jamestompkin.com/">James Tompkin</a><sup>1</sup>
+                            </span>
+                            <span class="author-block">
+                                <a href="https://www.vincentsitzmann.com/">Vincent Sitzmann</a><sup>8*</sup>
+                            </span>
+                            <span class="author-block">
+                                <a href="https://cs.brown.edu/people/ssrinath/">Srinath Sridhar</a><sup>1*</sup>
+                            </span>
+                        </div>
+                        <br>
+                        <div class="is-size-5 publication-authors">
+
+                            <span class="author-block"><sup>1</sup>Brown University</span>
+                            <span class="author-block"><sup>2</sup>Unity</span>
+                            <span class="author-block"><sup>3</sup>University of Toronto</span>
+                            <span class="author-block"><sup>4</sup>NVIDIA</span>
+                            <span class="author-block"><sup>5</sup>Meta Reality Labs</span>
+                            </br>
+                            <span class="author-block"><sup>6</sup>Google</span>
+                            <span class="author-block"><sup>7</sup>Technical University of Munich</span>
+                            <span class="author-block"><sup>8</sup>Massachusetts Institute of Technology</span>
+                            <span class="author-block"><sup>*</sup>Equal advising</span>
+                        </div>
+                        <div class="column has-text-centered">
+                            <div class="publication-links">
+                                <!-- PDF Link. -->
+                                <span class="link-block">
+                                    <a href="https://arxiv.org/abs/2111.11426"
+                                        class="external-link button is-normal is-rounded is-dark" target="_blank">
+                                        <span class="icon">
+                                            <i class="fas fa-file-pdf"></i>
+                                        </span>
+                                        <span>Paper</span>
+                                    </a>
+                                </span>
+                                <!-- Video Link. -->
+                                <span class="link-block">
+                                    <a href="https://youtu.be/hr2WQCs_P78"
+                                        class="external-link button is-normal is-rounded is-dark" target="_blank">
+                                        <span class="icon">
+                                            <i class="fab fa-youtube"></i>
+                                        </span>
+                                        <span>Video</span>
+                                    </a>
+                                </span>
+                                <!-- Dataset Link. -->
+                                <span class="link-block">
+                                    <a href="https://neuralfields.cs.brown.edu/"
+                                        class="external-link button is-normal is-rounded is-dark">
+                                        <span class="icon">
+                                            <i class="far fa-images"></i>
+                                        </span>
+                                        <span>Website</span>
+                                    </a>
+                                </span>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="section">
+        <div class="container is-max-desktop">
+            <!-- Abstract. -->
+
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-full">
+                    <h2 class="title is-3">Abstract</h2>
+                    <div class="columns is-centered has-text-centered">
+                        <div class="column is-full">
+                            <img src="static/images/teaser.jpg" width="80%" />
+                        </div>
+                    </div>
+                    <div class="content has-text-justified">
+                        <p class="content has-text-justified">
+                            Recent advances in machine learning have created increasing interest in solving visual
+                            computing problems using a class of coordinate-based neural networks that parametrize
+                            physical properties of scenes or objects across space and time. These methods, which we call
+                            neural fields, have seen successful application in the synthesis of 3D shapes and image,
+                            animation of human bodies, 3D reconstruction, and pose estimation. However, due to rapid
+                            progress in a short time, many papers exist but a comprehensive review and formulation of
+                            the problem has not yet emerged. In this report, we address this limitation by providing
+                            context, mathematical grounding, and an extensive review of literature on neural fields.
+                            This report covers research along two dimensions. In Part I, we focus on techniques in
+                            neural fields by identifying common components of neural field methods, including different
+                            representations, architectures, forward mapping, and generalization methods. In Part II, we
+                            focus on applications of neural fields to different problems in visual computing, and beyond
+                            (e.g., robotics, audio). Our review shows the breadth of topics already covered in visual
+                            computing, both historically and in current incarnations, demonstrating the improved
+                            quality, flexibility, and capability brought by neural fields methods. Finally, we present a
+                            companion website that contributes a living version of this review that can be continually
+                            updated by the community.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!--/ Abstract. -->
+
+        </div>
+        <!--/ Paper video. -->
+        </div>
+    </section>
+    <!-- Paper video. -->
+    <!-- <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+          <iframe src=""
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div> -->
+    <!--/ Paper video. -->
+    </div>
+    </section>
+
+    <section class="section">
+        <div class="container is-max-desktop">
+            <!-- Method. -->
+            <div class="column">
+                <h2 class="title">Acknowledgements</h2>
+                </br>
+                <div class="content has-text-justified">
+                    <!-- <p> -->
+                    This work was supported by NSF CNS-2038897 and the Google
+                    Research Scholar Program. We thank Sunny Li for their help in
+                    designing the website, Jayden Yi for a conceptual readthrough, and
+                    Alexander Rush and Hendrik Strobelt for the Mini-Conf project.
+                    <!-- </p> -->
+                    </br>
+                </div>
+            </div>
+            <!--/ Method. -->
+        </div>
+
+
+        <section class="section" id="BibTeX">
+            <div class="container is-max-desktop content">
+                <h2 class="title">BibTeX</h2>
+                <pre><code>@article{10.1111:cgf.14505,
+    journal = {Computer Graphics Forum},
+    title = {Neural Fields in Visual Computing and Beyond},
+    author = {Xie, Yiheng and Takikawa, Towaki and Saito, Shunsuke and Litany, Or and Yan, Shiqin and Khan, Numair and Tombari, Federico and Tompkin, James and Sitzmann, Vincent and Sridhar, Srinath},
+    year = {2022},
+    publisher = {The Eurographics Association and John Wiley & Sons Ltd.},
+    ISSN = {1467-8659},
+    DOI = {10.1111/cgf.14505}
+}
+</code></pre>
+            </div>
+        </section>
+
+        <!-- eprint={2111.13260}, -->
+
+
+
+        <footer class="footer">
+            <div class="container">
+                <div class="columns is-centered">
+                    <div class="column is-8">
+                        <div class="content">
+                            <p>
+                                This website is licensed under a <a rel="license"
+                                    href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons
+                                    Attribution-ShareAlike 4.0 International License</a>.
+                                It is borrowing the <a href="https://github.com/nerfies/nerfies.github.io">source
+                                    code</a> of this website.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- <script type='text/javascript' src="/bootstrap.js"></script>
+<script type="text/javascript" src="/functions.js"></script> -->
+        <script>
+            //starts the carousel
+            $('#myCarousel').carousel();
+        </script>
+</body>
+
+</html>
