@@ -55,3 +55,26 @@ deploy:
 	git checkout main
 	@echo "Deployed to gh-pages 🚀"
 
+deploy-2:
+	git checkout main
+	python3 main.py sitedata/ --build
+	-git branch -D gh-pages
+	-git branch -D $(TEMP_DEPLOY_BRANCH)
+	git checkout -b $(TEMP_DEPLOY_BRANCH)
+	git add -f build
+	git commit -am "Deploy on gh-pages"
+	git subtree split --prefix build -b gh-pages
+	git push --force origin gh-pages
+	# git push --force origin gh-pages
+	# @yxie20: added CNAME here
+	git checkout gh-pages
+	touch CNAME
+	echo "neuralfields.cs.brown.edu" >> CNAME
+	git add CNAME
+	git commit -m "Auto-add CNAME"
+	git push --set-upstream origin gh-pages
+	# END @yxie20
+	git checkout @{-1}
+	# -git branch -D $(TEMP_DEPLOY_BRANCH)
+	git checkout main
+	@echo "Deployed to gh-pages 🚀"
