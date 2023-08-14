@@ -143,3 +143,5 @@ node_modules/
 scripts/SemanticScholarAuthKey
 neural-fields-AWS-key.pem
 
+# Alternative Data Stream files (includes colons that cause problems on Windows)
+**/*:Zone.Identifier
