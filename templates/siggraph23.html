@@ -1,1 +1,223 @@
-Coming soon...
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+        <!-- Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-GT7LEVW06Z"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+
+            gtag('config', 'G-GT7LEVW06Z');
+        </script>
+        <!-- head block ends here-->
+
+
+    <title>SIGGRAPH 2023 Course: Neural Fields for Visual Computing</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta property='og:title' content='SIGGRAPH 2023 Course: Neural Fields for Visual Computing'/>
+    <meta property='og:url' content='https://neuralfields.cs.brown.edu/' />
+    <meta property='og:image' content='static/images/main_logo_new.png' />
+    <meta property="og:type" content="website" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  </head>
+
+  <body>
+    <section class="section" id="header">
+        <div class="container is-max-desktop">
+            <br>
+            <div id="logo">
+                <img src="static/images/main_logo_new.png" width=80%></img>
+            </div>
+        
+            <h4>
+            August 6th, 9am PDT, SIGGRAPH 2023
+            </h4>
+
+        </div>
+    </section>
+
+	<section class="section" id="additionalorganizers">
+        <div class="container is-max-desktop">
+            <h3 class="title">Abstract</h3>
+            
+            <p>
+            <a href="https://neuralfields.cs.brown.edu/">Neural fields</a>&mdash;popularized by NeRFs ('neural radiance field')&mdash;seem to be everywhere in the popular press (e.g., <a href="https://www.youtube.com/watch?v=YX5AoaWrowY">Corridor Crew</a>) for applications such as shape and image synthesis and human avatars. But, beyond writing research papers and fancy demos, what benefits might they bring to the broad SIGGRAPH community&mdash;to artists, game developers, or graphics engineers&mdash;through their inherent properties? 
+            </p>
+            <p>
+            Neural fields let us solve computer graphics problems by representing physical properties of scenes or objects across space and time using coordinate-based neural networks. Their key properties as continuous and compressed representations of shape and appearance are especially useful in tasks that reconstruct scenes from real-world images for content creation. These properties are so compelling that new graphics hardware architectures are being proposed to accelerate their use, and the acronym NeRF has now become generic. In sum, neural fields represent a wider inflection point within computer graphics, and people beyond researchers should know why this is.
+            </p>
+            <p>
+            Over half a day, this course aims to provide an overview of neural fields techniques for visual computing, an understanding of the mathematical and computational properties that determine their practical uses, and examples of how we can use that understanding to solve many kinds of problems. We will identify the common components of neural field methods: their representations, their forward maps as differentiable renderers, the neural network architectures, their ability to generalize to different scenes and objects, and their ability to manipulate representations. 
+            </p>
+            <p>
+            The course features an invited industry speaker (Alex Yu of Luma AI) who will share how neural fields are used in practice, providing the audience with insights into how the latest developments can make practical tools for media production.
+            </p>
+        </div>
+    </section>
+
+    <section class="section" id="presenters">
+        <div class="container is-max-desktop">
+            <h3 class="title">Presenters</h3>
+
+            <table id="organizer" class="table table-borderless">
+                <tr>
+                    <td>
+                    <a href="https://tovacinni.github.io/" target="_blank"><img alt src="static/images/towaki.png"/> </a>
+                    </td>
+                    <td>
+                    <a href="http://www-scf.usc.edu/~saitos/" target="_blank"><img alt src="static/images/shunsuke.png"/></a>
+                    </td>
+                    <td>
+                    <a href="https://alexyu.net/" target="_blank"><img alt src="static/images/contributors/Alex_Yu.jpg"/> </a>
+                    </td>
+                    <td>
+                    <a href="https://jamestompkin.com" target="_blank"> <img alt src="static/images/james.jpeg"/> </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td><a href="https://tovacinni.github.io/" target="_blank">Towaki Takikawa</a></td>
+                    <td><a href="http://www-scf.usc.edu/~saitos/" target="_blank">Shunsuke Saito</a></td>
+                    <td><a href="https://alexyu.net/" target="_blank">Alex Yu</a></td>
+                    <td><a href="https://jamestompkin.com" target="_blank">James Tompkin</a></td>
+                </tr>
+                <tr>
+                    <td>University of Toronto / NVIDIA</td>
+                    <td>Meta Reality Labs</td>
+                    <td>Luma AI</td>
+                    <td>Brown University</td>
+                </tr>
+            </table>
+        </div>
+    </section>
+
+    <section class="section" id="schedule">
+        <div class="container is-max-desktop">
+        <h3 class="title">Schedule</h3>
+
+        <p>
+        <a href="https://dl.acm.org/doi/10.1145/3587423.3595477">Video recording</a> on ACM Digital Library (after September 9th 2023).
+        </p>
+
+        <table class="schedule table table-striped">
+            <thead>
+                <tr>
+                    <th>Start Time</th>
+                    <th>Section</th>
+                    <th>Presenter</th>
+                    <th>Slides</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>9:00 AM</td>
+                <td>Introduction & Motivation</td>
+                <td><a href="https://jamestompkin.com" target="_blank">James Tompkin</a></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>9:20 AM</td>
+                <td>What and Why of Neural Fields</td>
+                <td><a href="https://tovacinni.github.io/" target="_blank">Towaki Takikawa</a></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>10:20 AM</td>
+                <td>Break</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>10:30 AM</td>
+                <td>Applications</td>
+                <td><a href="http://www-scf.usc.edu/~saitos/" target="_blank">Shunsuke Saito</a></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>11:15 AM</td>
+                <td>Industry Perspective</td>
+                <td><a href="https://alexyu.net/" target="_blank">Alex Yu</a></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>11:45 AM</td>
+                <td>Outlook</td>
+                <td><a href="https://jamestompkin.com" target="_blank">James Tompkin</a></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>12:00 PM</td>
+                <td>Q & A</td>
+                <td>All</td>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    </section>
+
+    <section class="section" id="additionalorganizers">
+        <div class="container is-max-desktop">
+            <h3 class="title">Additional Organizers</h3>
+
+            <table class="table table-borderless">
+            <tr>
+                <td>
+                    <a href="https://orlitany.github.io/" target="_blank"><img alt src="static/images/or.jpg"/></a>
+                </td>
+                <td>
+                    <a href="https://vincentsitzmann.com" target="_blank"><img alt src="static/images/vincent.jpeg"/></a>
+                </td>
+                <td>
+                    <a href="https://cs.brown.edu/people/ssrinath" target="_blank"><img alt src="static/images/srinath.jpg"/></a>
+                </td>
+            </tr>
+            <tr>
+                <td><a href="https://orlitany.github.io/" target="_blank">Or Litany</a></td>
+                <td><a href="https://vincentsitzmann.com" target="_blank">Vincent Sitzmann</a></td>
+                <td><a href="https://cs.brown.edu/people/ssrinath" target="_blank">Srinath Sridhar</a></td>
+            </tr>
+            <tr>
+                <td>Technion / NVIDIA</td>
+                <td>MIT</td>
+                <td>Brown University</td>
+            </tr>
+            </table>
+        </div>
+    </section>
+    
+    
+    <section class="section" id="bibtex">
+        <div class="container is-max-desktop">
+            <h3 class="title">BibTeX</h3>
+            <script>
+                start();
+                setTimeout(() => { document.getElementById("vagueSearchInput").focus();}, 400)
+                const copyBibtex = () => {
+                const bibtex = `@inproceedings{Takikawa2023NeuralFieldsCourse,
+                    author = {Towaki Takikawa and Shunsuke Saito and James Tompkin and Vincent Sitzmann and Srinath Sridhar and Or Litany and Alex Yu},
+                    title = {Neural Fields for Visual Computing},
+                    booktitle = {ACM SIGGRAPH 2023 Courses},
+                    year = {2023},
+                    month = {August},
+                    location = {Los Angeles, California},
+                    }`
+                navigator.clipboard.writeText(bibtex)
+                .then(() => alert('Successfully copied Bibtex'));
+                //alert('Successfully copied Bibtex');
+                }
+            </script>
+        </div>
+    </section>
+
+    <section class="section" id="acknowledgements">
+        <div class="container is-max-desktop">
+            <h3 class="title">Acknowledgements</h3>
+            <p>
+            This work was supported by NSF CNS-2038897.
+            </p>
+        </div>
+    </section>
+</body>
+</html>
