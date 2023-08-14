@@ -224,6 +224,11 @@ def cvpr22():
     data = _data()
     return render_template("cvpr22.html", **data)
 
+@app.route("/siggraph23.html")
+def siggraph23():
+    data = _data()
+    return render_template("siggraph23.html", **data)
+
 @app.route("/thumbnail_<thumbnail>.png")
 def thumbnail(thumbnail):
     uid = thumbnail
