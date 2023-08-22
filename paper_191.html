@@ -1,0 +1,364 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    
+
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- External Javascript libs_ext  -->
+    <script src="https://cdn.jsdelivr.net/npm/d3@5/dist/d3.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@4.7.3/dist/handlebars.min.js"
+      integrity="sha256-/PJBs6QWvXijOFIX04kZpLb6ZtSQckdOIavLWKKOgXU=" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+      integrity="sha256-WqU1JavFxSAMcLP2WIOI+GB2zWmShMI82mTpLDcqFUg=" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/min/moment.min.js"
+      integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ=" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/moment-timezone@0.5.28/builds/moment-timezone-with-data.min.js"
+      integrity="sha256-IWYg4uIC8/erItNXYvLtyYHioRi2zT1TFva8qaAU/ww=" crossorigin="anonymous"></script>
+
+
+    <!-- Library libs_ext -->
+    <script src="static/js/libs_ext/typeahead.bundle.js"></script>
+
+    <script src="static/js/tagEditor/jquery.caret.min.js"></script>
+    <script src="static/js/tagEditor/jquery.tag-editor.min.js"></script>
+
+
+    <!-- Internal Libs -->
+    <script src="static/js/data/api.js"></script>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+      integrity="sha256-YLGeXaapI0/5IgZopewRJcFXomhRMlYYjugPLSyNjTY=" crossorigin="anonymous">
+
+    <!-- External Fonts (no google for china) -->
+    <link href="static/css/Lato.css" rel="stylesheet" />
+    <link href="static/css/Exo.css" rel="stylesheet" />
+    <link href="static/css/Cuprum.css" rel="stylesheet" />
+    <link rel="stylesheet" href="static/css/main.css" />
+    <!--    <link rel="stylesheet" href="static/css/fa_regular.css"/>-->
+    <link rel="stylesheet" href="static/css/fa_solid.css" />
+    <link rel="stylesheet" href="static/css/lazy_load.css" />
+    <link rel="stylesheet" href="static/css/typeahead.css" />
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+    <title>Neural Fields: Stylizing 3D Scene via Implicit Representation and Hypernetwork/Meta-learning</title>
+
+    <link rel="icon" type="image/png" href="favicon.ico">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GT7LEVW06Z"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+
+      gtag('config', 'G-GT7LEVW06Z');
+    </script>
+    <!-- head block ends here-->
+    
+<meta name="citation_title" content="Stylizing 3D Scene via Implicit Representation and Hypernetwork/Meta-learning" />
+
+
+<meta name="citation_author" content="Pei-Ze Chiang" />
+
+<meta name="citation_author" content="Meng-Shiun Tsai" />
+
+<meta name="citation_author" content="Hung-Yu Tseng" />
+
+<meta name="citation_author" content="Wei-sheng Lai" />
+
+<meta name="citation_author" content="Wei-Chen Chiu" />
+
+
+<meta name="citation_abstract" content="In this work, we aim to address the 3D scene stylization problem - generating stylized images of the scene at arbitrary novel view angles. A straightforward solution is to combine existing novel view synthesis and image/video style transfer approaches, which often leads to blurry results or inconsistent appearance. Inspired by the high quality results of the neural radiance fields (NeRF) method, we propose a joint framework to directly render novel views with the desired style. Our framework consists of two components: an implicit representation of the 3D scene with the neural radiance field model, and a Hypernetwork/Meta-learning to transfer the style information into the scene representation. In particular, our implicit representation model disentangles the scene into the geometry and appearance branches, and the Hypernetwork/Meta-learning learns to predict the parameters of the appearance branch from the reference style image. To alleviate the training difficulties and memory burden, we propose a two-stage training procedure and a patch sub-sampling approach to optimize the style and content losses with the neural radiance field model. After optimization, our model is able to render consistent novel views at arbitrary view angles with arbitrary style. Both quantitative evaluation and human subject study have demonstrated that the proposed method generates faithful stylization results with consistent appearance across different views." />
+
+
+<meta name="citation_keywords" content="Editable" />
+
+<meta name="citation_keywords" content="Data-Driven Method" />
+
+<meta name="citation_keywords" content="Hypernetwork/Meta-learning" />
+
+<meta name="citation_pdf_url" content="https://arxiv.org/pdf/2105.13016.pdf" />
+
+<script type="text/javascript" src="static/js/vis/vis-network.min.js"></script>
+<style>
+    .red-hyper-link {
+        color: #ED1C24 !important;
+    }
+</style>
+
+  </head>
+
+  <body>
+    <!-- NAV -->
+    
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: #EFECE5;" id="main-nav">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <img class="logo" src="static/images/long_logo.png" style="width: 300px;"/>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse text-right flex-grow-1" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            
+            <li class="nav-item ">
+              <a class="nav-link" href="index.html" style="font-family: 'Ubuntu', sans-serif;">Home</a>
+            </li>
+            
+            <li class="nav-item ">
+              <a class="nav-link" href="papers.html" style="font-family: 'Ubuntu', sans-serif;">Advanced Search</a>
+            </li>
+            
+            <li class="nav-item ">
+              <a class="nav-link" href="add_paper.html" style="font-family: 'Ubuntu', sans-serif;">Add Paper</a>
+            </li>
+            
+            <li class="nav-item ">
+              <a class="nav-link" href="join_us.html" style="font-family: 'Ubuntu', sans-serif;">Join Us</a>
+            </li>
+            
+            <li class="nav-item ">
+              <a class="nav-link" href="faq.html" style="font-family: 'Ubuntu', sans-serif;">FAQ</a>
+            </li>
+            
+          </ul>
+        </div>
+      </div>
+    </nav>
+    
+
+    
+    <!-- User Overrides -->
+
+    
+    <!-- top block ends here-->
+    
+
+    <div class="container">
+      <!-- Tabs -->
+      <div class="tabs">
+         
+      </div>
+      <!-- Content -->
+      <div class="content">
+        
+
+<!-- Title -->
+<div class="pp-card m-3">
+    <div class="card-header">
+        <h2 class="card-title main-title text-center" style="color: black;">
+            Stylizing 3D Scene via Implicit Representation and Hypernetwork/Meta-learning
+        </h2>
+        <h3 class="card-subtitle mb-2 text-muted text-center">
+            
+            <a href="papers.html?author=Pei-Ze Chiang" target="_blank"
+                data-tippy-content="See all papers authored by Pei-Ze Chiang"
+                class="text-muted filterByAuthorLink">Pei-Ze Chiang</a>,
+            
+            <a href="papers.html?author=Meng-Shiun Tsai" target="_blank"
+                data-tippy-content="See all papers authored by Meng-Shiun Tsai"
+                class="text-muted filterByAuthorLink">Meng-Shiun Tsai</a>,
+            
+            <a href="papers.html?author=Hung-Yu Tseng" target="_blank"
+                data-tippy-content="See all papers authored by Hung-Yu Tseng"
+                class="text-muted filterByAuthorLink">Hung-Yu Tseng</a>,
+            
+            <a href="papers.html?author=Wei-sheng Lai" target="_blank"
+                data-tippy-content="See all papers authored by Wei-sheng Lai"
+                class="text-muted filterByAuthorLink">Wei-sheng Lai</a>,
+            
+            <a href="papers.html?author=Wei-Chen Chiu" target="_blank"
+                data-tippy-content="See all papers authored by Wei-Chen Chiu"
+                class="text-muted filterByAuthorLink">Wei-Chen Chiu</a>
+            
+        </h3>
+        <h3 class="card-subtitle mb-2 text-muted text-center">
+            5/27/2021
+        </h3>
+        <div id="citation-code-wrapper" class="text-muted text-center"
+        >
+        </div>
+        <p class="text-center" style="margin-bottom: 0px;">
+            <span>Keywords:</span>
+            
+            <a href="papers.html?keyword=Editable" target="_blank"
+                data-tippy-content="See all papers with keyword 'Editable'"
+                class="text-secondary text-decoration-none filterByKeywordLink">Editable</a>,
+            
+            <a href="papers.html?keyword=Data-Driven Method" target="_blank"
+                data-tippy-content="See all papers with keyword 'Data-Driven Method'"
+                class="text-secondary text-decoration-none filterByKeywordLink">Data-Driven Method</a>,
+            
+            <a href="papers.html?keyword=Hypernetwork/Meta-learning" target="_blank"
+                data-tippy-content="See all papers with keyword 'Hypernetwork/Meta-learning'"
+                class="text-secondary text-decoration-none filterByKeywordLink">Hypernetwork/Meta-learning</a>
+            
+        </p>
+
+        
+        <p class="text-center" style="margin-bottom: 0px;">
+            <span>Venue: </span>
+            <a href="papers.html?venue=ARXIV" target="_blank" class="text-secondary text-decoration-none">ARXIV 2021</a>
+        </p>
+        
+
+        <div class="text-center p-3">
+            <a class="card-link red-hyper-link" target="_blank" href="https://arxiv.org/pdf/2105.13016.pdf">
+                Paper
+            </a>
+            
+            <a class="card-link red-hyper-link" data-toggle="collapse" role="button" href="#citation">
+                Citation
+            </a>
+            
+            
+            
+        </div>
+    </div>
+    <span id="invisible-paper-id" style="display: none;">191</span>
+</div>
+<div id="citation" class="pp-card m-3 collapse">
+    <div class="card-body">
+        <div class="card-text">
+            <span style="font-size: large; font-weight: bold;">Bibtex:</span>
+            <span style="white-space: pre-line; position: relative; left: 20px;">
+                @article{chiang2021stylizing,
+    journal = {arXiv preprint arXiv:2105.13016},
+    booktitle = {ArXiv Pre-print},
+    author = {Pei-Ze Chiang and Meng-Shiun Tsai and Hung-Yu Tseng and Wei-sheng Lai and Wei-Chen Chiu},
+    title = {Stylizing 3D Scene via Implicit Representation and Hypernetwork/Meta-learning},
+    year = {2021},
+    url = {http://arxiv.org/abs/2105.13016v2},
+    entrytype = {article},
+    id = {chiang2021stylizing}
+}
+            </span>
+        </div>
+        <p></p>
+    </div>
+</div>
+<div id="details" class="pp-card m-3">
+    <div class="card-body">
+        <div class="card-text">
+            <div id="abstractExample">
+                <p style="font-weight: bolder; font-size: 25px; text-align: center;">Abstract</p>
+                In this work, we aim to address the 3D scene stylization problem - generating stylized images of the scene at arbitrary novel view angles. A straightforward solution is to combine existing novel view synthesis and image/video style transfer approaches, which often leads to blurry results or inconsistent appearance. Inspired by the high quality results of the neural radiance fields (NeRF) method, we propose a joint framework to directly render novel views with the desired style. Our framework consists of two components: an implicit representation of the 3D scene with the neural radiance field model, and a Hypernetwork/Meta-learning to transfer the style information into the scene representation. In particular, our implicit representation model disentangles the scene into the geometry and appearance branches, and the Hypernetwork/Meta-learning learns to predict the parameters of the appearance branch from the reference style image. To alleviate the training difficulties and memory burden, we propose a two-stage training procedure and a patch sub-sampling approach to optimize the style and content losses with the neural radiance field model. After optimization, our model is able to render consistent novel views at arbitrary view angles with arbitrary style. Both quantitative evaluation and human subject study have demonstrated that the proposed method generates faithful stylization results with consistent appearance across different views.
+            </div>
+        </div>
+        <p></p>
+    </div>
+</div>
+
+<!-- Youtube Video -->
+
+<div class="border-top my-3"></div>
+<div class="row p-4">
+  <div class="col-12" style="text-align: center;">
+    <a style="font-size: 25px; color: #ED1C24;" target="_blank" href="https://www.youtube.com/embed/MJqcI40sXhk" >Video</a>
+  </div>
+</div>
+<div class="col-md-12 col-xs-12 p-2">
+    <iframe style="width: 100%; height: 60vh;" src="https://www.youtube.com/embed/MJqcI40sXhk">
+    </iframe>
+</div>
+
+
+
+<!-- Project Webpage -->
+
+
+<!-- Citation Graph -->
+<div class="border-top my-3"></div>
+<div class="row p-4">
+  <div class="col-12" style="text-align: center;">
+    <span style="font-size: 25px;">Citation Graph</span> <br>
+    <span>(Double click on nodes to open corresponding papers' pages)</span>
+  </div>
+</div>
+
+<div id="citationGraph" style="width: 100%;
+  height: 600px;
+  border: 1px solid lightgray;" ondblclick="openPaperLink()"></div>
+<p><span style="font-size: 10px;">*</span> Showing citation graph for papers within our database. Data retrieved from <a href="https://www.semanticscholar.org/search?q=Stylizing 3D Scene via Implicit Representation and Hypernetwork/Meta-learning&sort=relevance">Semantic Scholar</a>. For full citation graphs, visit <a href="https://www.connectedpapers.com/search?q=Stylizing 3D Scene via Implicit Representation and Hypernetwork/Meta-learning">ConnectedPapers</a>.</p>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tippy.js@6/dist/tippy-bundle.umd.min.js"></script>
+<script src="static/js/views/paper_detail.js"></script>
+<script>
+    tippy(".filterByAuthorLink");
+    tippy(".filterByKeywordLink");
+    const paperID = document.getElementById("invisible-paper-id").innerHTML;
+    drawCitationGraphAndGenerateCitationCode(paperID);
+</script>
+
+
+      </div>
+    </div>
+
+    <!-- body block ends here-->
+    
+
+
+    
+
+
+    <!-- Footer -->
+    <footer class="footer"
+      style="background-color: #353535; width: 100%; height: 8vh; display: flex; justify-content: center; align-items: center; ">
+      <a class="fas" style="cursor: pointer; margin-right: auto; padding-left: 10px;"
+        href="https://twitter.com/neural_fields" target="_blank">
+        <img src="static/images/twitter_logo.png" style="width: 30px; height: 24px;">
+      </a>
+      <a href="https://visual.cs.brown.edu/" target="_blank"><img src="static/images/Brown_logo.png"
+    style="height: 6vh; padding-right: 1vw;"></a>
+      <a href="http://www.scenerepresentations.org/" target="_blank"><img src="static/images/MIT_logo.png" style="height: 2.7vh"></a>
+      <a style="color: white; margin-left: auto; padding-right: 10px;" href="mailto:neuralfields@brown.edu"
+        target="_blank">Contact Us</a>
+    </footer>
+
+    <!-- Code for hash tags -->
+    <script type="text/javascript">
+      $(document).ready(function () {
+        if (window.location.hash !== "") {
+          $(`a[href="${window.location.hash}"]`).tab("show");
+        }
+
+        $("a[data-toggle='tab']").on("shown.bs.tab", function (e) {
+          const hash = $(e.target).attr("href");
+          if (hash.substr(0, 1) === "#") {
+            const position = $(window).scrollTop();
+            window.location.replace(`#${hash.substr(1)}`);
+            $(window).scrollTop(position);
+          }
+        });
+      });
+    </script>
+
+    <!-- footer block ends here -->
+    
+  </body>
+
+</html>

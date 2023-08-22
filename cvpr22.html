@@ -1,0 +1,411 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+        <!-- Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-GT7LEVW06Z"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+
+            gtag('config', 'G-GT7LEVW06Z');
+        </script>
+        <!-- head block ends here-->
+
+
+    <title>CVPR 2022 Tutorial: Neural Fields in Computer Vision</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <link href="static/css/default.css" rel="stylesheet" type="text/css" />
+    <meta property='og:title' content='CVPR 2022 Tutorial: Neural Fields in Computer Vision'/>
+    <meta property='og:url' content='https://neuralfields.cs.brown.edu/' />
+    <meta property='og:image' content='https://neuralfields.cs.brown.edu/static/images/teaser_cvpr22.jpg' />
+    <meta property="og:type" content="website" />
+  </head>
+
+  <body>
+    <div id="header">
+      <div id="logo">
+	<h1>
+	<center>
+	  <img src="static/images/cvpr.png" width=400></img><br/>
+	    	 <span style="font-size:50%;color:#777;font-weight:normal">The first tutorial on</span><br>Neural Fields in Computer Vision
+		</center>
+	</h1><br>
+	<h2>
+		<center>
+      <span style="font-size:92%;color:#777;font-weight:normal">Full Day, June 20th, CVPR 2022 (New Orleans)
+        </span>
+		</center>
+	</h2><br>
+	<h2>
+		<center>
+      <span style="font-size:92%;font-weight:normal"><a style="color:blue" href="https://drive.google.com/drive/folders/18sE773kw89V4yefgPGqkdu8bXF9NX9Ej">Slides</a> are released!
+      <br>
+      <span style="font-size:92%;font-weight:normal"><a style="color:blue" href="https://youtu.be/PeRRp1cFuH4">Recording</a> now available!
+    </h2><br>
+  </div>
+
+	<div id="content">
+<h2> Abstract</h2>
+<p>
+  <!-- <embed src="./data/abstract.txt" width="100%" height="300"> -->
+  <a href="https://neuralfields.cs.brown.edu/">Neural fields</a> are emerging as a new signal representation
+  for computer vision, computer graphics, and more.
+  The research community on neural fields are ever more expanding, and there is a need to derive a 
+  taxonomy of the different components and techniques of neural fields to create a design space we can work within.
+  In our tutorial, we will define the taxonomical basis of the neural fields design space, and do a deep dive
+  into each of the components of neural fields.
+  Our tutorial will also feature invited talks to showcase some of the unique applications of neural fields.
+</p>
+
+<h2> Schedule</h2>
+
+<table class="schedule" id="CVPR-program">
+    <tr class="cvpr_row">
+        <td><b>Start Time</b></td>
+        <td><b>End Time</b></td>
+        <td><b>Chapter</b></td>
+        <td><b>Section</b></td>
+        <td><b>Presentor</b></td>
+        <!-- <td><b>Length</b></td> -->
+    </tr>
+    <tr class="cvpr_row">
+        <td>9:00 AM</td>
+        <td>9:45 AM</td>
+        <td>Introduction</td>
+        <td>Introduction & Motivation</td>
+        <td>Srinath / Towaki</td>
+        <!-- <td></td> -->
+    </tr>
+    <tr class="cvpr_row">
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Website & Moderators</td>
+        <td>Or / Srinath</td>
+        <!-- <td>15 mins?</td> -->
+    </tr>
+    <tr class="cvpr_row">
+        <td>9:45 AM</td>
+        <td>10:15 AM</td>
+        <td>Techniques</td>
+        <td>Architectures</td>
+        <td>Yiheng</td>
+        <!-- <td></td> -->
+    </tr>
+    <tr class="cvpr_row">
+        <td>10:15 AM</td>
+        <td>10:30 AM</td>
+        <td colspan="4"><b>Break</b></td>
+        
+    </tr>
+    <tr class="cvpr_row">
+        <td>10:30 AM</td>
+        <td>11:00 AM</td>
+        <td rowspan="4">Techniques</td>
+        <td>Hybrid Representations</td>
+        <td>Towaki</td>
+        <!-- <td></td> -->
+    </tr>
+    <tr class="cvpr_row">
+        <td>11:00 AM</td>
+        <td>11:30 AM</td>
+        <td>Forward Maps</td>
+        <td>Yiheng</td>
+        <!-- <td>20min</td> -->
+    </tr>
+    <tr class="cvpr_row">
+        <td>11:30 AM</td>
+        <td>12:00 PM</td>
+        <td>Generalization</td>
+        <td>Vincent</td>
+        <!-- <td></td> -->
+    </tr>
+    <tr class="cvpr_row">
+        <td>12:00 PM</td>
+        <td>12:30 PM</td>
+        <td>Manipulation / Editing</td>
+        <td>Or</td>
+        <!-- <td></td> -->
+    </tr>
+    <tr class="cvpr_row">
+        <td>12:30 PM</td>
+        <td>1:30 PM</td>
+        <td colspan="4"><b>Lunch</b></td>
+    </tr>
+    <tr class="cvpr_row">
+        <td>1:30 PM</td>
+        <td>2:00 PM</td>
+        <td rowspan="5">Applications</td>
+        <td>3D Reconstruction</td>
+        <td>Vincent / James</td>
+        <!-- <td>30 mins</td> -->
+    </tr>
+    <tr class="cvpr_row">
+        <td>2:00 PM</td>
+        <td>2:20 PM</td>
+        <td>Generative Models</td>
+        <td>Towaki / Shunsuke</td>
+        <!-- <td>20 mins</td> -->
+    </tr>
+    <tr class="cvpr_row">
+        <td>2:20 PM</td>
+        <td>2:40 PM</td>
+        <td>Humans</td>
+        <td>Shunsuke</td>
+        <!-- <td>20 mins</td> -->
+    </tr>
+    <tr class="cvpr_row">
+        <td>2:40 PM</td>
+        <td>3:00 PM</td>
+        <td>Robotics</td>
+        <td>Srinath</td>
+        <!-- <td>20 mins</td> -->
+    </tr>
+    <tr class="cvpr_row">
+        <td>3:00 PM</td>
+        <td>3:10 PM</td>
+        <td>Compression</td>
+        <td>Towaki</td>
+        <!-- <td>10 mins</td> -->
+    </tr>
+    <tr class="cvpr_row">
+        <td>3:15 PM</td>
+        <td>3:30 PM</td>
+        <td colspan="4"><b>Break</b></td>
+    </tr>
+    <tr class="cvpr_row">
+        <td>3:30 PM</td>
+        <td>4:00 PM</td>
+        <td rowspan="3">Invited Speakers</td>
+        <td>Physics-Informed Neural Networks</td>
+        <td>Zongyi Li</td>
+        <!-- <td>25+5 min</td> -->
+    </tr>
+    <tr class="cvpr_row">
+        <td>4:00 PM</td>
+        <td>4:30 PM</td>
+        <td>Neural fields for Science</td>
+        <td>Ellen Zhong</td>
+        <!-- <td>25+5 min</td> -->
+    </tr>
+    <tr class="cvpr_row">
+        <td>4:30 PM</td>
+        <td>5:00 PM</td>
+        <td>Could Neural Fields be Useful for Content Creation?</td>
+        <td>Alex Evans</td>
+        <!-- <td>25+5 min</td> -->
+    </tr>
+</table>
+
+<!--<br>-->
+<!--<h3>Part 1: Foundations</h3>-->
+<!--<br>-->
+<!--<table style="width:100%">-->
+<!--    <tr>-->
+<!--        <td><h3><center>09:00 - 09:30</center></h3></td> -->
+<!--        <td><h3><center>Introduction</center></h3></td> -->
+<!--        <td><h3><center>James Tompkin</center></h3></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td><h3><center>09:30 - 10:00</center></h3></td> -->
+<!--        <td><h3><center>Generalization</center></h3></td> -->
+<!--        <td><h3><center>Vincent Sitzmann</center></h3></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td><h3><center>10:00 - 10:10</center></h3></td> -->
+<!--        <td><h3><center>Coffee Break</center></h3></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td><h3><center>10:10 - 10:40</center></h3></td> -->
+<!--        <td><h3><center>Hybrid Representations</center></h3></td> -->
+<!--        <td><h3><center>Towaki Takikawa</center></h3></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td><h3><center>10:40 - 11:10</center></h3></td> -->
+<!--        <td><h3><center>Forward Maps</center></h3></td> -->
+<!--        <td><h3><center>Srinath Sridhar</center></h3></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td><h3><center>11:10 - 11:20</center></h3></td> -->
+<!--        <td><h3><center>Coffee Break</center></h3></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td><h3><center>11:20 - 11:50</center></h3></td> -->
+<!--        <td><h3><center>Network Architectures</center></h3></td> -->
+<!--        <td><h3><center>Yiheng Xie</center></h3></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td><h3><center>11:50 - 12:20</center></h3></td> -->
+<!--        <td><h3><center>Manipulation</center></h3></td> -->
+<!--        <td><h3><center>Or Litany</center></h3></td>-->
+<!--    </tr>-->
+<!--</table>-->
+<!--<br>-->
+
+<!--<br>-->
+<!--<h3>Lunch Break 12:20 - 14:00</h3>-->
+<!--<br>-->
+
+<!--<br>-->
+<!--<h3>Part 2: Foundations</h3>-->
+<!--<br>-->
+
+<!--<table style="width:100%">-->
+<!--    <tr>-->
+<!--        <td><h3><center>14:00 - 14:30</center></h3></td> -->
+<!--        <td><h3><center>Generative Modeling</center></h3></td>-->
+<!--        <td><h3><center>Srinath Sridhar</center></h3></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td><h3><center>14:30 - 15:00</center></h3></td> -->
+<!--        <td><h3><center>Digital Humans</center></h3></td> -->
+<!--        <td><h3><center>Shunsuke Saito</center></h3></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td><h3><center>15:00 - 15:10</center></h3></td> -->
+<!--        <td><h3><center>Coffee Break</center></h3></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td><h3><center>15:10 - 15:40</center></h3></td> -->
+<!--        <td><h3><center>Robotics</center></h3></td> -->
+<!--        <td><h3><center>Srinath Sridhar</center></h3></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td><h3><center>15:40 - 16:10</center></h3></td> -->
+<!--        <td><h3><center>Beyond Visual Computing</center></h3></td> -->
+<!--        <td><h3><center>TBA</center></h3></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td><h3><center>16:10 - 16:20</center></h3></td> -->
+<!--        <td><h3><center>Coffee Break</center></h3></td> -->
+<!--        <td><h3><center></center></h3></td>-->
+<!--    </tr>-->
+<!--</table>-->
+<!--<br>-->
+
+<!--<br>-->
+<!--<table style="width:100%">-->
+<!--<h3>Part 3: Invited Speakers</h3>-->
+<!--    <tr>-->
+<!--        <td><h3><center>16:20 - 16:50</center></h3></td> -->
+<!--        <td><h3><center>TBA</center></h3></td> -->
+<!--        <td><h3><center>Anima Anandkumar</center></h3></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td><h3><center>16:50 - 17:20</center></h3></td> -->
+<!--        <td><h3><center>TBA</center></h3></td> -->
+<!--        <td><h3><center>Ellen Zhong</center></h3></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td><h3><center>17:20 - 17:30</center></h3></td> -->
+<!--        <td><h3><center>Coffee Break</center></h3></td> -->
+<!--        <td><h3><center></center></h3></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td><h3><center>17:30 - 18:00</center></h3></td> -->
+<!--        <td><h3><center>TBA</center></h3></td> -->
+<!--        <td><h3><center>Alex Evans</center></h3></td>-->
+<!--    </tr>-->
+<!--</table>-->
+
+<h2>Invited Speakers</h2>
+<center>
+
+<table style="width:100%">
+<p>
+
+<tr>
+<td><center><a href="https://zongyi-li.github.io/" target="_blank"> <img alt src="static/images/zongyi.jpg" height="170"/> </a></center> </td>
+  <td><center><a href="https://people.csail.mit.edu/zhonge/" target="_blank"> <img alt src="static/images/ellen.png" height="170"/> </a></center> </td>
+  <td><center><a href="https://research.nvidia.com/person/alex-evans" target="_blank"> <img alt src="static/images/alex.jpeg" height="170"/> </a></center> </td>
+</tr>
+<tr>
+<td> <center> <h3> Zongyi Li</h3> </center></td>
+<td> <center> <h3> Ellen Zhong</h3> </center></td>
+<td> <center> <h3> Alex Evans</h3> </center></td>
+</tr>
+<tr>
+<td> <center> <font size= "2">Caltech</font></center> </td>
+<td> <center> <font size= "2">MIT</font></center> </td>
+<td> <center> <font size= "2">NVIDIA</font></center> </td>
+</tr>
+
+<tr><td></td></tr>
+<tr><td></td></tr>
+<tr><td></td></tr>
+<tr><td></td></tr>
+<tr><td></td></tr>
+<tr><td></td></tr>
+
+</p>
+</table>
+</center>
+
+<h2>Organizers</h2><p>
+<center>
+  <table id="organizer" style="width:80%">
+    <tr>
+      <td><center><a href="https://yxie20.github.io/" target="_blank"> <img alt src="static/images/yiheng.jpeg"/> </a></center> </td>
+      <td><center><a href="https://tovacinni.github.io/" target="_blank"> <img alt src="static/images/towaki.png"/> </a></center> </td>
+      <td><center><a href="https://shunsukesaito.github.io/" target="_blank"><img alt src="static/images/shunsuke.png"/></a></center></td>
+    </tr>
+    <tr>
+      <td> <center> <h3>Yiheng Xie</h3> </center> </td>
+      <td> <center> <h3>Towaki Takikawa</h3> </center> </td>
+      <td> <center> <h3>Shunsuke Saito</h3> </center> </td>
+    </tr>
+    <tr>
+      <td> <center><font size= "2">Brown University / Unity</font></center> </td>
+      <td> <center><font size= "2">University of Toronto / NVIDIA</font></center> </td>
+      <td> <center><font size= "2">Meta Reality Labs</font></center> </td>
+    </tr>
+
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+
+    <tr>
+      <td><center><a href="https://orlitany.github.io/" target="_blank"> <img alt src="static/images/or.jpg"/> </a></center> </td>
+      <td><center><a href="https://jamestompkin.com" target="_blank"> <img alt src="static/images/james.jpeg"/> </a></center> </td>
+      <td><center><a href="https://vincentsitzmann.com" target="_blank"><img alt src="static/images/vincent.jpeg"/></a></center></td>
+    </tr>
+    <tr>
+      <td> <center> <h3>Or Litany</h3> </center> </td>
+      <td> <center> <h3>James Tompkin</h3> </center> </td>
+      <td> <center> <h3>Vincent Sitzmann</h3> </center> </td>
+    </tr>
+    <tr>
+      <td> <center><font size= "2">NVIDIA</font></center> </td>
+      <td> <center><font size= "2">Brown University</font></center> </td>
+      <td> <center><font size= "2">MIT</font></center> </td>
+    </tr>
+
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+
+    <tr>
+      <td><center><a href="https://cs.brown.edu/people/ssrinath" target="_blank"> <img alt src="static/images/srinath.jpg"/> </a></center> </td>
+    </tr>
+    <tr>
+      <td> <center> <h3>Srinath Sridhar</h3> </center> </td>
+    </tr>
+    <tr>
+      <td> <center><font size= "2">Brown University</font></center> </td>
+    </tr>
+  </table>
+</center>
+</p>
+
+<div style="clear: both;">&nbsp;</div>
+</div><br><br>
+
+</body>
+</html>

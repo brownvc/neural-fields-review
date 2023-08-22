@@ -1,0 +1,319 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- External Javascript libs_ext  -->
+    <script src="https://cdn.jsdelivr.net/npm/d3@5/dist/d3.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@4.7.3/dist/handlebars.min.js"
+      integrity="sha256-/PJBs6QWvXijOFIX04kZpLb6ZtSQckdOIavLWKKOgXU=" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+      integrity="sha256-WqU1JavFxSAMcLP2WIOI+GB2zWmShMI82mTpLDcqFUg=" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/min/moment.min.js"
+      integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ=" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/moment-timezone@0.5.28/builds/moment-timezone-with-data.min.js"
+      integrity="sha256-IWYg4uIC8/erItNXYvLtyYHioRi2zT1TFva8qaAU/ww=" crossorigin="anonymous"></script>
+
+
+    <!-- Library libs_ext -->
+    <script src="static/js/libs_ext/typeahead.bundle.js"></script>
+
+    <script src="static/js/tagEditor/jquery.caret.min.js"></script>
+    <script src="static/js/tagEditor/jquery.tag-editor.min.js"></script>
+
+
+    <!-- Internal Libs -->
+    <script src="static/js/data/api.js"></script>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+      integrity="sha256-YLGeXaapI0/5IgZopewRJcFXomhRMlYYjugPLSyNjTY=" crossorigin="anonymous">
+
+    <!-- External Fonts (no google for china) -->
+    <link href="static/css/Lato.css" rel="stylesheet" />
+    <link href="static/css/Exo.css" rel="stylesheet" />
+    <link href="static/css/Cuprum.css" rel="stylesheet" />
+    <link rel="stylesheet" href="static/css/main.css" />
+    <!--    <link rel="stylesheet" href="static/css/fa_regular.css"/>-->
+    <link rel="stylesheet" href="static/css/fa_solid.css" />
+    <link rel="stylesheet" href="static/css/lazy_load.css" />
+    <link rel="stylesheet" href="static/css/typeahead.css" />
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+    <title>Neural Fields: Advanced Search</title>
+
+    <link rel="icon" type="image/png" href="favicon.ico">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GT7LEVW06Z"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+
+      gtag('config', 'G-GT7LEVW06Z');
+    </script>
+    <!-- head block ends here-->
+    
+<!-- resources used in papers page -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.0/dist/umd/popper.min.js"></script>
+
+<!-- tippy.js is used for creating tooltips-->
+<script src="https://cdn.jsdelivr.net/npm/tippy.js@6/dist/tippy-bundle.umd.min.js"></script>
+
+<script src="static/js/modules/icons.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
+<style>
+  .brown-red-hyper-link {
+    color: #B0251A !important;
+  }
+
+  .author-names {
+    color:  #35261F;
+  }
+</style>
+
+  </head>
+
+  <body>
+    <!-- NAV -->
+    
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: #EFECE5;" id="main-nav">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <img class="logo" src="static/images/long_logo.png" style="width: 300px;"/>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse text-right flex-grow-1" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            
+            <li class="nav-item ">
+              <a class="nav-link" href="index.html" style="font-family: 'Ubuntu', sans-serif;">Home</a>
+            </li>
+            
+            <li class="nav-item active">
+              <a class="nav-link" href="papers.html" style="font-family: 'Ubuntu', sans-serif;">Advanced Search</a>
+            </li>
+            
+            <li class="nav-item ">
+              <a class="nav-link" href="add_paper.html" style="font-family: 'Ubuntu', sans-serif;">Add Paper</a>
+            </li>
+            
+            <li class="nav-item ">
+              <a class="nav-link" href="join_us.html" style="font-family: 'Ubuntu', sans-serif;">Join Us</a>
+            </li>
+            
+            <li class="nav-item ">
+              <a class="nav-link" href="faq.html" style="font-family: 'Ubuntu', sans-serif;">FAQ</a>
+            </li>
+            
+          </ul>
+        </div>
+      </div>
+    </nav>
+    
+
+    
+    <!-- User Overrides -->
+
+    
+    <!-- top block ends here-->
+    
+
+    <div class="container">
+      <!-- Tabs -->
+      <div class="tabs">
+        
+<ul class="nav nav-pills justify-content-center">
+  <li class="nav-item active">
+    <a class="nav-link text-muted active" data-toggle="tab" role="tab" aria-controls="nav-home"
+      aria-selected="true">Browse
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link text-muted" href="paper_vis_timeline.html">Timeline</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link text-muted" href="paper_vis_citation_graph.html">Citation Graph</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link text-muted" href="paper_vis_statistics.html">Statistics</a>
+  </li>
+</ul>
+
+
+      </div>
+      <!-- Content -->
+      <div class="content">
+        
+<div class="row p-3"></div>
+
+
+<!-- title / nickname search input -->
+<div class="row">
+  <div class="input-group col-10 col-md-11">
+    <input type="text" id="titleAndNicknameInput" class="form-control titleAndNicknameTypeahead"
+      placeholder="Search by title / nickname" onchange="setTitleAndNicknameFilter()">
+    <button type="button" class="btn bg-transparent titleAndNicknameTypeahead_clear"
+      style="margin-left: -40px; z-index: 100;">
+      &times;
+    </button>
+  </div>
+  <div class="col-2 col-md-1">
+    <button class="btn btn-outline-secondary" id="add_new_filter_button" style="border-radius: 25px;"
+      onclick="addNewFilter('author','')" data-tippy-content="Add a filter">
+      <div class="fas">&#xf067;</div>
+    </button>
+  </div>
+</div>
+
+<!-- Dynamic filters -->
+<div id="dynamicFiltersSection">
+</div>
+
+<div class="row" style="padding-top: 10px;">
+  <div class="col-12 col-md-3">
+    <label><input type="checkbox" name="checkbox" id="onlyShowPapersWithCodeCheckbox" onclick="triggerFiltering()">
+      Only show papers with code
+    </label>
+  </div>
+  <div class="col-12 col-md-3">
+    <label><input type="checkbox" name="checkbox" id="onlyShowPeerReviewedPapersCheckbox" onclick="triggerFiltering()">
+      Only show peer-reviewed papers
+    </label>
+  </div>
+  <div class="col-12 col-md-3">
+    <label style="width: 100%;">
+      Sort By
+      <select id="sortBySelector" style="width: 70%; border: 1px solid #ced4da; border-radius: .25rem;"
+        onChange="triggerFiltering()">
+        <option value=""></option>
+        <option value="Title">Title</option>
+        <option value="DateLatestToOldest">Date - Latest to Oldest</option>
+        <option value="DateOldestToLatest">Date - Oldest to Latest</option>
+      </select>
+    </label>
+  </div>
+  <div class="col-12 col-md-3">
+    <div class="float-right">
+      <div class="btn-group btn-group-toggle render_option" data-toggle="buttons">
+        <label class="btn btn-outline-secondary active" onclick="changeRenderMode('mini')">
+          <input type="radio" name="options" value="mini" autocomplete="off" />
+          mini
+        </label>
+        <label class="btn btn-outline-secondary active">
+          <input type="radio" name="options" value="compact" autocomplete="off" onclick="changeRenderMode('compact')"
+            checked />
+          compact
+        </label>
+        <label class="btn btn-outline-secondary">
+          <input type="radio" name="options" value="detail" autocomplete="off" onclick="changeRenderMode('detail')" />
+          detail
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="display: flex; flex-direction: row; justify-content: flex-start;">
+  <span id="displaying-number-of-papers-message" ></span>
+  <div class="button fas download-all-bibtex-icon" 
+  style="padding-left: 10px; font-size: larger;"
+  data-tippy-content="Download all bibtex"
+  onclick="downloadAllBibtex()">&#xf56d;</div>
+</div>
+
+<!-- Cards -->
+<div class="cards row"></div>
+<!-- urlParams.js parses filter keyword from url -->
+<script src="static/js/modules/urlParams.js"></script>
+<!-- typeaheadSetup.js enables autocompleting -->
+<script src="static/js/modules/typeaheadSetup.js"></script>
+<!-- lazyload.js loads images lazily-->
+<script src="static/js/modules/lazyLoad.js"></script>
+<!-- persistor.js stores a dictionary in browser's local storage -->
+<script src="static/js/data/persistor.js"></script>
+<script src="static/js/data/FileSaver.js"></script>
+<script src="static/js/views/view_utils.js"></script>
+<script src="static/js/views/papers.js"></script>
+<script>
+  $(document).ready(function () {
+    tippy("[data-tippy-content]", { trigger: "mouseenter focus" });
+    start();
+  });
+</script>
+
+
+      </div>
+    </div>
+
+    <!-- body block ends here-->
+    
+
+
+    
+
+
+    <!-- Footer -->
+    <footer class="footer"
+      style="background-color: #353535; width: 100%; height: 8vh; display: flex; justify-content: center; align-items: center; ">
+      <a class="fas" style="cursor: pointer; margin-right: auto; padding-left: 10px;"
+        href="https://twitter.com/neural_fields" target="_blank">
+        <img src="static/images/twitter_logo.png" style="width: 30px; height: 24px;">
+      </a>
+      <a href="https://visual.cs.brown.edu/" target="_blank"><img src="static/images/Brown_logo.png"
+    style="height: 6vh; padding-right: 1vw;"></a>
+      <a href="http://www.scenerepresentations.org/" target="_blank"><img src="static/images/MIT_logo.png" style="height: 2.7vh"></a>
+      <a style="color: white; margin-left: auto; padding-right: 10px;" href="mailto:neuralfields@brown.edu"
+        target="_blank">Contact Us</a>
+    </footer>
+
+    <!-- Code for hash tags -->
+    <script type="text/javascript">
+      $(document).ready(function () {
+        if (window.location.hash !== "") {
+          $(`a[href="${window.location.hash}"]`).tab("show");
+        }
+
+        $("a[data-toggle='tab']").on("shown.bs.tab", function (e) {
+          const hash = $(e.target).attr("href");
+          if (hash.substr(0, 1) === "#") {
+            const position = $(window).scrollTop();
+            window.location.replace(`#${hash.substr(1)}`);
+            $(window).scrollTop(position);
+          }
+        });
+      });
+    </script>
+
+    <!-- footer block ends here -->
+    
+  </body>
+
+</html>

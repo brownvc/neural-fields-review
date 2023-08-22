@@ -1,0 +1,338 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- External Javascript libs_ext  -->
+    <script src="https://cdn.jsdelivr.net/npm/d3@5/dist/d3.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@4.7.3/dist/handlebars.min.js"
+      integrity="sha256-/PJBs6QWvXijOFIX04kZpLb6ZtSQckdOIavLWKKOgXU=" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+      integrity="sha256-WqU1JavFxSAMcLP2WIOI+GB2zWmShMI82mTpLDcqFUg=" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/min/moment.min.js"
+      integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ=" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/moment-timezone@0.5.28/builds/moment-timezone-with-data.min.js"
+      integrity="sha256-IWYg4uIC8/erItNXYvLtyYHioRi2zT1TFva8qaAU/ww=" crossorigin="anonymous"></script>
+
+
+    <!-- Library libs_ext -->
+    <script src="static/js/libs_ext/typeahead.bundle.js"></script>
+
+    <script src="static/js/tagEditor/jquery.caret.min.js"></script>
+    <script src="static/js/tagEditor/jquery.tag-editor.min.js"></script>
+
+
+    <!-- Internal Libs -->
+    <script src="static/js/data/api.js"></script>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+      integrity="sha256-YLGeXaapI0/5IgZopewRJcFXomhRMlYYjugPLSyNjTY=" crossorigin="anonymous">
+
+    <!-- External Fonts (no google for china) -->
+    <link href="static/css/Lato.css" rel="stylesheet" />
+    <link href="static/css/Exo.css" rel="stylesheet" />
+    <link href="static/css/Cuprum.css" rel="stylesheet" />
+    <link rel="stylesheet" href="static/css/main.css" />
+    <!--    <link rel="stylesheet" href="static/css/fa_regular.css"/>-->
+    <link rel="stylesheet" href="static/css/fa_solid.css" />
+    <link rel="stylesheet" href="static/css/lazy_load.css" />
+    <link rel="stylesheet" href="static/css/typeahead.css" />
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+    <title>Neural Fields: Join Us</title>
+
+    <link rel="icon" type="image/png" href="favicon.ico">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GT7LEVW06Z"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+
+      gtag('config', 'G-GT7LEVW06Z');
+    </script>
+    <!-- head block ends here-->
+    
+<style>
+    .red-hyper-link {
+        color: #ED1C24 !important;
+    }
+</style>
+
+  </head>
+
+  <body>
+    <!-- NAV -->
+    
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: #EFECE5;" id="main-nav">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <img class="logo" src="static/images/long_logo.png" style="width: 300px;"/>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse text-right flex-grow-1" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            
+            <li class="nav-item ">
+              <a class="nav-link" href="index.html" style="font-family: 'Ubuntu', sans-serif;">Home</a>
+            </li>
+            
+            <li class="nav-item ">
+              <a class="nav-link" href="papers.html" style="font-family: 'Ubuntu', sans-serif;">Advanced Search</a>
+            </li>
+            
+            <li class="nav-item ">
+              <a class="nav-link" href="add_paper.html" style="font-family: 'Ubuntu', sans-serif;">Add Paper</a>
+            </li>
+            
+            <li class="nav-item active">
+              <a class="nav-link" href="join_us.html" style="font-family: 'Ubuntu', sans-serif;">Join Us</a>
+            </li>
+            
+            <li class="nav-item ">
+              <a class="nav-link" href="faq.html" style="font-family: 'Ubuntu', sans-serif;">FAQ</a>
+            </li>
+            
+          </ul>
+        </div>
+      </div>
+    </nav>
+    
+
+    
+    <!-- User Overrides -->
+
+    
+    <!-- top block ends here-->
+    
+
+    <div class="container">
+      <!-- Tabs -->
+      <div class="tabs">
+         
+      </div>
+      <!-- Content -->
+      <div class="content">
+        
+
+<div class="main-text" style="width: 70%; display: block; margin-left: auto; margin-right: auto; padding-bottom: 5vh;">
+<!-- Slack channel -->
+<p class="infopage-title-1">Join our Slack channel</p>
+<p class="infopage-text"> Joint the community of Neural Field researchers on our
+    <a class="red-hyper-link" href="https://join.slack.com/t/neuralfields/shared_invite/zt-218vuer5u-NxwhSuO0eLo4og35KaPxxg">Slack channel</a>, 
+    where you can bounce off ideas, join reading groups, and ask questions.
+</p>
+
+
+<!-- Become a contributor -->
+<p class="infopage-title-1">Become a moderator</p>
+<p class="infopage-text"> We hope that this database becomes an asset of our community,
+    so we welcome anyone interested to become a moderator for the database. 
+    You can help by submitting new papers, and review paper submissions.
+    Please let us know via this short 
+    <a class="red-hyper-link" href="https://docs.google.com/forms/d/e/1FAIpQLSeu0vga6L3YavgMbKKRsTCam-i-b8QHV1JdG9HzLUilEBXv2A/viewform">Google Form</a>
+    if you are interested!
+</p>
+
+
+<!-- Contributors -->
+<p class="infopage-title-1" style="padding-top: 5vh;">Contributors</p>
+<video width="100%" controls><source src="static/images/NeuralFields_Promo.mp4" type="video/mp4"></video>
+
+<div class="row" id="contributor-cards"></div>
+<br>
+
+<!-- Acknowledgements Section -->
+<p class="infopage-title-1">Acknowledgements</p>
+<p class="infopage-text">This website was built on top of <a class="red-hyper-link" href="https://github.com/Mini-Conf/Mini-Conf" target="_blank">MiniConf</a> project for
+    a virtual conference in a box from <a class="red-hyper-link" href="http://twitter.com/hen_str" target="_blank">Hendrik Strobelt</a> and <a class="red-hyper-link" href="http://twitter.com/srush_nlp" target="_blank">Sasha Rush</a>.
+    Citation relation data used for generating citation graphs are derived from
+the <a class="red-hyper-link" href="https://www.semanticscholar.org/product/api" target="_blank">Semantic Scholar API</a>.
+This work was supported by an NSF grant (CNS-2038897) and the Google Research Scholar Program.
+</p>
+
+
+<!-- Affiliations -->
+<p class="infopage-title-1">Project Led By</p>
+<div class="row" style="padding-bottom: 10vh; padding-top: 5vh;">
+    <div class="col-6">
+        <a href="https://visual.cs.brown.edu/" target="_blank">
+            <img src="static/images/BVC_logo.png" alt="Brown Visual Computing"
+                style="width: 30%; display: block; margin-left: auto; margin-right: auto;">
+        </a>
+    </div>
+    <div class="col-6">
+        <a href="http://www.scenerepresentations.org/" target="_blank">
+            <img src="static/images/SRG_logo.png" alt="MIT Scene Representation Group"
+                style="width: 100%; display: block; margin-left: auto; margin-right: auto; padding-top: 10%;">
+        </a>
+    </div>
+</div>
+
+</div>
+
+<script>
+    const contributors = [
+        {
+            name: "Yiheng Xie",
+            affliation: "Brown University, Unity Technologies",
+            headshotURL: "static/images/contributors/Yiheng_Xie.jpg",
+            websiteURL: "https://yxie20.github.io/"
+        },
+        {
+            name: "Towaki Takikawa",
+            affliation: "University of Toronto, NVIDIA",
+            headshotURL: "static/images/contributors/Towaki_Takikawa.png",
+            websiteURL: "https://tovacinni.github.io/"
+        },
+        {
+            name: "Shunsuke Saito",
+            affliation: "Reality Labs Research",
+            headshotURL: "static/images/contributors/Shunsuke_Saito.png",
+            websiteURL: "https://shunsukesaito.github.io/"
+        },
+        {
+            name: "Or Litany",
+            affliation: "NVIDIA",
+            headshotURL: "static/images/contributors/Or_Litany.jpg",
+            websiteURL: "https://orlitany.github.io/"
+        },
+        {
+            name: "Shiqin Yan",
+            affliation: "Brown University",
+            headshotURL: "static/images/contributors/Shiqin_Yan.jpg",
+            websiteURL: "https://player-eric.com/about"
+        },
+        {
+            name: "Numair Khan",
+            affliation: "Brown University",
+            headshotURL: "static/images/contributors/Numair_Khan.jpg",
+            websiteURL: "http://cs.brown.edu/~nkhan6/"
+        },
+        {
+            name: "Federico Tombari",
+            affliation: "Google, TU Munich",
+            headshotURL: "static/images/contributors/Federico_Tombari.jpg",
+            websiteURL: "https://federicotombari.github.io"
+        },
+        {
+            name: "Sunny Li",
+            affliation: "Brown University",
+            headshotURL: "static/images/contributors/Sunny_Li.jpg",
+            websiteURL: ""
+        },
+        {
+            name: "James Tompkin",
+            affliation: "Brown University",
+            headshotURL: "static/images/contributors/James_Tompkin.jpg",
+            websiteURL: "https://jamestompkin.com/"
+        },
+        {
+            name: "Vincent Sitzmann",
+            affliation: "MIT",
+            headshotURL: "static/images/contributors/Vincent_Sitzmann.jpeg",
+            websiteURL: "http://vsitzmann.github.io/"
+        },
+        {
+            name: "Srinath Sridhar",
+            affliation: "Brown University",
+            headshotURL: "static/images/contributors/Srinath_Sridhar.jpeg",
+            websiteURL: "https://cs.brown.edu/people/ssrinath"
+        },
+    ];
+    for (contributor of contributors) {
+        const name = contributor.name;
+        const affliation = contributor.affliation;
+        const headshotURL = contributor.headshotURL;
+        const websiteURL = contributor.websiteURL;
+        d3.select("#contributor-cards")
+            .append("div")
+            .attr("class", "col-md-4 col-sm-4")
+            .html(`
+        <div class="pp-card contributor-card">
+          <div class="pp-card-header" style="text-align: center;">
+            <a class="red-hyper-link" ${websiteURL ? "href=" + websiteURL : ""} target="_blank"><h5 class="card-title">${name}</h5></a>
+            <h6 class="card-subtitle text-muted m-1">${affliation}</h6>
+          </div>
+          <a  ${websiteURL ? "href=" + websiteURL : ""} target="_blank">
+            <img src="${headshotURL}" class="contributor-headshot">
+          </a>
+        </div>
+        `);
+    }
+</script>
+
+      </div>
+    </div>
+
+    <!-- body block ends here-->
+    
+
+
+    
+
+
+    <!-- Footer -->
+    <footer class="footer"
+      style="background-color: #353535; width: 100%; height: 8vh; display: flex; justify-content: center; align-items: center; ">
+      <a class="fas" style="cursor: pointer; margin-right: auto; padding-left: 10px;"
+        href="https://twitter.com/neural_fields" target="_blank">
+        <img src="static/images/twitter_logo.png" style="width: 30px; height: 24px;">
+      </a>
+      <a href="https://visual.cs.brown.edu/" target="_blank"><img src="static/images/Brown_logo.png"
+    style="height: 6vh; padding-right: 1vw;"></a>
+      <a href="http://www.scenerepresentations.org/" target="_blank"><img src="static/images/MIT_logo.png" style="height: 2.7vh"></a>
+      <a style="color: white; margin-left: auto; padding-right: 10px;" href="mailto:neuralfields@brown.edu"
+        target="_blank">Contact Us</a>
+    </footer>
+
+    <!-- Code for hash tags -->
+    <script type="text/javascript">
+      $(document).ready(function () {
+        if (window.location.hash !== "") {
+          $(`a[href="${window.location.hash}"]`).tab("show");
+        }
+
+        $("a[data-toggle='tab']").on("shown.bs.tab", function (e) {
+          const hash = $(e.target).attr("href");
+          if (hash.substr(0, 1) === "#") {
+            const position = $(window).scrollTop();
+            window.location.replace(`#${hash.substr(1)}`);
+            $(window).scrollTop(position);
+          }
+        });
+      });
+    </script>
+
+    <!-- footer block ends here -->
+    
+  </body>
+
+</html>
